@@ -1,15 +1,15 @@
-# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/paulrberg-contracts/badge.svg?branch=develop)](https://coveralls.io/github/paulrberg/paulrberg-contracts?branch=develop) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/contracts/badge.svg?branch=develop)](https://coveralls.io/github/paulrberg/contracts?branch=develop) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
 - Compatible with Solidity ^0.7.x
 - Tested with [Buidler](https://github.com/nomiclabs/buidler) and [Waffle](https://github.com/EthWorks/Waffle)
 - Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- Promoting
+- Promotes
   [CarefulMath.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/CarefulMath.sol) instead
   of [SafeMath.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.0/contracts/math/SafeMath.sol) (see
   rationale [here](https://twitter.com/PaulRBerg/status/1294398438654857217))
-- Using
+- Uses
   [Exponential.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/Exponential.sol) for
   fixed-point math
 
