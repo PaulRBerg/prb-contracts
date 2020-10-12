@@ -8,9 +8,6 @@ if (!mnemonic) {
 
 module.exports = {
   istanbulReporter: ["html"],
-  mocha: {
-    delay: true,
-  },
   onCompileComplete: async function (_config) {
     await run("typechain");
   },
@@ -20,7 +17,11 @@ module.exports = {
     shell.rm("-rf", "./typechain");
   },
   providerOptions: {
+    /* https://github.com/trufflesuite/ganache-core/issues/515 */
+    _chainId: 1337,
+    /* 100 hundred million ETH */
+    default_balance_ether: 100000000,
     mnemonic,
   },
-  skipFiles: ["mocks", "test"],
+  skipFiles: ["test"],
 };

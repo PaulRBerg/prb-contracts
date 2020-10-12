@@ -81,6 +81,7 @@ const config: BuidlerConfig = {
       chainId: ChainIds.BuidlerEvm,
     },
     coverage: {
+      chainId: ChainIds.Ganache,
       url: "http://127.0.0.1:8555",
     },
     goerli: {
