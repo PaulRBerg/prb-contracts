@@ -2,7 +2,7 @@
 
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
-- Compatible with Solidity ^0.7.x
+- Compatible with Solidity ^0.7.0
 - Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
 - Promoting
   [CarefulMath.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/CarefulMath.sol) instead
@@ -14,7 +14,7 @@
 - Tested with [Buidler](https://github.com/nomiclabs/buidler) and [Waffle](https://github.com/EthWorks/Waffle)
 
 I created this library for my own use, in order to avoid having to maintain the same contracts in different repositories. If
-you find it useful too, that's a win for the both of us.
+you find it useful too, it's a win for the both of us.
 
 ## Caveat
 
@@ -126,17 +126,17 @@ $ yarn clean
 ## Security
 
 While I set a high bar for code quality and coverage, do not assume that this library is completely safe to use. The contracts
-have not been audited by any professional security researcher.
+were not been audited by a professional security researcher.
 
-If you find any security issues, you can report them via [Keybase](https://keybase.io/paulrberg).
+If you discover any security issues, report them via [Keybase](https://keybase.io/paulrberg).
 
 ## Acknowledgements
 
-I am grateful to the authors of existing related projects where I drew inspiration from:
+I am grateful to the authors of existing related projects from where I drew inspiration:
 
 - [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- [Compound Protocol's Math Contracts](https://github.com/compound-finance/compound-protocol)
-- [Alberto Cuesta Cañada's Erc20Permit and Orchestrated](https://github.com/albertocuestacanada)
+- Compound Protocol's [Math Contracts](https://github.com/compound-finance/compound-protocol)
+- Alberto Cuesta Cañada's [Erc20Permit and Orchestrated](https://github.com/albertocuestacanada)
 
 ## License
 
