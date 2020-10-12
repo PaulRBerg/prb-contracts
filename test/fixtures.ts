@@ -12,6 +12,7 @@ import { GodModeErc20Recover as Erc20Recover } from "../typechain/GodModeErc20Re
 import {
   deployStubErc20,
 } from "./stubs";
+import { Erc20 } from "../typechain/Erc20";
 
 const { deployContract } = waffle;
 
@@ -26,6 +27,10 @@ export async function erc20PermitFixture(signers: Signer[]): Promise<{ erc20Perm
     decimals,
   ])) as unknown) as Erc20Permit;
   return { erc20Permit };
+}
+
+export async function orchestratableFixture(signers: Signer[]): Promise<{ mainToken: string } {
+  return { mainToken: "" };
 }
 
 export async function erc20RecoverFixture(

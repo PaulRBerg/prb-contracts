@@ -1,9 +1,9 @@
 /* SPDX-License-Identifier: LPGL-3.0-or-later */
-pragma solidity ^0.7.1;
+pragma solidity ^0.7.3;
 
 /**
  * @title ExponentialStorage
- * @author Mainframe
+ * @author Paul Razvan Berg
  * @notice The storage interface ancillary to an Exponential contract.
  */
 abstract contract ExponentialStorage {

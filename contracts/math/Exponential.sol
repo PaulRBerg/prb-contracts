@@ -1,12 +1,12 @@
-/* SPDX-License-Identifier: LGPL-3.0-or-later */
-pragma solidity ^0.7.1;
+/* SPDX-License-Identifier: MIT */
+pragma solidity ^0.7.3;
 
 import "./CarefulMath.sol";
 import "./ExponentialStorage.sol";
 
 /**
  * @title Exponential module for storing fixed-precision decimals.
- * @author Mainframe
+ * @author Paul Razvan Berg
  * @notice Exp is a struct which stores decimals with a fixed precision of 18 decimal places.
  * Thus, if we wanted to store the 5.1, mantissa would store 5.1e18. That is: `Exp({mantissa: 5100000000000000000})`.
  * @dev Forked from Compound
