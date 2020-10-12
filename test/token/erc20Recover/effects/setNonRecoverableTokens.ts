@@ -9,28 +9,28 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
       describe("when the token array is non-empty", function () {
         describe("when the tokens are compliant", function () {
           it("sets the non-recoverable tokens", async function () {
-            const collateralAddress: string = this.stubs.mainToken.address;
-            await this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([collateralAddress]);
+            const mainTokenAddress: string = this.stubs.mainToken.address;
+            await this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([mainTokenAddress]);
             const firstNonRecoverableTokens = await this.contracts.erc20Recover.nonRecoverableTokens(0);
-            expect(firstNonRecoverableTokens).to.equal(collateralAddress);
+            expect(firstNonRecoverableTokens).to.equal(mainTokenAddress);
           });
 
           it("initializes the contract", async function () {
-            const collateralAddress: string = this.stubs.mainToken.address;
+            const mainTokenAddress: string = this.stubs.mainToken.address;
             const oldIsInitialized: boolean = await this.contracts.erc20Recover.isInitialized();
-            await this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([collateralAddress]);
+            await this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([mainTokenAddress]);
             const newIsInitialized: boolean = await this.contracts.erc20Recover.isInitialized();
             expect(oldIsInitialized).to.equal(false);
             expect(newIsInitialized).to.equal(true);
           });
 
           it("emits a SetNonRecoverableTokens event", async function () {
-            const collateralAddress: string = this.stubs.mainToken.address;
+            const mainTokenAddress: string = this.stubs.mainToken.address;
             await expect(
-              this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([collateralAddress]),
+              this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([mainTokenAddress]),
             )
               .to.emit(this.contracts.erc20Recover, "SetNonRecoverableTokens")
-              .withArgs(this.accounts.alice, [collateralAddress]);
+              .withArgs(this.accounts.alice, [mainTokenAddress]);
           });
         });
 

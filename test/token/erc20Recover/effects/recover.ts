@@ -11,8 +11,8 @@ export default function shouldBehaveLikeRecover(): void {
   describe("when the caller is the administrator", function () {
     describe("when the contract was initialized", function () {
       beforeEach(async function () {
-        const collateralAddress: string = this.stubs.mainToken.address;
-        await this.contracts.erc20Recover.setNonRecoverableTokens([collateralAddress]);
+        const mainTokenAddress: string = this.stubs.mainToken.address;
+        await this.contracts.erc20Recover.setNonRecoverableTokens([mainTokenAddress]);
       });
 
       describe("when the amount to recover is not zero", function () {
