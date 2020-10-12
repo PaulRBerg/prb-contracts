@@ -3,15 +3,15 @@
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
 - Compatible with Solidity ^0.7.x
-- Tested with [Buidler](https://github.com/nomiclabs/buidler) and [Waffle](https://github.com/EthWorks/Waffle)
 - Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- Promotes
+- Promoting
   [CarefulMath.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/CarefulMath.sol) instead
   of [SafeMath.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.0/contracts/math/SafeMath.sol) (see
   rationale [here](https://twitter.com/PaulRBerg/status/1294398438654857217))
-- Uses
+- Using
   [Exponential.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/Exponential.sol) for
   fixed-point math
+- Tested with [Buidler](https://github.com/nomiclabs/buidler) and [Waffle](https://github.com/EthWorks/Waffle)
 
 I created this library for my own use, in order to avoid having to maintain the same contracts in different repositories. If
 you find it useful too, that's a win for the both of us.
