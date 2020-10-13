@@ -34,17 +34,8 @@ export const DefaultBlockGasLimit: BigNumber = BigNumber.from("10000000");
 export const DefaultNumberOfDecimals: BigNumber = BigNumber.from(18);
 export const UnitsPerToken: BigNumber = BigNumber.from("1000000000000000000");
 
-// export const OnePercentMantissa: BigNumber = BigNumber.from("10000000000000000");
-// export const OneHundredPercentMantissa: BigNumber = OnePercentMantissa.mul(100);
-// export const OneHundredAndFiftyPercentMantissa: BigNumber = OnePercentMantissa.mul(150);
-// export const OneThousandPercentMantissa: BigNumber = OnePercentMantissa.mul(1000);
-// export const TenThousandPercentMantissa: BigNumber = OnePercentMantissa.mul(10000);
-
 export const OneToken: BigNumber = UnitsPerToken;
-// export const TenTokens: BigNumber = OneToken.mul(10);
 export const OneHundredTokens: BigNumber = OneToken.mul(100);
-// export const OneThousandTokens: BigNumber = OneToken.mul(1000);
-// export const OneMillionTokens: BigNumber = OneToken.mul(1000000);
 
 /**
  * PRIVATE KEYS
