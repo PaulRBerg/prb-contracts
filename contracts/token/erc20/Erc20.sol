@@ -56,14 +56,14 @@ contract Erc20 is
      *
      * This value changes when {approve} or {transferFrom} are called.
      */
-    function allowance(address owner, address spender) external virtual override view returns (uint256) {
+    function allowance(address owner, address spender) external view virtual override returns (uint256) {
         return allowances[owner][spender];
     }
 
     /**
      * @notice Returns the amount of tokens owned by `account`.
      */
-    function balanceOf(address account) public virtual override view returns (uint256) {
+    function balanceOf(address account) public view virtual override returns (uint256) {
         return balances[account];
     }
 
@@ -217,7 +217,15 @@ contract Erc20 is
     }
 
     /**
-     * @dev See the documentation for the public functions that call this internal function.
+     * @notice Destroys `burnAmount` tokens from `holder`, recuding the token supply.
+     *
+     * @dev Emits a {Burn} event.
+     *
+     * Emits a {Transfer} event with `to` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `holder` must have at least `amount` tokens.
      */
     function burnInternal(address holder, uint256 burnAmount) internal {
         MathError mathErr;
@@ -237,8 +245,14 @@ contract Erc20 is
         emit Burn(holder, burnAmount);
     }
 
-    /**
-     * @dev See the documentation for the public functions that call this internal function.
+    /** @notice Prints new tokens into existence and assigns them to `beneficiary`,
+     * increasing the total supply.
+     *
+     * @dev Emits a {Transfer} event with `from` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - The beneficiary's balance and the total supply cannot overflow.
      */
     function mintInternal(address beneficiary, uint256 mintAmount) internal {
         MathError mathErr;

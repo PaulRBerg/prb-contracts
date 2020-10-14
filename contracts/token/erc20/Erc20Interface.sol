@@ -14,9 +14,9 @@ abstract contract Erc20Interface is Erc20Storage {
     /**
      * CONSTANT FUNCTIONS
      */
-    function allowance(address owner, address spender) external virtual view returns (uint256);
+    function allowance(address owner, address spender) external view virtual returns (uint256);
 
-    function balanceOf(address account) external virtual view returns (uint256);
+    function balanceOf(address account) external view virtual returns (uint256);
 
     /**
      * NON-CONSTANT FUNCTIONS

@@ -18,5 +18,5 @@ export enum Erc20RecoverErrors {
 
 export enum GenericErrors {
   Initialized = "ERR_INITALIZED",
-  NotInitialized = "ERR_NOT_INITALIZED"
+  NotInitialized = "ERR_NOT_INITALIZED",
 }

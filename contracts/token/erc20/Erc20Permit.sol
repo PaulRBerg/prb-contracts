@@ -22,6 +22,7 @@ contract Erc20Permit is
         uint8 decimals_
     ) Erc20(name_, symbol_, decimals_) {
         uint256 chainId;
+        /* solhint-disable-next-line no-inline-assembly */
         assembly {
             chainId := chainid()
         }
