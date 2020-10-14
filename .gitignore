@@ -15,6 +15,7 @@ typechain/
 *.env
 *.log
 *.tsbuildinfo
+contracts/README.md
 coverage.json
 npm-debug.log*
 yarn-debug.log*

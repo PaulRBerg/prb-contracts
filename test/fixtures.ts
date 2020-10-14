@@ -9,9 +9,7 @@ import { DefaultNumberOfDecimals, Erc20PermitConstants } from "../utils/constant
 import { Erc20Permit } from "../typechain/Erc20Permit";
 import { GodModeErc20Recover as Erc20Recover } from "../typechain/GodModeErc20Recover";
 
-import {
-  deployStubErc20,
-} from "./stubs";
+import { deployStubErc20 } from "./stubs";
 import { Erc20 } from "../typechain/Erc20";
 
 const { deployContract } = waffle;
@@ -29,7 +27,8 @@ export async function erc20PermitFixture(signers: Signer[]): Promise<{ erc20Perm
   return { erc20Permit };
 }
 
-export async function orchestratableFixture(signers: Signer[]): Promise<{ mainToken: string } {
+export async function orchestratableFixture(signers: Signer[]): Promise<{ mainToken: string }> {
+  signers;
   return { mainToken: "" };
 }
 

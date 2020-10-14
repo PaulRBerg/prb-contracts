@@ -126,7 +126,7 @@ $ yarn clean
 ## Security
 
 While I set a high bar for code quality and coverage, do not assume that this library is completely safe to use. The contracts
-were not been audited by a professional security researcher.
+have not been audited by a professional security researcher.
 
 If you discover any security issues, report them via [Keybase](https://keybase.io/paulrberg).
 

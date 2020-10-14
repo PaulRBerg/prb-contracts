@@ -17,7 +17,7 @@ export const version: string = "1";
 /**
  * Returns the Eip712 domain separator.
  */
-export function getDomainSeparator(name: string, chainId: number, tokenAddress: string) {
+export function getDomainSeparator(name: string, chainId: number, tokenAddress: string): string {
   return keccak256(
     defaultAbiCoder.encode(
       ["bytes32", "bytes32", "bytes32", "uint256", "address"],
