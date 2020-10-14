@@ -50,7 +50,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "yarn run compile && yarn run typechain",
     "clean": "buidler clean",
     "commit": "git-cz",
     "compile": "buidler compile",
