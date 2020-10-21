@@ -113,10 +113,10 @@ const config: BuidlerConfig = {
   solc: {
     /* https://buidler.dev/buidler-evm/#solidity-optimizer-support */
     optimizer: {
-      enabled: false,
+      enabled: true,
       runs: 200,
     },
-    version: "0.7.0",
+    version: "0.7.3",
   },
   typechain: {
     outDir: "typechain",

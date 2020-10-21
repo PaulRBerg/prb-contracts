@@ -3,7 +3,7 @@ pragma solidity ^0.7.0;
 
 /**
  * @title ReentrancyGuard
- * @author Mainframe
+ * @author Paul Razvan Berg
  * @notice Contract module that helps prevent reentrant calls to a function.
  *
  * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier

@@ -8754,10 +8754,10 @@ solc@0.6.8:
     semver "^5.5.0"
     tmp "0.0.33"
 
-solc@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/solc/-/solc-0.7.0.tgz#f242ba1888a0b7fe3070a82cd9fd09fcea3e15ad"
-  integrity sha512-4mpz0XimxHpR7X/YIpM2C4hX+wGTenACJX8Vch6I1jgwwQoZElqnaKHD/f2z9/B8jdU5eim5NGcgg3XEY5rcrA==
+solc@0.7.3:
+  version "0.7.3"
+  resolved "https://registry.npmjs.org/solc/-/solc-0.7.3.tgz#04646961bd867a744f63d2b4e3c0701ffdc7d78a"
+  integrity sha512-GAsWNAjGzIDg7VxzP6mPjdurby3IkGCjQcM8GFYZT6RyaoUZKmMU6Y7YwG+tFGhv7dwZ8rmR4iwFDrrD99JwqA==
   dependencies:
     command-exists "^1.2.8"
     commander "3.0.2"
