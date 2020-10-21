@@ -106,7 +106,6 @@ const config: BuidlerConfig = {
     cache: "./cache",
     coverage: "./coverage",
     coverageJson: "./coverage.json",
-    root: "./",
     sources: "./contracts",
     tests: "./test",
   },
@@ -116,7 +115,7 @@ const config: BuidlerConfig = {
       enabled: true,
       runs: 200,
     },
-    version: "0.7.3",
+    version: "0.7.4",
   },
   typechain: {
     outDir: "typechain",
