@@ -663,10 +663,10 @@
     "@types/sinon-chai" "^3.2.3"
     "@types/web3" "1.0.19"
 
-"@nomiclabs/buidler@^1.4.7":
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/@nomiclabs/buidler/-/buidler-1.4.7.tgz#88436ba53e0e830d37c16601df59da4dbffde524"
-  integrity sha512-TyJKwKyKwu82uYPneqLf5HKFr96QX7cHDT7O7Ro93zmk1b84+EH9tn3zNIO/+96DMGISp8cCRwZhct89OwblRA==
+"@nomiclabs/buidler@^1.4.8":
+  version "1.4.8"
+  resolved "https://registry.npmjs.org/@nomiclabs/buidler/-/buidler-1.4.8.tgz#36ebbd0fb54eb2052b1336bf90ee47825393e5dc"
+  integrity sha512-OUnNWx+WXOJzueJCfyuEXu3qNMq1j9eGDDpgflpRwjPeiQQnvVzfbwrPjs0PlxOC3Xtmaxabtgek5wGxS1C7Ew==
   dependencies:
     "@nomiclabs/ethereumjs-vm" "^4.1.1"
     "@sentry/node" "^5.18.1"

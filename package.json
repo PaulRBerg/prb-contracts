@@ -15,7 +15,7 @@
     "@ethersproject/solidity": "^5.0.5",
     "@ethersproject/strings": "^5.0.5",
     "@ethersproject/wallet": "^5.0.5",
-    "@nomiclabs/buidler": "^1.4.7",
+    "@nomiclabs/buidler": "^1.4.8",
     "@nomiclabs/buidler-ethers": "^2.0.2",
     "@nomiclabs/buidler-waffle": "^2.1.0",
     "@typechain/ethers-v5": "^1.0.0",
