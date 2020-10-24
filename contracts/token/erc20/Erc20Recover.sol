@@ -43,7 +43,7 @@ abstract contract Erc20Recover is
             nonRecoverableTokens.push(tokens[i]);
         }
 
-        /* Prevents this function from ever being called again. */
+        /* Effects: prevent this function from ever being called again. */
         isInitialized = true;
 
         emit SetNonRecoverableTokens(admin, tokens);
