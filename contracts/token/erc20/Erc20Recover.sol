@@ -33,7 +33,7 @@ abstract contract Erc20Recover is
      */
     function _setNonRecoverableTokens(Erc20Interface[] calldata tokens) external override onlyAdmin {
         /* Checks */
-        require(isInitialized == false, "ERR_INITALIZED");
+        require(isRecoverInitialized == false, "ERR_INITALIZED");
 
         /* Iterate over the token list, sanity check each and update the mapping. */
         uint256 length = tokens.length;
@@ -43,7 +43,7 @@ abstract contract Erc20Recover is
         }
 
         /* Effects: prevent this function from ever being called again. */
-        isInitialized = true;
+        isRecoverInitialized = true;
 
         emit SetNonRecoverableTokens(admin, tokens);
     }
@@ -64,7 +64,7 @@ abstract contract Erc20Recover is
      */
     function _recover(Erc20Interface token, uint256 recoverAmount) external override onlyAdmin {
         /* Checks */
-        require(isInitialized == true, "ERR_NOT_INITALIZED");
+        require(isRecoverInitialized == true, "ERR_NOT_INITALIZED");
         require(recoverAmount > 0, "ERR_RECOVER_ZERO");
 
         bytes32 tokenSymbolHash = keccak256(bytes(token.symbol()));

@@ -10,7 +10,7 @@ abstract contract Erc20RecoverStorage {
     Erc20Interface[] public nonRecoverableTokens;
 
     /**
-     * @notice A flag that signals whether the the non-recoverable tokens were set or not.
+     * @dev A flag that signals whether the the non-recoverable tokens were set or not.
      */
-    bool public isInitialized;
+    bool internal isRecoverInitialized;
 }

@@ -16,9 +16,9 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
 
         it("initializes the contract", async function () {
           const mainTokenAddress: string = this.stubs.mainToken.address;
-          const oldIsInitialized: boolean = await this.contracts.erc20Recover.isInitialized();
+          const oldIsInitialized: boolean = await this.contracts.erc20Recover.__godMode_getIsRecoverInitialized();
           await this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([mainTokenAddress]);
-          const newIsInitialized: boolean = await this.contracts.erc20Recover.isInitialized();
+          const newIsInitialized: boolean = await this.contracts.erc20Recover.__godMode_getIsRecoverInitialized();
           expect(oldIsInitialized).to.equal(false);
           expect(newIsInitialized).to.equal(true);
         });
@@ -42,7 +42,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
 
     describe("when the contract was initialized", function () {
       beforeEach(async function () {
-        await this.contracts.erc20Recover.__godMode_setIsInitialized(true);
+        await this.contracts.erc20Recover.__godMode_setIsRecoverInitialized(true);
       });
 
       it("reverts", async function () {
