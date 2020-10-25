@@ -9,7 +9,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
       describe("when the tokens are compliant", function () {
         it("sets the non-recoverable tokens", async function () {
           const mainTokenAddress: string = this.stubs.mainToken.address;
-          await this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([mainTokenAddress]);
+          await this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([mainTokenAddress]);
           const firstNonRecoverableTokens = await this.contracts.erc20Recover.nonRecoverableTokens(0);
           expect(firstNonRecoverableTokens).to.equal(mainTokenAddress);
         });
@@ -17,7 +17,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
         it("initializes the contract", async function () {
           const mainTokenAddress: string = this.stubs.mainToken.address;
           const oldIsInitialized: boolean = await this.contracts.erc20Recover.isInitialized();
-          await this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([mainTokenAddress]);
+          await this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([mainTokenAddress]);
           const newIsInitialized: boolean = await this.contracts.erc20Recover.isInitialized();
           expect(oldIsInitialized).to.equal(false);
           expect(newIsInitialized).to.equal(true);
@@ -26,7 +26,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
         it("emits a SetNonRecoverableTokens event", async function () {
           const mainTokenAddress: string = this.stubs.mainToken.address;
           await expect(
-            this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([mainTokenAddress]),
+            this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([mainTokenAddress]),
           )
             .to.emit(this.contracts.erc20Recover, "SetNonRecoverableTokens")
             .withArgs(this.accounts.alice, [mainTokenAddress]);
@@ -35,7 +35,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
 
       describe("when the tokens are non-compliant", function () {
         it("reverts", async function () {
-          await expect(this.contracts.erc20Recover.setNonRecoverableTokens([AddressZero])).to.be.reverted;
+          await expect(this.contracts.erc20Recover._setNonRecoverableTokens([AddressZero])).to.be.reverted;
         });
       });
     });
@@ -47,7 +47,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
 
       it("reverts", async function () {
         await expect(
-          this.contracts.erc20Recover.connect(this.signers.alice).setNonRecoverableTokens([AddressZero]),
+          this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([AddressZero]),
         ).to.be.revertedWith(GenericErrors.Initialized);
       });
     });
@@ -56,7 +56,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
   describe("when the caller is not the administrator", function () {
     it("reverts", async function () {
       await expect(
-        this.contracts.erc20Recover.connect(this.signers.eve).setNonRecoverableTokens([AddressZero]),
+        this.contracts.erc20Recover.connect(this.signers.eve)._setNonRecoverableTokens([AddressZero]),
       ).to.be.revertedWith(AdminErrors.NotAdmin);
     });
   });

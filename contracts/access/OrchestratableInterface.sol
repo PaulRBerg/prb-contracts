@@ -11,7 +11,7 @@ abstract contract OrchestratableInterface is OrchestratableStorage {
     /**
      * NON-CONSTANTS FUNCTIONS
      */
-    function orchestrate(address account, bytes4 signature) external virtual;
+    function _orchestrate(address account, bytes4 signature) external virtual;
 
     /**
      * EVENTS

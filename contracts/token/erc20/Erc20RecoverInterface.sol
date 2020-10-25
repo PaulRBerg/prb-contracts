@@ -8,9 +8,9 @@ abstract contract Erc20RecoverInterface is Erc20RecoverStorage {
     /**
      * NON-CONSTANT FUNCTIONS
      */
-    function recover(Erc20Interface token, uint256 recoverAmount) external virtual;
+    function _recover(Erc20Interface token, uint256 recoverAmount) external virtual;
 
-    function setNonRecoverableTokens(Erc20Interface[] calldata tokens) external virtual;
+    function _setNonRecoverableTokens(Erc20Interface[] calldata tokens) external virtual;
 
     /**
      * EVENTS

@@ -37,7 +37,7 @@ abstract contract Orchestratable is
      * @param account Address of EOA or contract to give access to this contract.
      * @param signature bytes4 signature of the function to be given orchestrated access to.
      */
-    function orchestrate(address account, bytes4 signature) external override onlyAdmin {
+    function _orchestrate(address account, bytes4 signature) external override onlyAdmin {
         orchestration[account][signature] = true;
         emit GrantAccess(account);
     }

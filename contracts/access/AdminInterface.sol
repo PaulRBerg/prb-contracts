@@ -11,9 +11,9 @@ abstract contract AdminInterface is AdminStorage {
     /**
      * NON-CONSTANT FUNCTIONS
      */
-    function renounceAdmin() external virtual;
+    function _renounceAdmin() external virtual;
 
-    function transferAdmin(address newAdmin) external virtual;
+    function _transferAdmin(address newAdmin) external virtual;
 
     /**
      * EVENTS

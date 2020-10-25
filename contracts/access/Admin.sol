@@ -47,7 +47,7 @@ abstract contract Admin is AdminInterface {
      * WARNING: Doing this will leave the contract without an admin,
      * thereby removing any functionality that is only available to the admin.
      */
-    function renounceAdmin() external virtual override onlyAdmin {
+    function _renounceAdmin() external virtual override onlyAdmin {
         emit TransferAdmin(admin, address(0x00));
         admin = address(0x00);
     }
@@ -57,7 +57,7 @@ abstract contract Admin is AdminInterface {
      * Can only be called by the current admin.
      * @param newAdmin The acount of the new admin.
      */
-    function transferAdmin(address newAdmin) external virtual override onlyAdmin {
+    function _transferAdmin(address newAdmin) external virtual override onlyAdmin {
         require(newAdmin != address(0x00), "ERR_SET_ADMIN_ZERO_ADDRESS");
         emit TransferAdmin(admin, newAdmin);
         admin = newAdmin;

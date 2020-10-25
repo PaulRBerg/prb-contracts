@@ -31,7 +31,7 @@ abstract contract Erc20Recover is
      *
      * @param tokens The array of tokens to set as non-recoverable.
      */
-    function setNonRecoverableTokens(Erc20Interface[] calldata tokens) external override onlyAdmin {
+    function _setNonRecoverableTokens(Erc20Interface[] calldata tokens) external override onlyAdmin {
         /* Checks */
         require(isInitialized == false, "ERR_INITALIZED");
 
@@ -62,7 +62,7 @@ abstract contract Erc20Recover is
      * @param token The token to make the recover for.
      * @param recoverAmount The uint256 amount to recover, specified in the token's decimal system.
      */
-    function recover(Erc20Interface token, uint256 recoverAmount) external override onlyAdmin {
+    function _recover(Erc20Interface token, uint256 recoverAmount) external override onlyAdmin {
         /* Checks */
         require(isInitialized == true, "ERR_NOT_INITALIZED");
         require(recoverAmount > 0, "ERR_RECOVER_ZERO");
