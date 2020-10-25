@@ -2,8 +2,8 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { Zero } from "@ethersproject/constants";
 import { expect } from "chai";
 
-import { AdminErrors, Erc20RecoverErrors, GenericErrors } from "../../../../utils/errors";
-import { OneHundredTokens } from "../../../../utils/constants";
+import { AdminErrors, Erc20RecoverErrors, GenericErrors } from "../../../../helpers/errors";
+import { OneHundredTokens } from "../../../../helpers/constants";
 
 export default function shouldBehaveLikeRecover(): void {
   const recoverAmount: BigNumber = OneHundredTokens;

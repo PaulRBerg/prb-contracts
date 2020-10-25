@@ -17,8 +17,8 @@
     "@types/**/*",
     "artifacts/**/*",
     "artifacts/**/*.json",
+    "helpers/**/*",
     "scripts/**/*",
-    "tasks/**/*",
     "test/**/*",
     "typechain/**/*",
     "buidler.config.ts"

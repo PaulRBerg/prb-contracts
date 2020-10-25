@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { PERMIT_TYPEHASH } from "../../../../utils/eip2612";
+import { PERMIT_TYPEHASH } from "../../../../helpers/eip2612";
 
 export default function shouldBehaveLikePermitTypehashGetter(): void {
   it("retrieves the proper permit typehash", async function () {

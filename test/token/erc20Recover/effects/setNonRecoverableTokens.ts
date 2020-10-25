@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { AddressZero } from "@ethersproject/constants";
 
-import { AdminErrors, GenericErrors } from "../../../../utils/errors";
+import { AdminErrors, GenericErrors } from "../../../../helpers/errors";
 
 export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
   describe("when the caller is the administrator", function () {

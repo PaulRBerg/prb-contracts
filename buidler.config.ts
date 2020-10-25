@@ -4,7 +4,7 @@ dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 import { BuidlerConfig, usePlugin } from "@nomiclabs/buidler/config";
 import { BuidlerNetworkAccount, HDAccountsConfig } from "@nomiclabs/buidler/types";
-import { ChainIds, DefaultPrivateKeys } from "./utils/constants";
+import { ChainIds, DefaultPrivateKeys } from "./helpers/constants";
 
 import "./tasks/accounts";
 import "./tasks/clean";

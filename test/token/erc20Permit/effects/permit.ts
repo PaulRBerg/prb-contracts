@@ -5,9 +5,9 @@ import { SigningKey } from "@ethersproject/signing-key";
 import { Signature } from "@ethersproject/bytes";
 import { expect } from "chai";
 
-import { ChainIds, DefaultPrivateKeys } from "../../../../utils/constants";
-import { Erc20PermitErrors } from "../../../../utils/errors";
-import { getPermitDigest } from "../../../../utils/eip2612";
+import { ChainIds, DefaultPrivateKeys } from "../../../../helpers/constants";
+import { Erc20PermitErrors } from "../../../../helpers/errors";
+import { getPermitDigest } from "../../../../helpers/eip2612";
 
 const allowanceAmount: BigNumber = BigNumber.from(100);
 const dummySignature: { v: BigNumber; r: string; s: string } = {

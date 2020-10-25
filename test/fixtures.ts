@@ -5,7 +5,7 @@ import { waffle } from "@nomiclabs/buidler";
 import Erc20PermitArtifact from "../artifacts/Erc20Permit.json";
 import Erc20RecoverArtifact from "../artifacts/GodModeErc20Recover.json";
 
-import { DefaultNumberOfDecimals, Erc20PermitConstants } from "../utils/constants";
+import { DefaultNumberOfDecimals, Erc20PermitConstants } from "../helpers/constants";
 import { Erc20Permit } from "../typechain/Erc20Permit";
 import { GodModeErc20Recover as Erc20Recover } from "../typechain/GodModeErc20Recover";
 
