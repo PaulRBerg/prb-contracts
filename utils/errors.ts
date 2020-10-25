@@ -13,7 +13,6 @@ export enum Erc20PermitErrors {
 export enum Erc20RecoverErrors {
   RecoverZero = "ERR_RECOVER_ZERO",
   RecoverNonRecoverableToken = "ERR_RECOVER_NON_RECOVERABLE_TOKEN",
-  SetNonRecoverableTokensEmptyArray = "ERR_SET_NON_RECOVERABLE_TOKENS_EMPTY_ARRAY",
 }
 
 export enum GenericErrors {

@@ -34,7 +34,6 @@ abstract contract Erc20Recover is
     function setNonRecoverableTokens(Erc20Interface[] calldata tokens) external override onlyAdmin {
         /* Checks */
         require(isInitialized == false, "ERR_INITALIZED");
-        require(tokens.length > 0, "ERR_SET_NON_RECOVERABLE_TOKENS_EMPTY_ARRAY");
 
         /* Iterate over the token list, sanity check each and update the mapping. */
         uint256 length = tokens.length;
