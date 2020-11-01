@@ -20,10 +20,10 @@ jobs:
       - name: "Check out the repo"
         uses: "actions/checkout@v2"
 
-      - name: "Install Node.js"
+      - name: "Install Node.js 12.x"
         uses: "actions/setup-node@v1"
         with:
-          node-version: "12"
+          node-version: "12.x"
 
       - uses: "actions/cache@v2"
         with:
