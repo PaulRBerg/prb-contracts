@@ -1,4 +1,4 @@
-# Contracts [![Codecov](https://codecov.io/gh/PaulRBerg/contracts/branch/develop/graph/badge.svg?token=E6QMD3WR6N)](https://codecov.io/gh/PaulRBerg/contracts) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Contracts [![Codecov](https://codecov.io/gh/PaulRBerg/contracts/branch/main/graph/badge.svg?token=E6QMD3WR6N)](https://codecov.io/gh/PaulRBerg/contracts) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
