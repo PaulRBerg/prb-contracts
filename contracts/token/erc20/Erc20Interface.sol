@@ -36,9 +36,9 @@ abstract contract Erc20Interface is Erc20Storage {
      */
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
-    event Burn(address indexed account, uint256 burnAmount);
+    event Burn(address indexed holder, uint256 burnAmount);
 
-    event Mint(address indexed account, uint256 mintAmount);
+    event Mint(address indexed beneficiary, uint256 mintAmount);
 
     event Transfer(address indexed from, address indexed to, uint256 value);
 }
