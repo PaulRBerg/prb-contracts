@@ -4,7 +4,7 @@ pragma solidity ^0.7.0;
 /**
  * @title Address
  * @author Paul Razvan Berg
- * @notice Collection of functions related to the address type.
+ * @notice Library related to the address type.
  * @dev Forked from OpenZeppelin
  * https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/v3.1.0/contracts/utils/Address.sol
  */
