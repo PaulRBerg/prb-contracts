@@ -27,18 +27,18 @@ library SafeErc20 {
     function safeTransfer(
         Erc20Interface token,
         address to,
-        uint256 value
+        uint256 amount
     ) internal {
-        callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+        callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, amount));
     }
 
     function safeTransferFrom(
         Erc20Interface token,
         address from,
         address to,
-        uint256 value
+        uint256 amount
     ) internal {
-        callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
+        callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, amount));
     }
 
     /**
