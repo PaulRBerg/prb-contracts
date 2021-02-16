@@ -1,13 +1,11 @@
-/* SPDX-License-Identifier: MIT */
-pragma solidity ^0.7.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-/**
- * @title NonStandardErc20
- * @author Paul Razvan Berg
- * @notice An implementation of Erc20 that does not return a boolean on `transfer` and `transferFrom`.
- * @dev Strictly for test purposes. Do not use in production.
- * https://medium.com/coinmonks/missing-return-value-bug-at-least-130-tokens-affected-d67bf08521ca
- */
+/// @title NonStandardErc20
+/// @author Paul Razvan Berg
+/// @notice An implementation of Erc20 that does not return a boolean on `transfer` and `transferFrom`.
+/// @dev Strictly for test purposes. Do not use in production.
+/// https://medium.com/coinmonks/missing-return-value-bug-at-least-130-tokens-affected-d67bf08521ca
 contract NonStandardErc20 {
     uint8 public decimals;
 
@@ -48,16 +46,12 @@ contract NonStandardErc20 {
         return true;
     }
 
-    /**
-     * @dev This function does not return a value, in violation of the Erc20 specification.
-     */
+    /// @dev This function does not return a value, in violation of the Erc20 specification.
     function transfer(address recipient, uint256 amount) external {
         transferInternal(msg.sender, recipient, amount);
     }
 
-    /**
-     * @dev This function does not return a value, in violation of the Erc20 specification.
-     */
+    /// @dev This function does not return a value, in violation of the Erc20 specification.
     function transferFrom(
         address sender,
         address recipient,

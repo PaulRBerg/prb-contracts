@@ -1,26 +1,20 @@
-/* SPDX-License-Identifier: MIT */
-pragma solidity ^0.7.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "./Erc20Storage.sol";
 
-/**
- * @title Erc20Interface
- * @author Paul Razvan Berg
- * @notice Interface of the Erc20 standard
- * @dev Forked from OpenZeppelin
- * https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.0/contracts/token/ERC20/IERC20.sol
- */
+/// @title Erc20Interface
+/// @author Paul Razvan Berg
+/// @notice Contract interface adhering to the Erc20 standard.
+/// @dev Forked from OpenZeppelin
+/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/token/ERC20/IERC20.sol
 abstract contract Erc20Interface is Erc20Storage {
-    /**
-     * CONSTANT FUNCTIONS
-     */
+    /// CONSTANT FUNCTIONS ///
     function allowance(address owner, address spender) external view virtual returns (uint256);
 
     function balanceOf(address account) external view virtual returns (uint256);
 
-    /**
-     * NON-CONSTANT FUNCTIONS
-     */
+    /// NON-CONSTANT FUNCTIONS ///
     function approve(address spender, uint256 amount) external virtual returns (bool);
 
     function transfer(address recipient, uint256 amount) external virtual returns (bool);
@@ -31,9 +25,7 @@ abstract contract Erc20Interface is Erc20Storage {
         uint256 amount
     ) external virtual returns (bool);
 
-    /**
-     * EVENTS
-     */
+    /// EVENTS ///
     event Approval(address indexed owner, address indexed spender, uint256 amount);
 
     event Burn(address indexed holder, uint256 burnAmount);
