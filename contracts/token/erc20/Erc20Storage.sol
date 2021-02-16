@@ -2,7 +2,7 @@
 pragma solidity ^0.7.0;
 
 /**
- * @title ExponentialStorage
+ * @title Erc20Storage
  * @author Paul Razvan Berg
  * @notice The storage interface ancillary to an Erc20 contract.
  */
