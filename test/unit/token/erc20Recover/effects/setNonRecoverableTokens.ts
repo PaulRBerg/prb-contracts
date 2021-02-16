@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { AddressZero } from "@ethersproject/constants";
 
-import { AdminErrors, GenericErrors } from "../../../../helpers/errors";
+import { AdminErrors, GenericErrors } from "../../../../../helpers/errors";
 
 export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
   describe("when the caller is the administrator", function () {
@@ -29,7 +29,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
             this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([mainTokenAddress]),
           )
             .to.emit(this.contracts.erc20Recover, "SetNonRecoverableTokens")
-            .withArgs(this.accounts.alice, [mainTokenAddress]);
+            .withArgs(this.signers.alice.address, [mainTokenAddress]);
         });
       });
 

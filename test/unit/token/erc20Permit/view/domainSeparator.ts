@@ -1,14 +1,14 @@
-import bre from "@nomiclabs/buidler";
+import hre from "hardhat";
 import { expect } from "chai";
 
-import { ChainIds, Erc20PermitConstants } from "../../../../helpers/constants";
-import { getDomainSeparator } from "../../../../helpers/eip2612";
+import { chainIds, erc20PermitConstants } from "../../../../../helpers/constants";
+import { getDomainSeparator } from "../../../../../helpers/eip2612";
 
 export default function shouldBehaveLikePermitTypehashGetter(): void {
   it("retrieves the proper domain separator", async function () {
     const domainSeparator = getDomainSeparator(
-      Erc20PermitConstants.name,
-      bre.network.config.chainId || ChainIds.BuidlerEvm,
+      erc20PermitConstants.name,
+      hre.network.config.chainId || chainIds.hardhat,
       this.contracts.erc20Permit.address,
     );
     const contractDomainSeparator: string = await this.contracts.erc20Permit.DOMAIN_SEPARATOR();

@@ -11,7 +11,7 @@
 - Using
   [Exponential.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/Exponential.sol) for
   fixed-point math
-- Tested with [Buidler](https://github.com/nomiclabs/buidler) and [Waffle](https://github.com/EthWorks/Waffle)
+- Tested with [Hardhat](https://github.com/nomiclabs/hardhat) and [Waffle](https://github.com/EthWorks/Waffle)
 
 I created this library for my own use, in order to avoid having to maintain the same contracts in different repositories. If
 you find it useful too, it's a win for the both of us.
@@ -69,7 +69,7 @@ $ yarn install
 
 ### Compile
 
-Compile the smart contracts with Buidler:
+Compile the smart contracts with Hardhat:
 
 ```sh
 $ yarn compile
@@ -80,7 +80,7 @@ $ yarn compile
 Compile the smart contracts and generate TypeChain artifacts:
 
 ```sh
-$ yarn build
+$ yarn typechain
 ```
 
 ### Lint Solidity
@@ -117,7 +117,7 @@ $ yarn coverage
 
 ### Clean
 
-Delete the smart contract artifacts, the coverage reports and the Buidler cache:
+Delete the smart contract artifacts, the coverage reports and the Hardhat cache:
 
 ```sh
 $ yarn clean

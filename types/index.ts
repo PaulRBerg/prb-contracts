@@ -1,17 +1,8 @@
 import { MockContract } from "ethereum-waffle";
-import { Signer } from "@ethersproject/abstract-signer";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 
 import { Erc20Permit } from "../typechain/Erc20Permit";
 import { GodModeErc20Recover as Erc20Recover } from "../typechain/GodModeErc20Recover";
-
-/* Fingers-crossed that ethers.js or waffle will provide an easier way to cache the address */
-export interface Accounts {
-  alice: string;
-  bob: string;
-  carol: string;
-  david: string;
-  eve: string;
-}
 
 export interface Contracts {
   erc20Permit: Erc20Permit;
@@ -19,12 +10,11 @@ export interface Contracts {
 }
 
 export interface Signers {
-  admin: Signer;
-  brad: Signer;
-  eve: Signer;
-  grace: Signer;
-  lucy: Signer;
-  mark: Signer;
+  alice: SignerWithAddress;
+  bob: SignerWithAddress;
+  carol: SignerWithAddress;
+  david: SignerWithAddress;
+  eve: SignerWithAddress;
 }
 
 export interface Stubs {
