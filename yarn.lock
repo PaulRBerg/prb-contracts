@@ -8367,10 +8367,10 @@ solc@0.7.3:
     semver "^5.5.0"
     tmp "0.0.33"
 
-solc@0.7.6:
-  version "0.7.6"
-  resolved "https://registry.npmjs.org/solc/-/solc-0.7.6.tgz#21fc5dc11b85fcc518c181578b454f3271c27252"
-  integrity sha512-WsR/W7CXwh2VnmZapB4JrsDeLlshoKBz5Pz/zYNulB6LBsOEHI2Zj/GeKLMFcvv57OHiXHvxq5ZOQB+EdqxlxQ==
+solc@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.npmjs.org/solc/-/solc-0.8.1.tgz#cbdba8fea6fbfae463f382cecb59c51de0269472"
+  integrity sha512-rqB8wlL20I/k+ibCgNGqXaoXBngKTUb3JCsCazwEvxJ9C9RcXNGRsiqgB1xZs37IjINMp0E3xGiuMjGYTBQnUg==
   dependencies:
     command-exists "^1.2.8"
     commander "3.0.2"

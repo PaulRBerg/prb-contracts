@@ -2,7 +2,7 @@
 
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
-- Compatible with Solidity ^0.7.0
+- Compatible with Solidity ^0.8.0
 - Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
 - Promoting
   [CarefulMath.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/CarefulMath.sol) instead
@@ -41,13 +41,12 @@ I adhere to [Semantic Versioning](https://semver.org/), which means that your co
 Once installed, you can use the contracts in the library by importing them:
 
 ```solidity
-pragma solidity ^0.7.0;
+pragma solidity ^0.8.0;
 
-import "@paulrberg/contracts/math/CarefulMath.sol";
 import "@paulrberg/contracts/token/erc20/Erc20.sol";
 import "@paulrberg/contracts/token/erc20/Erc20Permit.sol";
 
-contract MyToken is CarefulMath, Erc20, Erc20Permit {
+contract MyToken is Erc20, Erc20Permit {
   constructor(
     string memory name_,
     string memory symbol_,
