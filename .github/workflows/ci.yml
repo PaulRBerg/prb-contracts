@@ -1,7 +1,7 @@
 name: "Continuous Integration"
 
 env:
-  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
   INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
   MNEMONIC: ${{ secrets.MNEMONIC }}
 
@@ -42,9 +42,10 @@ jobs:
       - name: "Test the contracts and run code coverage"
         run: "yarn run coverage"
 
-      - name: "Upload report to Codecov"
-        uses: codecov/codecov-action@v1
+      - name: "Upload report to Coveralls"
+        uses: "coverallsapp/github-action@master"
         with:
-          file: "./coverage/lcov.info"
-          token: ${{ secrets.CODECOV_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: "./coverage/lcov.info"
+
 
