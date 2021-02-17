@@ -13,7 +13,7 @@ import "./OrchestratableInterface.sol";
 /// During deployment, the contract deployer (`conductor`) can register any contracts that have privileged access
 /// by calling `orchestrate`.
 ///
-/// Once deployment is completed, `conductor` should call `transferConductor(address(0x00))` to avoid any more
+/// Once deployment is completed, `conductor` should call `transferConductor(address(0))` to avoid any more
 /// contracts ever gaining privileged access.
 ///
 /// @dev Forked from Alberto Cuesta Cañada

@@ -60,8 +60,8 @@ contract Erc20Permit is
         bytes32 r,
         bytes32 s
     ) external override {
-        require(owner != address(0x00), "ERR_ERC20_PERMIT_OWNER_ZERO_ADDRESS");
-        require(spender != address(0x00), "ERR_ERC20_PERMIT_SPENDER_ZERO_ADDRESS");
+        require(owner != address(0), "ERR_ERC20_PERMIT_OWNER_ZERO_ADDRESS");
+        require(spender != address(0), "ERR_ERC20_PERMIT_SPENDER_ZERO_ADDRESS");
         require(deadline >= block.timestamp, "ERR_ERC20_PERMIT_EXPIRED");
 
         // It's safe to use the "+" operator here because the nonce cannot realistically overflow, ever.
@@ -69,7 +69,7 @@ contract Erc20Permit is
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, hashStruct));
         address recoveredOwner = ecrecover(digest, v, r, s);
 
-        require(recoveredOwner != address(0x00), "ERR_ERC20_PERMIT_RECOVERED_OWNER_ZERO_ADDRESS");
+        require(recoveredOwner != address(0), "ERR_ERC20_PERMIT_RECOVERED_OWNER_ZERO_ADDRESS");
         require(recoveredOwner == owner, "ERR_ERC20_PERMIT_INVALID_SIGNATURE");
 
         approveInternal(owner, spender, amount);

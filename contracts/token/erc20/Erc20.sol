@@ -131,7 +131,7 @@ contract Erc20 is Erc20Interface {
     ///
     /// - `sender` and `recipient` cannot be the zero address.
     /// - `sender` must have a balance of at least `amount`.
-    /// - The caller must have allowance for ``sender``'s tokens of at least `amount`.
+    /// - The caller must have approed `sender` to spent at least `amount` tokens.
     ///
     /// @return a boolean value indicating whether the operation succeeded.
     function transferFrom(
@@ -140,8 +140,10 @@ contract Erc20 is Erc20Interface {
         uint256 amount
     ) external virtual override returns (bool) {
         transferInternal(sender, recipient, amount);
-        uint256 newAllowance = allowances[sender][msg.sender] - amount;
-        approveInternal(sender, msg.sender, newAllowance);
+
+        uint256 currentAllowance = allowances[sender][msg.sender];
+        require(currentAllowance >= amount, "ERR_ERC20_TRANSFER_FROM_INSUFFICIENT_ALLOWANCE");
+        approveInternal(sender, msg.sender, currentAllowance);
         return true;
     }
 
@@ -163,8 +165,8 @@ contract Erc20 is Erc20Interface {
         address spender,
         uint256 amount
     ) internal virtual {
-        require(owner != address(0x00), "ERR_ERC20_APPROVE_FROM_ZERO_ADDRESS");
-        require(spender != address(0x00), "ERR_ERC20_APPROVE_TO_ZERO_ADDRESS");
+        require(owner != address(0), "ERR_ERC20_APPROVE_FROM_ZERO_ADDRESS");
+        require(spender != address(0), "ERR_ERC20_APPROVE_TO_ZERO_ADDRESS");
 
         allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
@@ -172,37 +174,44 @@ contract Erc20 is Erc20Interface {
 
     /// @notice Destroys `burnAmount` tokens from `holder`, recuding the token supply.
     ///
-    /// @dev Emits a {Burn} event.
+    /// @dev Emits a {Transfer} event.
     ///
     /// Requirements:
     ///
     /// - `holder` must have at least `amount` tokens.
     function burnInternal(address holder, uint256 burnAmount) internal {
+        require(holder != address(0), "ERR_ERC20_BURN_ZERO_ADDRESS");
+
+        uint256 accountBalance = balances[holder];
+        require(accountBalance >= burnAmount, "ERR_ERC20_BURN_BALANCE_UNDERFLOW");
+
         // Burn the tokens.
-        balances[holder] = balances[holder] - burnAmount;
+        balances[holder] = accountBalance - burnAmount;
 
         // Reduce the total supply.
-        totalSupply = totalSupply - burnAmount;
+        totalSupply -= burnAmount;
 
-        emit Burn(holder, burnAmount);
+        emit Transfer(holder, address(0), burnAmount);
     }
 
     /// @notice Prints new tokens into existence and assigns them to `beneficiary`, increasing the
     /// the total supply.
     ///
-    /// @dev Emits a {Mint} event.
+    /// @dev Emits a {Transfer} event.
     ///
     /// Requirements:
     ///
     /// - The beneficiary's balance and the total supply cannot overflow.
     function mintInternal(address beneficiary, uint256 mintAmount) internal {
+        require(beneficiary != address(0), "ERR_ERC20_MINT_ZERO_ADDRESS");
+
         /// Mint the new tokens.
-        balances[beneficiary] = balances[beneficiary] + mintAmount;
+        balances[beneficiary] += mintAmount;
 
         /// Increase the total supply.
-        totalSupply = totalSupply + mintAmount;
+        totalSupply += mintAmount;
 
-        emit Mint(beneficiary, mintAmount);
+        emit Transfer(address(0), beneficiary, mintAmount);
     }
 
     /// @notice Moves `amount` tokens from `sender` to `recipient`.
@@ -222,11 +231,13 @@ contract Erc20 is Erc20Interface {
         address recipient,
         uint256 amount
     ) internal virtual {
-        require(sender != address(0x00), "ERR_ERC20_TRANSFER_FROM_ZERO_ADDRESS");
-        require(recipient != address(0x00), "ERR_ERC20_TRANSFER_TO_ZERO_ADDRESS");
+        require(sender != address(0), "ERR_ERC20_TRANSFER_FROM_ZERO_ADDRESS");
+        require(recipient != address(0), "ERR_ERC20_TRANSFER_TO_ZERO_ADDRESS");
 
-        balances[sender] = balances[sender] - amount;
-        balances[recipient] = balances[recipient] + amount;
+        uint256 senderBalance = balances[sender];
+        require(senderBalance >= amount, "ERR_ERC20_TRANSFER_INSUFFICIENT_BALANCE");
+        balances[sender] = senderBalance - amount;
+        balances[recipient] += amount;
 
         emit Transfer(sender, recipient, amount);
     }
