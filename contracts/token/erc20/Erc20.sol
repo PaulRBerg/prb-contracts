@@ -172,7 +172,7 @@ contract Erc20 is Erc20Interface {
         emit Approval(owner, spender, amount);
     }
 
-    /// @notice Destroys `burnAmount` tokens from `holder`, recuding the token supply.
+    /// @notice Destroys `burnAmount` tokens from `holder`, reducing the token supply.
     ///
     /// @dev Emits a {Transfer} event.
     ///
@@ -195,7 +195,7 @@ contract Erc20 is Erc20Interface {
     }
 
     /// @notice Prints new tokens into existence and assigns them to `beneficiary`, increasing the
-    /// the total supply.
+    /// total supply.
     ///
     /// @dev Emits a {Transfer} event.
     ///
