@@ -23,8 +23,7 @@ abstract contract Erc20Recover is
     /// Requirements:
     ///
     /// - The caller must be the administrator.
-    /// - The contract must be non-initialized.
-    /// - The array of given tokens cannot be empty.
+    /// - The contract cannot be already initialized.
     ///
     /// @param tokens The array of tokens to set as non-recoverable.
     function _setNonRecoverableTokens(Erc20Interface[] calldata tokens) external override onlyAdmin {
