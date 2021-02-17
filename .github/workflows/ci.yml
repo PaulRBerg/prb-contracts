@@ -1,7 +1,9 @@
 name: "Continuous Integration"
 
 env:
-  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+  COVERAGE_GIT_BRANCH: "main"
+  COVERAGE_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+  COVERAGE_SERVICE_NAME: "github-actions-ci"
   INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
   MNEMONIC: ${{ secrets.MNEMONIC }}
 
@@ -47,5 +49,3 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: "./coverage/lcov.info"
-
-
