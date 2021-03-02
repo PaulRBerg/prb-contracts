@@ -12,7 +12,7 @@ import "./Erc20PermitInterface.sol";
 /// @dev See https://eips.ethereum.org/EIPS/eip-2612.
 contract Erc20Permit is
     Erc20PermitInterface, /// one dependency
-    Erc20 /// three dependencies
+    Erc20 /// two dependencies
 {
     constructor(
         string memory name_,
