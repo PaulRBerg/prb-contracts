@@ -1,15 +1,12 @@
+import { BigNumber } from "@ethersproject/bignumber";
+import { Zero } from "@ethersproject/constants";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { MockContract } from "ethereum-waffle";
 import hre from "hardhat";
 import { Artifact } from "hardhat/types";
-import { BigNumber } from "@ethersproject/bignumber";
-import { MockContract } from "ethereum-waffle";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
-import { Zero } from "@ethersproject/constants";
 
 const { deployMockContract: deployStubContract } = hre.waffle;
 
-/**
- * DEPLOYERS
- */
 export async function deployStubErc20(
   deployer: SignerWithAddress,
   decimals: BigNumber,

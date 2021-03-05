@@ -1,5 +1,5 @@
-import hre from "hardhat";
 import { expect } from "chai";
+import hre from "hardhat";
 
 import { chainIds, erc20PermitConstants } from "../../../../../helpers/constants";
 import { getDomainSeparator } from "../../../../../helpers/eip2612";

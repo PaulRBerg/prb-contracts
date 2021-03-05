@@ -1,13 +1,13 @@
-import hre from "hardhat";
-import { AddressZero } from "@ethersproject/constants";
 import { BigNumber } from "@ethersproject/bignumber";
-import { SigningKey } from "@ethersproject/signing-key";
 import { Signature } from "@ethersproject/bytes";
+import { AddressZero } from "@ethersproject/constants";
+import { SigningKey } from "@ethersproject/signing-key";
 import { expect } from "chai";
+import hre from "hardhat";
 
 import { chainIds, defaultPrivateKeys } from "../../../../../helpers/constants";
-import { Erc20PermitErrors } from "../../../../../helpers/errors";
 import { getPermitDigest } from "../../../../../helpers/eip2612";
+import { Erc20PermitErrors } from "../../../../../helpers/errors";
 
 const allowanceAmount: BigNumber = BigNumber.from(100);
 const dummySignature: { v: BigNumber; r: string; s: string } = {
@@ -126,11 +126,9 @@ export default function shouldBehaveLikePermit(): void {
             const owner: string = this.signers.bob.address;
             const spender: string = this.signers.alice.address;
             const signature = await createSignature.call(this, deadline, owner, spender);
-            /**
-             * Providing any number but 27 or 28 for the `v` argument of the ECDSA signature makes
-             * the `ecrecover` precompile return the zero address.
-             * https://ethereum.stackexchange.com/questions/69328/how-to-get-the-zero-address-from-ecrecover
-             */
+            // Providing any number but 27 or 28 for the `v` argument of the ECDSA signature makes
+            // the `ecrecover` precompile return the zero address.
+            // https://ethereum.stackexchange.com/questions/69328/how-to-get-the-zero-address-from-ecrecover
             const goofedV: BigNumber = BigNumber.from(10);
             await expect(
               this.contracts.erc20Permit

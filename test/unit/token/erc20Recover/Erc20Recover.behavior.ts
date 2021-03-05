@@ -1,7 +1,6 @@
-import shouldBehaveLikeIsRecoverInitialized from "./view/isRecoverInitialized";
-
 import shouldBehaveLikeRecover from "./effects/recover";
 import shouldBehaveLikeSetNonRecoverableTokens from "./effects/setNonRecoverableTokens";
+import shouldBehaveLikeIsRecoverInitialized from "./view/isRecoverInitialized";
 
 export function shouldBehaveLikeErc20Recover(): void {
   describe("View", function () {
