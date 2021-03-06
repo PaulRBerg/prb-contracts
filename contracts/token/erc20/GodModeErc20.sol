@@ -8,11 +8,19 @@ import "./Erc20.sol";
 /// @notice Implementation that allows anyone to mint or burn tokens belonging to any address.
 /// @dev Strictly for test purposes.
 contract GodModeErc20 is Erc20 {
+    /// EVENTS ///
+
+    event Burn(address indexed holder, uint256 burnAmount);
+
+    event Mint(address indexed beneficiary, uint256 mintAmount);
+
     constructor(
         string memory name_,
         string memory symbol_,
         uint8 decimals_
     ) Erc20(name_, symbol_, decimals_) {} // solhint-disable-line no-empty-blocks
+
+    /// NON-CONSTANT FUNCTIONS ///
 
     /// @notice Destroys `burnAmount` tokens from `holder`, reducing the token supply.
     /// @param holder The account whose tokens to burn.

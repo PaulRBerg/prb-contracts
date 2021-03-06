@@ -10,11 +10,13 @@ import "./Erc20Storage.sol";
 /// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/token/ERC20/IERC20.sol
 abstract contract Erc20Interface is Erc20Storage {
     /// CONSTANT FUNCTIONS ///
+
     function allowance(address owner, address spender) external view virtual returns (uint256);
 
     function balanceOf(address account) external view virtual returns (uint256);
 
     /// NON-CONSTANT FUNCTIONS ///
+
     function approve(address spender, uint256 amount) external virtual returns (bool);
 
     function transfer(address recipient, uint256 amount) external virtual returns (bool);
@@ -26,11 +28,8 @@ abstract contract Erc20Interface is Erc20Storage {
     ) external virtual returns (bool);
 
     /// EVENTS ///
+
     event Approval(address indexed owner, address indexed spender, uint256 amount);
-
-    event Burn(address indexed holder, uint256 burnAmount);
-
-    event Mint(address indexed beneficiary, uint256 mintAmount);
 
     event Transfer(address indexed from, address indexed to, uint256 amount);
 }
