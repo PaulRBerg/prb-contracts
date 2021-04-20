@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
 abstract contract AdminStorage {

@@ -16,6 +16,7 @@ typechain/
 *.env
 *.log
 *.tsbuildinfo
+contracts/LICENSE.md
 contracts/README.md
 coverage.json
 npm-debug.log*

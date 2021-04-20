@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: WTFPL
 // solhint-disable func-name-mixedcase
 pragma solidity >=0.8.0;
 

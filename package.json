@@ -60,7 +60,15 @@
       "style": "module"
     }
   },
-  "license": "MIT",
+  "keywords": [
+    "blockchain",
+    "erc20",
+    "ethereum",
+    "library",
+    "smart-contracts",
+    "solidity"
+  ],
+  "license": "WTFPL",
   "scripts": {
     "clean": "hardhat clean",
     "commit": "git-cz",

@@ -16,11 +16,13 @@
   "homepage": "https://github.com/paulrberg/contracts#readme",
   "keywords": [
     "blockchain",
+    "erc20",
     "ethereum",
+    "library",
     "smart-contracts",
     "solidity"
   ],
-  "license": "MIT",
+  "license": "WTFPL",
   "publishConfig": {
     "access": "public"
   },
