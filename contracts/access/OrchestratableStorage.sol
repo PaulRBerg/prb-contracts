@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity >=0.8.0;
 
 abstract contract OrchestratableStorage {
     /// @notice The address of the conductor account or contract.

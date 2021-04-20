@@ -42,7 +42,7 @@ newer minor version of `@paulrberg/contracts`.
 Once installed, you can use the contracts in the library by importing them:
 
 ```solidity
-pragma solidity ^0.8.0;
+pragma solidity >=0.8.0;
 
 import "@paulrberg/contracts/token/erc20/Erc20.sol";
 import "@paulrberg/contracts/token/erc20/Erc20Permit.sol";

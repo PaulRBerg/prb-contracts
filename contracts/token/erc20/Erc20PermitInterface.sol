@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // solhint-disable var-name-mixedcase
-pragma solidity ^0.8.0;
+pragma solidity >=0.8.0;
 
 import "./Erc20PermitStorage.sol";
 
