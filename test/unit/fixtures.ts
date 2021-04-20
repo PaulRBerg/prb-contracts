@@ -1,13 +1,11 @@
-import hre from "hardhat";
-
-import { Artifact } from "hardhat/types";
-import { MockContract } from "ethereum-waffle";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { MockContract } from "ethereum-waffle";
+import hre from "hardhat";
+import { Artifact } from "hardhat/types";
 
 import { defaultNumberOfDecimals, erc20PermitConstants } from "../../helpers/constants";
 import { Erc20Permit } from "../../typechain/Erc20Permit";
 import { GodModeErc20Recover as Erc20Recover } from "../../typechain/GodModeErc20Recover";
-
 import { deployStubErc20 } from "./stubs";
 
 const { deployContract } = hre.waffle;

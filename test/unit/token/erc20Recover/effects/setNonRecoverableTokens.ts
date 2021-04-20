@@ -1,5 +1,5 @@
-import { expect } from "chai";
 import { AddressZero } from "@ethersproject/constants";
+import { expect } from "chai";
 
 import { AdminErrors, GenericErrors } from "../../../../../helpers/errors";
 

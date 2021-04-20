@@ -1,5 +1,5 @@
-import { MockContract } from "ethereum-waffle";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { MockContract } from "ethereum-waffle";
 
 import { Erc20Permit } from "../typechain/Erc20Permit";
 import { GodModeErc20Recover as Erc20Recover } from "../typechain/GodModeErc20Recover";

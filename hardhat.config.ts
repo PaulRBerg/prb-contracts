@@ -1,17 +1,18 @@
-import { config as dotenvConfig } from "dotenv";
-import { resolve } from "path";
-dotenvConfig({ path: resolve(__dirname, "./.env") });
+import "@nomiclabs/hardhat-waffle";
+import "@typechain/hardhat";
+import "solidity-coverage";
 
+import "./tasks/clean";
+
+import { resolve } from "path";
+
+import { config as dotenvConfig } from "dotenv";
 import { HardhatUserConfig } from "hardhat/config";
 import { NetworkUserConfig } from "hardhat/types";
 
 import { chainIds } from "./helpers/constants";
-import "./tasks/accounts";
-import "./tasks/clean";
 
-import "@nomiclabs/hardhat-waffle";
-import "hardhat-typechain";
-import "solidity-coverage";
+dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 // Ensure that we have all the environment variables we need.
 let mnemonic: string;
@@ -63,12 +64,12 @@ const config: HardhatUserConfig = {
     tests: "./test",
   },
   solidity: {
-    version: "0.8.1",
+    version: "0.8.3",
     settings: {
       // https://hardhat.org/hardhat-network/#solidity-optimizer-support
       optimizer: {
         enabled: true,
-        runs: 999999,
+        runs: 800,
       },
     },
   },

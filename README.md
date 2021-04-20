@@ -2,21 +2,21 @@
 
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
-- [x] Designed for Solidity >=0.8.0
-- [x] Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- [x] Promoting
-      [CarefulMath.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/CarefulMath.sol) instead
-      of [SafeMath.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.0/contracts/math/SafeMath.sol) (see
-      rationale [here](https://twitter.com/PaulRBerg/status/1294398438654857217))
-- [x] Using
-      [Exponential.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/Exponential.sol) for
-      fixed-point math
-- [x] Tested with Hardhat and Waffle
+- Designed for Solidity >=0.8.0
+- Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
+- Promoting
+  [CarefulMath.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/CarefulMath.sol) instead
+  of [SafeMath.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.0/contracts/math/SafeMath.sol) (see
+  rationale [here](https://twitter.com/PaulRBerg/status/1294398438654857217))
+- Using
+  [Exponential.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/Exponential.sol) for
+  fixed-point math
+- Tested with Hardhat and Waffle
 
 I created this library for my own use,to avoid having to maintain the same contracts in different repositories. If
 you find it useful too, it's a win for the of us.
 
-## Caveat
+## Caveat Emptor
 
 This is experimental software and is provided on an "as is" and "as available" basis. I do not give any warranties and will not be liable for any loss, direct or indirect through continued use of this codebase.
 
@@ -126,7 +126,7 @@ $ yarn clean
 ## Security
 
 While I set a high bar for code quality and test coverage, you shouldn't assume that this library is completely safe to use. The contracts
-have not yet been audited by a security researcher. If you discover any security issues, you can report them via [Keybase](https://keybase.io/paulrberg).
+have not yet been audited by a security researcher. If you discover any security issues, please report them via [Keybase](https://keybase.io/paulrberg).
 
 ## Acknowledgements
 
