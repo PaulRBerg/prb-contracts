@@ -11,7 +11,7 @@
   },
   "files": [
     "**/*.sol",
-    "!/test"
+    "!test/**/*.sol"
   ],
   "homepage": "https://github.com/paulrberg/contracts#readme",
   "keywords": [
