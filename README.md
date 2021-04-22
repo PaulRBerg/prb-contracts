@@ -35,15 +35,18 @@ newer minor version of `@paulrberg/contracts`.
 
 ## Usage
 
-Once installed, you can use the contracts in the library by importing them:
+Once installed, you can use the contracts like this:
 
 ```solidity
 pragma solidity >=0.8.0;
 
+import "@paulrberg/contracts/math/PRBMathUD60x18.sol";
 import "@paulrberg/contracts/token/erc20/Erc20.sol";
 import "@paulrberg/contracts/token/erc20/Erc20Permit.sol";
 
 contract MyToken is Erc20, Erc20Permit {
+  using PRBMathUD60x18 for uint256;
+
   constructor(
     string memory name_,
     string memory symbol_,
@@ -126,10 +129,9 @@ have not yet been audited by a security researcher. If you discover any security
 
 ## Acknowledgements
 
-I am grateful to the authors of existing related projects whence I drew inspiration:
+I am grateful to the authors of existing related projects:
 
 - [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- Compound Protocol's [Math Contracts](https://github.com/compound-finance/compound-protocol)
 - Alberto Cuesta Cañada's [Erc20Permit and Orchestrated](https://github.com/albertocuestacanada)
 
 ## License
