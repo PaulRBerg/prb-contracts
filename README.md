@@ -4,13 +4,9 @@
 
 - Designed for Solidity >=0.8.0
 - Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- Promoting
-  [CarefulMath.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/CarefulMath.sol) instead
-  of [SafeMath.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.0/contracts/math/SafeMath.sol) (see
-  rationale [here](https://twitter.com/PaulRBerg/status/1294398438654857217))
-- Using
-  [Exponential.sol](https://github.com/compound-finance/compound-protocol/blob/v2.8.1/contracts/Exponential.sol) for
-  fixed-point math
+- Promotes [PRBMath](https://github.com/hifi-finance/prb-math) as a good choice for a fixed-point math library for
+  Solidity
+- Well-documented via NatSpec comments
 - Tested with Hardhat and Waffle
 
 I created this library for my own use,to avoid having to maintain the same contracts in different repositories. If

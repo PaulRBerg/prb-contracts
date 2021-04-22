@@ -60,6 +60,14 @@ const contracts = [
   },
   {
     hasTypes: false,
+    name: "PRBMathSD59x18",
+  },
+  {
+    hasTypes: false,
+    name: "PRBMathUD60x18",
+  },
+  {
+    hasTypes: false,
     name: "SafeErc20",
   },
 ];
