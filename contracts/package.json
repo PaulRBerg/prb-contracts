@@ -1,13 +1,16 @@
 {
   "name": "@paulrberg/contracts",
   "description": "Off-the-shelf Solidity smart contracts",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": {
     "name": "Paul Razvan Berg",
     "url": "https://paulrberg.com"
   },
   "bugs": {
     "url": "https://github.com/paulrberg/contracts/issues"
+  },
+  "dependencies": {
+    "prb-math": "^1.0.5"
   },
   "files": [
     "**/*.sol",
@@ -23,6 +26,9 @@
     "solidity"
   ],
   "license": "WTFPL",
+  "peerDependencies": {
+    "prb-math": "^1.0.5"
+  },
   "publishConfig": {
     "access": "public"
   },
