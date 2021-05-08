@@ -1,8 +1,8 @@
 {
   "name": "paulrberg-contracts",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "dependencies": {
-    "prb-math": "1.0.5"
+    "prb-math": "^1.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
@@ -63,7 +63,7 @@
     }
   },
   "peerDependencies": {
-    "prb-math": "^1.0.5"
+    "prb-math": "^1.1.0"
   },
   "scripts": {
     "clean": "hardhat clean",

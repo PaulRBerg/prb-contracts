@@ -7952,10 +7952,10 @@ postinstall-postinstall@^2.1.0:
   resolved "https://registry.npmjs.org/postinstall-postinstall/-/postinstall-postinstall-2.1.0.tgz#4f7f77441ef539d1512c40bd04c71b06a4704ca3"
   integrity sha512-7hQX6ZlZXIoRiWNrbMQaLzUUfH+sSx39u8EJ9HYuDc1kLo9IXKWjM5RSquZN1ad5GnH8CGFM78fsAAQi3OKEEQ==
 
-prb-math@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.npmjs.org/prb-math/-/prb-math-1.0.5.tgz#c3ff0bab6b05124c447506c26b3af20c7eefad17"
-  integrity sha512-nYp+LxadiKcF0DGzoOOgRJCNBlZKDj0o+fCKIV2M0VCV0I/WhpEGeXa0V1KK3LJaXTB5iSf/HenuCFk8+k8SiA==
+prb-math@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/prb-math/-/prb-math-1.1.0.tgz#e5dfa8b2437517ff0e2f26256f491660d14df795"
+  integrity sha512-V8h9uXHM++znzQImQHvqrMghe1qgq75orbaVY4biC7g7FHKLwfRVl8QC/a/ee8/ot9j8bgvH2EyIzq86dl9bCA==
 
 precond@0.2:
   version "0.2.3"
