@@ -5,7 +5,7 @@ import { SigningKey } from "@ethersproject/signing-key";
 import { expect } from "chai";
 import hre from "hardhat";
 
-import { chainIds, defaultPrivateKeys } from "../../../../../helpers/constants";
+import { bobPrivateKey, chainIds } from "../../../../../helpers/constants";
 import { getPermitDigest } from "../../../../../helpers/eip2612";
 import { Erc20PermitErrors } from "../../../../../helpers/errors";
 
@@ -46,7 +46,7 @@ async function createSignature(
   );
 
   // Sign the digest.
-  const bobSigningKey = new SigningKey(defaultPrivateKeys.bob);
+  const bobSigningKey = new SigningKey(bobPrivateKey);
   const signature: Signature = bobSigningKey.signDigest(digest);
 
   return signature;
@@ -60,7 +60,7 @@ export default function shouldBehaveLikePermit(): void {
 
         describe("when the recovered owner is not the zero address", function () {
           describe("when the signature is valid", function () {
-            it("lets the spender claim the allowance signed by the owner", async function () {
+            it("allows the spender claim the allowance signed by the owner", async function () {
               const owner: string = this.signers.bob.address;
               const spender: string = this.signers.alice.address;
               const signature = await createSignature.call(this, deadline, owner, spender);
