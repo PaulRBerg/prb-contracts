@@ -2,7 +2,7 @@
 pragma solidity >=0.8.0;
 
 import "./Erc20.sol";
-import "./Erc20PermitInterface.sol";
+import "../../interfaces/IErc20Permit.sol";
 
 /// @title Erc20Permit
 /// @author Paul Razvan Berg
@@ -11,14 +11,26 @@ import "./Erc20PermitInterface.sol";
 /// them via `transferFrom`.
 /// @dev See https://eips.ethereum.org/EIPS/eip-2612.
 contract Erc20Permit is
-    Erc20PermitInterface, /// one dependency
-    Erc20 /// two dependencies
+    IErc20Permit,
+    Erc20
 {
+    /// @inheritdoc IErc20Permit
+    bytes32 public override DOMAIN_SEPARATOR;
+
+    /// @inheritdoc IErc20Permit
+    bytes32 public override constant PERMIT_TYPEHASH = 0xfc77c2b9d30fe91687fd39abb7d16fcdfe1472d065740051ab8b13e4bf4a617f;
+
+    /// @inheritdoc IErc20Permit
+    mapping(address => uint256) public override nonces;
+
+    /// @inheritdoc IErc20Permit
+    string public override constant version = "1";
+
     constructor(
-        string memory name_,
-        string memory symbol_,
-        uint8 decimals_
-    ) Erc20(name_, symbol_, decimals_) {
+        string memory _name,
+        string memory _symbol,
+        uint8 _decimals
+    ) Erc20(_name, _symbol, _decimals) {
         uint256 chainId;
         // solhint-disable-next-line no-inline-assembly
         assembly {
@@ -35,22 +47,7 @@ contract Erc20Permit is
         );
     }
 
-    /// @notice Sets `amount` as the allowance of `spender` over `owner`'s tokens, assuming the latter's
-    /// signed approval.
-    ///
-    /// @dev Emits an {Approval} event.
-    ///
-    /// IMPORTANT: The same issues Erc20 `approve` has related to transaction
-    /// ordering also apply here.
-    ///
-    /// Requirements:
-    ///
-    /// - `owner` cannot be the zero address.
-    /// - `spender` cannot be the zero address.
-    /// - `deadline` must be a timestamp in the future.
-    /// - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner` over the Eip712-formatted
-    /// function arguments.
-    /// - The signature must use `owner`'s current nonce.
+    /// @inheritdoc IErc20Permit
     function permit(
         address owner,
         address spender,
@@ -60,17 +57,17 @@ contract Erc20Permit is
         bytes32 r,
         bytes32 s
     ) external override {
-        require(owner != address(0), "ERR_ERC20_PERMIT_OWNER_ZERO_ADDRESS");
-        require(spender != address(0), "ERR_ERC20_PERMIT_SPENDER_ZERO_ADDRESS");
-        require(deadline >= block.timestamp, "ERR_ERC20_PERMIT_EXPIRED");
+        require(owner != address(0), "ERC20_PERMIT_OWNER_ZERO_ADDRESS");
+        require(spender != address(0), "ERC20_PERMIT_SPENDER_ZERO_ADDRESS");
+        require(deadline >= block.timestamp, "ERC20_PERMIT_EXPIRED");
 
         // It's safe to use the "+" operator here because the nonce cannot realistically overflow, ever.
         bytes32 hashStruct = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, amount, nonces[owner]++, deadline));
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, hashStruct));
         address recoveredOwner = ecrecover(digest, v, r, s);
 
-        require(recoveredOwner != address(0), "ERR_ERC20_PERMIT_RECOVERED_OWNER_ZERO_ADDRESS");
-        require(recoveredOwner == owner, "ERR_ERC20_PERMIT_INVALID_SIGNATURE");
+        require(recoveredOwner != address(0), "ERC20_PERMIT_RECOVERED_OWNER_ZERO_ADDRESS");
+        require(recoveredOwner == owner, "ERC20_PERMIT_INVALID_SIGNATURE");
 
         approveInternal(owner, spender, amount);
     }

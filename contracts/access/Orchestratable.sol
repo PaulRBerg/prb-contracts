@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
+import "../interfaces/IOrchestratable.sol";
 import "./Admin.sol";
-import "./OrchestratableInterface.sol";
 
 /// @author Paul Razvan Berg
 /// @notice Orchestrated static access control between multiple contracts.
@@ -18,19 +18,24 @@ import "./OrchestratableInterface.sol";
 ///
 /// @dev Forked from Alberto Cuesta Cañada
 /// https://github.com/albertocuestacanada/Orchestrated/blob/b0adb21/contracts/Orchestrated.sol
-abstract contract Orchestratable is
-    OrchestratableInterface, /// one dependency
+contract Orchestratable is
+    IOrchestratable, /// one dependency
     Admin /// two dependencies
 {
+    /// @inheritdoc IOrchestratable
+    address public override conductor;
+
+    /// @inheritdoc IOrchestratable
+    mapping (address => mapping (bytes4 => bool)) public override orchestration;
+
+
     /// @notice Restricts usage to authorized accounts.
     modifier onlyOrchestrated() {
-        require(orchestration[msg.sender][msg.sig], "ERR_NOT_ORCHESTRATED");
+        require(orchestration[msg.sender][msg.sig], "NOT_ORCHESTRATED");
         _;
     }
 
-    /// @notice Adds new orchestrated address.
-    /// @param account Address of EOA or contract to give access to this contract.
-    /// @param signature bytes4 signature of the function to be given orchestrated access to.
+    /// @inheritdoc IOrchestratable
     function _orchestrate(address account, bytes4 signature) external override onlyAdmin {
         orchestration[account][signature] = true;
         emit GrantAccess(account);

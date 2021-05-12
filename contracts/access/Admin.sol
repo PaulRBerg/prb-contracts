@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
-import "./AdminInterface.sol";
+import "../interfaces/IAdmin.sol";
 
 /// @title Admin
 /// @author Paul Razvan Berg
@@ -16,7 +16,10 @@ import "./AdminInterface.sol";
 ///
 /// @dev Forked from OpenZeppelin
 /// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/access/Ownable.sol
-abstract contract Admin is AdminInterface {
+contract Admin is IAdmin {
+    /// @inheritdoc IAdmin
+    address public override admin;
+
     /// @notice Throws if called by any account other than the admin.
     modifier onlyAdmin() {
         require(admin == msg.sender, "ERR_NOT_ADMIN");
@@ -30,23 +33,13 @@ abstract contract Admin is AdminInterface {
         emit TransferAdmin(address(0), msgSender);
     }
 
-    /// @notice Leaves the contract without admin, so it will not be possible to call `onlyAdmin`
-    /// functions anymore.
-    ///
-    /// WARNING: Doing this will leave the contract without an admin, thereby removing any
-    /// functionality that is only available to the admin.
-    ///
-    /// Requirements:
-    ///
-    /// - The caller must be the administrator.
+    /// @inheritdoc IAdmin
     function _renounceAdmin() external virtual override onlyAdmin {
         emit TransferAdmin(admin, address(0));
         admin = address(0);
     }
 
-    /// @notice Transfers the admin of the contract to a new account (`newAdmin`). Can only be
-    /// called by the current admin.
-    /// @param newAdmin The acount of the new admin.
+    /// @inheritdoc IAdmin
     function _transferAdmin(address newAdmin) external virtual override onlyAdmin {
         require(newAdmin != address(0), "ERR_SET_ADMIN_ZERO_ADDRESS");
         emit TransferAdmin(admin, newAdmin);
