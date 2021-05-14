@@ -22,7 +22,7 @@ contract Admin is IAdmin {
 
     /// @notice Throws if called by any account other than the admin.
     modifier onlyAdmin() {
-        require(admin == msg.sender, "ERR_NOT_ADMIN");
+        require(admin == msg.sender, "NOT_ADMIN");
         _;
     }
 
@@ -41,7 +41,7 @@ contract Admin is IAdmin {
 
     /// @inheritdoc IAdmin
     function _transferAdmin(address newAdmin) external virtual override onlyAdmin {
-        require(newAdmin != address(0), "ERR_SET_ADMIN_ZERO_ADDRESS");
+        require(newAdmin != address(0), "SET_ADMIN_ZERO_ADDRESS");
         emit TransferAdmin(admin, newAdmin);
         admin = newAdmin;
     }

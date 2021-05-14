@@ -47,10 +47,10 @@ library SafeErc20 {
         // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
         // we're implementing it ourselves. We use {Address.functionCall} to perform this call, which verifies that
         // the target address contains contract code and also asserts for success in the low-level call.
-        bytes memory returndata = functionCall(address(token), data, "ERR_SAFE_ERC20_LOW_LEVEL_CALL");
+        bytes memory returndata = functionCall(address(token), data, "SAFE_ERC20_LOW_LEVEL_CALL");
         if (returndata.length > 0) {
             // Return data is optional.
-            require(abi.decode(returndata, (bool)), "ERR_SAFE_ERC20_ERC20_OPERATION");
+            require(abi.decode(returndata, (bool)), "SAFE_ERC20_ERC20_OPERATION");
         }
     }
 
@@ -59,7 +59,7 @@ library SafeErc20 {
         bytes memory data,
         string memory errorMessage
     ) private returns (bytes memory) {
-        require(target.isContract(), "ERR_SAFE_ERC20_CALL_TO_NON_CONTRACT");
+        require(target.isContract(), "SAFE_ERC20_CALL_TO_NON_CONTRACT");
 
         // solhint-disable-next-line avoid-low-level-calls
         (bool success, bytes memory returndata) = target.call(data);
