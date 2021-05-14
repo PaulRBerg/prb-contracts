@@ -2,8 +2,8 @@
 pragma solidity >=0.8.0;
 
 /// @title IErc20
-/// @notice Interface adhering to the Erc20 standard
 /// @author Paul Razvan Berg
+/// @notice Interface adhering to the Erc20 standard
 interface IErc20 {
     /// EVENTS ///
 

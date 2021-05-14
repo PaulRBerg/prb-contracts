@@ -6,13 +6,20 @@ import "./IErc20.sol";
 import "./IAdmin.sol";
 
 /// @title IErc20Recover
-/// @notice Interface for the Erc20Recover contract
 /// @author Paul Razvan Berg
+/// @notice Interface for the Erc20Recover contract
 interface IErc20Recover is IAdmin {
     /// EVENTS ///
 
+    /// @notice Emitted when tokens are recovered.
+    /// @param admin The address of the admin recoverring the tokens.
+    /// @param token The address of the recovered token.
+    /// @param recoverAmount The amount of recovered tokens.
     event Recover(address indexed admin, IErc20 token, uint256 recoverAmount);
 
+    /// @notice Emitted when tokens are set as non-recoverable.
+    /// @param admin The address of the admin calling the function.
+    /// @param nonRecoverableTokens An array of token addresses.
     event SetNonRecoverableTokens(address indexed admin, IErc20[] nonRecoverableTokens);
 
 

@@ -4,6 +4,7 @@ pragma solidity >=0.8.0;
 import "../interfaces/IOrchestratable.sol";
 import "./Admin.sol";
 
+/// @title Orchestratable
 /// @author Paul Razvan Berg
 /// @notice Orchestrated static access control between multiple contracts.
 ///
@@ -19,7 +20,7 @@ import "./Admin.sol";
 /// @dev Forked from Alberto Cuesta Cañada
 /// https://github.com/albertocuestacanada/Orchestrated/blob/b0adb21/contracts/Orchestrated.sol
 contract Orchestratable is
-    IOrchestratable, /// one dependency
+    IOrchestratable,
     Admin /// two dependencies
 {
     /// @inheritdoc IOrchestratable

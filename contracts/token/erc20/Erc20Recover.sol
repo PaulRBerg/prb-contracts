@@ -12,7 +12,7 @@ import "./SafeErc20.sol";
 /// had been sent (accidentally, or not) to the contract.
 abstract contract Erc20Recover is
     IErc20Recover,
-    Admin /// two dependencies
+    Admin
 {
     using SafeErc20 for IErc20;
 

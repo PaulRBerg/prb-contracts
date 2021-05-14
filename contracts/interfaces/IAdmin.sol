@@ -2,8 +2,8 @@
 pragma solidity >=0.8.0;
 
 /// @title IAdmin
-/// @notice Interface of the Admin contract
 /// @author Paul Razvan Berg
+/// @notice Interface of the Admin contract
 interface IAdmin {
     /// EVENTS ///
 

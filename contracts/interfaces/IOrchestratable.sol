@@ -4,8 +4,8 @@ pragma solidity >=0.8.0;
 import "./IAdmin.sol";
 
 /// @title IOrchestratable
-/// @notice Interface of the Orchestrable contract
 /// @author Paul Razvan Berg
+/// @notice Interface of the Orchestrable contract
 interface IOrchestratable is IAdmin {
   /// EVENTS ///
 
@@ -30,6 +30,7 @@ interface IOrchestratable is IAdmin {
   /// CONSTANT FUNCTIONS ///
 
   /// @notice The address of the conductor account or contract.
+  /// @return The address of the conductor.
   function conductor() external view returns (address);
 
   /// @notice Checks the access of an account to a function.

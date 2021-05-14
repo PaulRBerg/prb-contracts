@@ -94,6 +94,7 @@ contract Erc20 is IErc20 {
         return true;
     }
 
+
     /// INTERNAL FUNCTIONS ///
 
     /// @notice Sets `amount` as the allowance of `spender` over the `owner`s tokens.
