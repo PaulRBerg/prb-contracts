@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
-import "./Erc20Interface.sol";
+import "../../interfaces/IErc20.sol";
 import "../../utils/Address.sol";
 
 /// @title SafeErc20.sol
@@ -10,7 +10,7 @@ import "../../utils/Address.sol";
 /// returns false). Tokens that return no value (and instead revert or throw
 /// on failure) are also supported, non-reverting calls are assumed to be successful.
 ///
-/// To use this library you can add a `using SafeErc20 for Erc20Interface;` statement to your contract,
+/// To use this library you can add a `using SafeErc20 for IErc20;` statement to your contract,
 /// which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
 ///
 /// @dev Forked from OpenZeppelin
@@ -21,7 +21,7 @@ library SafeErc20 {
     /// INTERNAL FUNCTIONS ///
 
     function safeTransfer(
-        Erc20Interface token,
+        IErc20 token,
         address to,
         uint256 amount
     ) internal {
@@ -29,7 +29,7 @@ library SafeErc20 {
     }
 
     function safeTransferFrom(
-        Erc20Interface token,
+        IErc20 token,
         address from,
         address to,
         uint256 amount
@@ -43,14 +43,14 @@ library SafeErc20 {
     /// on the return value: the return value is optional (but if data is returned, it cannot be false).
     /// @param token The token targeted by the call.
     /// @param data The call data (encoded using abi.encode or one of its variants).
-    function callOptionalReturn(Erc20Interface token, bytes memory data) private {
+    function callOptionalReturn(IErc20 token, bytes memory data) private {
         // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
         // we're implementing it ourselves. We use {Address.functionCall} to perform this call, which verifies that
         // the target address contains contract code and also asserts for success in the low-level call.
-        bytes memory returndata = functionCall(address(token), data, "ERR_SAFE_ERC20_LOW_LEVEL_CALL");
+        bytes memory returndata = functionCall(address(token), data, "SAFE_ERC20_LOW_LEVEL_CALL");
         if (returndata.length > 0) {
             // Return data is optional.
-            require(abi.decode(returndata, (bool)), "ERR_SAFE_ERC20_ERC20_OPERATION");
+            require(abi.decode(returndata, (bool)), "SAFE_ERC20_ERC20_OPERATION");
         }
     }
 
@@ -59,7 +59,7 @@ library SafeErc20 {
         bytes memory data,
         string memory errorMessage
     ) private returns (bytes memory) {
-        require(target.isContract(), "ERR_SAFE_ERC20_CALL_TO_NON_CONTRACT");
+        require(target.isContract(), "SAFE_ERC20_CALL_TO_NON_CONTRACT");
 
         // solhint-disable-next-line avoid-low-level-calls
         (bool success, bytes memory returndata) = target.call(data);

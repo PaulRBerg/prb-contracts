@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
-import "./Erc20Interface.sol";
+import "../../interfaces/IErc20.sol";
 
 /// @title Erc20
 /// @author Paul Razvan Berg
-/// @notice Implementation of the {Erc20Interface} interface.
+/// @notice Implementation of the {IErc20} interface.
 ///
 /// We have followed general OpenZeppelin guidelines: functions revert instead of returning
 /// `false` on failure. This behavior is nonetheless conventional and does not conflict with
@@ -21,119 +21,66 @@ import "./Erc20Interface.sol";
 ///
 ///@dev Forked from OpenZeppelin
 ///https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.0/contracts/token/Erc20/Erc20.sol
-contract Erc20 is Erc20Interface {
+contract Erc20 is IErc20 {
+    /// @inheritdoc IErc20
+    string public override name;
+
+    /// @inheritdoc IErc20
+    string public override symbol;
+
+    /// @inheritdoc IErc20
+    uint8 public override decimals;
+
+    /// @inheritdoc IErc20
+    uint256 public override totalSupply;
+
+    /// @inheritdoc IErc20
+    mapping (address => uint256) public override balanceOf;
+
+    /// @inheritdoc IErc20
+    mapping (address => mapping (address => uint256)) public override allowance;
+
     /// @notice All three of these values are immutable: they can only be set once during construction.
-    /// @param name_ Erc20 name of this token.
-    /// @param symbol_ Erc20 symbol of this token.
-    /// @param decimals_ Erc20 decimal precision of this token.
+    /// @param _name Erc20 name of this token.
+    /// @param _symbol Erc20 symbol of this token.
+    /// @param _decimals Erc20 decimal precision of this token.
     constructor(
-        string memory name_,
-        string memory symbol_,
-        uint8 decimals_
+        string memory _name,
+        string memory _symbol,
+        uint8 _decimals
     ) {
-        name = name_;
-        symbol = symbol_;
-        decimals = decimals_;
+        name = _name;
+        symbol = _symbol;
+        decimals = _decimals;
     }
 
-    /// CONSTANT FUNCTIONS ///
-
-    /// @notice Returns the remaining number of tokens that `spender` will be allowed to spend
-    /// on behalf of `owner` through {transferFrom}. This is zero by default.
-    ///
-    /// This value changes when {approve} or {transferFrom} are called.
-    function allowance(address owner, address spender) external view virtual override returns (uint256) {
-        return allowances[owner][spender];
-    }
-
-    /// @notice Returns the amount of tokens owned by `account`.
-    function balanceOf(address account) public view virtual override returns (uint256) {
-        return balances[account];
-    }
-
-    /// NON-CONSTANT FUNCTIONS ///
-
-    /// @notice Sets `amount` as the allowance of `spender` over the caller's tokens.
-    ///
-    /// @dev Emits an {Approval} event.
-    ///
-    /// IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may
-    /// use both the old and the new allowance by unfortunate transaction ordering. One possible solution
-    /// to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired
-    /// value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
-    ///
-    /// Requirements:
-    ///
-    /// - `spender` cannot be the zero address.
-    ///
-    /// @return a boolean value indicating whether the operation succeeded.
+    /// @inheritdoc IErc20
     function approve(address spender, uint256 amount) external virtual override returns (bool) {
         approveInternal(msg.sender, spender, amount);
         return true;
     }
 
-    /// @notice Atomically decreases the allowance granted to `spender` by the caller.
-    ///
-    /// @dev Emits an {Approval} event indicating the updated allowance.
-    ///
-    /// This is an alternative to {approve} that can be used as a mitigation for problems described
-    /// in {Erc20Interface-approve}.
-    ///
-    /// Requirements:
-    ///
-    /// - `spender` cannot be the zero address.
-    /// - `spender` must have allowance for the caller of at least
-    /// `subtractedValue`.
-    function decreaseAllowance(address spender, uint256 subtractedValue) external virtual returns (bool) {
-        uint256 newAllowance = allowances[msg.sender][spender] - subtractedValue;
+    /// @inheritdoc IErc20
+    function decreaseAllowance(address spender, uint256 subtractedValue) external override virtual returns (bool) {
+        uint256 newAllowance = allowance[msg.sender][spender] - subtractedValue;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
 
-    /// @notice Atomically increases the allowance granted to `spender` by the caller.
-    ///
-    /// @dev Emits an {Approval} event indicating the updated allowance.
-    ///
-    /// This is an alternative to {approve} that can be used as a mitigation for the problems
-    /// described above.
-    ///
-    /// Requirements:
-    ///
-    /// - `spender` cannot be the zero address.
-    function increaseAllowance(address spender, uint256 addedValue) external virtual returns (bool) {
-        uint256 newAllowance = allowances[msg.sender][spender] + addedValue;
+    /// @inheritdoc IErc20
+    function increaseAllowance(address spender, uint256 addedValue) external override virtual returns (bool) {
+        uint256 newAllowance = allowance[msg.sender][spender] + addedValue;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
 
-    /// @notice Moves `amount` tokens from the caller's account to `recipient`.
-    ///
-    /// @dev Emits a {Transfer} event.
-    ///
-    /// Requirements:
-    ///
-    /// - `recipient` cannot be the zero address.
-    /// - The caller must have a balance of at least `amount`.
-    ///
-    /// @return a boolean value indicating whether the operation succeeded.
+    /// @inheritdoc IErc20
     function transfer(address recipient, uint256 amount) external virtual override returns (bool) {
         transferInternal(msg.sender, recipient, amount);
         return true;
     }
 
-    /// @notice Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount`
-    /// `is then deducted from the caller's allowance.
-    ///
-    /// @dev Emits a {Transfer} event and an {Approval} event indicating the updated allowance. This is
-    /// not required by the Erc. See the note at the beginning of {Erc20}.
-    ///
-    /// Requirements:
-    ///
-    /// - `sender` and `recipient` cannot be the zero address.
-    /// - `sender` must have a balance of at least `amount`.
-    /// - The caller must have approed `sender` to spent at least `amount` tokens.
-    ///
-    /// @return a boolean value indicating whether the operation succeeded.
+    /// @inheritdoc IErc20
     function transferFrom(
         address sender,
         address recipient,
@@ -141,11 +88,12 @@ contract Erc20 is Erc20Interface {
     ) external virtual override returns (bool) {
         transferInternal(sender, recipient, amount);
 
-        uint256 currentAllowance = allowances[sender][msg.sender];
-        require(currentAllowance >= amount, "ERR_ERC20_TRANSFER_FROM_INSUFFICIENT_ALLOWANCE");
+        uint256 currentAllowance = allowance[sender][msg.sender];
+        require(currentAllowance >= amount, "ERC20_TRANSFER_FROM_INSUFFICIENT_ALLOWANCE");
         approveInternal(sender, msg.sender, currentAllowance);
         return true;
     }
+
 
     /// INTERNAL FUNCTIONS ///
 
@@ -165,10 +113,10 @@ contract Erc20 is Erc20Interface {
         address spender,
         uint256 amount
     ) internal virtual {
-        require(owner != address(0), "ERR_ERC20_APPROVE_FROM_ZERO_ADDRESS");
-        require(spender != address(0), "ERR_ERC20_APPROVE_TO_ZERO_ADDRESS");
+        require(owner != address(0), "ERC20_APPROVE_FROM_ZERO_ADDRESS");
+        require(spender != address(0), "ERC20_APPROVE_TO_ZERO_ADDRESS");
 
-        allowances[owner][spender] = amount;
+        allowance[owner][spender] = amount;
         emit Approval(owner, spender, amount);
     }
 
@@ -180,13 +128,13 @@ contract Erc20 is Erc20Interface {
     ///
     /// - `holder` must have at least `amount` tokens.
     function burnInternal(address holder, uint256 burnAmount) internal {
-        require(holder != address(0), "ERR_ERC20_BURN_ZERO_ADDRESS");
+        require(holder != address(0), "ERC20_BURN_ZERO_ADDRESS");
 
-        uint256 accountBalance = balances[holder];
-        require(accountBalance >= burnAmount, "ERR_ERC20_BURN_BALANCE_UNDERFLOW");
+        uint256 accountBalance = balanceOf[holder];
+        require(accountBalance >= burnAmount, "ERC20_BURN_BALANCE_UNDERFLOW");
 
         // Burn the tokens.
-        balances[holder] = accountBalance - burnAmount;
+        balanceOf[holder] = accountBalance - burnAmount;
 
         // Reduce the total supply.
         totalSupply -= burnAmount;
@@ -203,10 +151,10 @@ contract Erc20 is Erc20Interface {
     ///
     /// - The beneficiary's balance and the total supply cannot overflow.
     function mintInternal(address beneficiary, uint256 mintAmount) internal {
-        require(beneficiary != address(0), "ERR_ERC20_MINT_ZERO_ADDRESS");
+        require(beneficiary != address(0), "ERC20_MINT_ZERO_ADDRESS");
 
         /// Mint the new tokens.
-        balances[beneficiary] += mintAmount;
+        balanceOf[beneficiary] += mintAmount;
 
         /// Increase the total supply.
         totalSupply += mintAmount;
@@ -231,13 +179,13 @@ contract Erc20 is Erc20Interface {
         address recipient,
         uint256 amount
     ) internal virtual {
-        require(sender != address(0), "ERR_ERC20_TRANSFER_FROM_ZERO_ADDRESS");
-        require(recipient != address(0), "ERR_ERC20_TRANSFER_TO_ZERO_ADDRESS");
+        require(sender != address(0), "ERC20_TRANSFER_FROM_ZERO_ADDRESS");
+        require(recipient != address(0), "ERC20_TRANSFER_TO_ZERO_ADDRESS");
 
-        uint256 senderBalance = balances[sender];
-        require(senderBalance >= amount, "ERR_ERC20_TRANSFER_INSUFFICIENT_BALANCE");
-        balances[sender] = senderBalance - amount;
-        balances[recipient] += amount;
+        uint256 senderBalance = balanceOf[sender];
+        require(senderBalance >= amount, "ERC20_TRANSFER_INSUFFICIENT_BALANCE");
+        balanceOf[sender] = senderBalance - amount;
+        balanceOf[recipient] += amount;
 
         emit Transfer(sender, recipient, amount);
     }

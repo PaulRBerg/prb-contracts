@@ -2,8 +2,8 @@
 pragma solidity >=0.8.0;
 
 import "../../access/Admin.sol";
-import "./Erc20Interface.sol";
-import "./Erc20RecoverInterface.sol";
+import "../../interfaces/IErc20.sol";
+import "../../interfaces/IErc20Recover.sol";
 import "./SafeErc20.sol";
 
 /// @title Erc20Recover
@@ -11,24 +11,21 @@ import "./SafeErc20.sol";
 /// @notice Gives the administrator the ability to recover the Erc20 tokens that
 /// had been sent (accidentally, or not) to the contract.
 abstract contract Erc20Recover is
-    Erc20RecoverInterface, /// one dependency
-    Admin /// two dependencies
+    IErc20Recover,
+    Admin
 {
-    using SafeErc20 for Erc20Interface;
+    using SafeErc20 for IErc20;
 
-    /// @notice Sets the tokens that this contract cannot recover.
-    ///
-    /// @dev Emits a {SetNonRecoverableTokens} event.
-    ///
-    /// Requirements:
-    ///
-    /// - The caller must be the administrator.
-    /// - The contract cannot be already initialized.
-    ///
-    /// @param tokens The array of tokens to set as non-recoverable.
-    function _setNonRecoverableTokens(Erc20Interface[] calldata tokens) external override onlyAdmin {
+    /// @inheritdoc IErc20Recover
+    IErc20[] public override nonRecoverableTokens;
+
+    /// @dev A flag that signals whether the the non-recoverable tokens were set or not.
+    bool internal isRecoverInitialized;
+
+    /// @inheritdoc IErc20Recover
+    function _setNonRecoverableTokens(IErc20[] calldata tokens) external override onlyAdmin {
         // Checks
-        require(isRecoverInitialized == false, "ERR_INITALIZED");
+        require(isRecoverInitialized == false, "INITALIZED");
 
         // Iterate over the token list, sanity check each and update the mapping.
         uint256 length = tokens.length;
@@ -43,22 +40,11 @@ abstract contract Erc20Recover is
         emit SetNonRecoverableTokens(admin, tokens);
     }
 
-    /// @notice Recover Erc20 tokens sent to this contract (by accident or otherwise).
-    /// @dev Emits a {RecoverToken} event.
-    ///
-    /// Requirements:
-    ///
-    /// - The caller must be the administrator.
-    /// - The contract must be initialized.
-    /// - The amount to recover cannot be zero.
-    /// - The token to recover cannot be among the non-recoverable tokens.
-    ///
-    /// @param token The token to make the recover for.
-    /// @param recoverAmount The uint256 amount to recover, specified in the token's decimal system.
-    function _recover(Erc20Interface token, uint256 recoverAmount) external override onlyAdmin {
+    /// @inheritdoc IErc20Recover
+    function _recover(IErc20 token, uint256 recoverAmount) external override onlyAdmin {
         // Checks
-        require(isRecoverInitialized == true, "ERR_NOT_INITALIZED");
-        require(recoverAmount > 0, "ERR_RECOVER_ZERO");
+        require(isRecoverInitialized == true, "NOT_INITALIZED");
+        require(recoverAmount > 0, "RECOVER_ZERO");
 
         bytes32 tokenSymbolHash = keccak256(bytes(token.symbol()));
         uint256 length = nonRecoverableTokens.length;
@@ -74,7 +60,7 @@ abstract contract Erc20Recover is
             require(
                 address(token) != address(nonRecoverableTokens[i]) &&
                     tokenSymbolHash != keccak256(bytes(nonRecoverableTokens[i].symbol())),
-                "ERR_RECOVER_NON_RECOVERABLE_TOKEN"
+                "RECOVER_NON_RECOVERABLE_TOKEN"
             );
         }
 
