@@ -29,4 +29,4 @@ export const oneToken: BigNumber = unitsPerToken;
 export const oneHundredTokens: BigNumber = oneToken.mul(100);
 
 // PRIVATE KEYS
-export const bobPrivateKey: string = "0x5ee2691528e0f9536fa0428d620bc8d657fa542626a2e0529c3db592bf462a70";
+export const bobPrivateKey: string = "0xd0792a518700b34f3cf29d533f1d8bb81262eabca4f1817212a5044ee866c3a6";
