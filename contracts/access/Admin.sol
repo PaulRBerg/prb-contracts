@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
-import "../interfaces/IAdmin.sol";
+import "./IAdmin.sol";
 
 /// @title Admin
 /// @author Paul Razvan Berg

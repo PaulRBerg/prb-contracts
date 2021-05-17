@@ -18,7 +18,9 @@ contract GodModeErc20 is Erc20 {
         string memory name_,
         string memory symbol_,
         uint8 decimals_
-    ) Erc20(name_, symbol_, decimals_) {} // solhint-disable-line no-empty-blocks
+    ) Erc20(name_, symbol_, decimals_) {
+        // solhint-disable-previous-line no-empty-blocks
+    }
 
     /// NON-CONSTANT FUNCTIONS ///
 

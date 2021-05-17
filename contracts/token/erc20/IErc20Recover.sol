@@ -3,7 +3,7 @@
 pragma solidity >=0.8.0;
 
 import "./IErc20.sol";
-import "./IAdmin.sol";
+import "../../access/IAdmin.sol";
 
 /// @title IErc20Recover
 /// @author Paul Razvan Berg

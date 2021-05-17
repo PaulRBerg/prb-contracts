@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
-import "../interfaces/IOrchestratable.sol";
 import "./Admin.sol";
+import "./IOrchestratable.sol";
 
 /// @title Orchestratable
 /// @author Paul Razvan Berg
@@ -20,8 +20,8 @@ import "./Admin.sol";
 /// @dev Forked from Alberto Cuesta Cañada
 /// https://github.com/albertocuestacanada/Orchestrated/blob/b0adb21/contracts/Orchestrated.sol
 contract Orchestratable is
-    IOrchestratable,
-    Admin /// two dependencies
+    IOrchestratable, // one dependency
+    Admin /// one dependency
 {
     /// @inheritdoc IOrchestratable
     address public override conductor;

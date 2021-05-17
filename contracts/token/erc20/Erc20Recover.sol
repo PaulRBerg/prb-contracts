@@ -1,16 +1,19 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
-import "../../access/Admin.sol";
-import "../../interfaces/IErc20.sol";
-import "../../interfaces/IErc20Recover.sol";
+import "./IErc20.sol";
+import "./IErc20Recover.sol";
 import "./SafeErc20.sol";
+import "../../access/Admin.sol";
 
 /// @title Erc20Recover
 /// @author Paul Razvan Berg
-/// @notice Gives the administrator the ability to recover the Erc20 tokens that
-/// had been sent (accidentally, or not) to the contract.
-abstract contract Erc20Recover is IErc20Recover, Admin {
+/// @notice Contract that gives the administrator the ability to recover the Erc20 tokens that were sent
+/// (accidentally, or not) to the contract.
+abstract contract Erc20Recover is
+    Admin, // one dependency
+    IErc20Recover // two dependencies
+{
     using SafeErc20 for IErc20;
 
     /// @inheritdoc IErc20Recover
