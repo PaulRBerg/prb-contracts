@@ -14,7 +14,7 @@ import "../../utils/Address.sol";
 /// which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
 ///
 /// @dev Forked from OpenZeppelin
-/// https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/v3.4.0/contracts/utils/Address.sol
+/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/utils/Address.sol
 library SafeErc20 {
     using Address for address;
 

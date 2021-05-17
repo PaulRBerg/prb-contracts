@@ -19,8 +19,8 @@ import "../../interfaces/IErc20.sol";
 /// Finally, the non-standard {decreaseAllowance} and {increaseAllowance} functions have been
 /// added to mitigate the well-known issues around setting allowances.
 ///
-///@dev Forked from OpenZeppelin
-///https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.2.0/contracts/token/Erc20/Erc20.sol
+/// @dev Forked from OpenZeppelin
+/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/token/ERC20/ERC20.sol
 contract Erc20 is IErc20 {
     /// @inheritdoc IErc20
     string public override name;
@@ -29,7 +29,7 @@ contract Erc20 is IErc20 {
     string public override symbol;
 
     /// @inheritdoc IErc20
-    uint8 public override decimals;
+    uint8 public immutable override decimals;
 
     /// @inheritdoc IErc20
     uint256 public override totalSupply;

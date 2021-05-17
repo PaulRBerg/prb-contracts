@@ -13,7 +13,7 @@ import "../../interfaces/IErc20Permit.sol";
 /// @dev See https://eips.ethereum.org/EIPS/eip-2612.
 contract Erc20Permit is IErc20Permit, Erc20 {
     /// @inheritdoc IErc20Permit
-    bytes32 public override DOMAIN_SEPARATOR;
+    bytes32 public immutable override DOMAIN_SEPARATOR;
 
     /// @inheritdoc IErc20Permit
     bytes32 public constant override PERMIT_TYPEHASH =
