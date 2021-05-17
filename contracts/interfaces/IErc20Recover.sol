@@ -22,7 +22,6 @@ interface IErc20Recover is IAdmin {
     /// @param nonRecoverableTokens An array of token addresses.
     event SetNonRecoverableTokens(address indexed admin, IErc20[] nonRecoverableTokens);
 
-
     /// NON-CONSTANT FUNCTIONS ///
 
     /// @notice Recover Erc20 tokens sent to this contract (by accident or otherwise).
@@ -50,7 +49,6 @@ interface IErc20Recover is IAdmin {
     ///
     /// @param tokens The array of tokens to set as non-recoverable.
     function _setNonRecoverableTokens(IErc20[] calldata tokens) external;
-
 
     /// CONSTANT FUNCTIONS ///
 

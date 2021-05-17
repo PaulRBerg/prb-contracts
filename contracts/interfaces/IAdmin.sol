@@ -12,7 +12,6 @@ interface IAdmin {
     /// @param newAdmin The address of the new admin.
     event TransferAdmin(address indexed oldAdmin, address indexed newAdmin);
 
-
     /// NON-CONSTANT FUNCTIONS ///
 
     /// @notice Leaves the contract without admin, so it will not be possible to call `onlyAdmin`
@@ -30,7 +29,6 @@ interface IAdmin {
     /// called by the current admin.
     /// @param newAdmin The acount of the new admin.
     function _transferAdmin(address newAdmin) external;
-
 
     /// CONSTANT FUNCTIONS ///
 

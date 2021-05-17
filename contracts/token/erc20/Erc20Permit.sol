@@ -10,21 +10,19 @@ import "../../interfaces/IErc20Permit.sol";
 /// transactions by setting the allowance with a signature using the `permit` method, and then spend
 /// them via `transferFrom`.
 /// @dev See https://eips.ethereum.org/EIPS/eip-2612.
-contract Erc20Permit is
-    IErc20Permit,
-    Erc20
-{
+contract Erc20Permit is IErc20Permit, Erc20 {
     /// @inheritdoc IErc20Permit
     bytes32 public override DOMAIN_SEPARATOR;
 
     /// @inheritdoc IErc20Permit
-    bytes32 public override constant PERMIT_TYPEHASH = 0xfc77c2b9d30fe91687fd39abb7d16fcdfe1472d065740051ab8b13e4bf4a617f;
+    bytes32 public constant override PERMIT_TYPEHASH =
+        0xfc77c2b9d30fe91687fd39abb7d16fcdfe1472d065740051ab8b13e4bf4a617f;
 
     /// @inheritdoc IErc20Permit
     mapping(address => uint256) public override nonces;
 
     /// @inheritdoc IErc20Permit
-    string public override constant version = "1";
+    string public constant override version = "1";
 
     constructor(
         string memory _name,

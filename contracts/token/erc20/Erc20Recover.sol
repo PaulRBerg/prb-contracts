@@ -10,10 +10,7 @@ import "./SafeErc20.sol";
 /// @author Paul Razvan Berg
 /// @notice Gives the administrator the ability to recover the Erc20 tokens that
 /// had been sent (accidentally, or not) to the contract.
-abstract contract Erc20Recover is
-    IErc20Recover,
-    Admin
-{
+abstract contract Erc20Recover is IErc20Recover, Admin {
     using SafeErc20 for IErc20;
 
     /// @inheritdoc IErc20Recover

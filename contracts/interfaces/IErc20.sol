@@ -19,7 +19,6 @@ interface IErc20 {
     /// @param amount The amount of tokens transferred.
     event Transfer(address indexed from, address indexed to, uint256 amount);
 
-
     /// NON-CONSTANT FUNCTIONS ///
 
     /// @notice Sets `amount` as the allowance of `spender` over the caller's tokens.
@@ -94,7 +93,6 @@ interface IErc20 {
         address recipient,
         uint256 amount
     ) external returns (bool);
-
 
     /// CONSTANT FUNCTIONS ///
 

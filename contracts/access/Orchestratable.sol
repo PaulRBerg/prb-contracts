@@ -27,8 +27,7 @@ contract Orchestratable is
     address public override conductor;
 
     /// @inheritdoc IOrchestratable
-    mapping (address => mapping (bytes4 => bool)) public override orchestration;
-
+    mapping(address => mapping(bytes4 => bool)) public override orchestration;
 
     /// @notice Restricts usage to authorized accounts.
     modifier onlyOrchestrated() {

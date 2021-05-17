@@ -36,7 +36,6 @@ interface IErc20Permit is IErc20 {
         bytes32 s
     ) external;
 
-
     /// CONSTANT FUNCTIONS ///
 
     /// @notice The Eip712 domain's keccak256 hash.

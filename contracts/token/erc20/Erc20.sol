@@ -35,10 +35,10 @@ contract Erc20 is IErc20 {
     uint256 public override totalSupply;
 
     /// @inheritdoc IErc20
-    mapping (address => uint256) public override balanceOf;
+    mapping(address => uint256) public override balanceOf;
 
     /// @inheritdoc IErc20
-    mapping (address => mapping (address => uint256)) public override allowance;
+    mapping(address => mapping(address => uint256)) public override allowance;
 
     /// @notice All three of these values are immutable: they can only be set once during construction.
     /// @param _name Erc20 name of this token.
@@ -61,14 +61,14 @@ contract Erc20 is IErc20 {
     }
 
     /// @inheritdoc IErc20
-    function decreaseAllowance(address spender, uint256 subtractedValue) external override virtual returns (bool) {
+    function decreaseAllowance(address spender, uint256 subtractedValue) external virtual override returns (bool) {
         uint256 newAllowance = allowance[msg.sender][spender] - subtractedValue;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
 
     /// @inheritdoc IErc20
-    function increaseAllowance(address spender, uint256 addedValue) external override virtual returns (bool) {
+    function increaseAllowance(address spender, uint256 addedValue) external virtual override returns (bool) {
         uint256 newAllowance = allowance[msg.sender][spender] + addedValue;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
@@ -93,7 +93,6 @@ contract Erc20 is IErc20 {
         approveInternal(sender, msg.sender, currentAllowance);
         return true;
     }
-
 
     /// INTERNAL FUNCTIONS ///
 
