@@ -51,7 +51,7 @@ contract MyToken is Erc20, Erc20Permit {
     string memory name_,
     string memory symbol_,
     uint8 decimals_
-  ) Erc20(name_, symbol_, decimals_) {}
+  ) Erc20Permit(name_, symbol_, decimals_) {}
 }
 
 ```
