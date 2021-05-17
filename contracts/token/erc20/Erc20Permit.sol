@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: WTFPL
+// solhint-disable var-name-mixedcase
 pragma solidity >=0.8.0;
 
 import "./Erc20.sol";

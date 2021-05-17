@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: WTFPL
-// solhint-disable var-name-mixedcase
+// solhint-disable func-name-mixedcase
 pragma solidity >=0.8.0;
 
 import "./IErc20.sol";
