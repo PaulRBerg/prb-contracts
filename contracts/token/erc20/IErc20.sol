@@ -96,6 +96,15 @@ interface IErc20 {
 
     /// CONSTANT FUNCTIONS ///
 
+    /// @notice Returns the remaining number of tokens that `spender` will be allowed to spend
+    /// on behalf of `owner` through {transferFrom}. This is zero by default.
+    ///
+    /// @dev This value changes when {approve} or {transferFrom} are called.
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /// @notice Returns the amount of tokens owned by `account`.
+    function balanceOf(address account) external view returns (uint256);
+
     /// @notice Returns the number of decimals used to get its user representation.
     function decimals() external view returns (uint8);
 
@@ -107,13 +116,4 @@ interface IErc20 {
 
     /// @notice Returns the amount of tokens in existence.
     function totalSupply() external view returns (uint256);
-
-    /// @notice Returns the remaining number of tokens that `spender` will be allowed to spend
-    /// on behalf of `owner` through {transferFrom}. This is zero by default.
-    ///
-    /// This value changes when {approve} or {transferFrom} are called.
-    function allowance(address owner, address spender) external view returns (uint256);
-
-    /// @notice Returns the amount of tokens owned by `account`.
-    function balanceOf(address account) external view returns (uint256);
 }

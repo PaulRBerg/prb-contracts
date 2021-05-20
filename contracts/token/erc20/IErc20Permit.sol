@@ -41,11 +41,11 @@ interface IErc20Permit is IErc20 {
     /// @notice The Eip712 domain's keccak256 hash.
     function DOMAIN_SEPARATOR() external view returns (bytes32);
 
-    /// @notice keccak256("Permit(address owner,address spender,uint256 amount,uint256 nonce,uint256 deadline)");
-    function PERMIT_TYPEHASH() external view returns (bytes32);
-
     /// @notice Provides replay protection.
     function nonces(address account) external view returns (uint256);
+
+    /// @notice keccak256("Permit(address owner,address spender,uint256 amount,uint256 nonce,uint256 deadline)");
+    function PERMIT_TYPEHASH() external view returns (bytes32);
 
     /// @notice Eip712 version of this implementation.
     function version() external view returns (string memory);
