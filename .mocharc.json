@@ -1,5 +1,0 @@
-{
-  "extension": ["ts"],
-  "recursive": "test",
-  "require": ["hardhat/register"]
-}
