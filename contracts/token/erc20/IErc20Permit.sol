@@ -5,8 +5,11 @@ pragma solidity >=0.8.0;
 import "./IErc20.sol";
 
 /// @title IErc20Permit
-/// @notice Interface adhering to the Erc20 standard with an additional permit function
 /// @author Paul Razvan Berg
+/// @notice Extension of Erc20 that allows token holders to use their tokens without sending any
+/// transactions by setting the allowance with a signature using the `permit` method, and then spend
+/// them via `transferFrom`.
+/// @dev See https://eips.ethereum.org/EIPS/eip-2612.
 interface IErc20Permit is IErc20 {
     /// NON-CONSTANT FUNCTIONS ///
 

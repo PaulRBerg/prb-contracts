@@ -8,8 +8,6 @@ import "../../access/Admin.sol";
 
 /// @title Erc20Recover
 /// @author Paul Razvan Berg
-/// @notice Contract that gives the administrator the ability to recover the Erc20 tokens that were sent
-/// (accidentally, or not) to the contract.
 abstract contract Erc20Recover is
     Admin, // one dependency
     IErc20Recover // two dependencies

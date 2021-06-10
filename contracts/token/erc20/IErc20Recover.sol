@@ -7,7 +7,8 @@ import "../../access/IAdmin.sol";
 
 /// @title IErc20Recover
 /// @author Paul Razvan Berg
-/// @notice Interface for the Erc20Recover contract
+/// @notice Contract that gives the administrator the ability to recover the Erc20 tokens that were sent
+/// (accidentally, or not) to the contract.
 interface IErc20Recover is IAdmin {
     /// EVENTS ///
 

@@ -5,17 +5,6 @@ import "./IAdmin.sol";
 
 /// @title Admin
 /// @author Paul Razvan Berg
-/// @notice Contract module which provides a basic access control mechanism, where there is an
-/// account (an admin) that can be granted exclusive access to specific functions.
-///
-/// By default, the admin account will be the one that deploys the contract. This can later be
-/// changed with {transferAdmin}.
-///
-/// This module is used through inheritance. It will make available the modifier `onlyAdmin`,
-/// which can be applied to your functions to restrict their use to the admin.
-///
-/// @dev Forked from OpenZeppelin
-/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/access/Ownable.sol
 contract Admin is IAdmin {
     /// @inheritdoc IAdmin
     address public override admin;

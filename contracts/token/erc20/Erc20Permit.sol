@@ -7,10 +7,6 @@ import "./IErc20Permit.sol";
 
 /// @title Erc20Permit
 /// @author Paul Razvan Berg
-/// @notice Extension of Erc20 that allows token holders to use their tokens without sending any
-/// transactions by setting the allowance with a signature using the `permit` method, and then spend
-/// them via `transferFrom`.
-/// @dev See https://eips.ethereum.org/EIPS/eip-2612.
 contract Erc20Permit is
     IErc20Permit, // one dependency
     Erc20 // one dependency

@@ -3,7 +3,22 @@ pragma solidity >=0.8.0;
 
 /// @title IErc20
 /// @author Paul Razvan Berg
-/// @notice Interface adhering to the Erc20 standard
+/// @notice Implementation for the Erc20 standard.
+///
+/// We have followed general OpenZeppelin guidelines: functions revert instead of returning
+/// `false` on failure. This behavior is nonetheless conventional and does not conflict with
+/// the with the expectations of Erc20 applications.
+///
+/// Additionally, an {Approval} event is emitted on calls to {transferFrom}. This allows
+/// applications to reconstruct the allowance for all accounts just by listening to said
+/// events. Other implementations of the Erc may not emit these events, as it isn't
+/// required by the specification.
+///
+/// Finally, the non-standard {decreaseAllowance} and {increaseAllowance} functions have been
+/// added to mitigate the well-known issues around setting allowances.
+///
+/// @dev Forked from OpenZeppelin
+/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/token/ERC20/ERC20.sol
 interface IErc20 {
     /// EVENTS ///
 
