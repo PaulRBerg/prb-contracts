@@ -14,13 +14,5 @@
   },
   "exclude": ["artifacts", "node_modules"],
   "files": ["./hardhat.config.ts"],
-  "include": [
-    "artifacts/**/*",
-    "artifacts/**/*.json",
-    "helpers/**/*",
-    "scripts/**/*",
-    "test/**/*",
-    "typechain/**/*",
-    "types/**/*"
-  ]
+  "include": ["artifacts/**/*", "artifacts/**/*.json", "helpers/**/*", "test/**/*", "typechain/**/*", "types/**/*"]
 }

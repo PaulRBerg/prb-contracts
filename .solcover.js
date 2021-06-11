@@ -19,5 +19,5 @@ module.exports = {
   providerOptions: {
     mnemonic,
   },
-  skipFiles: ["mocks", "test"],
+  skipFiles: ["access/Admin.sol", "access/IAdmin.sol", "mocks", "test"],
 };
