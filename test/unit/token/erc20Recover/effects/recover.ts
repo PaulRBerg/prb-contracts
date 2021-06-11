@@ -3,12 +3,12 @@ import { Zero } from "@ethersproject/constants";
 import { expect } from "chai";
 
 import { oneHundredTokens } from "../../../../../helpers/constants";
-import { AdminErrors, Erc20RecoverErrors, GenericErrors } from "../../../../../helpers/errors";
+import { Erc20RecoverErrors, GenericErrors, OwnableErrors } from "../../../../../helpers/errors";
 
 export default function shouldBehaveLikeRecover(): void {
   const recoverAmount: BigNumber = oneHundredTokens;
 
-  describe("when the caller is the administrator", function () {
+  describe("when the caller is the owner", function () {
     describe("when the contract was initialized", function () {
       beforeEach(async function () {
         const mainTokenAddress: string = this.stubs.mainToken.address;
@@ -88,13 +88,13 @@ export default function shouldBehaveLikeRecover(): void {
     });
   });
 
-  describe("when the caller is not the administrator", function () {
+  describe("when the caller is not the owner", function () {
     it("reverts", async function () {
       await expect(
         this.contracts.erc20Recover
           .connect(this.signers.eve)
           ._recover(this.stubs.thirdPartyToken.address, recoverAmount),
-      ).to.be.revertedWith(AdminErrors.NotAdmin);
+      ).to.be.revertedWith(OwnableErrors.NotOwner);
     });
   });
 }

@@ -7,14 +7,6 @@ import { Artifact } from "hardhat/types";
 const artifactsDir: string = path.join(__dirname, "..", "artifacts");
 const contracts = [
   {
-    hasTypes: true,
-    name: "Admin",
-  },
-  {
-    hasTypes: true,
-    name: "AdminInterface",
-  },
-  {
     hasTypes: false,
     name: "Address",
   },
@@ -48,11 +40,19 @@ const contracts = [
   },
   {
     hasTypes: true,
+    name: "IOwnable",
+  },
+  {
+    hasTypes: true,
     name: "Orchestratable",
   },
   {
     hasTypes: true,
     name: "OrchestratableInterface",
+  },
+  {
+    hasTypes: true,
+    name: "Ownable",
   },
   {
     hasTypes: true,

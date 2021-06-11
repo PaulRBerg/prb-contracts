@@ -4,12 +4,12 @@ pragma solidity >=0.8.0;
 import "./IErc20.sol";
 import "./IErc20Recover.sol";
 import "./SafeErc20.sol";
-import "../../access/Admin.sol";
+import "../../access/Ownable.sol";
 
 /// @title Erc20Recover
 /// @author Paul Razvan Berg
 abstract contract Erc20Recover is
-    Admin, // one dependency
+    Ownable, // one dependency
     IErc20Recover // two dependencies
 {
     using SafeErc20 for IErc20;
@@ -21,7 +21,7 @@ abstract contract Erc20Recover is
     bool internal isRecoverInitialized;
 
     /// @inheritdoc IErc20Recover
-    function _setNonRecoverableTokens(IErc20[] calldata tokens) external override onlyAdmin {
+    function _setNonRecoverableTokens(IErc20[] calldata tokens) external override onlyOwner {
         // Checks
         require(isRecoverInitialized == false, "INITALIZED");
 
@@ -35,11 +35,11 @@ abstract contract Erc20Recover is
         // Effects: prevent this function from ever being called again.
         isRecoverInitialized = true;
 
-        emit SetNonRecoverableTokens(admin, tokens);
+        emit SetNonRecoverableTokens(owner, tokens);
     }
 
     /// @inheritdoc IErc20Recover
-    function _recover(IErc20 token, uint256 recoverAmount) external override onlyAdmin {
+    function _recover(IErc20 token, uint256 recoverAmount) external override onlyOwner {
         // Checks
         require(isRecoverInitialized == true, "NOT_INITALIZED");
         require(recoverAmount > 0, "RECOVER_ZERO");
@@ -63,8 +63,8 @@ abstract contract Erc20Recover is
         }
 
         // Interactions
-        token.safeTransfer(admin, recoverAmount);
+        token.safeTransfer(owner, recoverAmount);
 
-        emit Recover(admin, token, recoverAmount);
+        emit Recover(owner, token, recoverAmount);
     }
 }

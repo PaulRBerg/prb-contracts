@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
-import "./Admin.sol";
+import "./Ownable.sol";
 import "./IOrchestratable.sol";
 
 /// @title Orchestratable
 /// @author Paul Razvan Berg
 contract Orchestratable is
     IOrchestratable, // one dependency
-    Admin /// one dependency
+    Ownable /// one dependency
 {
     /// @inheritdoc IOrchestratable
     address public override conductor;
@@ -23,7 +23,7 @@ contract Orchestratable is
     }
 
     /// @inheritdoc IOrchestratable
-    function _orchestrate(address account, bytes4 signature) external override onlyAdmin {
+    function _orchestrate(address account, bytes4 signature) external override onlyOwner {
         orchestration[account][signature] = true;
         emit GrantAccess(account);
     }

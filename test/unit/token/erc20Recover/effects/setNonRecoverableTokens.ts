@@ -1,10 +1,10 @@
 import { AddressZero } from "@ethersproject/constants";
 import { expect } from "chai";
 
-import { AdminErrors, GenericErrors } from "../../../../../helpers/errors";
+import { GenericErrors, OwnableErrors } from "../../../../../helpers/errors";
 
 export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
-  describe("when the caller is the administrator", function () {
+  describe("when the caller is the owner", function () {
     describe("when the contract was not initialized", function () {
       describe("when the tokens are compliant", function () {
         it("sets the non-recoverable tokens", async function () {
@@ -53,11 +53,11 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
     });
   });
 
-  describe("when the caller is not the administrator", function () {
+  describe("when the caller is not the owner", function () {
     it("reverts", async function () {
       await expect(
         this.contracts.erc20Recover.connect(this.signers.eve)._setNonRecoverableTokens([AddressZero]),
-      ).to.be.revertedWith(AdminErrors.NotAdmin);
+      ).to.be.revertedWith(OwnableErrors.NotOwner);
     });
   });
 }

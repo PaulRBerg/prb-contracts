@@ -1,7 +1,3 @@
-export enum AdminErrors {
-  NotAdmin = "NOT_ADMIN",
-}
-
 export enum Erc20PermitErrors {
   Expired = "ERC20_PERMIT_EXPIRED",
   InvalidSignature = "ERC20_PERMIT_INVALID_SIGNATURE",
@@ -18,4 +14,8 @@ export enum Erc20RecoverErrors {
 export enum GenericErrors {
   Initialized = "INITALIZED",
   NotInitialized = "NOT_INITALIZED",
+}
+
+export enum OwnableErrors {
+  NotOwner = "NOT_OWNER",
 }

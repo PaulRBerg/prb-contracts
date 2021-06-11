@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity >=0.8.0;
 
-import "./IAdmin.sol";
+import "./IOwnable.sol";
 
 /// @title IOrchestratable
 /// @author Paul Razvan Berg
@@ -18,7 +18,7 @@ import "./IAdmin.sol";
 ///
 /// @dev Forked from Alberto Cuesta Cañada
 /// https://github.com/albertocuestacanada/Orchestrated/blob/b0adb21/contracts/Orchestrated.sol
-interface IOrchestratable is IAdmin {
+interface IOrchestratable is IOwnable {
     /// EVENTS ///
 
     /// @notice Emitted when access is granted to a new address.
