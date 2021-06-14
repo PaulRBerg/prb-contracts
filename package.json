@@ -1,8 +1,8 @@
 {
   "name": "paulrberg-contracts",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "dependencies": {
-    "prb-math": "^1.1.0"
+    "prb-math": "^2.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -64,7 +64,7 @@
     }
   },
   "peerDependencies": {
-    "prb-math": "^1.1.0"
+    "prb-math": "^2.0.0"
   },
   "private": true,
   "resolutions": {

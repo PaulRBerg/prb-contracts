@@ -13,7 +13,7 @@ pragma solidity >=0.8.0;
 /// `external` `nonReentrant` entry points to them.
 ///
 /// @dev Forked from OpenZeppelin
-/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.1.0/contracts/math/ReentrancyGuard.sol
+/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/utils/ReentrancyGuard.sol
 abstract contract ReentrancyGuard {
     bool private notEntered;
 

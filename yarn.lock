@@ -11256,7 +11256,7 @@ fsevents@~2.3.1:
     import-sort-style-module: ^6.0.0
     lint-staged: ^11.0.0
     mocha: ^8.4.0
-    prb-math: ^1.1.0
+    prb-math: ^2.0.0
     prettier: ^2.3.0
     prettier-plugin-solidity: ^1.0.0-beta.10
     shelljs: ^0.8.4
@@ -11268,7 +11268,7 @@ fsevents@~2.3.1:
     typechain: ^5.0.0
     typescript: ~4.2.4
   peerDependencies:
-    prb-math: ^1.1.0
+    prb-math: ^2.0.0
   languageName: unknown
   linkType: soft
 
@@ -11372,10 +11372,10 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"prb-math@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "prb-math@npm:1.1.0"
-  checksum: 8470a19cab9faafbb0f35974132df8f4915b84486ea63ba10bde22ce9c8f3755064370ffb5a288923e7c3c11f4db40d4a475e46fec6e9d88d64401070855e01d
+"prb-math@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "prb-math@npm:2.0.0"
+  checksum: 09d7426b428880b4fa1393b457feb261d6fbb84765abcec6d8ab31d989be47886af2f093aba75c3783389f9198bd5fba9492cec7b77a770435c61c93bd4d6234
   languageName: node
   linkType: hard
 
