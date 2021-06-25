@@ -1,14 +1,17 @@
 // SPDX-License-Identifier: WTFPL
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.4;
 
 import "./Ownable.sol";
 import "./IOrchestratable.sol";
+
+/// @notice Emitted when the caller is not an orchestrated address.
+error NotOrchestrated(address caller, bytes4 signature);
 
 /// @title Orchestratable
 /// @author Paul Razvan Berg
 contract Orchestratable is
     IOrchestratable, // one dependency
-    Ownable /// one dependency
+    Ownable // one dependency
 {
     /// @inheritdoc IOrchestratable
     address public override conductor;
@@ -18,7 +21,9 @@ contract Orchestratable is
 
     /// @notice Restricts usage to authorized accounts.
     modifier onlyOrchestrated() {
-        require(orchestration[msg.sender][msg.sig], "NOT_ORCHESTRATED");
+        if (!orchestration[msg.sender][msg.sig]) {
+            revert NotOrchestrated(msg.sender, msg.sig);
+        }
         _;
     }
 

@@ -1,4 +1,4 @@
-import { erc20RecoverFixture } from "../../fixtures";
+import { erc20RecoverFixture } from "../../../shared/fixtures";
 import { shouldBehaveLikeErc20Recover } from "./Erc20Recover.behavior";
 
 export function testErc20Recover(): void {

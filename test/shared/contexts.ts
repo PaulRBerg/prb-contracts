@@ -3,7 +3,7 @@ import { Wallet } from "@ethersproject/wallet";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { ethers, waffle } from "hardhat";
 
-import { Contracts, Signers, Stubs } from "../types/index";
+import { Contracts, Signers, Stubs } from "../../types/index";
 
 const { createFixtureLoader } = waffle;
 

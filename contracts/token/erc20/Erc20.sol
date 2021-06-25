@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: WTFPL
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.4;
 
 import "./IErc20.sol";
 
 /// @title Erc20
 /// @author Paul Razvan Berg
 contract Erc20 is IErc20 {
+    /// PUBLIC STORAGE ///
+
     /// @inheritdoc IErc20
     string public override name;
 
@@ -24,6 +26,8 @@ contract Erc20 is IErc20 {
     /// @inheritdoc IErc20
     mapping(address => mapping(address => uint256)) public override allowance;
 
+    /// CONSTRUCTOR ///
+
     /// @notice All three of these values are immutable: they can only be set once during construction.
     /// @param _name Erc20 name of this token.
     /// @param _symbol Erc20 symbol of this token.
@@ -37,6 +41,8 @@ contract Erc20 is IErc20 {
         symbol = _symbol;
         decimals = _decimals;
     }
+
+    /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IErc20
     function approve(address spender, uint256 amount) external virtual override returns (bool) {
@@ -78,7 +84,7 @@ contract Erc20 is IErc20 {
         return true;
     }
 
-    /// INTERNAL FUNCTIONS ///
+    /// INTERNAL NON-CONSTANT FUNCTIONS ///
 
     /// @notice Sets `amount` as the allowance of `spender` over the `owner`s tokens.
     ///

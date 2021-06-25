@@ -1,6 +1,6 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { MockContract } from "ethereum-waffle";
-import hre from "hardhat";
+import { artifacts, waffle } from "hardhat";
 import { Artifact } from "hardhat/types";
 
 import { defaultNumberOfDecimals, erc20PermitConstants } from "../../helpers/constants";
@@ -8,24 +8,20 @@ import { Erc20Permit } from "../../typechain/Erc20Permit";
 import { GodModeErc20Recover as Erc20Recover } from "../../typechain/GodModeErc20Recover";
 import { deployStubErc20 } from "./stubs";
 
-const { deployContract } = hre.waffle;
+const { deployContract } = waffle;
 
 export async function erc20PermitFixture(signers: SignerWithAddress[]): Promise<{ erc20Permit: Erc20Permit }> {
   const deployer: SignerWithAddress = signers[0];
+
   const name: string = erc20PermitConstants.name;
   const symbol: string = erc20PermitConstants.symbol;
   const decimals = erc20PermitConstants.decimals;
 
-  const erc20PermitArtifact: Artifact = await hre.artifacts.readArtifact("Erc20Permit");
+  const erc20PermitArtifact: Artifact = await artifacts.readArtifact("Erc20Permit");
   const erc20Permit: Erc20Permit = <Erc20Permit>(
     await deployContract(deployer, erc20PermitArtifact, [name, symbol, decimals])
   );
   return { erc20Permit };
-}
-
-export async function orchestratableFixture(signers: SignerWithAddress[]): Promise<{ mainToken: string }> {
-  signers;
-  return { mainToken: "" };
 }
 
 export async function erc20RecoverFixture(
@@ -40,7 +36,12 @@ export async function erc20RecoverFixture(
     "TPT",
   );
 
-  const godModeErc20Recover: Artifact = await hre.artifacts.readArtifact("GodModeErc20Recover");
+  const godModeErc20Recover: Artifact = await artifacts.readArtifact("GodModeErc20Recover");
+  try {
+    await deployContract(deployer, godModeErc20Recover, []);
+  } catch (error) {
+    console.log({ error });
+  }
   const erc20Recover: Erc20Recover = <Erc20Recover>await deployContract(deployer, godModeErc20Recover, []);
   return { erc20Recover, mainToken, thirdPartyToken };
 }

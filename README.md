@@ -2,7 +2,7 @@
 
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
-- Designed for Solidity >=0.8.0
+- Designed for Solidity >=0.8.4
 - Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
 - Promotes [PRBMath](https://github.com/hifi-finance/prb-math) as a good choice for a fixed-point math library for
   Solidity
@@ -38,7 +38,7 @@ newer minor version of `@paulrberg/contracts`.
 Once installed, you can use the contracts like this:
 
 ```solidity
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.4;
 
 import "@paulrberg/contracts/math/PRBMathUD60x18.sol";
 import "@paulrberg/contracts/token/erc20/Erc20.sol";

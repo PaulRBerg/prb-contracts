@@ -1,4 +1,4 @@
-import { erc20PermitFixture } from "../../fixtures";
+import { erc20PermitFixture } from "../../../shared/fixtures";
 import { shouldBehaveLikeErc20Permit } from "./Erc20Permit.behavior";
 
 export function testErc20Permit(): void {

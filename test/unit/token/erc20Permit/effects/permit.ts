@@ -7,7 +7,7 @@ import hre from "hardhat";
 
 import { bobPrivateKey, chainIds } from "../../../../../helpers/constants";
 import { getPermitDigest } from "../../../../../helpers/eip2612";
-import { Erc20PermitErrors } from "../../../../../helpers/errors";
+import { Erc20PermitErrors } from "../../../../shared/errors";
 
 const allowanceAmount: BigNumber = BigNumber.from(100);
 const dummySignature: { v: BigNumber; r: string; s: string } = {
@@ -150,7 +150,7 @@ export default function shouldBehaveLikePermit(): void {
             this.contracts.erc20Permit
               .connect(this.signers.alice)
               .permit(owner, spender, allowanceAmount, deadline, signature.v, signature.r, signature.s),
-          ).to.be.revertedWith(Erc20PermitErrors.Expired);
+          ).to.be.revertedWith(Erc20PermitErrors.PermitExpired);
         });
       });
     });

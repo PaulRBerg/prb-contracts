@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: WTFPL
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.4;
 
 /// @title NonStandardErc20
 /// @author Paul Razvan Berg

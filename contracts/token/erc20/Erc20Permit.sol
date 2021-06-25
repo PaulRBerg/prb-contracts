@@ -1,9 +1,24 @@
 // SPDX-License-Identifier: WTFPL
 // solhint-disable var-name-mixedcase
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.4;
 
 import "./Erc20.sol";
 import "./IErc20Permit.sol";
+
+/// @notice Emitted when the recovered owner does not match the actual owner.
+error InvalidSignature(uint8 v, bytes32 r, bytes32 s);
+
+/// @notice Emitted when the owner is the zero address.
+error OwnerZeroAddress();
+
+/// @notice Emitted when the permit expired.
+error PermitExpired(uint256 deadline);
+
+/// @notice Emitted when the recovered owner is the zero address.
+error RecoveredOwnerZeroAddress();
+
+/// @notice Emitted when the spender is the zero address.
+error SpenderZeroAddress();
 
 /// @title Erc20Permit
 /// @author Paul Razvan Berg
@@ -11,6 +26,8 @@ contract Erc20Permit is
     IErc20Permit, // one dependency
     Erc20 // one dependency
 {
+    /// PUBLIC STORAGE ///
+
     /// @inheritdoc IErc20Permit
     bytes32 public immutable override DOMAIN_SEPARATOR;
 
@@ -23,6 +40,8 @@ contract Erc20Permit is
 
     /// @inheritdoc IErc20Permit
     string public constant override version = "1";
+
+    /// CONSTRUCTOR ///
 
     constructor(
         string memory _name,
@@ -45,6 +64,8 @@ contract Erc20Permit is
         );
     }
 
+    /// PUBLIC NON-CONSTANT FUNCTIONS ///
+
     /// @inheritdoc IErc20Permit
     function permit(
         address owner,
@@ -55,17 +76,27 @@ contract Erc20Permit is
         bytes32 r,
         bytes32 s
     ) external override {
-        require(owner != address(0), "ERC20_PERMIT_OWNER_ZERO_ADDRESS");
-        require(spender != address(0), "ERC20_PERMIT_SPENDER_ZERO_ADDRESS");
-        require(deadline >= block.timestamp, "ERC20_PERMIT_EXPIRED");
+        if (owner == address(0)) {
+            revert OwnerZeroAddress();
+        }
+        if (spender == address(0)) {
+            revert SpenderZeroAddress();
+        }
+        if (deadline < block.timestamp) {
+            revert PermitExpired(deadline);
+        }
 
         // It's safe to use the "+" operator here because the nonce cannot realistically overflow, ever.
         bytes32 hashStruct = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, amount, nonces[owner]++, deadline));
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, hashStruct));
         address recoveredOwner = ecrecover(digest, v, r, s);
 
-        require(recoveredOwner != address(0), "ERC20_PERMIT_RECOVERED_OWNER_ZERO_ADDRESS");
-        require(recoveredOwner == owner, "ERC20_PERMIT_INVALID_SIGNATURE");
+        if (recoveredOwner == address(0)) {
+            revert RecoveredOwnerZeroAddress();
+        }
+        if (recoveredOwner != owner) {
+            revert InvalidSignature(v, r, s);
+        }
 
         approveInternal(owner, spender, amount);
     }

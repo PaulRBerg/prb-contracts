@@ -1,7 +1,7 @@
 import { AddressZero } from "@ethersproject/constants";
 import { expect } from "chai";
 
-import { GenericErrors, OwnableErrors } from "../../../../../helpers/errors";
+import { GenericErrors, OwnableErrors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
   describe("when the caller is the owner", function () {

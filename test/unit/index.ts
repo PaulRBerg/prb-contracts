@@ -1,4 +1,4 @@
-import { baseContext } from "../contexts";
+import { baseContext } from "../shared/contexts";
 import { testErc20Permit } from "./token/erc20Permit/Erc20Permit";
 import { testErc20Recover } from "./token/erc20Recover/Erc20Recover";
 

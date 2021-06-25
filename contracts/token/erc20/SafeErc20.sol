@@ -1,8 +1,14 @@
 // SPDX-License-Identifier: WTFPL
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.4;
 
 import "./IErc20.sol";
 import "../../utils/Address.sol";
+
+/// @notice Emitted when the call is made to a non-contract.
+error CallToNonContract(address target);
+
+/// @notice Emitted when there is no return data.
+error NoReturnData();
 
 /// @title SafeErc20.sol
 /// @author Paul Razvan Berg
@@ -47,10 +53,12 @@ library SafeErc20 {
         // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
         // we're implementing it ourselves. We use {Address.functionCall} to perform this call, which verifies that
         // the target address contains contract code and also asserts for success in the low-level call.
-        bytes memory returndata = functionCall(address(token), data, "SAFE_ERC20_LOW_LEVEL_CALL");
+        bytes memory returndata = functionCall(address(token), data, "SafeErc20LowLevelCall");
         if (returndata.length > 0) {
             // Return data is optional.
-            require(abi.decode(returndata, (bool)), "SAFE_ERC20_ERC20_OPERATION");
+            if (!abi.decode(returndata, (bool))) {
+                revert NoReturnData();
+            }
         }
     }
 
@@ -59,7 +67,9 @@ library SafeErc20 {
         bytes memory data,
         string memory errorMessage
     ) private returns (bytes memory) {
-        require(target.isContract(), "SAFE_ERC20_CALL_TO_NON_CONTRACT");
+        if (!target.isContract()) {
+            revert CallToNonContract(target);
+        }
 
         // solhint-disable-next-line avoid-low-level-calls
         (bool success, bytes memory returndata) = target.call(data);

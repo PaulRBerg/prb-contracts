@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: WTFPL
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.4;
 
 import "./Erc20.sol";
 
@@ -24,7 +24,7 @@ contract GodModeErc20 is Erc20 {
         // solhint-disable-previous-line no-empty-blocks
     }
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
     /// @notice Destroys `burnAmount` tokens from `holder`, reducing the token supply.
     /// @param holder The account whose tokens to burn.

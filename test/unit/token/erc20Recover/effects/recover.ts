@@ -3,7 +3,7 @@ import { Zero } from "@ethersproject/constants";
 import { expect } from "chai";
 
 import { oneHundredTokens } from "../../../../../helpers/constants";
-import { Erc20RecoverErrors, GenericErrors, OwnableErrors } from "../../../../../helpers/errors";
+import { Erc20RecoverErrors, GenericErrors, OwnableErrors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeRecover(): void {
   const recoverAmount: BigNumber = oneHundredTokens;
@@ -47,7 +47,7 @@ export default function shouldBehaveLikeRecover(): void {
                 this.contracts.erc20Recover
                   .connect(this.signers.alice)
                   ._recover(this.stubs.mainToken.address, recoverAmount),
-              ).to.be.revertedWith(Erc20RecoverErrors.RecoverNonRecoverableToken);
+              ).to.be.revertedWith(Erc20RecoverErrors.NonRecoverableToken);
             });
           });
 
@@ -62,7 +62,7 @@ export default function shouldBehaveLikeRecover(): void {
                 this.contracts.erc20Recover
                   .connect(this.signers.alice)
                   ._recover(this.stubs.thirdPartyToken.address, recoverAmount),
-              ).to.be.revertedWith(Erc20RecoverErrors.RecoverNonRecoverableToken);
+              ).to.be.revertedWith(Erc20RecoverErrors.NonRecoverableToken);
             });
           });
         });
