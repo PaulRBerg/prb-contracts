@@ -10,20 +10,22 @@ import { config as dotenvConfig } from "dotenv";
 import { HardhatUserConfig } from "hardhat/config";
 import { NetworkUserConfig } from "hardhat/types";
 
-import { chainIds } from "./helpers/constants";
+import { getEnvVar } from "./helpers/env";
 
 dotenvConfig({ path: resolve(__dirname, "./.env") });
 
-// Ensure that we have all the environment variables we need.
-const mnemonic: string | undefined = process.env.MNEMONIC;
-if (!mnemonic) {
-  throw new Error("Please set your MNEMONIC in a .env file");
-}
+const chainIds = {
+  hardhat: 31337,
+  goerli: 5,
+  kovan: 42,
+  mainnet: 1,
+  rinkeby: 4,
+  ropsten: 3,
+};
 
-const infuraApiKey: string | undefined = process.env.INFURA_API_KEY;
-if (!infuraApiKey) {
-  throw new Error("Please set your INFURA_API_KEY in a .env file");
-}
+// Ensure that we have all the environment variables we need.
+const mnemonic: string | undefined = getEnvVar("MNEMONIC");
+const infuraApiKey: string | undefined = getEnvVar("INFURA_API_KEY");
 
 function createTestnetConfig(network: keyof typeof chainIds): NetworkUserConfig {
   const url: string = "https://" + network + ".infura.io/v3/" + infuraApiKey;

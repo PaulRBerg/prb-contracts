@@ -3,7 +3,12 @@ import { MockContract } from "ethereum-waffle";
 import { artifacts, waffle } from "hardhat";
 import { Artifact } from "hardhat/types";
 
-import { defaultNumberOfDecimals, erc20PermitConstants } from "../../helpers/constants";
+import {
+  DEFAULT_DECIMALS,
+  ERC20_PERMIT_DECIMALS,
+  ERC20_PERMIT_NAME,
+  ERC20_PERMIT_SYMBOL,
+} from "../../helpers/constants";
 import { Erc20Permit } from "../../typechain/Erc20Permit";
 import { GodModeErc20Recover as Erc20Recover } from "../../typechain/GodModeErc20Recover";
 import { deployStubErc20 } from "./stubs";
@@ -12,14 +17,9 @@ const { deployContract } = waffle;
 
 export async function erc20PermitFixture(signers: SignerWithAddress[]): Promise<{ erc20Permit: Erc20Permit }> {
   const deployer: SignerWithAddress = signers[0];
-
-  const name: string = erc20PermitConstants.name;
-  const symbol: string = erc20PermitConstants.symbol;
-  const decimals = erc20PermitConstants.decimals;
-
   const erc20PermitArtifact: Artifact = await artifacts.readArtifact("Erc20Permit");
   const erc20Permit: Erc20Permit = <Erc20Permit>(
-    await deployContract(deployer, erc20PermitArtifact, [name, symbol, decimals])
+    await deployContract(deployer, erc20PermitArtifact, [ERC20_PERMIT_NAME, ERC20_PERMIT_SYMBOL, ERC20_PERMIT_DECIMALS])
   );
   return { erc20Permit };
 }
@@ -28,20 +28,10 @@ export async function erc20RecoverFixture(
   signers: SignerWithAddress[],
 ): Promise<{ erc20Recover: Erc20Recover; mainToken: MockContract; thirdPartyToken: MockContract }> {
   const deployer: SignerWithAddress = signers[0];
-  const mainToken: MockContract = await deployStubErc20(deployer, defaultNumberOfDecimals, "Main Token", "MNT");
-  const thirdPartyToken: MockContract = await deployStubErc20(
-    deployer,
-    defaultNumberOfDecimals,
-    "Third-Party Token",
-    "TPT",
-  );
+  const mainToken: MockContract = await deployStubErc20(deployer, DEFAULT_DECIMALS, "Main Token", "MNT");
+  const thirdPartyToken: MockContract = await deployStubErc20(deployer, DEFAULT_DECIMALS, "Third-Party Token", "TPT");
 
   const godModeErc20Recover: Artifact = await artifacts.readArtifact("GodModeErc20Recover");
-  try {
-    await deployContract(deployer, godModeErc20Recover, []);
-  } catch (error) {
-    console.log({ error });
-  }
   const erc20Recover: Erc20Recover = <Erc20Recover>await deployContract(deployer, godModeErc20Recover, []);
   return { erc20Recover, mainToken, thirdPartyToken };
 }
