@@ -4,13 +4,12 @@
 
 - Designed for Solidity >=0.8.4
 - Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- Promotes [PRBMath](https://github.com/hifi-finance/prb-math) as a good choice for a fixed-point math library for
-  Solidity
+- Promotes [PRBMath](https://github.com/hifi-finance/prb-math) as a fixed-point math library for Solidity
 - Well-documented via NatSpec comments
-- Tested with Hardhat and Waffle
+- Thoroughly tested with Hardhat and Waffle
 
-I created this library for my own use,to avoid having to maintain the same contracts in different repositories. If
-you find it useful too, it's a win for the of us.
+I created this library for my own use, to avoid having to maintain the same contracts in different repositories. If you find
+it useful too, it's a win for both of us.
 
 ## Caveat Emptor
 
