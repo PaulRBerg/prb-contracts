@@ -6,8 +6,8 @@ export function testErc20Recover(): void {
     beforeEach(async function () {
       const { erc20Recover, mainToken, thirdPartyToken } = await this.loadFixture(erc20RecoverFixture);
       this.contracts.erc20Recover = erc20Recover;
-      this.stubs.mainToken = mainToken;
-      this.stubs.thirdPartyToken = thirdPartyToken;
+      this.mocks.mainToken = mainToken;
+      this.mocks.thirdPartyToken = thirdPartyToken;
     });
 
     shouldBehaveLikeErc20Recover();

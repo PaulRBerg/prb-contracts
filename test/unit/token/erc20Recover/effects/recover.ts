@@ -11,14 +11,14 @@ export default function shouldBehaveLikeRecover(): void {
   describe("when the caller is the owner", function () {
     describe("when the contract was initialized", function () {
       beforeEach(async function () {
-        const mainTokenAddress: string = this.stubs.mainToken.address;
+        const mainTokenAddress: string = this.mocks.mainToken.address;
         await this.contracts.erc20Recover._setNonRecoverableTokens([mainTokenAddress]);
       });
 
       describe("when the amount to recover is not zero", function () {
         describe("when the token is recoverable", function () {
           beforeEach(async function () {
-            await this.stubs.thirdPartyToken.mock.transfer
+            await this.mocks.thirdPartyToken.mock.transfer
               .withArgs(this.signers.alice.address, recoverAmount)
               .returns(true);
           });
@@ -26,17 +26,17 @@ export default function shouldBehaveLikeRecover(): void {
           it("recovers the tokens", async function () {
             await this.contracts.erc20Recover
               .connect(this.signers.alice)
-              ._recover(this.stubs.thirdPartyToken.address, recoverAmount);
+              ._recover(this.mocks.thirdPartyToken.address, recoverAmount);
           });
 
           it("emits a Recover event", async function () {
             await expect(
               this.contracts.erc20Recover
                 .connect(this.signers.alice)
-                ._recover(this.stubs.thirdPartyToken.address, recoverAmount),
+                ._recover(this.mocks.thirdPartyToken.address, recoverAmount),
             )
               .to.emit(this.contracts.erc20Recover, "Recover")
-              .withArgs(this.signers.alice.address, this.stubs.thirdPartyToken.address, recoverAmount);
+              .withArgs(this.signers.alice.address, this.mocks.thirdPartyToken.address, recoverAmount);
           });
         });
 
@@ -46,22 +46,22 @@ export default function shouldBehaveLikeRecover(): void {
               await expect(
                 this.contracts.erc20Recover
                   .connect(this.signers.alice)
-                  ._recover(this.stubs.mainToken.address, recoverAmount),
+                  ._recover(this.mocks.mainToken.address, recoverAmount),
               ).to.be.revertedWith(Erc20RecoverErrors.NonRecoverableToken);
             });
           });
 
           describe("when the token is not part of the non-recoverable array but has the same symbol", function () {
             beforeEach(async function () {
-              const collateralSymbol: string = await this.stubs.mainToken.symbol();
-              await this.stubs.thirdPartyToken.mock.symbol.returns(collateralSymbol);
+              const collateralSymbol: string = await this.mocks.mainToken.symbol();
+              await this.mocks.thirdPartyToken.mock.symbol.returns(collateralSymbol);
             });
 
             it("reverts", async function () {
               await expect(
                 this.contracts.erc20Recover
                   .connect(this.signers.alice)
-                  ._recover(this.stubs.thirdPartyToken.address, recoverAmount),
+                  ._recover(this.mocks.thirdPartyToken.address, recoverAmount),
               ).to.be.revertedWith(Erc20RecoverErrors.NonRecoverableToken);
             });
           });
@@ -71,7 +71,7 @@ export default function shouldBehaveLikeRecover(): void {
       describe("when the amount to recover is zero", function () {
         it("reverts", async function () {
           await expect(
-            this.contracts.erc20Recover.connect(this.signers.alice)._recover(this.stubs.thirdPartyToken.address, Zero),
+            this.contracts.erc20Recover.connect(this.signers.alice)._recover(this.mocks.thirdPartyToken.address, Zero),
           ).to.be.revertedWith(Erc20RecoverErrors.RecoverZero);
         });
       });
@@ -82,7 +82,7 @@ export default function shouldBehaveLikeRecover(): void {
         await expect(
           this.contracts.erc20Recover
             .connect(this.signers.alice)
-            ._recover(this.stubs.thirdPartyToken.address, recoverAmount),
+            ._recover(this.mocks.thirdPartyToken.address, recoverAmount),
         ).to.be.revertedWith(GenericErrors.NotInitialized);
       });
     });
@@ -93,7 +93,7 @@ export default function shouldBehaveLikeRecover(): void {
       await expect(
         this.contracts.erc20Recover
           .connect(this.signers.eve)
-          ._recover(this.stubs.thirdPartyToken.address, recoverAmount),
+          ._recover(this.mocks.thirdPartyToken.address, recoverAmount),
       ).to.be.revertedWith(OwnableErrors.NotOwner);
     });
   });

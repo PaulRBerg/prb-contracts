@@ -17,7 +17,7 @@ export interface Signers {
   eve: SignerWithAddress;
 }
 
-export interface Stubs {
+export interface Mocks {
   mainToken: MockContract;
   thirdPartyToken: MockContract;
 }

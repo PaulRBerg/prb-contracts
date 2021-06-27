@@ -10,7 +10,7 @@
     "url": "https://github.com/paulrberg/contracts/issues"
   },
   "dependencies": {
-    "prb-math": "^2.1.0"
+    "prb-math": "^2.2.0"
   },
   "files": [
     "**/*.sol",
@@ -27,7 +27,7 @@
   ],
   "license": "WTFPL",
   "peerDependencies": {
-    "prb-math": "^2.1.0"
+    "prb-math": "^2.2.0"
   },
   "publishConfig": {
     "access": "public"

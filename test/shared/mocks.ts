@@ -5,16 +5,16 @@ import { MockContract } from "ethereum-waffle";
 import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 
-const { deployMockContract: deployStubContract } = hre.waffle;
+const { deployMockContract } = hre.waffle;
 
-export async function deployStubErc20(
+export async function deployMockErc20(
   deployer: SignerWithAddress,
   decimals: BigNumber,
   name: string,
   symbol: string,
 ): Promise<MockContract> {
   const erc20Artifact: Artifact = await hre.artifacts.readArtifact("Erc20");
-  const erc20: MockContract = await deployStubContract(deployer, erc20Artifact.abi);
+  const erc20: MockContract = await deployMockContract(deployer, erc20Artifact.abi);
   await erc20.mock.decimals.returns(decimals);
   await erc20.mock.name.returns(name);
   await erc20.mock.symbol.returns(symbol);

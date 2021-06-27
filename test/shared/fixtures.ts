@@ -11,7 +11,7 @@ import {
 } from "../../helpers/constants";
 import { Erc20Permit } from "../../typechain/Erc20Permit";
 import { GodModeErc20Recover as Erc20Recover } from "../../typechain/GodModeErc20Recover";
-import { deployStubErc20 } from "./stubs";
+import { deployMockErc20 } from "./mocks";
 
 const { deployContract } = waffle;
 
@@ -28,8 +28,8 @@ export async function erc20RecoverFixture(
   signers: SignerWithAddress[],
 ): Promise<{ erc20Recover: Erc20Recover; mainToken: MockContract; thirdPartyToken: MockContract }> {
   const deployer: SignerWithAddress = signers[0];
-  const mainToken: MockContract = await deployStubErc20(deployer, DEFAULT_DECIMALS, "Main Token", "MNT");
-  const thirdPartyToken: MockContract = await deployStubErc20(deployer, DEFAULT_DECIMALS, "Third-Party Token", "TPT");
+  const mainToken: MockContract = await deployMockErc20(deployer, DEFAULT_DECIMALS, "Main Token", "MNT");
+  const thirdPartyToken: MockContract = await deployMockErc20(deployer, DEFAULT_DECIMALS, "Third-Party Token", "TPT");
 
   const godModeErc20Recover: Artifact = await artifacts.readArtifact("GodModeErc20Recover");
   const erc20Recover: Erc20Recover = <Erc20Recover>await deployContract(deployer, godModeErc20Recover, []);

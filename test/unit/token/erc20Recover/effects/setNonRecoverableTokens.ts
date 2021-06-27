@@ -8,14 +8,14 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
     describe("when the contract was not initialized", function () {
       describe("when the tokens are compliant", function () {
         it("sets the non-recoverable tokens", async function () {
-          const mainTokenAddress: string = this.stubs.mainToken.address;
+          const mainTokenAddress: string = this.mocks.mainToken.address;
           await this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([mainTokenAddress]);
           const firstNonRecoverableTokens = await this.contracts.erc20Recover.nonRecoverableTokens(0);
           expect(firstNonRecoverableTokens).to.equal(mainTokenAddress);
         });
 
         it("initializes the contract", async function () {
-          const mainTokenAddress: string = this.stubs.mainToken.address;
+          const mainTokenAddress: string = this.mocks.mainToken.address;
           const oldIsInitialized: boolean = await this.contracts.erc20Recover.__godMode_getIsRecoverInitialized();
           await this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([mainTokenAddress]);
           const newIsInitialized: boolean = await this.contracts.erc20Recover.__godMode_getIsRecoverInitialized();
@@ -24,7 +24,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
         });
 
         it("emits a SetNonRecoverableTokens event", async function () {
-          const mainTokenAddress: string = this.stubs.mainToken.address;
+          const mainTokenAddress: string = this.mocks.mainToken.address;
           await expect(
             this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([mainTokenAddress]),
           )
