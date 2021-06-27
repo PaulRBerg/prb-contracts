@@ -13,6 +13,7 @@
     "@ethersproject/bytes": "^5.4.0",
     "@ethersproject/constants": "^5.4.0",
     "@ethersproject/keccak256": "^5.4.0",
+    "@ethersproject/providers": "^5.4.0",
     "@ethersproject/signing-key": "^5.4.0",
     "@ethersproject/solidity": "^5.4.0",
     "@ethersproject/strings": "^5.4.0",

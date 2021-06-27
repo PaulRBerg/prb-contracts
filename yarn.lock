@@ -806,7 +806,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/providers@npm:5.4.0":
+"@ethersproject/providers@npm:5.4.0, @ethersproject/providers@npm:^5.4.0":
   version: 5.4.0
   resolution: "@ethersproject/providers@npm:5.4.0"
   dependencies:
@@ -10815,6 +10815,7 @@ fsevents@~2.3.1:
     "@ethersproject/bytes": ^5.4.0
     "@ethersproject/constants": ^5.4.0
     "@ethersproject/keccak256": ^5.4.0
+    "@ethersproject/providers": ^5.4.0
     "@ethersproject/signing-key": ^5.4.0
     "@ethersproject/solidity": ^5.4.0
     "@ethersproject/strings": ^5.4.0
