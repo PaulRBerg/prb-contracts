@@ -3,6 +3,33 @@ pragma solidity >=0.8.4;
 
 import "./IErc20.sol";
 
+/// @notice Emitted when the owner is the zero address.
+error Erc20__ApproveOwnerZeroAddress();
+
+/// @notice Emitted when the spender is the zero address.
+error Erc20__ApproveSpenderZeroAddress();
+
+/// @notice Emitted when burning more tokens than are in the account.
+error Erc20__BurnUnderflow(uint256 accountBalance, uint256 burnAmount);
+
+/// @notice Emitted when the holder is the zero address.
+error Erc20__BurnZeroAddress();
+
+/// @notice Emitted when the sender did not give the caller a sufficient allowance.
+error Erc20__InsufficientAllowance(uint256 allowance, uint256 amount);
+
+/// @notice Emitted when the beneficiary is the zero address.
+error Erc20__MintZeroAddress();
+
+/// @notice Emitted when tranferring more tokens than there are in the account.
+error Erc20__TransferUnderflow(uint256 senderBalance, uint256 amount);
+
+/// @notice Emitted when the sender is the zero address.
+error Erc20__TransferSenderZeroAddress();
+
+/// @notice Emitted when the recipient is the zero address.
+error Erc20__TransferRecipientZeroAddress();
+
 /// @title Erc20
 /// @author Paul Razvan Berg
 contract Erc20 is IErc20 {
@@ -79,7 +106,9 @@ contract Erc20 is IErc20 {
         transferInternal(sender, recipient, amount);
 
         uint256 currentAllowance = allowance[sender][msg.sender];
-        require(currentAllowance >= amount, "ERC20_TRANSFER_FROM_INSUFFICIENT_ALLOWANCE");
+        if (currentAllowance < amount) {
+            revert Erc20__InsufficientAllowance(currentAllowance, amount);
+        }
         approveInternal(sender, msg.sender, currentAllowance);
         return true;
     }
@@ -102,8 +131,12 @@ contract Erc20 is IErc20 {
         address spender,
         uint256 amount
     ) internal virtual {
-        require(owner != address(0), "ERC20_APPROVE_FROM_ZERO_ADDRESS");
-        require(spender != address(0), "ERC20_APPROVE_TO_ZERO_ADDRESS");
+        if (owner == address(0)) {
+            revert Erc20__ApproveOwnerZeroAddress();
+        }
+        if (spender == address(0)) {
+            revert Erc20__ApproveSpenderZeroAddress();
+        }
 
         allowance[owner][spender] = amount;
         emit Approval(owner, spender, amount);
@@ -117,13 +150,19 @@ contract Erc20 is IErc20 {
     ///
     /// - `holder` must have at least `amount` tokens.
     function burnInternal(address holder, uint256 burnAmount) internal {
-        require(holder != address(0), "ERC20_BURN_ZERO_ADDRESS");
+        if (holder == address(0)) {
+            revert Erc20__BurnZeroAddress();
+        }
 
         uint256 accountBalance = balanceOf[holder];
-        require(accountBalance >= burnAmount, "ERC20_BURN_BALANCE_UNDERFLOW");
+        if (accountBalance < burnAmount) {
+            revert Erc20__BurnUnderflow(accountBalance, burnAmount);
+        }
 
         // Burn the tokens.
-        balanceOf[holder] = accountBalance - burnAmount;
+        unchecked {
+            balanceOf[holder] = accountBalance - burnAmount;
+        }
 
         // Reduce the total supply.
         totalSupply -= burnAmount;
@@ -140,7 +179,9 @@ contract Erc20 is IErc20 {
     ///
     /// - The beneficiary's balance and the total supply cannot overflow.
     function mintInternal(address beneficiary, uint256 mintAmount) internal {
-        require(beneficiary != address(0), "ERC20_MINT_ZERO_ADDRESS");
+        if (beneficiary == address(0)) {
+            revert Erc20__MintZeroAddress();
+        }
 
         /// Mint the new tokens.
         balanceOf[beneficiary] += mintAmount;
@@ -168,12 +209,21 @@ contract Erc20 is IErc20 {
         address recipient,
         uint256 amount
     ) internal virtual {
-        require(sender != address(0), "ERC20_TRANSFER_FROM_ZERO_ADDRESS");
-        require(recipient != address(0), "ERC20_TRANSFER_TO_ZERO_ADDRESS");
+        if (sender == address(0)) {
+            revert Erc20__TransferSenderZeroAddress();
+        }
+        if (recipient == address(0)) {
+            revert Erc20__TransferRecipientZeroAddress();
+        }
 
         uint256 senderBalance = balanceOf[sender];
-        require(senderBalance >= amount, "ERC20_TRANSFER_INSUFFICIENT_BALANCE");
-        balanceOf[sender] = senderBalance - amount;
+        if (senderBalance < amount) {
+            revert Erc20__TransferUnderflow(senderBalance, amount);
+        }
+        unchecked {
+            balanceOf[sender] = senderBalance - amount;
+        }
+
         balanceOf[recipient] += amount;
 
         emit Transfer(sender, recipient, amount);

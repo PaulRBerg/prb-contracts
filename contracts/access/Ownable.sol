@@ -4,10 +4,10 @@ pragma solidity >=0.8.4;
 import "./IOwnable.sol";
 
 /// @notice Emitted when the caller is not the owner.
-error NotOwner(address owner, address caller);
+error Ownable__NotOwner(address owner, address caller);
 
 /// @notice Emitted when setting the owner to the zero address.
-error OwnerZeroAddress();
+error Ownable__OwnerZeroAddress();
 
 /// @title Ownable
 /// @author Paul Razvan Berg
@@ -22,7 +22,7 @@ contract Ownable is IOwnable {
     /// @notice Throws if called by any account other than the owner.
     modifier onlyOwner() {
         if (owner != msg.sender) {
-            revert NotOwner(owner, msg.sender);
+            revert Ownable__NotOwner(owner, msg.sender);
         }
         _;
     }
@@ -47,7 +47,7 @@ contract Ownable is IOwnable {
     /// @inheritdoc IOwnable
     function _transferOwnership(address newOwner) external virtual override onlyOwner {
         if (newOwner == address(0)) {
-            revert OwnerZeroAddress();
+            revert Ownable__OwnerZeroAddress();
         }
         emit TransferOwnership(owner, newOwner);
         owner = newOwner;

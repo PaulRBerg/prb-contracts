@@ -4,10 +4,10 @@ pragma solidity >=0.8.4;
 import "./IAdmin.sol";
 
 /// @notice Emitted when the caller is not the admin.
-error NotAdmin(address admin, address caller);
+error Admin__NotAdmin(address admin, address caller);
 
 /// @notice Emitted when setting the admin to the zero address.
-error AdminZeroAddress();
+error Admin__AdminZeroAddress();
 
 /// @title Admin
 /// @author Paul Razvan Berg
@@ -22,7 +22,7 @@ contract Admin is IAdmin {
     /// @notice Throws if called by any account other than the admin.
     modifier onlyAdmin() {
         if (admin != msg.sender) {
-            revert NotAdmin(admin, msg.sender);
+            revert Admin__NotAdmin(admin, msg.sender);
         }
         _;
     }
@@ -47,7 +47,7 @@ contract Admin is IAdmin {
     /// @inheritdoc IAdmin
     function _transferAdmin(address newAdmin) external virtual override onlyAdmin {
         if (newAdmin == address(0)) {
-            revert AdminZeroAddress();
+            revert Admin__AdminZeroAddress();
         }
         emit TransferAdmin(admin, newAdmin);
         admin = newAdmin;

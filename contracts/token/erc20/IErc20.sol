@@ -34,6 +34,29 @@ interface IErc20 {
     /// @param amount The amount of tokens transferred.
     event Transfer(address indexed from, address indexed to, uint256 amount);
 
+    /// CONSTANT FUNCTIONS ///
+
+    /// @notice Returns the remaining number of tokens that `spender` will be allowed to spend
+    /// on behalf of `owner` through {transferFrom}. This is zero by default.
+    ///
+    /// @dev This value changes when {approve} or {transferFrom} are called.
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /// @notice Returns the amount of tokens owned by `account`.
+    function balanceOf(address account) external view returns (uint256);
+
+    /// @notice Returns the number of decimals used to get its user representation.
+    function decimals() external view returns (uint8);
+
+    /// @notice Returns the name of the token.
+    function name() external view returns (string memory);
+
+    /// @notice Returns the symbol of the token, usually a shorter version of the name.
+    function symbol() external view returns (string memory);
+
+    /// @notice Returns the amount of tokens in existence.
+    function totalSupply() external view returns (uint256);
+
     /// NON-CONSTANT FUNCTIONS ///
 
     /// @notice Sets `amount` as the allowance of `spender` over the caller's tokens.
@@ -62,16 +85,14 @@ interface IErc20 {
     /// Requirements:
     ///
     /// - `spender` cannot be the zero address.
-    /// - `spender` must have allowance for the caller of at least
-    /// `subtractedValue`.
+    /// - `spender` must have allowance for the caller of at least `subtractedValue`.
     function decreaseAllowance(address spender, uint256 subtractedValue) external returns (bool);
 
     /// @notice Atomically increases the allowance granted to `spender` by the caller.
     ///
     /// @dev Emits an {Approval} event indicating the updated allowance.
     ///
-    /// This is an alternative to {approve} that can be used as a mitigation for the problems
-    /// described above.
+    /// This is an alternative to {approve} that can be used as a mitigation for the problems described above.
     ///
     /// Requirements:
     ///
@@ -108,27 +129,4 @@ interface IErc20 {
         address recipient,
         uint256 amount
     ) external returns (bool);
-
-    /// CONSTANT FUNCTIONS ///
-
-    /// @notice Returns the remaining number of tokens that `spender` will be allowed to spend
-    /// on behalf of `owner` through {transferFrom}. This is zero by default.
-    ///
-    /// @dev This value changes when {approve} or {transferFrom} are called.
-    function allowance(address owner, address spender) external view returns (uint256);
-
-    /// @notice Returns the amount of tokens owned by `account`.
-    function balanceOf(address account) external view returns (uint256);
-
-    /// @notice Returns the number of decimals used to get its user representation.
-    function decimals() external view returns (uint8);
-
-    /// @notice Returns the name of the token.
-    function name() external view returns (string memory);
-
-    /// @notice Returns the symbol of the token, usually a shorter version of the name.
-    function symbol() external view returns (string memory);
-
-    /// @notice Returns the amount of tokens in existence.
-    function totalSupply() external view returns (uint256);
 }

@@ -5,7 +5,7 @@ import "./Ownable.sol";
 import "./IOrchestratable.sol";
 
 /// @notice Emitted when the caller is not an orchestrated address.
-error NotOrchestrated(address caller, bytes4 signature);
+error Orchestratable__NotOrchestrated(address caller, bytes4 signature);
 
 /// @title Orchestratable
 /// @author Paul Razvan Berg
@@ -22,7 +22,7 @@ contract Orchestratable is
     /// @notice Restricts usage to authorized accounts.
     modifier onlyOrchestrated() {
         if (!orchestration[msg.sender][msg.sig]) {
-            revert NotOrchestrated(msg.sender, msg.sig);
+            revert Orchestratable__NotOrchestrated(msg.sender, msg.sig);
         }
         _;
     }

@@ -6,19 +6,19 @@ import "./Erc20.sol";
 import "./IErc20Permit.sol";
 
 /// @notice Emitted when the recovered owner does not match the actual owner.
-error InvalidSignature(uint8 v, bytes32 r, bytes32 s);
+error Erc20Permit__InvalidSignature(uint8 v, bytes32 r, bytes32 s);
 
 /// @notice Emitted when the owner is the zero address.
-error OwnerZeroAddress();
+error Erc20Permit__OwnerZeroAddress();
 
 /// @notice Emitted when the permit expired.
-error PermitExpired(uint256 deadline);
+error Erc20Permit__PermitExpired(uint256 deadline);
 
 /// @notice Emitted when the recovered owner is the zero address.
-error RecoveredOwnerZeroAddress();
+error Erc20Permit__RecoveredOwnerZeroAddress();
 
 /// @notice Emitted when the spender is the zero address.
-error SpenderZeroAddress();
+error Erc20Permit__SpenderZeroAddress();
 
 /// @title Erc20Permit
 /// @author Paul Razvan Berg
@@ -77,13 +77,13 @@ contract Erc20Permit is
         bytes32 s
     ) external override {
         if (owner == address(0)) {
-            revert OwnerZeroAddress();
+            revert Erc20Permit__OwnerZeroAddress();
         }
         if (spender == address(0)) {
-            revert SpenderZeroAddress();
+            revert Erc20Permit__SpenderZeroAddress();
         }
         if (deadline < block.timestamp) {
-            revert PermitExpired(deadline);
+            revert Erc20Permit__PermitExpired(deadline);
         }
 
         // It's safe to use the "+" operator here because the nonce cannot realistically overflow, ever.
@@ -92,10 +92,10 @@ contract Erc20Permit is
         address recoveredOwner = ecrecover(digest, v, r, s);
 
         if (recoveredOwner == address(0)) {
-            revert RecoveredOwnerZeroAddress();
+            revert Erc20Permit__RecoveredOwnerZeroAddress();
         }
         if (recoveredOwner != owner) {
-            revert InvalidSignature(v, r, s);
+            revert Erc20Permit__InvalidSignature(v, r, s);
         }
 
         approveInternal(owner, spender, amount);
