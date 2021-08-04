@@ -1,4 +1,3 @@
-import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "solidity-coverage";
@@ -26,15 +25,14 @@ const chainIds = {
 };
 
 // Ensure that we have all the environment variables we need.
-const mnemonic: string | undefined = getEnvVar("MNEMONIC");
-const infuraApiKey: string | undefined = getEnvVar("INFURA_API_KEY");
+const mnemonic: string = getEnvVar("MNEMONIC");
+const infuraApiKey: string = getEnvVar("INFURA_API_KEY");
 
-function createTestnetConfig(network: keyof typeof chainIds): NetworkUserConfig {
+function getChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
   const url: string = "https://" + network + ".infura.io/v3/" + infuraApiKey;
   return {
     accounts: {
       count: 10,
-      initialIndex: 0,
       mnemonic,
       path: "m/44'/60'/0'/0",
     },
@@ -52,10 +50,10 @@ const config: HardhatUserConfig = {
       },
       chainId: chainIds.hardhat,
     },
-    goerli: createTestnetConfig("goerli"),
-    kovan: createTestnetConfig("kovan"),
-    rinkeby: createTestnetConfig("rinkeby"),
-    ropsten: createTestnetConfig("ropsten"),
+    goerli: getChainConfig("goerli"),
+    kovan: getChainConfig("kovan"),
+    rinkeby: getChainConfig("rinkeby"),
+    ropsten: getChainConfig("ropsten"),
   },
   paths: {
     artifacts: "./artifacts",
