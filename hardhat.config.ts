@@ -1,8 +1,10 @@
+import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "solidity-coverage";
 
 import "./tasks/clean";
+import "./tasks/deployers";
 
 import { resolve } from "path";
 
@@ -64,7 +66,9 @@ const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.6",
     settings: {
-      // https://hardhat.org/hardhat-network/#solidity-optimizer-support
+      metadata: {
+        bytecodeHash: "none",
+      },
       optimizer: {
         enabled: true,
         runs: 800,
