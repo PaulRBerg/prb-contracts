@@ -2,7 +2,6 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero, Zero } from "@ethersproject/constants";
 import { expect } from "chai";
 
-import { Erc20Errors } from "../../../../shared/errors";
 import { token } from "../../../../../helpers/numbers";
 
 export default function shouldBehaveLikeERC20BalanceOf(): void {
