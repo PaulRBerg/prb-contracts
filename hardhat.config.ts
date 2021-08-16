@@ -50,6 +50,12 @@ const config: HardhatUserConfig = {
       },
       chainId: chainIds.hardhat,
     },
+    localhost: {
+      accounts: {
+        mnemonic,
+      },
+      url: "http://localhost:8545",
+    },
     goerli: getChainConfig("goerli"),
     kovan: getChainConfig("kovan"),
     rinkeby: getChainConfig("rinkeby"),
