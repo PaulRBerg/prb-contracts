@@ -6,7 +6,8 @@ import { expect } from "chai";
 import fp from "evm-fp";
 import hre from "hardhat";
 
-import { BOB_PRIVATE_KEY, HARDHAT_CHAIN_ID } from "../../../../../helpers/constants";
+import { HARDHAT_CHAIN_ID } from "../../../../../helpers/constants";
+import { getEnvVar } from "../../../../../helpers/env";
 import { bn } from "../../../../../helpers/numbers";
 import { getPermitDigest } from "../../../../shared/eip2612";
 import { Erc20PermitErrors } from "../../../../shared/errors";
@@ -48,7 +49,7 @@ async function createSignature(
   );
 
   // Sign the digest.
-  const bobSigningKey = new SigningKey(BOB_PRIVATE_KEY);
+  const bobSigningKey = new SigningKey(getEnvVar("BOB_PRIVATE_KEY"));
   const signature: Signature = bobSigningKey.signDigest(digest);
 
   return signature;

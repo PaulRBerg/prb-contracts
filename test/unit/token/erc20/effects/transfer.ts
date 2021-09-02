@@ -1,78 +1,67 @@
 import { BigNumber } from "@ethersproject/bignumber";
-import { AddressZero, Zero } from "@ethersproject/constants";
+import { AddressZero } from "@ethersproject/constants";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
+import fp from "evm-fp";
 
 import { Erc20Errors } from "../../../../shared/errors";
-import { token } from "../../../../../helpers/numbers";
 
-export default function shouldBehaveLikeERC20Approve(): void {
-  const senderBalance: BigNumber = token("100");
-  const amount: BigNumber = token("10");
+export default function shouldBehaveLikeTransfer(): void {
+  const transferAmount: BigNumber = fp("100");
+  let recipient: SignerWithAddress;
+  let sender: SignerWithAddress;
+
+  beforeEach(async function () {
+    recipient = this.signers.bob;
+    sender = this.signers.alice;
+  });
 
   context("when the sender is the zero address", function () {
     it("reverts", async function () {
       await expect(
-        this.contracts.erc20.connect(AddressZero).transfer(this.signers.bob.address, amount),
+        this.contracts.erc20.connect(AddressZero).transfer(recipient.address, transferAmount),
       ).to.be.revertedWith(Erc20Errors.TransferSenderZeroAddress);
     });
   });
 
-  context("when the recipient is the zero address", function () {
-    it("reverts", async function () {
-      await expect(this.contracts.erc20.connect(this.signers.alice).transfer(AddressZero, amount)).to.be.revertedWith(
-        Erc20Errors.TransferRecipientZeroAddress,
-      );
-    });
-  });
-
-  context("when the recipient is not the zero address", function () {
-    context("when the sender does not have enough balance", function () {
+  context("when the sender is not the zero address", function () {
+    context("when the recipient is the zero address", function () {
       it("reverts", async function () {
-        await expect(
-          this.contracts.erc20.connect(this.signers.alice).transfer(this.signers.bob.address, amount),
-        ).to.be.revertedWith(Erc20Errors.TransferUnderflow);
+        await expect(this.contracts.erc20.connect(sender).transfer(AddressZero, transferAmount)).to.be.revertedWith(
+          Erc20Errors.TransferRecipientZeroAddress,
+        );
       });
     });
 
-    context("when the sender transfers requested amount", function () {
-      beforeEach(async function () {
-        await this.contracts.erc20.connect(this.signers.alice).mint(this.signers.alice.address, senderBalance);
+    context("when the recipient is not the zero address", function () {
+      context("when the sender does not have enough balance", function () {
+        it("reverts", async function () {
+          await expect(
+            this.contracts.erc20.connect(sender).transfer(recipient.address, transferAmount),
+          ).to.be.revertedWith(Erc20Errors.InsufficientBalance);
+        });
       });
 
-      it("transfers the requested amount", async function () {
-        const senderOldBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.alice.address);
-        const recipientOldBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.bob.address);
-        await this.contracts.erc20.connect(this.signers.alice).transfer(this.signers.bob.address, amount);
-        const senderNewBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.alice.address);
-        const recipientNewBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.bob.address);
-        expect(senderNewBalance).to.equal(senderOldBalance.sub(amount));
-        expect(recipientNewBalance).to.equal(recipientOldBalance.add(amount));
-      });
+      context("when the sender has enough balance", function () {
+        beforeEach(async function () {
+          await this.contracts.erc20.connect(sender).mint(sender.address, transferAmount);
+        });
 
-      it("emits a transfer event", async function () {
-        await expect(this.contracts.erc20.connect(this.signers.alice).transfer(this.signers.bob.address, amount))
-          .to.emit(this.contracts.erc20, "Transfer")
-          .withArgs(this.signers.alice.address, this.signers.bob.address, amount);
-      });
-    });
+        it("makes the transfer", async function () {
+          const senderPreBalance: BigNumber = await this.contracts.erc20.balanceOf(sender.address);
+          const recipientPreBalance: BigNumber = await this.contracts.erc20.balanceOf(recipient.address);
+          await this.contracts.erc20.connect(sender).transfer(recipient.address, transferAmount);
+          const senderPostBalance: BigNumber = await this.contracts.erc20.balanceOf(sender.address);
+          const recipientPostBalance: BigNumber = await this.contracts.erc20.balanceOf(recipient.address);
+          expect(senderPostBalance).to.equal(senderPreBalance.sub(transferAmount));
+          expect(recipientPostBalance).to.equal(recipientPreBalance.add(transferAmount));
+        });
 
-    context("when the sender transfers zero tokens", function () {
-      const zeroAmount: BigNumber = Zero;
-      beforeEach(async function () {
-        await this.contracts.erc20.connect(this.signers.alice).mint(this.signers.alice.address, senderBalance);
-      });
-
-      it("transfers the zero amount", async function () {
-        const senderOldBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.alice.address);
-        await this.contracts.erc20.connect(this.signers.alice).transfer(this.signers.bob.address, zeroAmount);
-        const senderNewBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.alice.address);
-        expect(senderNewBalance).to.equal(senderOldBalance);
-      });
-
-      it("emits a transfer event", async function () {
-        await expect(this.contracts.erc20.connect(this.signers.alice).transfer(this.signers.bob.address, zeroAmount))
-          .to.emit(this.contracts.erc20, "Transfer")
-          .withArgs(this.signers.alice.address, this.signers.bob.address, zeroAmount);
+        it("emits a Transfer event", async function () {
+          await expect(this.contracts.erc20.connect(sender).transfer(recipient.address, transferAmount))
+            .to.emit(this.contracts.erc20, "Transfer")
+            .withArgs(sender.address, recipient.address, transferAmount);
+        });
       });
     });
   });

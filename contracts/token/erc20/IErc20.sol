@@ -85,8 +85,8 @@ interface IErc20 {
     /// Requirements:
     ///
     /// - `spender` cannot be the zero address.
-    /// - `spender` must have allowance for the caller of at least `subtractedValue`.
-    function decreaseAllowance(address spender, uint256 subtractedValue) external returns (bool);
+    /// - `spender` must have allowance for the caller of at least `subtractedAmount`.
+    function decreaseAllowance(address spender, uint256 subtractedAmount) external returns (bool);
 
     /// @notice Atomically increases the allowance granted to `spender` by the caller.
     ///
@@ -97,7 +97,7 @@ interface IErc20 {
     /// Requirements:
     ///
     /// - `spender` cannot be the zero address.
-    function increaseAllowance(address spender, uint256 addedValue) external returns (bool);
+    function increaseAllowance(address spender, uint256 addedAmount) external returns (bool);
 
     /// @notice Moves `amount` tokens from the caller's account to `recipient`.
     ///

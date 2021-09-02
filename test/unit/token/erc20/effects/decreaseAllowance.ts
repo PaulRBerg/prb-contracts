@@ -1,70 +1,77 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero, Zero } from "@ethersproject/constants";
 import { expect } from "chai";
+import fp from "evm-fp";
 
-import { Erc20Errors } from "../../../../shared/errors";
-import { token } from "../../../../../helpers/numbers";
+import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
 
-export default function shouldBehaveLikeERC20DecreaseAllowance(): void {
-  context("decrease allowance", function () {
-    const approvedAmount: BigNumber = token("100");
+export default function shouldBehaveLikeDecreaseAllowance(): void {
+  const subtractedAmount: BigNumber = fp("100");
 
-    context("when the spender is the zero address", function () {
+  context("when the spender is the zero address", function () {
+    it("reverts", async function () {
+      await expect(
+        this.contracts.erc20.connect(this.signers.alice).decreaseAllowance(AddressZero, Zero),
+      ).to.be.revertedWith(Erc20Errors.ApproveSpenderZeroAddress);
+    });
+  });
+
+  context("when the spender is not the zero address", function () {
+    context("when the decrease allowance results into an underflow", function () {
       it("reverts", async function () {
         await expect(
-          this.contracts.erc20.connect(this.signers.alice).decreaseAllowance(AddressZero, approvedAmount),
-        ).to.be.revertedWith(Erc20Errors.DecreasedAllowanceBelowZero);
+          this.contracts.erc20
+            .connect(this.signers.alice)
+            .decreaseAllowance(this.signers.bob.address, subtractedAmount),
+        ).to.be.revertedWith(PanicCodes.ArithmeticOverflowOrUnderflow);
       });
     });
 
-    context("when the spender is not the zero address", function () {
-      context("when there was no approved amount before", function () {
-        it("reverts", async function () {
-          await expect(
-            this.contracts.erc20
-              .connect(this.signers.alice)
-              .decreaseAllowance(this.signers.bob.address, approvedAmount),
-          ).to.be.revertedWith(Erc20Errors.DecreasedAllowanceBelowZero);
+    context("when the decrease allowance does not result into an underflow", function () {
+      beforeEach(async function () {
+        await this.contracts.erc20.connect(this.signers.alice).approve(this.signers.bob.address, subtractedAmount);
+      });
+
+      context("when a part of the allowance is decreased", function () {
+        const partialSubtractedValue: BigNumber = fp("10");
+
+        it("decreases the allowance", async function () {
+          const preAllowance: BigNumber = await this.contracts.erc20.allowance(
+            this.signers.alice.address,
+            this.signers.bob.address,
+          );
+          await this.contracts.erc20
+            .connect(this.signers.alice)
+            .decreaseAllowance(this.signers.bob.address, partialSubtractedValue);
+          const postAllowance: BigNumber = await this.contracts.erc20.allowance(
+            this.signers.alice.address,
+            this.signers.bob.address,
+          );
+          expect(preAllowance).to.equal(postAllowance.add(partialSubtractedValue));
         });
       });
-      context("when the spender had an approved amount", function () {
-        beforeEach(async function () {
-          await this.contracts.erc20.connect(this.signers.alice).approve(this.signers.bob.address, approvedAmount);
-        });
 
-        it("reverts when more than the full allowance is removed", async function () {
-          it("reverts", async function () {
-            await expect(
-              this.contracts.erc20
-                .connect(this.signers.alice)
-                .decreaseAllowance(this.signers.bob.address, approvedAmount),
-            ).to.be.revertedWith(Erc20Errors.DecreasedAllowanceBelowZero);
-          });
-        });
-
-        it("sets the allowance to zero when all allowance is removed", async function () {
+      context("when the entire allowance is decreased", function () {
+        it("decreases the allowance", async function () {
+          const preAllowance: BigNumber = await this.contracts.erc20.allowance(
+            this.signers.alice.address,
+            this.signers.bob.address,
+          );
           await this.contracts.erc20
             .connect(this.signers.alice)
-            .decreaseAllowance(this.signers.bob.address, approvedAmount);
-          expect(await this.contracts.erc20.allowance(this.signers.alice.address, this.signers.bob.address)).to.equal(
-            "0",
+            .decreaseAllowance(this.signers.bob.address, subtractedAmount);
+          const postAllowance: BigNumber = await this.contracts.erc20.allowance(
+            this.signers.alice.address,
+            this.signers.bob.address,
           );
+          expect(preAllowance).to.equal(postAllowance.add(subtractedAmount));
         });
 
-        it("decreases the spender allowance subtracting the requested amount", async function () {
-          await this.contracts.erc20
-            .connect(this.signers.alice)
-            .decreaseAllowance(this.signers.bob.address, approvedAmount.sub(1));
-          expect(await this.contracts.erc20.allowance(this.signers.alice.address, this.signers.bob.address)).to.equal(
-            "1",
-          );
-        });
-
-        it("emits an approval event", async function () {
+        it("emits an Approval event", async function () {
           await expect(
             this.contracts.erc20
               .connect(this.signers.alice)
-              .decreaseAllowance(this.signers.bob.address, approvedAmount),
+              .decreaseAllowance(this.signers.bob.address, subtractedAmount),
           )
             .to.emit(this.contracts.erc20, "Approval")
             .withArgs(this.signers.alice.address, this.signers.bob.address, Zero);

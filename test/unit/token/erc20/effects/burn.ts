@@ -1,49 +1,51 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero, Zero } from "@ethersproject/constants";
 import { expect } from "chai";
+import fp from "evm-fp";
 
-import { Erc20Errors } from "../../../../shared/errors";
-import { token } from "../../../../../helpers/numbers";
+import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
 
-export default function shouldBehaveLikeERC20Burn(): void {
-  const burnAmount: BigNumber = token("10");
-  context("when the holder is zero address", function () {
+export default function shouldBehaveLikeBurn(): void {
+  context("when the holder is the zero address", function () {
     it("reverts", async function () {
-      await expect(this.contracts.erc20.connect(this.signers.alice).burn(AddressZero, burnAmount)).to.be.revertedWith(
+      await expect(this.contracts.erc20.connect(this.signers.alice).burn(AddressZero, Zero)).to.be.revertedWith(
         Erc20Errors.BurnZeroAddress,
       );
     });
   });
 
-  context("when the holder is a non-zero account", function () {
-    describe("when holder balance is less than burn amount", function () {
+  context("when the holder is not the zero address", function () {
+    const burnAmount: BigNumber = fp("10");
+
+    context("when the burn results into an underflow", function () {
       it("reverts", async function () {
         await expect(
           this.contracts.erc20.connect(this.signers.alice).burn(this.signers.alice.address, burnAmount),
-        ).to.be.revertedWith(Erc20Errors.BurnUnderflow);
+        ).to.be.revertedWith(PanicCodes.ArithmeticOverflowOrUnderflow);
       });
     });
-    describe("when holder balance is more than burn amount", function () {
+
+    context("when the burn does not result into an underflow", function () {
       beforeEach(async function () {
-        const mintAmount: BigNumber = token("100");
+        const mintAmount: BigNumber = fp("100");
         await this.contracts.erc20.connect(this.signers.alice).mint(this.signers.alice.address, mintAmount);
       });
 
-      it("decrements holder initial balance", async function () {
-        const initialBalanceOfHolder = await this.contracts.erc20.balanceOf(this.signers.alice.address);
+      it("decreases the balance of the holder", async function () {
+        const preBalance = await this.contracts.erc20.balanceOf(this.signers.alice.address);
         await this.contracts.erc20.connect(this.signers.alice).burn(this.signers.alice.address, burnAmount);
-        const balanceOfHolder = await this.contracts.erc20.balanceOf(this.signers.alice.address);
-        expect(balanceOfHolder).to.equal(initialBalanceOfHolder.sub(burnAmount));
+        const postBalance = await this.contracts.erc20.balanceOf(this.signers.alice.address);
+        expect(preBalance).to.equal(postBalance.add(burnAmount));
       });
 
-      it("decrements totalSupply", async function () {
-        const initialSupply = await this.contracts.erc20.totalSupply();
+      it("decreases the total supply", async function () {
+        const preTotalSupply: BigNumber = await this.contracts.erc20.totalSupply();
         await this.contracts.erc20.connect(this.signers.alice).burn(this.signers.alice.address, burnAmount);
-        const totalSupply = await this.contracts.erc20.totalSupply();
-        expect(totalSupply).to.equal(initialSupply.sub(burnAmount));
+        const postTotalSupply: BigNumber = await this.contracts.erc20.totalSupply();
+        expect(preTotalSupply).to.equal(postTotalSupply.add(burnAmount));
       });
 
-      it("emits a transfer event", async function () {
+      it("emits a Transfer event", async function () {
         await expect(this.contracts.erc20.connect(this.signers.alice).burn(this.signers.alice.address, burnAmount))
           .to.emit(this.contracts.erc20, "Transfer")
           .withArgs(this.signers.alice.address, AddressZero, burnAmount);

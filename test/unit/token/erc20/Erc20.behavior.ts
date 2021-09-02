@@ -1,15 +1,14 @@
+import shouldBehaveLikeApprove from "./effects/approve";
+import shouldBehaveLikeBurn from "./effects/burn";
+import shouldBehaveLikeDecreaseAllowance from "./effects/decreaseAllowance";
+import shouldBehaveLikeIncreaseAllowance from "./effects/increaseAllowance";
+import shouldBehaveLikeMint from "./effects/mint";
+import shouldBehaveLikeTransfer from "./effects/transfer";
+import shouldBehaveLikeTransferFrom from "./effects/transferFrom";
 import shouldBehaveLikeERC20BalanceOf from "./view/balanceOf";
 import shouldBehaveLikeDecimalsGetter from "./view/decimals";
 import shouldBehaveLikeNameGetter from "./view/name";
 import shouldBehaveLikeSymbolGetter from "./view/symbol";
-
-import shouldBehaveLikeERC20Approve from "./effects/approve";
-import shouldBehaveLikeERC20Burn from "./effects/burn";
-import shouldBehaveLikeERC20DecreaseAllowance from "./effects/decreaseAllowance";
-import shouldBehaveLikeERC20IncreaseAllowance from "./effects/increaseAllowance";
-import shouldBehaveLikeERC20Mint from "./effects/mint";
-import shouldBehaveLikeERC20Transfer from "./effects/transfer";
-import shouldBehaveLikeERC20TransferFrom from "./effects/transferFrom";
 
 export function shouldBehaveLikeErc20(): void {
   describe("View Functions", function () {
@@ -32,31 +31,31 @@ export function shouldBehaveLikeErc20(): void {
 
   describe("Effects Functions", function () {
     describe("approve", function () {
-      shouldBehaveLikeERC20Approve();
+      shouldBehaveLikeApprove();
     });
 
     describe("burn", function () {
-      shouldBehaveLikeERC20Burn();
+      shouldBehaveLikeBurn();
     });
 
-    describe("decrease allowance", function () {
-      shouldBehaveLikeERC20DecreaseAllowance();
+    describe("decreaseAllowance", function () {
+      shouldBehaveLikeDecreaseAllowance();
     });
 
-    describe("increase allowance", function () {
-      shouldBehaveLikeERC20IncreaseAllowance();
+    describe("increaseAllowance", function () {
+      shouldBehaveLikeIncreaseAllowance();
     });
 
     describe("mint", function () {
-      shouldBehaveLikeERC20Mint();
+      shouldBehaveLikeMint();
     });
 
     describe("transfer", function () {
-      shouldBehaveLikeERC20Transfer();
+      shouldBehaveLikeTransfer();
     });
 
-    describe("transfer from", function () {
-      shouldBehaveLikeERC20TransferFrom();
+    describe("transferFrom", function () {
+      shouldBehaveLikeTransferFrom();
     });
   });
 }

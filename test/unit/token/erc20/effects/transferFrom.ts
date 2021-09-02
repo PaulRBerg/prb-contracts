@@ -1,144 +1,86 @@
 import { BigNumber } from "@ethersproject/bignumber";
-import { AddressZero } from "@ethersproject/constants";
+import { AddressZero, Zero } from "@ethersproject/constants";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
+import fp from "evm-fp";
 
 import { Erc20Errors } from "../../../../shared/errors";
-import { token } from "../../../../../helpers/numbers";
 
-export default function shouldBehaveLikeERC20Approve(): void {
-  const transferAmount: BigNumber = token("100");
+export default function shouldBehaveLikeTransferFrom(): void {
+  const transferAmount: BigNumber = fp("100");
+  let owner: SignerWithAddress;
+  let recipient: SignerWithAddress;
+  let spender: SignerWithAddress;
 
-  context("when the token owner is the zero address", function () {
-    const tokenOwner = AddressZero;
+  beforeEach(async function () {
+    owner = this.signers.bob;
+    recipient = this.signers.carol;
+    spender = this.signers.alice;
+  });
+
+  context("when the owner is the zero address", function () {
     it("reverts", async function () {
-      const sender = this.signers.alice;
-      const recipient = this.signers.bob;
       await expect(
-        this.contracts.erc20.connect(sender).transferFrom(tokenOwner, recipient.address, transferAmount),
+        this.contracts.erc20.connect(spender).transferFrom(AddressZero, recipient.address, transferAmount),
       ).to.be.revertedWith(Erc20Errors.TransferSenderZeroAddress);
     });
   });
 
-  context("when the recipient is the zero address", function () {
-    const recipient = AddressZero;
-    beforeEach(async function () {
-      await this.contracts.erc20.connect(this.signers.carol).approve(this.signers.alice.address, transferAmount);
-    });
-
-    it("reverts", async function () {
-      const spender = this.signers.alice;
-      const tokenOwner = this.signers.carol;
-      await expect(
-        this.contracts.erc20.connect(spender).transferFrom(tokenOwner.address, recipient, transferAmount),
-      ).to.be.revertedWith(Erc20Errors.TransferRecipientZeroAddress);
-    });
-  });
-
-  context("when the recipient is not the zero address", function () {
-    context("when the spender does not have enough approved balance", function () {
+  context("when the owner is not the zero address", function () {
+    context("when the recipient is the zero address", function () {
       beforeEach(async function () {
-        await this.contracts.erc20
-          .connect(this.signers.carol)
-          .approve(this.signers.alice.address, transferAmount.sub(1));
+        await this.contracts.erc20.connect(owner).approve(spender.address, transferAmount);
       });
 
-      context("when the token owner does not have enough balance", function () {
-        const newTransferAmount = transferAmount.add(1);
-        beforeEach(async function () {
-          await this.contracts.erc20.connect(this.signers.carol).mint(this.signers.carol.address, transferAmount);
-        });
-
-        it("reverts", async function () {
-          await expect(
-            this.contracts.erc20
-              .connect(this.signers.alice)
-              .transferFrom(this.signers.carol.address, this.signers.bob.address, newTransferAmount),
-          ).to.be.revertedWith(Erc20Errors.TransferUnderflow);
-        });
-      });
-
-      context("when the token owner has enough balance", function () {
-        it("reverts", async function () {
-          await expect(
-            this.contracts.erc20
-              .connect(this.signers.alice)
-              .transferFrom(this.signers.carol.address, this.signers.bob.address, transferAmount),
-          ).to.be.revertedWith(Erc20Errors.TransferUnderflow);
-        });
+      it("reverts", async function () {
+        await expect(
+          this.contracts.erc20.connect(spender).transferFrom(owner.address, AddressZero, transferAmount),
+        ).to.be.revertedWith(Erc20Errors.TransferRecipientZeroAddress);
       });
     });
-    context("when the spender has enough approved balance", function () {
-      beforeEach(async function () {
-        await this.contracts.erc20.connect(this.signers.carol).approve(this.signers.alice.address, transferAmount);
-      });
 
-      context("when the token owner does not have enough balance", function () {
-        const newTransferAmount = transferAmount.add(1);
-
-        beforeEach(async function () {
-          await this.contracts.erc20.connect(this.signers.carol).mint(this.signers.carol.address, transferAmount);
-        });
-
+    context("when the recipient is not the zero address", function () {
+      context("when the owner does not have enough balance", function () {
         it("reverts", async function () {
           await expect(
-            this.contracts.erc20
-              .connect(this.signers.alice)
-              .transferFrom(this.signers.carol.address, this.signers.bob.address, newTransferAmount),
-          ).to.be.revertedWith(Erc20Errors.TransferUnderflow);
+            this.contracts.erc20.connect(spender).transferFrom(owner.address, recipient.address, transferAmount),
+          ).to.be.revertedWith(Erc20Errors.InsufficientBalance);
         });
       });
 
-      context("when the token owner has enough balance", function () {
+      context("when the owner has enough balance", function () {
         beforeEach(async function () {
-          await this.contracts.erc20.connect(this.signers.carol).mint(this.signers.carol.address, transferAmount);
+          await this.contracts.erc20.mint(owner.address, transferAmount);
         });
 
-        it("transfers the requested amount", async function () {
-          const tokenOwnerOldBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.carol.address);
-          const recipientOldBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.bob.address);
-
-          await this.contracts.erc20
-            .connect(this.signers.alice)
-            .transferFrom(this.signers.carol.address, this.signers.bob.address, transferAmount);
-
-          const tokenOwnerNewBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.carol.address);
-          const recipientNewBalance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.bob.address);
-
-          expect(tokenOwnerNewBalance).to.equal(tokenOwnerOldBalance.sub(transferAmount));
-          expect(recipientNewBalance).to.equal(recipientOldBalance.add(transferAmount));
+        context("when the spender does not have enough allowance", function () {
+          it("reverts", async function () {
+            await expect(
+              this.contracts.erc20.connect(spender).transferFrom(owner.address, recipient.address, transferAmount),
+            ).to.be.revertedWith(Erc20Errors.InsufficientAllowance);
+          });
         });
 
-        it("decreases the spender allowance", async function () {
-          const oldAllowanceAmount: BigNumber = await this.contracts.erc20
-            .connect(this.signers.alice)
-            .allowance(this.signers.carol.address, this.signers.alice.address);
-          await this.contracts.erc20
-            .connect(this.signers.alice)
-            .transferFrom(this.signers.carol.address, this.signers.bob.address, transferAmount);
-          const newAllowanceAmount: BigNumber = await this.contracts.erc20
-            .connect(this.signers.alice)
-            .allowance(this.signers.carol.address, this.signers.alice.address);
-          expect(newAllowanceAmount).to.be.equal(oldAllowanceAmount.sub(transferAmount));
-        });
+        context("when the spender has enough allowance", function () {
+          beforeEach(async function () {
+            await this.contracts.erc20.connect(owner).approve(spender.address, transferAmount);
+          });
 
-        it("emits a transfer event", async function () {
-          await expect(
-            this.contracts.erc20
-              .connect(this.signers.alice)
-              .transferFrom(this.signers.carol.address, this.signers.bob.address, transferAmount),
-          )
-            .to.emit(this.contracts.erc20, "Transfer")
-            .withArgs(this.signers.carol.address, this.signers.bob.address, transferAmount);
-        });
+          it("emits a Transfer event", async function () {
+            await expect(
+              this.contracts.erc20.connect(spender).transferFrom(owner.address, recipient.address, transferAmount),
+            )
+              .to.emit(this.contracts.erc20, "Transfer")
+              .withArgs(owner.address, recipient.address, transferAmount);
+          });
 
-        it("emits a approval event", async function () {
-          await expect(
-            this.contracts.erc20
-              .connect(this.signers.alice)
-              .transferFrom(this.signers.carol.address, this.signers.bob.address, transferAmount),
-          )
-            .to.emit(this.contracts.erc20, "Approval")
-            .withArgs(this.signers.carol.address, this.signers.alice.address, transferAmount);
+          it("emits an Approval event", async function () {
+            await expect(
+              this.contracts.erc20.connect(spender).transferFrom(owner.address, recipient.address, transferAmount),
+            )
+              .to.emit(this.contracts.erc20, "Approval")
+              .withArgs(owner.address, spender.address, Zero);
+          });
         });
       });
     });

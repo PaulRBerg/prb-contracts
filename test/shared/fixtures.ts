@@ -5,19 +5,28 @@ import { Artifact } from "hardhat/types";
 
 import {
   DEFAULT_DECIMALS,
+  ERC20_DECIMALS,
+  ERC20_NAME,
   ERC20_PERMIT_DECIMALS,
   ERC20_PERMIT_NAME,
   ERC20_PERMIT_SYMBOL,
-  ERC20_DECIMALS,
-  ERC20_NAME,
   ERC20_SYMBOL,
 } from "../../helpers/constants";
 import { Erc20Permit } from "../../typechain/Erc20Permit";
-import { GodModeErc20Recover as Erc20Recover } from "../../typechain/GodModeErc20Recover";
 import { GodModeErc20 as Erc20 } from "../../typechain/GodModeErc20";
+import { GodModeErc20Recover as Erc20Recover } from "../../typechain/GodModeErc20Recover";
 import { deployMockErc20 } from "./mocks";
 
 const { deployContract } = waffle;
+
+export async function erc20Fixture(signers: SignerWithAddress[]): Promise<{ erc20: Erc20 }> {
+  const deployer: SignerWithAddress = signers[0];
+  const godModeErc20Artifact: Artifact = await artifacts.readArtifact("GodModeErc20");
+  const erc20: Erc20 = <Erc20>(
+    await deployContract(deployer, godModeErc20Artifact, [ERC20_NAME, ERC20_SYMBOL, ERC20_DECIMALS])
+  );
+  return { erc20 };
+}
 
 export async function erc20PermitFixture(signers: SignerWithAddress[]): Promise<{ erc20Permit: Erc20Permit }> {
   const deployer: SignerWithAddress = signers[0];
@@ -38,13 +47,4 @@ export async function erc20RecoverFixture(
   const godModeErc20Recover: Artifact = await artifacts.readArtifact("GodModeErc20Recover");
   const erc20Recover: Erc20Recover = <Erc20Recover>await deployContract(deployer, godModeErc20Recover, []);
   return { erc20Recover, mainToken, thirdPartyToken };
-}
-
-export async function erc20Fixture(signers: SignerWithAddress[]): Promise<{ erc20: Erc20 }> {
-  const deployer: SignerWithAddress = signers[0];
-  const godModeErc20Artifact: Artifact = await artifacts.readArtifact("GodModeErc20");
-  const erc20: Erc20 = <Erc20>(
-    await deployContract(deployer, godModeErc20Artifact, [ERC20_NAME, ERC20_SYMBOL, ERC20_DECIMALS])
-  );
-  return { erc20 };
 }

@@ -15,17 +15,14 @@ error Erc20__BurnUnderflow(uint256 accountBalance, uint256 burnAmount);
 /// @notice Emitted when the holder is the zero address.
 error Erc20__BurnZeroAddress();
 
-/// @notice Emitted when decreasing allowance below zero.
-error Erc20__DecreasedAllowanceBelowZero(uint256 allowance, uint256 amount);
-
-/// @notice Emitted when the sender did not give the caller a sufficient allowance.
+/// @notice Emitted when the owner did not give the spender sufficient allowance.
 error Erc20__InsufficientAllowance(uint256 allowance, uint256 amount);
+
+/// @notice Emitted when tranferring more tokens than there are in the account.
+error Erc20__InsufficientBalance(uint256 senderBalance, uint256 amount);
 
 /// @notice Emitted when the beneficiary is the zero address.
 error Erc20__MintZeroAddress();
-
-/// @notice Emitted when tranferring more tokens than there are in the account.
-error Erc20__TransferUnderflow(uint256 senderBalance, uint256 amount);
 
 /// @notice Emitted when the sender is the zero address.
 error Erc20__TransferSenderZeroAddress();
@@ -60,18 +57,18 @@ contract Erc20 is IErc20 {
 
     /// CONSTRUCTOR ///
 
-    /// @notice All three of these values are immutable: they can only be set once during construction.
-    /// @param _name Erc20 name of this token.
-    /// @param _symbol Erc20 symbol of this token.
-    /// @param _decimals Erc20 decimal precision of this token.
+    /// @notice All three of these arguments are immutable: they can only be set once during construction.
+    /// @param name_ Erc20 name of this token.
+    /// @param symbol_ Erc20 symbol of this token.
+    /// @param decimals_ Erc20 decimal precision of this token.
     constructor(
-        string memory _name,
-        string memory _symbol,
-        uint8 _decimals
+        string memory name_,
+        string memory symbol_,
+        uint8 decimals_
     ) {
-        name = _name;
-        symbol = _symbol;
-        decimals = _decimals;
+        name = name_;
+        symbol = symbol_;
+        decimals = decimals_;
     }
 
     /// PUBLIC CONSTANT FUNCTIONS ///
@@ -90,19 +87,15 @@ contract Erc20 is IErc20 {
     }
 
     /// @inheritdoc IErc20
-    function decreaseAllowance(address spender, uint256 subtractedValue) external virtual override returns (bool) {
-        uint256 currentAllowance = allowances[msg.sender][spender];
-        if (currentAllowance >= subtractedValue) {
-            revert Erc20__DecreasedAllowanceBelowZero(currentAllowance, subtractedValue);
-        }
-        uint256 newAllowance = allowances[msg.sender][spender] - subtractedValue;
+    function decreaseAllowance(address spender, uint256 subtractedAmount) external virtual override returns (bool) {
+        uint256 newAllowance = allowances[msg.sender][spender] - subtractedAmount;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
 
     /// @inheritdoc IErc20
-    function increaseAllowance(address spender, uint256 addedValue) external virtual override returns (bool) {
-        uint256 newAllowance = allowances[msg.sender][spender] + addedValue;
+    function increaseAllowance(address spender, uint256 addedAmount) external virtual override returns (bool) {
+        uint256 newAllowance = allowances[msg.sender][spender] + addedAmount;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
@@ -125,7 +118,10 @@ contract Erc20 is IErc20 {
         if (currentAllowance < amount) {
             revert Erc20__InsufficientAllowance(currentAllowance, amount);
         }
-        approveInternal(sender, msg.sender, currentAllowance);
+        unchecked {
+            approveInternal(sender, msg.sender, currentAllowance - amount);
+        }
+
         return true;
     }
 
@@ -134,9 +130,6 @@ contract Erc20 is IErc20 {
     /// @notice Sets `amount` as the allowance of `spender` over the `owner`s tokens.
     ///
     /// @dev Emits an {Approval} event.
-    ///
-    /// This is internal function is equivalent to `approve`, and can be used to e.g. set automatic
-    /// allowances for certain subsystems, etc.
     ///
     /// Requirements:
     ///
@@ -170,15 +163,8 @@ contract Erc20 is IErc20 {
             revert Erc20__BurnZeroAddress();
         }
 
-        uint256 accountBalance = balanceOf[holder];
-        if (accountBalance < burnAmount) {
-            revert Erc20__BurnUnderflow(accountBalance, burnAmount);
-        }
-
         // Burn the tokens.
-        unchecked {
-            balanceOf[holder] = accountBalance - burnAmount;
-        }
+        balanceOf[holder] -= burnAmount;
 
         // Reduce the total supply.
         totalSupply -= burnAmount;
@@ -210,10 +196,7 @@ contract Erc20 is IErc20 {
 
     /// @notice Moves `amount` tokens from `sender` to `recipient`.
     ///
-    /// @dev This is internal function is equivalent to {transfer}, and can be used to e.g. implement
-    /// automatic token fees, slashing mechanisms, etc.
-    ///
-    /// Emits a {Transfer} event.
+    /// @dev Emits a {Transfer} event.
     ///
     /// Requirements:
     ///
@@ -234,7 +217,7 @@ contract Erc20 is IErc20 {
 
         uint256 senderBalance = balanceOf[sender];
         if (senderBalance < amount) {
-            revert Erc20__TransferUnderflow(senderBalance, amount);
+            revert Erc20__InsufficientBalance(senderBalance, amount);
         }
         unchecked {
             balanceOf[sender] = senderBalance - amount;

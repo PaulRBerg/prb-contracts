@@ -1,25 +1,25 @@
 import { BigNumber } from "@ethersproject/bignumber";
-import { AddressZero, Zero } from "@ethersproject/constants";
+import { Zero } from "@ethersproject/constants";
 import { expect } from "chai";
-
-import { token } from "../../../../../helpers/numbers";
+import fp from "evm-fp";
 
 export default function shouldBehaveLikeERC20BalanceOf(): void {
   context("balanceOf", function () {
-    const initialBalance: BigNumber = token("100");
-
-    context("when the requested account has no tokens", function () {
-      it("returns zero", async function () {
-        expect(await this.contracts.erc20.balanceOf(this.signers.alice.address)).to.be.equal("0");
+    context("when the account does not have a balance", function () {
+      it("retrieves zero", async function () {
+        const balance: BigNumber = await this.contracts.erc20.balanceOf(this.signers.alice.address);
+        expect(balance).to.equal(Zero);
       });
     });
 
-    context("when the requested account has some tokens", function () {
+    context("when the account has a balance", function () {
+      const initialBalance: BigNumber = fp("100");
+
       beforeEach(async function () {
         await this.contracts.erc20.connect(this.signers.alice).mint(this.signers.alice.address, initialBalance);
       });
 
-      it("returns the total amount of tokens", async function () {
+      it("retrieves the correct balance", async function () {
         expect(await this.contracts.erc20.balanceOf(this.signers.alice.address)).to.be.equal(initialBalance);
       });
     });
