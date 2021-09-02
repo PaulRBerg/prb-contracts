@@ -50,8 +50,10 @@ contract Erc20 is IErc20 {
     /// @inheritdoc IErc20
     mapping(address => uint256) public override balanceOf;
 
-    /// @inheritdoc IErc20
-    mapping(address => mapping(address => uint256)) public override allowance;
+    /// INTERNAL STORAGE ///
+
+    /// @dev Internal mapping of allowances.
+    mapping(address => mapping(address => uint256)) internal allowances;
 
     /// CONSTRUCTOR ///
 
@@ -69,6 +71,13 @@ contract Erc20 is IErc20 {
         decimals = _decimals;
     }
 
+    /// PUBLIC CONSTANT FUNCTIONS ///
+
+    /// @inheritdoc IErc20
+    function allowance(address owner, address spender) external view override returns (uint256) {
+        return allowances[owner][spender];
+    }
+
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IErc20
@@ -79,14 +88,14 @@ contract Erc20 is IErc20 {
 
     /// @inheritdoc IErc20
     function decreaseAllowance(address spender, uint256 subtractedValue) external virtual override returns (bool) {
-        uint256 newAllowance = allowance[msg.sender][spender] - subtractedValue;
+        uint256 newAllowance = allowances[msg.sender][spender] - subtractedValue;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
 
     /// @inheritdoc IErc20
     function increaseAllowance(address spender, uint256 addedValue) external virtual override returns (bool) {
-        uint256 newAllowance = allowance[msg.sender][spender] + addedValue;
+        uint256 newAllowance = allowances[msg.sender][spender] + addedValue;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
@@ -105,7 +114,7 @@ contract Erc20 is IErc20 {
     ) external virtual override returns (bool) {
         transferInternal(sender, recipient, amount);
 
-        uint256 currentAllowance = allowance[sender][msg.sender];
+        uint256 currentAllowance = allowances[sender][msg.sender];
         if (currentAllowance < amount) {
             revert Erc20__InsufficientAllowance(currentAllowance, amount);
         }
@@ -138,7 +147,7 @@ contract Erc20 is IErc20 {
             revert Erc20__ApproveSpenderZeroAddress();
         }
 
-        allowance[owner][spender] = amount;
+        allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
     }
 
