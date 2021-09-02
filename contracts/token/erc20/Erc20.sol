@@ -15,6 +15,9 @@ error Erc20__BurnUnderflow(uint256 accountBalance, uint256 burnAmount);
 /// @notice Emitted when the holder is the zero address.
 error Erc20__BurnZeroAddress();
 
+/// @notice Emitted when decreasing allowance below zero.
+error Erc20__DecreasedAllowanceBelowZero(uint256 allowance, uint256 amount);
+
 /// @notice Emitted when the sender did not give the caller a sufficient allowance.
 error Erc20__InsufficientAllowance(uint256 allowance, uint256 amount);
 
@@ -88,6 +91,10 @@ contract Erc20 is IErc20 {
 
     /// @inheritdoc IErc20
     function decreaseAllowance(address spender, uint256 subtractedValue) external virtual override returns (bool) {
+        uint256 currentAllowance = allowances[msg.sender][spender];
+        if (currentAllowance >= subtractedValue) {
+            revert Erc20__DecreasedAllowanceBelowZero(currentAllowance, subtractedValue);
+        }
         uint256 newAllowance = allowances[msg.sender][spender] - subtractedValue;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
