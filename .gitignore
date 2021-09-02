@@ -1,10 +1,13 @@
-# folders
+# directories
 .coverage_artifacts/
 .coverage_cache/
 .coverage_contracts/
 .yarn/*
-!.yarn/releases
+!.yarn/patches
 !.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 artifacts/
 bin/
 build/
