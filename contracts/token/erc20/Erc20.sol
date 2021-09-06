@@ -47,10 +47,10 @@ contract Erc20 is IErc20 {
     /// @inheritdoc IErc20
     uint256 public override totalSupply;
 
-    /// @inheritdoc IErc20
-    mapping(address => uint256) public override balanceOf;
-
     /// INTERNAL STORAGE ///
+
+    /// @dev Internal mapping of balances.
+    mapping(address => uint256) internal _balances;
 
     /// @dev Internal mapping of allowances.
     mapping(address => mapping(address => uint256)) internal allowances;
@@ -76,6 +76,10 @@ contract Erc20 is IErc20 {
     /// @inheritdoc IErc20
     function allowance(address owner, address spender) external view override returns (uint256) {
         return allowances[owner][spender];
+    }
+
+    function balanceOf(address account) public view virtual override returns (uint256) {
+        return _balances[account];
     }
 
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
@@ -164,7 +168,7 @@ contract Erc20 is IErc20 {
         }
 
         // Burn the tokens.
-        balanceOf[holder] -= burnAmount;
+        _balances[holder] -= burnAmount;
 
         // Reduce the total supply.
         totalSupply -= burnAmount;
@@ -186,7 +190,7 @@ contract Erc20 is IErc20 {
         }
 
         /// Mint the new tokens.
-        balanceOf[beneficiary] += mintAmount;
+        _balances[beneficiary] += mintAmount;
 
         /// Increase the total supply.
         totalSupply += mintAmount;
@@ -215,15 +219,15 @@ contract Erc20 is IErc20 {
             revert Erc20__TransferRecipientZeroAddress();
         }
 
-        uint256 senderBalance = balanceOf[sender];
+        uint256 senderBalance = _balances[sender];
         if (senderBalance < amount) {
             revert Erc20__InsufficientBalance(senderBalance, amount);
         }
         unchecked {
-            balanceOf[sender] = senderBalance - amount;
+            _balances[sender] = senderBalance - amount;
         }
 
-        balanceOf[recipient] += amount;
+        _balances[recipient] += amount;
 
         emit Transfer(sender, recipient, amount);
     }
