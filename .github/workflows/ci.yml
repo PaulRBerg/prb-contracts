@@ -1,6 +1,7 @@
 name: "Continuous Integration"
 
 env:
+  BOB_PRIVATE_KEY: ${{ secrets.BOB_PRIVATE_KEY }}
   COVERAGE_GIT_BRANCH: "main"
   COVERAGE_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
   COVERAGE_SERVICE_NAME: "github-actions-ci"
