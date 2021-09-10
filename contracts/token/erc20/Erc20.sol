@@ -50,7 +50,7 @@ contract Erc20 is IErc20 {
     /// INTERNAL STORAGE ///
 
     /// @dev Internal mapping of balances.
-    mapping(address => uint256) internal _balances;
+    mapping(address => uint256) internal balances;
 
     /// @dev Internal mapping of allowances.
     mapping(address => mapping(address => uint256)) internal allowances;
@@ -79,7 +79,7 @@ contract Erc20 is IErc20 {
     }
 
     function balanceOf(address account) public view virtual override returns (uint256) {
-        return _balances[account];
+        return balances[account];
     }
 
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
@@ -168,7 +168,7 @@ contract Erc20 is IErc20 {
         }
 
         // Burn the tokens.
-        _balances[holder] -= burnAmount;
+        balances[holder] -= burnAmount;
 
         // Reduce the total supply.
         totalSupply -= burnAmount;
@@ -190,7 +190,7 @@ contract Erc20 is IErc20 {
         }
 
         /// Mint the new tokens.
-        _balances[beneficiary] += mintAmount;
+        balances[beneficiary] += mintAmount;
 
         /// Increase the total supply.
         totalSupply += mintAmount;
@@ -219,15 +219,15 @@ contract Erc20 is IErc20 {
             revert Erc20__TransferRecipientZeroAddress();
         }
 
-        uint256 senderBalance = _balances[sender];
+        uint256 senderBalance = balances[sender];
         if (senderBalance < amount) {
             revert Erc20__InsufficientBalance(senderBalance, amount);
         }
         unchecked {
-            _balances[sender] = senderBalance - amount;
+            balances[sender] = senderBalance - amount;
         }
 
-        _balances[recipient] += amount;
+        balances[recipient] += amount;
 
         emit Transfer(sender, recipient, amount);
     }
