@@ -39,13 +39,13 @@ contract Admin is IAdmin {
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IAdmin
-    function _renounceAdmin() external virtual override onlyAdmin {
+    function _renounceAdmin() public virtual override onlyAdmin {
         emit TransferAdmin(admin, address(0));
         admin = address(0);
     }
 
     /// @inheritdoc IAdmin
-    function _transferAdmin(address newAdmin) external virtual override onlyAdmin {
+    function _transferAdmin(address newAdmin) public virtual override onlyAdmin {
         if (newAdmin == address(0)) {
             revert Admin__AdminZeroAddress();
         }

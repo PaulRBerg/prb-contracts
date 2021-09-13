@@ -28,7 +28,7 @@ contract Orchestratable is
     }
 
     /// @inheritdoc IOrchestratable
-    function _orchestrate(address account, bytes4 signature) external override onlyOwner {
+    function _orchestrate(address account, bytes4 signature) public override onlyOwner {
         orchestration[account][signature] = true;
         emit GrantAccess(account);
     }

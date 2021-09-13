@@ -33,7 +33,7 @@ contract NonStandardErc20 {
         decimals = decimals_;
     }
 
-    function allowance(address owner, address spender) external view returns (uint256) {
+    function allowance(address owner, address spender) public view returns (uint256) {
         return allowances[owner][spender];
     }
 
@@ -41,22 +41,22 @@ contract NonStandardErc20 {
         return balances[account];
     }
 
-    function approve(address spender, uint256 amount) external returns (bool) {
+    function approve(address spender, uint256 amount) public returns (bool) {
         approveInternal(msg.sender, spender, amount);
         return true;
     }
 
-    /// @dev This function does not return a value, in violation of the Erc20 specification.
-    function transfer(address recipient, uint256 amount) external {
+    /// @dev This function does not return a value, in violation of the Erc20 standard.
+    function transfer(address recipient, uint256 amount) public {
         transferInternal(msg.sender, recipient, amount);
     }
 
-    /// @dev This function does not return a value, in violation of the Erc20 specification.
+    /// @dev This function does not return a value, in violation of the Erc20 standard.
     function transferFrom(
         address sender,
         address recipient,
         uint256 amount
-    ) external {
+    ) public {
         transferInternal(sender, recipient, amount);
         approveInternal(sender, msg.sender, allowances[sender][msg.sender] - amount);
     }

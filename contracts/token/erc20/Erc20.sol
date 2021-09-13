@@ -74,7 +74,7 @@ contract Erc20 is IErc20 {
     /// PUBLIC CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IErc20
-    function allowance(address owner, address spender) external view override returns (uint256) {
+    function allowance(address owner, address spender) public view override returns (uint256) {
         return allowances[owner][spender];
     }
 
@@ -85,27 +85,27 @@ contract Erc20 is IErc20 {
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IErc20
-    function approve(address spender, uint256 amount) external virtual override returns (bool) {
+    function approve(address spender, uint256 amount) public virtual override returns (bool) {
         approveInternal(msg.sender, spender, amount);
         return true;
     }
 
     /// @inheritdoc IErc20
-    function decreaseAllowance(address spender, uint256 subtractedAmount) external virtual override returns (bool) {
+    function decreaseAllowance(address spender, uint256 subtractedAmount) public virtual override returns (bool) {
         uint256 newAllowance = allowances[msg.sender][spender] - subtractedAmount;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
 
     /// @inheritdoc IErc20
-    function increaseAllowance(address spender, uint256 addedAmount) external virtual override returns (bool) {
+    function increaseAllowance(address spender, uint256 addedAmount) public virtual override returns (bool) {
         uint256 newAllowance = allowances[msg.sender][spender] + addedAmount;
         approveInternal(msg.sender, spender, newAllowance);
         return true;
     }
 
     /// @inheritdoc IErc20
-    function transfer(address recipient, uint256 amount) external virtual override returns (bool) {
+    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
         transferInternal(msg.sender, recipient, amount);
         return true;
     }
@@ -115,7 +115,7 @@ contract Erc20 is IErc20 {
         address sender,
         address recipient,
         uint256 amount
-    ) external virtual override returns (bool) {
+    ) public virtual override returns (bool) {
         transferInternal(sender, recipient, amount);
 
         uint256 currentAllowance = allowances[sender][msg.sender];

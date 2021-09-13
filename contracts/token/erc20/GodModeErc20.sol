@@ -29,7 +29,7 @@ contract GodModeErc20 is Erc20 {
     /// @notice Destroys `burnAmount` tokens from `holder`, reducing the token supply.
     /// @param holder The account whose tokens to burn.
     /// @param burnAmount The amount of tokens to destroy.
-    function burn(address holder, uint256 burnAmount) external {
+    function burn(address holder, uint256 burnAmount) public {
         burnInternal(holder, burnAmount);
     }
 
@@ -37,7 +37,7 @@ contract GodModeErc20 is Erc20 {
     /// total supply.
     /// @param beneficiary The account for which to mint the tokens.
     /// @param mintAmount The amount of tokens to print into existence.
-    function mint(address beneficiary, uint256 mintAmount) external {
+    function mint(address beneficiary, uint256 mintAmount) public {
         mintInternal(beneficiary, mintAmount);
     }
 }

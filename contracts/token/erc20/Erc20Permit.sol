@@ -75,7 +75,7 @@ contract Erc20Permit is
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) external override {
+    ) public override {
         if (owner == address(0)) {
             revert Erc20Permit__OwnerZeroAddress();
         }
