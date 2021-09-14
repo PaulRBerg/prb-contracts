@@ -37,7 +37,7 @@ abstract contract Erc20Recover is
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IErc20Recover
-    function _setNonRecoverableTokens(IErc20[] calldata tokens) public override onlyOwner {
+    function _setNonRecoverableTokens(IErc20[] memory tokens) public override onlyOwner {
         // Checks
         if (isRecoverInitialized) {
             revert Initialized();
