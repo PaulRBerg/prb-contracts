@@ -1,6 +1,6 @@
 {
   "name": "paulrberg-contracts",
-  "version": "3.5.1",
+  "version": "3.5.2",
   "dependencies": {
     "prb-math": "^2.2.0"
   },
