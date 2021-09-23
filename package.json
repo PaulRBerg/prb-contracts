@@ -44,6 +44,7 @@
     "import-sort-parser-typescript": "^6.0.0",
     "import-sort-style-module": "^6.0.0",
     "lint-staged": "^11.1.2",
+    "lodash": "^4.17.21",
     "mocha": "^9.1.1",
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.17",
@@ -72,15 +73,14 @@
   "private": true,
   "scripts": {
     "clean": "hardhat clean",
-    "commit": "git-cz",
     "compile": "hardhat compile",
     "coverage": "hardhat coverage --solcoverjs ./.solcover.js --temp artifacts --testfiles \"./test/**/*.ts\"",
-    "lint": "yarn run lint:sol && yarn run lint:ts && yarn run prettier:check",
+    "lint": "yarn lint:sol && yarn lint:ts && yarn prettier:check",
     "lint:sol": "solhint --config ./.solhint.json --max-warnings 0 \"contracts/**/*.sol\"",
     "lint:ts": "eslint --config ./.eslintrc.yaml --ignore-path ./.eslintignore --ext .js,.ts .",
     "postinstall": "husky install",
-    "prettier": "prettier --config ./.prettierrc --write \"**/*.{js,json,md,sol,ts}\"",
-    "prettier:check": "prettier --check --config ./.prettierrc \"**/*.{js,json,md,sol,ts}\"",
+    "prettier": "prettier --config ./.prettierrc --write \"**/*.{js,json,md,sol,ts,yaml,yml}\"",
+    "prettier:check": "prettier --check --config ./.prettierrc \"**/*.{js,json,md,sol,ts,yaml,yml}\"",
     "test": "hardhat test",
     "typechain": "TS_NODE_TRANSPILE_ONLY=1 hardhat typechain"
   }

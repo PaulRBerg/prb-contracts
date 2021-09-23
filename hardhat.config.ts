@@ -3,7 +3,7 @@ import "@typechain/hardhat";
 import "solidity-coverage";
 
 import "./tasks/clean";
-import "./tasks/deployers";
+import "./tasks/deploy";
 
 import { resolve } from "path";
 
