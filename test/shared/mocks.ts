@@ -2,10 +2,8 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { Zero } from "@ethersproject/constants";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { MockContract } from "ethereum-waffle";
-import hre from "hardhat";
+import { artifacts, waffle } from "hardhat";
 import { Artifact } from "hardhat/types";
-
-const { deployMockContract } = hre.waffle;
 
 export async function deployMockErc20(
   deployer: SignerWithAddress,
@@ -13,8 +11,8 @@ export async function deployMockErc20(
   name: string,
   symbol: string,
 ): Promise<MockContract> {
-  const erc20Artifact: Artifact = await hre.artifacts.readArtifact("Erc20");
-  const erc20: MockContract = await deployMockContract(deployer, erc20Artifact.abi);
+  const erc20Artifact: Artifact = await artifacts.readArtifact("Erc20");
+  const erc20: MockContract = await waffle.deployMockContract(deployer, erc20Artifact.abi);
   await erc20.mock.decimals.returns(decimals);
   await erc20.mock.name.returns(name);
   await erc20.mock.symbol.returns(symbol);

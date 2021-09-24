@@ -4,7 +4,7 @@ import { AddressZero } from "@ethersproject/constants";
 import { SigningKey } from "@ethersproject/signing-key";
 import { expect } from "chai";
 import fp from "evm-fp";
-import hre from "hardhat";
+import { network } from "hardhat";
 
 import { HARDHAT_CHAIN_ID } from "../../../../../helpers/constants";
 import { getEnvVar } from "../../../../../helpers/env";
@@ -42,7 +42,7 @@ async function createSignature(
   // Get the EIP712 digest.
   const digest: string = await getPermitDigest(
     this.contracts.erc20Permit,
-    hre.network.config.chainId ? bn(String(hre.network.config.chainId)) : HARDHAT_CHAIN_ID,
+    network.config.chainId ? bn(String(network.config.chainId)) : HARDHAT_CHAIN_ID,
     approve,
     nonce,
     deadline,

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: WTFPL
+// SPDX-License-Identifier: Unlicense
 // solhint-disable func-name-mixedcase
 pragma solidity >=0.8.4;
 

@@ -1,4 +1,4 @@
-# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/contracts/badge.svg?branch=main)](https://coveralls.io/github/paulrberg/contracts?branch=main) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![license: WTFPL](https://img.shields.io/badge/license-WTFPL-yellow.svg)](https://spdx.org/licenses/WTFPL.html)
+# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/contracts/badge.svg?branch=main)](https://coveralls.io/github/paulrberg/contracts?branch=main) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![license: Unlicense](https://img.shields.io/badge/license-Unlicense-yellow.svg)](https://spdx.org/licenses/Unlicense.html)
 
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
@@ -15,7 +15,7 @@ it useful too, it's a win for both of us.
 
 This is experimental software and is provided on an "as is" and "as available" basis. I do not give any warranties and will not be liable for any loss, direct or indirect through continued use of this codebase.
 
-## Installation
+## Install
 
 With yarn:
 
@@ -26,26 +26,21 @@ $ yarn add @paulrberg/contracts
 Or npm:
 
 ```sh
-npm install @paulrberg/contracts
+$ npm install @paulrberg/contracts
 ```
-
-I adhere to [semver](https://semver.org/), which means that your contracts won't break unexpectedly when upgrading to a
-newer minor version of `@paulrberg/contracts`.
 
 ## Usage
 
 Once installed, you can use the contracts like this:
 
 ```solidity
+// SPDX-License-Identifier: Unlicense
 pragma solidity >=0.8.4;
 
-import "@paulrberg/contracts/math/PRBMathUD60x18.sol";
 import "@paulrberg/contracts/token/erc20/Erc20.sol";
 import "@paulrberg/contracts/token/erc20/Erc20Permit.sol";
 
 contract MyToken is Erc20, Erc20Permit {
-  using PRBMathUD60x18 for uint256;
-
   constructor(
     string memory name_,
     string memory symbol_,
@@ -57,82 +52,48 @@ contract MyToken is Erc20, Erc20Permit {
 
 ## Contributing
 
+Feel free to dive in! [Open](https://github.com/paulrberg/prb-proxy/issues/new) an issue,
+[start](https://github.com/paulrberg/prb-proxy/discussions/new) a discussion or submit a PR.
+
 ### Pre Requisites
 
-Before running any command, make sure to install dependencies:
+You will need the following software on your machine:
 
-```sh
+- [Git](https://git-scm.com/downloads)
+- [Node.Js](https://nodejs.org/en/download/)
+- [Yarn](https://yarnpkg.com/getting-started/install)
+
+In addition, familiarity with [Solidity](https://soliditylang.org/), [TypeScript](https://typescriptlang.org/) and [Hardhat](https://hardhat.org) is requisite.
+
+### Set Up
+
+Install the dependencies:
+
+```bash
 $ yarn install
 ```
 
-### Compile
-
-Compile the smart contracts with Hardhat:
-
-```sh
-$ yarn compile
-```
-
-### TypeChain
-
-Compile the smart contracts and generate TypeChain artifacts:
-
-```sh
-$ yarn typechain
-```
-
-### Lint Solidity
-
-Lint the Solidity code:
-
-```sh
-$ yarn lint:sol
-```
-
-### Lint TypeScript
-
-Lint the TypeScript code:
-
-```sh
-$ yarn lint:ts
-```
-
-### Test
-
-Run the Mocha tests:
-
-```sh
-$ yarn test
-```
-
-### Coverage
-
-Generate the code coverage report:
-
-```sh
-$ yarn coverage
-```
-
-### Clean
-
-Delete the smart contract artifacts, the coverage reports and the Hardhat cache:
-
-```sh
-$ yarn clean
-```
+Then, follow the `.env.example` file to add the requisite environment variables in the `.env` file. Now you can start making changes.
 
 ## Security
 
-While I set a high bar for code quality and test coverage, you shouldn't assume that this library is completely safe to use. The contracts
-have not yet been audited by a security researcher. If you discover any security issues, please report them via [Keybase](https://keybase.io/paulrberg).
+While I set a high bar for code quality and test coverage, you shouldn't assume that this project is completely safe to use. The contracts
+have not been audited by a security researcher.
 
-## Acknowledgements
+### Caveat Emptor
 
-I am grateful to the authors of existing related projects:
+This is experimental software and is provided on an "as is" and "as available" basis. I do not give any warranties
+and will not be liable for any loss, direct or indirect through continued use of this codebase.
 
-- [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- Alberto Cuesta Cañada's [Erc20Permit and Orchestrated](https://github.com/albertocuestacanada)
+### Contact
+
+If you discover any security issues, please report them via [Keybase](https://keybase.io/paulrberg).
+
+## Related Efforts
+
+- [openzeppelin-contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
+- Alberto Cuesta Cañada's [ERC20Permit](https://github.com/alcueca/ERC20Permit) and [Orchestrated](https://github.com/alcueca/Orchestrated)
 
 ## License
 
-The contracts are released under the [WTFPL License](./LICENSE.md).
+[Unlicense](./LICENSE.md) © Paul Razvan Berg
