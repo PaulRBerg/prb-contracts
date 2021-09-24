@@ -9,7 +9,7 @@
 - Thoroughly tested with Hardhat and Waffle
 
 I created this library for my own use, to avoid having to maintain the same contracts in different repositories. If you find
-it useful too, it's a win for both of us.
+it useful too, that's a win-win.
 
 ## Caveat Emptor
 
