@@ -87,8 +87,9 @@ contract Erc20Permit is
         }
 
         // It's safe to use unchecked here because the nonce cannot realistically overflow, ever.
+        bytes32 hashStruct;
         unchecked {
-            bytes32 hashStruct = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, amount, nonces[owner]++, deadline));
+            hashStruct = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, amount, nonces[owner]++, deadline));
         }
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, hashStruct));
         address recoveredOwner = ecrecover(digest, v, r, s);

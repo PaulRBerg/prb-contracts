@@ -5,10 +5,10 @@ import "./IErc20.sol";
 import "../../utils/Address.sol";
 
 /// @notice Emitted when the call is made to a non-contract.
-error CallToNonContract(address target);
+error SafeErc20__CallToNonContract(address target);
 
 /// @notice Emitted when there is no return data.
-error NoReturnData();
+error SafeErc20__NoReturnData();
 
 /// @title SafeErc20.sol
 /// @author Paul Razvan Berg
@@ -57,7 +57,7 @@ library SafeErc20 {
         if (returndata.length > 0) {
             // Return data is optional.
             if (!abi.decode(returndata, (bool))) {
-                revert NoReturnData();
+                revert SafeErc20__NoReturnData();
             }
         }
     }
@@ -68,7 +68,7 @@ library SafeErc20 {
         string memory errorMessage
     ) private returns (bytes memory) {
         if (!target.isContract()) {
-            revert CallToNonContract(target);
+            revert SafeErc20__CallToNonContract(target);
         }
 
         // solhint-disable-next-line avoid-low-level-calls
