@@ -37,7 +37,7 @@ interface IOwnable {
 
     /// @notice Transfers the owner of the contract to a new account (`newOwner`). Can only be
     /// called by the current owner.
-    /// @param newOwner The acount of the new owner.
+    /// @param newOwner The account of the new owner.
     function _transferOwnership(address newOwner) external;
 
     /// CONSTANT FUNCTIONS ///

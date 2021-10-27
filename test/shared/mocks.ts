@@ -1,9 +1,9 @@
-import { BigNumber } from "@ethersproject/bignumber";
+import type { BigNumber } from "@ethersproject/bignumber";
 import { Zero } from "@ethersproject/constants";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
-import { MockContract } from "ethereum-waffle";
+import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import type { MockContract } from "ethereum-waffle";
 import { artifacts, waffle } from "hardhat";
-import { Artifact } from "hardhat/types";
+import type { Artifact } from "hardhat/types";
 
 export async function deployMockErc20(
   deployer: SignerWithAddress,

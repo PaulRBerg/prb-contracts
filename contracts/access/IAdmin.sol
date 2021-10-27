@@ -37,7 +37,7 @@ interface IAdmin {
 
     /// @notice Transfers the admin of the contract to a new account (`newAdmin`). Can only be
     /// called by the current admin.
-    /// @param newAdmin The acount of the new admin.
+    /// @param newAdmin The account of the new admin.
     function _transferAdmin(address newAdmin) external;
 
     /// CONSTANT FUNCTIONS ///
