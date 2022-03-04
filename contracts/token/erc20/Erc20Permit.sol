@@ -33,7 +33,7 @@ contract Erc20Permit is
 
     /// @inheritdoc IErc20Permit
     bytes32 public constant override PERMIT_TYPEHASH =
-        0xfc77c2b9d30fe91687fd39abb7d16fcdfe1472d065740051ab8b13e4bf4a617f;
+        keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
     /// @inheritdoc IErc20Permit
     mapping(address => uint256) public override nonces;
@@ -70,7 +70,7 @@ contract Erc20Permit is
     function permit(
         address owner,
         address spender,
-        uint256 amount,
+        uint256 value,
         uint256 deadline,
         uint8 v,
         bytes32 r,
@@ -89,7 +89,7 @@ contract Erc20Permit is
         // It's safe to use unchecked here because the nonce cannot realistically overflow, ever.
         bytes32 hashStruct;
         unchecked {
-            hashStruct = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, amount, nonces[owner]++, deadline));
+            hashStruct = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, value, nonces[owner]++, deadline));
         }
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, hashStruct));
         address recoveredOwner = ecrecover(digest, v, r, s);
@@ -101,6 +101,6 @@ contract Erc20Permit is
             revert Erc20Permit__InvalidSignature(v, r, s);
         }
 
-        approveInternal(owner, spender, amount);
+        approveInternal(owner, spender, value);
     }
 }
