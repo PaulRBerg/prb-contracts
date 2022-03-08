@@ -2,12 +2,12 @@ import type { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero, Zero } from "@ethersproject/constants";
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 
 import { Erc20Errors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeTransferFrom(): void {
-  const transferAmount: BigNumber = fp("100");
+  const transferAmount: BigNumber = toBn("100");
   let owner: SignerWithAddress;
   let recipient: SignerWithAddress;
   let spender: SignerWithAddress;

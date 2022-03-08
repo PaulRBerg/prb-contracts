@@ -1,12 +1,12 @@
 import type { BigNumber } from "@ethersproject/bignumber";
 import { Zero } from "@ethersproject/constants";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 
 import { Erc20RecoverErrors, GenericErrors, OwnableErrors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeRecover(): void {
-  const recoverAmount: BigNumber = fp("100");
+  const recoverAmount: BigNumber = toBn("100");
 
   describe("when the caller is the owner", function () {
     describe("when the contract was initialized", function () {

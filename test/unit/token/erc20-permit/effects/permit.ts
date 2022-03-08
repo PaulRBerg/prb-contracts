@@ -3,7 +3,7 @@ import type { Signature } from "@ethersproject/bytes";
 import { AddressZero } from "@ethersproject/constants";
 import { SigningKey } from "@ethersproject/signing-key";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 import { network } from "hardhat";
 
 import { HARDHAT_CHAIN_ID } from "../../../../../helpers/constants";
@@ -12,7 +12,7 @@ import { bn } from "../../../../../helpers/numbers";
 import { getPermitDigest } from "../../../../shared/eip2612";
 import { Erc20PermitErrors } from "../../../../shared/errors";
 
-const allowanceAmount: BigNumber = fp("100");
+const allowanceAmount: BigNumber = toBn("100");
 const dummySignature: { v: BigNumber; r: string; s: string } = {
   v: bn("27"),
   r: "0x0000000000000000000000000000000000000000000000000000000000000001",

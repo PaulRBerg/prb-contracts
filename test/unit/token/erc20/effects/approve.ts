@@ -1,13 +1,13 @@
 import type { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero } from "@ethersproject/constants";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 
 import { Erc20Errors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeApprove(): void {
-  const amount: BigNumber = fp("100");
-  const newAmount: BigNumber = fp("10");
+  const amount: BigNumber = toBn("100");
+  const newAmount: BigNumber = toBn("10");
 
   context("when the spender is the zero address", function () {
     it("reverts", async function () {

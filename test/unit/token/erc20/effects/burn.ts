@@ -1,7 +1,7 @@
 import type { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero, Zero } from "@ethersproject/constants";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 
 import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
 
@@ -15,7 +15,7 @@ export default function shouldBehaveLikeBurn(): void {
   });
 
   context("when the holder is not the zero address", function () {
-    const burnAmount: BigNumber = fp("10");
+    const burnAmount: BigNumber = toBn("10");
 
     context("when the burn results into an underflow", function () {
       it("reverts", async function () {
@@ -27,7 +27,7 @@ export default function shouldBehaveLikeBurn(): void {
 
     context("when the burn does not result into an underflow", function () {
       beforeEach(async function () {
-        const mintAmount: BigNumber = fp("100");
+        const mintAmount: BigNumber = toBn("100");
         await this.contracts.erc20.connect(this.signers.alice).mint(this.signers.alice.address, mintAmount);
       });
 

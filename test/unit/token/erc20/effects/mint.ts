@@ -1,7 +1,7 @@
 import type { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero, MaxUint256, Zero } from "@ethersproject/constants";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 
 import { bn } from "../../../../../helpers/numbers";
 import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
@@ -29,7 +29,7 @@ export default function shouldBehaveLikeMint(): void {
     });
 
     context("when the mint does not result into an overflow", function () {
-      const mintAmount: BigNumber = fp("100");
+      const mintAmount: BigNumber = toBn("100");
 
       it("increases the balance of the beneficiary", async function () {
         await this.contracts.erc20.connect(this.signers.alice).mint(this.signers.alice.address, mintAmount);

@@ -1,13 +1,13 @@
 import type { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero, MaxUint256 } from "@ethersproject/constants";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 
 import { bn } from "../../../../../helpers/numbers";
 import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeIncreaseAllowance(): void {
-  const addedAmount: BigNumber = fp("100");
+  const addedAmount: BigNumber = toBn("100");
 
   context("when the spender is the zero address", function () {
     it("reverts", async function () {

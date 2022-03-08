@@ -1,12 +1,12 @@
 import type { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero, Zero } from "@ethersproject/constants";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 
 import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeDecreaseAllowance(): void {
-  const subtractedAmount: BigNumber = fp("100");
+  const subtractedAmount: BigNumber = toBn("100");
 
   context("when the spender is the zero address", function () {
     it("reverts", async function () {
@@ -33,7 +33,7 @@ export default function shouldBehaveLikeDecreaseAllowance(): void {
       });
 
       context("when a part of the allowance is decreased", function () {
-        const partialSubtractedValue: BigNumber = fp("10");
+        const partialSubtractedValue: BigNumber = toBn("10");
 
         it("decreases the allowance", async function () {
           const preAllowance: BigNumber = await this.contracts.erc20.allowance(

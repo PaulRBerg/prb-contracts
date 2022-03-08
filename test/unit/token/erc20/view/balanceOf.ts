@@ -1,7 +1,7 @@
 import type { BigNumber } from "@ethersproject/bignumber";
 import { Zero } from "@ethersproject/constants";
 import { expect } from "chai";
-import fp from "evm-fp";
+import { toBn } from "evm-bn";
 
 export default function shouldBehaveLikeERC20BalanceOf(): void {
   context("balanceOf", function () {
@@ -13,7 +13,7 @@ export default function shouldBehaveLikeERC20BalanceOf(): void {
     });
 
     context("when the account has a balance", function () {
-      const initialBalance: BigNumber = fp("100");
+      const initialBalance: BigNumber = toBn("100");
 
       beforeEach(async function () {
         await this.contracts.erc20.connect(this.signers.alice).mint(this.signers.alice.address, initialBalance);
