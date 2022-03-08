@@ -1,5 +1,5 @@
 {
-  "name": "@paulrberg/contracts",
+  "name": "@prb/contracts",
   "description": "Off-the-shelf Solidity smart contracts",
   "version": "3.7.0",
   "author": {
@@ -7,7 +7,7 @@
     "url": "https://paulrberg.com"
   },
   "bugs": {
-    "url": "https://github.com/paulrberg/contracts/issues"
+    "url": "https://github.com/paulrberg/prb-contracts/issues"
   },
   "dependencies": {
     "@prb/math": "^2.5.0"
@@ -16,7 +16,7 @@
     "**/*.sol",
     "!test/**/*.sol"
   ],
-  "homepage": "https://github.com/paulrberg/contracts#readme",
+  "homepage": "https://github.com/paulrberg/prb-contracts#readme",
   "keywords": [
     "blockchain",
     "erc20",
@@ -34,6 +34,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/paulrberg/contracts"
+    "url": "https://github.com/paulrberg/prb-contracts"
   }
 }

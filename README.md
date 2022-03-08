@@ -1,4 +1,4 @@
-# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/contracts/badge.svg?branch=main)](https://coveralls.io/github/paulrberg/contracts?branch=main) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![license: Unlicense](https://img.shields.io/badge/license-Unlicense-yellow.svg)](https://spdx.org/licenses/Unlicense.html)
+# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/prb-contracts/badge.svg?branch=main)](https://coveralls.io/github/paulrberg/prb-contracts?branch=main) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![license: Unlicense](https://img.shields.io/badge/license-Unlicense-yellow.svg)](https://spdx.org/licenses/Unlicense.html)
 
 **Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
 
@@ -20,13 +20,13 @@ This is experimental software and is provided on an "as is" and "as available" b
 With yarn:
 
 ```sh
-$ yarn add @paulrberg/contracts
+$ yarn add @prb/contracts
 ```
 
 Or npm:
 
 ```sh
-$ npm install @paulrberg/contracts
+$ npm install @prb/contracts
 ```
 
 ## Usage
@@ -37,8 +37,8 @@ Once installed, you can use the contracts like this:
 // SPDX-License-Identifier: Unlicense
 pragma solidity >=0.8.4;
 
-import "@paulrberg/contracts/token/erc20/Erc20.sol";
-import "@paulrberg/contracts/token/erc20/Erc20Permit.sol";
+import "@prb/contracts/token/erc20/Erc20.sol";
+import "@prb/contracts/token/erc20/Erc20Permit.sol";
 
 contract MyToken is Erc20, Erc20Permit {
   constructor(
