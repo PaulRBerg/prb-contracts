@@ -13,7 +13,7 @@ import "./IErc20.sol";
 interface IErc20Permit is IErc20 {
     /// NON-CONSTANT FUNCTIONS ///
 
-    /// @notice Sets `amount` as the allowance of `spender` over `owner`'s tokens, assuming the latter's
+    /// @notice Sets `value` as the allowance of `spender` over `owner`'s tokens, assuming the latter's
     /// signed approval.
     ///
     /// @dev Emits an {Approval} event.
@@ -32,7 +32,7 @@ interface IErc20Permit is IErc20 {
     function permit(
         address owner,
         address spender,
-        uint256 amount,
+        uint256 value,
         uint256 deadline,
         uint8 v,
         bytes32 r,
@@ -47,7 +47,7 @@ interface IErc20Permit is IErc20 {
     /// @notice Provides replay protection.
     function nonces(address account) external view returns (uint256);
 
-    /// @notice keccak256("Permit(address owner,address spender,uint256 amount,uint256 nonce,uint256 deadline)");
+    /// @notice keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
     function PERMIT_TYPEHASH() external view returns (bytes32);
 
     /// @notice Eip712 version of this implementation.

@@ -8,7 +8,7 @@ import { Erc20Permit } from "../../src/types/Erc20Permit";
 
 // Must match the typehash in Erc20PermitStorage.sol
 export const PERMIT_TYPEHASH: string = keccak256(
-  toUtf8Bytes("Permit(address owner,address spender,uint256 amount,uint256 nonce,uint256 deadline)"),
+  toUtf8Bytes("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"),
 );
 
 // Must match the version in Erc20PermitStorage.sol
