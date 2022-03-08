@@ -17,11 +17,8 @@ dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 const chainIds = {
   hardhat: 31337,
-  goerli: 5,
-  kovan: 42,
   mainnet: 1,
   rinkeby: 4,
-  ropsten: 3,
 };
 
 // Ensure that we have all the environment variables we need.
@@ -29,7 +26,7 @@ const mnemonic: string = getEnvVar("MNEMONIC");
 const infuraApiKey: string = getEnvVar("INFURA_API_KEY");
 
 function getChainConfig(network: keyof typeof chainIds): NetworkUserConfig {
-  const url: string = "https://" + network + ".infura.io/v3/" + infuraApiKey;
+  const url: string = "wss://" + network + ".infura.io/ws/v3/" + infuraApiKey;
   return {
     accounts: {
       count: 10,
@@ -56,10 +53,7 @@ const config: HardhatUserConfig = {
       },
       url: "http://localhost:8545",
     },
-    goerli: getChainConfig("goerli"),
-    kovan: getChainConfig("kovan"),
     rinkeby: getChainConfig("rinkeby"),
-    ropsten: getChainConfig("ropsten"),
   },
   paths: {
     artifacts: "./artifacts",
