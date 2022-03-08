@@ -1,10 +1,10 @@
 import { defaultAbiCoder } from "@ethersproject/abi";
-import { BigNumber } from "@ethersproject/bignumber";
+import type { BigNumber } from "@ethersproject/bignumber";
 import { keccak256 } from "@ethersproject/keccak256";
 import { pack as solidityPack } from "@ethersproject/solidity";
 import { toUtf8Bytes } from "@ethersproject/strings";
 
-import { Erc20Permit } from "../../src/types/Erc20Permit";
+import type { Erc20Permit } from "../../src/types/Erc20Permit";
 
 // Must match the typehash in Erc20PermitStorage.sol
 export const PERMIT_TYPEHASH: string = keccak256(

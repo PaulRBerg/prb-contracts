@@ -1,5 +1,5 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { Signature } from "@ethersproject/bytes";
+import type { BigNumber } from "@ethersproject/bignumber";
+import type { Signature } from "@ethersproject/bytes";
 import { AddressZero } from "@ethersproject/constants";
 import { SigningKey } from "@ethersproject/signing-key";
 import { expect } from "chai";

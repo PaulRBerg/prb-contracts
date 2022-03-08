@@ -1,4 +1,4 @@
-import { BigNumber } from "@ethersproject/bignumber";
+import type { BigNumber } from "@ethersproject/bignumber";
 import { AddressZero } from "@ethersproject/constants";
 import { expect } from "chai";
 import fp from "evm-fp";

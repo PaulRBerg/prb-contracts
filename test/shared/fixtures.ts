@@ -1,7 +1,7 @@
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
-import { MockContract } from "ethereum-waffle";
+import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import type { MockContract } from "ethereum-waffle";
 import { artifacts, waffle } from "hardhat";
-import { Artifact } from "hardhat/types";
+import type { Artifact } from "hardhat/types";
 
 import {
   DEFAULT_DECIMALS,
@@ -12,9 +12,9 @@ import {
   ERC20_PERMIT_SYMBOL,
   ERC20_SYMBOL,
 } from "../../helpers/constants";
-import { Erc20Permit } from "../../src/types/Erc20Permit";
-import { GodModeErc20 as Erc20 } from "../../src/types/GodModeErc20";
-import { GodModeErc20Recover as Erc20Recover } from "../../src/types/GodModeErc20Recover";
+import type { Erc20Permit } from "../../src/types/Erc20Permit";
+import type { GodModeErc20 as Erc20 } from "../../src/types/GodModeErc20";
+import type { GodModeErc20Recover as Erc20Recover } from "../../src/types/GodModeErc20Recover";
 import { deployMockErc20 } from "./mocks";
 
 export async function erc20Fixture(signers: SignerWithAddress[]): Promise<{ erc20: Erc20 }> {
