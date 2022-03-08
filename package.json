@@ -2,7 +2,7 @@
   "name": "paulrberg-contracts",
   "version": "3.7.0",
   "dependencies": {
-    "prb-math": "^2.4.3"
+    "@prb/math": "^2.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
@@ -57,7 +57,7 @@
   },
   "packageManager": "yarn@3.2.0",
   "peerDependencies": {
-    "prb-math": "2.x"
+    "@prb/math": "2.x"
   },
   "private": true,
   "resolutions": {
