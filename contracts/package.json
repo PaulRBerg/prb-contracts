@@ -1,7 +1,7 @@
 {
   "name": "@prb/contracts",
   "description": "Off-the-shelf Solidity smart contracts",
-  "version": "3.8.0",
+  "version": "3.8.1",
   "author": {
     "name": "Paul Razvan Berg",
     "url": "https://paulrberg.com"
@@ -14,6 +14,7 @@
   },
   "files": [
     "**/*.sol",
+    "CHANGELOG.md",
     "!test/**/*.sol"
   ],
   "homepage": "https://github.com/paulrberg/prb-contracts#readme",
