@@ -1,7 +1,7 @@
 import { AddressZero } from "@ethersproject/constants";
 import { expect } from "chai";
 
-import { GenericErrors, OwnableErrors } from "../../../../shared/errors";
+import { Erc20RecoverErrors, OwnableErrors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
   describe("when the caller is the owner", function () {
@@ -48,7 +48,7 @@ export default function shouldBehaveLikeSetNonRecoverableTokens(): void {
       it("reverts", async function () {
         await expect(
           this.contracts.erc20Recover.connect(this.signers.alice)._setNonRecoverableTokens([AddressZero]),
-        ).to.be.revertedWith(GenericErrors.Initialized);
+        ).to.be.revertedWith(Erc20RecoverErrors.Initialized);
       });
     });
   });

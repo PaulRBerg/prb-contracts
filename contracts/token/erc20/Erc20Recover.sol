@@ -6,18 +6,6 @@ import "./IErc20Recover.sol";
 import "./SafeErc20.sol";
 import "../../access/Ownable.sol";
 
-/// @notice Emitted when the contract is initialized.
-error Initialized();
-
-/// @notice Emitted when the contract is not initialized.
-error NotInitialized();
-
-/// @notice Emitted when recovering a token marked as non-recoverable.
-error NonRecoverableToken(address token);
-
-/// @notice Emitted when the amount to recover is zero.
-error RecoverZero();
-
 /// @title Erc20Recover
 /// @author Paul Razvan Berg
 abstract contract Erc20Recover is
@@ -40,7 +28,7 @@ abstract contract Erc20Recover is
     function _setNonRecoverableTokens(IErc20[] memory tokens) public override onlyOwner {
         // Checks
         if (isRecoverInitialized) {
-            revert Initialized();
+            revert Erc20Recover__Initialized();
         }
 
         // Iterate over the token list, sanity check each and update the mapping.
@@ -60,11 +48,11 @@ abstract contract Erc20Recover is
     function _recover(IErc20 token, uint256 recoverAmount) public override onlyOwner {
         // Checks
         if (!isRecoverInitialized) {
-            revert NotInitialized();
+            revert Erc20Recover__NotInitialized();
         }
 
         if (recoverAmount == 0) {
-            revert RecoverZero();
+            revert Erc20Recover__RecoverZero();
         }
 
         bytes32 tokenSymbolHash = keccak256(bytes(token.symbol()));
@@ -82,7 +70,7 @@ abstract contract Erc20Recover is
                 address(token) == address(nonRecoverableTokens[i]) ||
                 tokenSymbolHash == keccak256(bytes(nonRecoverableTokens[i].symbol()))
             ) {
-                revert NonRecoverableToken(address(token));
+                revert Erc20Recover__NonRecoverableToken(address(token));
             }
         }
 

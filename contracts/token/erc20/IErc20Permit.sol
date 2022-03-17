@@ -11,6 +11,21 @@ import "./IErc20.sol";
 /// them via `transferFrom`.
 /// @dev See https://eips.ethereum.org/EIPS/eip-2612.
 interface IErc20Permit is IErc20 {
+    /// @notice Emitted when the recovered owner does not match the actual owner.
+    error Erc20Permit__InvalidSignature(uint8 v, bytes32 r, bytes32 s);
+
+    /// @notice Emitted when the owner is the zero address.
+    error Erc20Permit__OwnerZeroAddress();
+
+    /// @notice Emitted when the permit expired.
+    error Erc20Permit__PermitExpired(uint256 deadline);
+
+    /// @notice Emitted when the recovered owner is the zero address.
+    error Erc20Permit__RecoveredOwnerZeroAddress();
+
+    /// @notice Emitted when the spender is the zero address.
+    error Erc20Permit__SpenderZeroAddress();
+
     /// NON-CONSTANT FUNCTIONS ///
 
     /// @notice Sets `value` as the allowance of `spender` over `owner`'s tokens, assuming the latter's

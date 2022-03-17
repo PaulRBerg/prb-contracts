@@ -3,33 +3,6 @@ pragma solidity >=0.8.4;
 
 import "./IErc20.sol";
 
-/// @notice Emitted when the owner is the zero address.
-error Erc20__ApproveOwnerZeroAddress();
-
-/// @notice Emitted when the spender is the zero address.
-error Erc20__ApproveSpenderZeroAddress();
-
-/// @notice Emitted when burning more tokens than are in the account.
-error Erc20__BurnUnderflow(uint256 accountBalance, uint256 burnAmount);
-
-/// @notice Emitted when the holder is the zero address.
-error Erc20__BurnZeroAddress();
-
-/// @notice Emitted when the owner did not give the spender sufficient allowance.
-error Erc20__InsufficientAllowance(uint256 allowance, uint256 amount);
-
-/// @notice Emitted when tranferring more tokens than there are in the account.
-error Erc20__InsufficientBalance(uint256 senderBalance, uint256 amount);
-
-/// @notice Emitted when the beneficiary is the zero address.
-error Erc20__MintZeroAddress();
-
-/// @notice Emitted when the sender is the zero address.
-error Erc20__TransferSenderZeroAddress();
-
-/// @notice Emitted when the recipient is the zero address.
-error Erc20__TransferRecipientZeroAddress();
-
 /// @title Erc20
 /// @author Paul Razvan Berg
 contract Erc20 is IErc20 {

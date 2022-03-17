@@ -15,6 +15,14 @@ pragma solidity >=0.8.4;
 /// @dev Forked from OpenZeppelin
 /// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/access/Ownable.sol
 interface IAdmin {
+    /// CUSTOM ERRORS ///
+
+    /// @notice Emitted when the caller is not the admin.
+    error Admin__NotAdmin(address admin, address caller);
+
+    /// @notice Emitted when setting the admin to the zero address.
+    error Admin__AdminZeroAddress();
+
     /// EVENTS ///
 
     /// @notice Emitted when the admin is transferred.

@@ -19,6 +19,11 @@ import "./IOwnable.sol";
 /// @dev Forked from Alberto Cuesta Cañada
 /// https://github.com/albertocuestacanada/Orchestrated/blob/b0adb21/contracts/Orchestrated.sol
 interface IOrchestratable is IOwnable {
+    /// CUSTOM ERRORS ///
+
+    /// @notice Emitted when the caller is not an orchestrated address.
+    error Orchestratable__NotOrchestrated(address caller, bytes4 signature);
+
     /// EVENTS ///
 
     /// @notice Emitted when access is granted to a new address.

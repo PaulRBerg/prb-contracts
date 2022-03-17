@@ -3,12 +3,6 @@ pragma solidity >=0.8.4;
 
 import "./IAdmin.sol";
 
-/// @notice Emitted when the caller is not the admin.
-error Admin__NotAdmin(address admin, address caller);
-
-/// @notice Emitted when setting the admin to the zero address.
-error Admin__AdminZeroAddress();
-
 /// @title Admin
 /// @author Paul Razvan Berg
 contract Admin is IAdmin {

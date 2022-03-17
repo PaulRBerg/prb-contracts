@@ -15,6 +15,12 @@ pragma solidity >=0.8.4;
 /// @dev Forked from OpenZeppelin
 /// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/access/Ownable.sol
 interface IOwnable {
+    /// @notice Emitted when the caller is not the owner.
+    error Ownable__NotOwner(address owner, address caller);
+
+    /// @notice Emitted when setting the owner to the zero address.
+    error Ownable__OwnerZeroAddress();
+
     /// EVENTS ///
 
     /// @notice Emitted when ownership is transferred.

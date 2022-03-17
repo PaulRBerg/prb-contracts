@@ -3,12 +3,6 @@ pragma solidity >=0.8.4;
 
 import "./IOwnable.sol";
 
-/// @notice Emitted when the caller is not the owner.
-error Ownable__NotOwner(address owner, address caller);
-
-/// @notice Emitted when setting the owner to the zero address.
-error Ownable__OwnerZeroAddress();
-
 /// @title Ownable
 /// @author Paul Razvan Berg
 contract Ownable is IOwnable {

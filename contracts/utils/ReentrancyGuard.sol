@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity >=0.8.4;
 
-/// @notice Emitted when there is a reentrancy call.
-error ReentrantCall();
-
 /// @title ReentrancyGuard
 /// @author Paul Razvan Berg
 /// @notice Contract module that helps prevent reentrant calls to a function.
@@ -18,7 +15,16 @@ error ReentrantCall();
 /// @dev Forked from OpenZeppelin
 /// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/utils/ReentrancyGuard.sol
 abstract contract ReentrancyGuard {
+    /// CUSTOM ERRORS ///
+
+    /// @notice Emitted when there is a reentrancy call.
+    error ReentrantCall();
+
+    /// PRIVATE STORAGE ///
+
     bool private notEntered;
+
+    /// CONSTRUCTOR ///
 
     /// Storing an initial non-zero value makes deployment a bit more expensive but in exchange the
     /// refund on every call to nonReentrant will be lower in amount. Since refunds are capped to a
@@ -27,6 +33,8 @@ abstract contract ReentrancyGuard {
     constructor() {
         notEntered = true;
     }
+
+    /// MODIFIERS ///
 
     /// @notice Prevents a contract from calling itself, directly or indirectly.
     /// @dev Calling a `nonReentrant` function from another `nonReentrant` function

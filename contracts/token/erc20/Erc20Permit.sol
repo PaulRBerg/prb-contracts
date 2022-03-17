@@ -5,21 +5,6 @@ pragma solidity >=0.8.4;
 import "./Erc20.sol";
 import "./IErc20Permit.sol";
 
-/// @notice Emitted when the recovered owner does not match the actual owner.
-error Erc20Permit__InvalidSignature(uint8 v, bytes32 r, bytes32 s);
-
-/// @notice Emitted when the owner is the zero address.
-error Erc20Permit__OwnerZeroAddress();
-
-/// @notice Emitted when the permit expired.
-error Erc20Permit__PermitExpired(uint256 deadline);
-
-/// @notice Emitted when the recovered owner is the zero address.
-error Erc20Permit__RecoveredOwnerZeroAddress();
-
-/// @notice Emitted when the spender is the zero address.
-error Erc20Permit__SpenderZeroAddress();
-
 /// @title Erc20Permit
 /// @author Paul Razvan Berg
 contract Erc20Permit is

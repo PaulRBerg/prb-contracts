@@ -3,7 +3,7 @@ import { Zero } from "@ethersproject/constants";
 import { expect } from "chai";
 import { toBn } from "evm-bn";
 
-import { Erc20RecoverErrors, GenericErrors, OwnableErrors } from "../../../../shared/errors";
+import { Erc20RecoverErrors, OwnableErrors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeRecover(): void {
   const recoverAmount: BigNumber = toBn("100");
@@ -83,7 +83,7 @@ export default function shouldBehaveLikeRecover(): void {
           this.contracts.erc20Recover
             .connect(this.signers.alice)
             ._recover(this.mocks.thirdPartyToken.address, recoverAmount),
-        ).to.be.revertedWith(GenericErrors.NotInitialized);
+        ).to.be.revertedWith(Erc20RecoverErrors.NotInitialized);
       });
     });
   });

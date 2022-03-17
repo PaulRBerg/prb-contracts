@@ -17,13 +17,10 @@ export enum Erc20PermitErrors {
 }
 
 export enum Erc20RecoverErrors {
-  NonRecoverableToken = "NonRecoverableToken",
-  RecoverZero = "RecoverZero",
-}
-
-export enum GenericErrors {
-  Initialized = "Initialized",
-  NotInitialized = "NotInitialized",
+  Initialized = "Erc20Recover__Initialized",
+  NotInitialized = "Erc20Recover__NotInitialized",
+  NonRecoverableToken = "Erc20Recover__NonRecoverableToken",
+  RecoverZero = "Erc20Recover__RecoverZero",
 }
 
 export enum OwnableErrors {

@@ -10,6 +10,20 @@ import "../../access/IOwnable.sol";
 /// @notice Contract that gives the owner the ability to recover the Erc20 tokens that were sent
 /// (accidentally, or not) to the contract.
 interface IErc20Recover is IOwnable {
+    /// CUSTOM ERRORS ///
+
+    /// @notice Emitted when the contract is initialized.
+    error Erc20Recover__Initialized();
+
+    /// @notice Emitted when the contract is not initialized.
+    error Erc20Recover__NotInitialized();
+
+    /// @notice Emitted when recovering a token marked as non-recoverable.
+    error Erc20Recover__NonRecoverableToken(address token);
+
+    /// @notice Emitted when the amount to recover is zero.
+    error Erc20Recover__RecoverZero();
+
     /// EVENTS ///
 
     /// @notice Emitted when tokens are recovered.

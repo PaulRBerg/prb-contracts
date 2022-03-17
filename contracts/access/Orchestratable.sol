@@ -4,9 +4,6 @@ pragma solidity >=0.8.4;
 import "./Ownable.sol";
 import "./IOrchestratable.sol";
 
-/// @notice Emitted when the caller is not an orchestrated address.
-error Orchestratable__NotOrchestrated(address caller, bytes4 signature);
-
 /// @title Orchestratable
 /// @author Paul Razvan Berg
 contract Orchestratable is
