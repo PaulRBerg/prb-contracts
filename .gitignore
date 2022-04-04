@@ -11,7 +11,6 @@
 **/coverage
 **/dist
 **/node_modules
-**/src/types
 
 # files
 *.env
