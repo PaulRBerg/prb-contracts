@@ -5,5 +5,5 @@ module.exports = {
   providerOptions: {
     mnemonic: process.env.MNEMONIC,
   },
-  skipFiles: ["access/Admin.sol", "access/IAdmin.sol", "math", "mocks", "test"],
+  skipFiles: ["math", "mocks", "test"],
 };

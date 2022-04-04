@@ -13,14 +13,6 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "Admin",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Admin__factory>;
-    getContractFactory(
-      name: "IAdmin",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IAdmin__factory>;
-    getContractFactory(
       name: "IOrchestratable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IOrchestratable__factory>;
@@ -77,16 +69,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ReentrancyGuard__factory>;
 
-    getContractAt(
-      name: "Admin",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Admin>;
-    getContractAt(
-      name: "IAdmin",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IAdmin>;
     getContractAt(
       name: "IOrchestratable",
       address: string,

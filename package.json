@@ -1,7 +1,7 @@
 {
   "name": "paulrberg-contracts",
   "description": "Off-the-shelf Solidity smart contracts",
-  "version": "3.9.0",
+  "version": "4.0.0",
   "author": {
     "name": "Paul Razvan Berg",
     "url": "https://github.com/paulrberg"
