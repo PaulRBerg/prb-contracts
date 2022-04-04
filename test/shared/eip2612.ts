@@ -4,14 +4,14 @@ import { keccak256 } from "@ethersproject/keccak256";
 import { pack as solidityPack } from "@ethersproject/solidity";
 import { toUtf8Bytes } from "@ethersproject/strings";
 
-import type { Erc20Permit } from "../../src/types/Erc20Permit";
+import type { ERC20Permit } from "../../src/types/ERC20Permit";
 
-// Must match the typehash in Erc20PermitStorage.sol
+// Must match the typehash in ERC20Permit.sol
 export const PERMIT_TYPEHASH: string = keccak256(
   toUtf8Bytes("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"),
 );
 
-// Must match the version in Erc20PermitStorage.sol
+// Must match the version in ERC20Permit.sol
 export const version: string = "1";
 
 /// Returns the Eip712 domain separator.
@@ -32,7 +32,7 @@ export function getDomainSeparator(name: string, chainId: number, tokenAddress: 
 
 /// Returns the Eip712 hash that must be signed by the user in order to make a call to `permit`.
 export async function getPermitDigest(
-  token: Erc20Permit,
+  token: ERC20Permit,
   chainId: BigNumber,
   approve: {
     owner: string;

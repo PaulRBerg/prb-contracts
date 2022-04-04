@@ -3,7 +3,7 @@ import { AddressZero } from "@ethersproject/constants";
 import { expect } from "chai";
 import { toBn } from "evm-bn";
 
-import { Erc20Errors } from "../../../../shared/errors";
+import { ERC20Errors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeApprove(): void {
   const amount: BigNumber = toBn("100");
@@ -12,7 +12,7 @@ export default function shouldBehaveLikeApprove(): void {
   context("when the spender is the zero address", function () {
     it("reverts", async function () {
       await expect(this.contracts.erc20.connect(this.signers.alice).approve(AddressZero, amount)).to.be.revertedWith(
-        Erc20Errors.ApproveSpenderZeroAddress,
+        ERC20Errors.ApproveSpenderZeroAddress,
       );
     });
   });

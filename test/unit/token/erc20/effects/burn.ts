@@ -3,13 +3,13 @@ import { AddressZero, Zero } from "@ethersproject/constants";
 import { expect } from "chai";
 import { toBn } from "evm-bn";
 
-import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
+import { ERC20Errors, PanicCodes } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeBurn(): void {
   context("when the holder is the zero address", function () {
     it("reverts", async function () {
       await expect(this.contracts.erc20.connect(this.signers.alice).burn(AddressZero, Zero)).to.be.revertedWith(
-        Erc20Errors.BurnZeroAddress,
+        ERC20Errors.BurnZeroAddress,
       );
     });
   });

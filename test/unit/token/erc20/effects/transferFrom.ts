@@ -4,7 +4,7 @@ import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { toBn } from "evm-bn";
 
-import { Erc20Errors } from "../../../../shared/errors";
+import { ERC20Errors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeTransferFrom(): void {
   const transferAmount: BigNumber = toBn("100");
@@ -22,7 +22,7 @@ export default function shouldBehaveLikeTransferFrom(): void {
     it("reverts", async function () {
       await expect(
         this.contracts.erc20.connect(spender).transferFrom(AddressZero, recipient.address, transferAmount),
-      ).to.be.revertedWith(Erc20Errors.TransferSenderZeroAddress);
+      ).to.be.revertedWith(ERC20Errors.TransferSenderZeroAddress);
     });
   });
 
@@ -35,7 +35,7 @@ export default function shouldBehaveLikeTransferFrom(): void {
       it("reverts", async function () {
         await expect(
           this.contracts.erc20.connect(spender).transferFrom(owner.address, AddressZero, transferAmount),
-        ).to.be.revertedWith(Erc20Errors.TransferRecipientZeroAddress);
+        ).to.be.revertedWith(ERC20Errors.TransferRecipientZeroAddress);
       });
     });
 
@@ -44,7 +44,7 @@ export default function shouldBehaveLikeTransferFrom(): void {
         it("reverts", async function () {
           await expect(
             this.contracts.erc20.connect(spender).transferFrom(owner.address, recipient.address, transferAmount),
-          ).to.be.revertedWith(Erc20Errors.InsufficientBalance);
+          ).to.be.revertedWith(ERC20Errors.InsufficientBalance);
         });
       });
 
@@ -57,7 +57,7 @@ export default function shouldBehaveLikeTransferFrom(): void {
           it("reverts", async function () {
             await expect(
               this.contracts.erc20.connect(spender).transferFrom(owner.address, recipient.address, transferAmount),
-            ).to.be.revertedWith(Erc20Errors.InsufficientAllowance);
+            ).to.be.revertedWith(ERC20Errors.InsufficientAllowance);
           });
         });
 

@@ -7,8 +7,9 @@ import { resolve } from "path";
 import "solidity-coverage";
 
 import { getEnvVar } from "./helpers/env";
-import "./tasks/clean";
-import "./tasks/deploy";
+
+// import "./tasks/clean";
+// import "./tasks/deploy";
 
 dotenvConfig({ path: resolve(__dirname, "./.env") });
 

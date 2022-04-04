@@ -4,7 +4,7 @@ import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { toBn } from "evm-bn";
 
-import { Erc20Errors } from "../../../../shared/errors";
+import { ERC20Errors } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeTransfer(): void {
   const transferAmount: BigNumber = toBn("100");
@@ -20,7 +20,7 @@ export default function shouldBehaveLikeTransfer(): void {
     it("reverts", async function () {
       await expect(
         this.contracts.erc20.connect(AddressZero).transfer(recipient.address, transferAmount),
-      ).to.be.revertedWith(Erc20Errors.TransferSenderZeroAddress);
+      ).to.be.revertedWith(ERC20Errors.TransferSenderZeroAddress);
     });
   });
 
@@ -28,7 +28,7 @@ export default function shouldBehaveLikeTransfer(): void {
     context("when the recipient is the zero address", function () {
       it("reverts", async function () {
         await expect(this.contracts.erc20.connect(sender).transfer(AddressZero, transferAmount)).to.be.revertedWith(
-          Erc20Errors.TransferRecipientZeroAddress,
+          ERC20Errors.TransferRecipientZeroAddress,
         );
       });
     });
@@ -38,7 +38,7 @@ export default function shouldBehaveLikeTransfer(): void {
         it("reverts", async function () {
           await expect(
             this.contracts.erc20.connect(sender).transfer(recipient.address, transferAmount),
-          ).to.be.revertedWith(Erc20Errors.InsufficientBalance);
+          ).to.be.revertedWith(ERC20Errors.InsufficientBalance);
         });
       });
 

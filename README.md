@@ -37,15 +37,15 @@ Once installed, you can use the contracts like this:
 // SPDX-License-Identifier: Unlicense
 pragma solidity >=0.8.4;
 
-import "@prb/contracts/token/erc20/Erc20.sol";
-import "@prb/contracts/token/erc20/Erc20Permit.sol";
+import "@prb/contracts/token/erc20/ERC20.sol";
+import "@prb/contracts/token/erc20/ERC20Permit.sol";
 
-contract MyToken is Erc20, Erc20Permit {
+contract MyToken is ERC20, ERC20Permit {
   constructor(
     string memory name_,
     string memory symbol_,
     uint8 decimals_
-  ) Erc20Permit(name_, symbol_, decimals_) {}
+  ) ERC20Permit(name_, symbol_, decimals_) {}
 }
 
 ```

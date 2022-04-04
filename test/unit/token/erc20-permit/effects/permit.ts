@@ -10,7 +10,7 @@ import { HARDHAT_CHAIN_ID } from "../../../../../helpers/constants";
 import { getEnvVar } from "../../../../../helpers/env";
 import { bn } from "../../../../../helpers/numbers";
 import { getPermitDigest } from "../../../../shared/eip2612";
-import { Erc20PermitErrors } from "../../../../shared/errors";
+import { ERC20PermitErrors } from "../../../../shared/errors";
 
 const allowanceAmount: BigNumber = toBn("100");
 const dummySignature: { v: BigNumber; r: string; s: string } = {
@@ -119,7 +119,7 @@ export default function shouldBehaveLikePermit(): void {
                     dummySignature.r,
                     dummySignature.s,
                   ),
-              ).to.be.revertedWith(Erc20PermitErrors.InvalidSignature);
+              ).to.be.revertedWith(ERC20PermitErrors.InvalidSignature);
             });
           });
         });
@@ -137,7 +137,7 @@ export default function shouldBehaveLikePermit(): void {
               this.contracts.erc20Permit
                 .connect(this.signers.alice)
                 .permit(owner, spender, allowanceAmount, deadline, goofedV, signature.r, signature.s),
-            ).to.be.revertedWith(Erc20PermitErrors.RecoveredOwnerZeroAddress);
+            ).to.be.revertedWith(ERC20PermitErrors.RecoveredOwnerZeroAddress);
           });
         });
       });
@@ -153,7 +153,7 @@ export default function shouldBehaveLikePermit(): void {
             this.contracts.erc20Permit
               .connect(this.signers.alice)
               .permit(owner, spender, allowanceAmount, deadline, signature.v, signature.r, signature.s),
-          ).to.be.revertedWith(Erc20PermitErrors.PermitExpired);
+          ).to.be.revertedWith(ERC20PermitErrors.PermitExpired);
         });
       });
     });
@@ -167,7 +167,7 @@ export default function shouldBehaveLikePermit(): void {
           this.contracts.erc20Permit
             .connect(this.signers.alice)
             .permit(owner, spender, allowanceAmount, deadline, dummySignature.v, dummySignature.r, dummySignature.s),
-        ).to.be.revertedWith(Erc20PermitErrors.SpenderZeroAddress);
+        ).to.be.revertedWith(ERC20PermitErrors.SpenderZeroAddress);
       });
     });
   });
@@ -181,7 +181,7 @@ export default function shouldBehaveLikePermit(): void {
         this.contracts.erc20Permit
           .connect(this.signers.alice)
           .permit(owner, spender, allowanceAmount, deadline, dummySignature.v, dummySignature.r, dummySignature.s),
-      ).to.be.revertedWith(Erc20PermitErrors.OwnerZeroAddress);
+      ).to.be.revertedWith(ERC20PermitErrors.OwnerZeroAddress);
     });
   });
 }

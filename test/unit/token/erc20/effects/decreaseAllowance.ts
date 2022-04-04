@@ -3,7 +3,7 @@ import { AddressZero, Zero } from "@ethersproject/constants";
 import { expect } from "chai";
 import { toBn } from "evm-bn";
 
-import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
+import { ERC20Errors, PanicCodes } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeDecreaseAllowance(): void {
   const subtractedAmount: BigNumber = toBn("100");
@@ -12,7 +12,7 @@ export default function shouldBehaveLikeDecreaseAllowance(): void {
     it("reverts", async function () {
       await expect(
         this.contracts.erc20.connect(this.signers.alice).decreaseAllowance(AddressZero, Zero),
-      ).to.be.revertedWith(Erc20Errors.ApproveSpenderZeroAddress);
+      ).to.be.revertedWith(ERC20Errors.ApproveSpenderZeroAddress);
     });
   });
 

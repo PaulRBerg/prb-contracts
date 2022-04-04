@@ -2,12 +2,12 @@
 // solhint-disable func-name-mixedcase
 pragma solidity >=0.8.4;
 
-import "../token/erc20/Erc20Recover.sol";
+import "../token/erc20/ERC20Recover.sol";
 
-/// @title GodModeErc20Recover
+/// @title GodModeERC20Recover
 /// @author Paul Razvan Berg
 /// @dev Strictly for test purposes. Do not use in production.
-contract GodModeErc20Recover is Erc20Recover {
+contract GodModeERC20Recover is ERC20Recover {
     function __godMode_getIsRecoverInitialized() external view returns (bool) {
         return isRecoverInitialized;
     }

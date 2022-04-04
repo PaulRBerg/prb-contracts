@@ -4,13 +4,13 @@ import { expect } from "chai";
 import { toBn } from "evm-bn";
 
 import { bn } from "../../../../../helpers/numbers";
-import { Erc20Errors, PanicCodes } from "../../../../shared/errors";
+import { ERC20Errors, PanicCodes } from "../../../../shared/errors";
 
 export default function shouldBehaveLikeMint(): void {
   context("when the beneficiary is the zero address", function () {
     it("reverts", async function () {
       await expect(this.contracts.erc20.connect(this.signers.alice).mint(AddressZero, Zero)).to.be.revertedWith(
-        Erc20Errors.MintZeroAddress,
+        ERC20Errors.MintZeroAddress,
       );
     });
   });
