@@ -23,6 +23,16 @@ contract NonStandardERC20 {
 
     event Approval(address indexed owner, address indexed spender, uint256 amount);
 
+    constructor(
+        string memory name_,
+        string memory symbol_,
+        uint8 decimals_
+    ) {
+        name = name_;
+        symbol = symbol_;
+        decimals = decimals_;
+    }
+
     function allowance(address owner, address spender) public view returns (uint256) {
         return allowances[owner][spender];
     }
