@@ -3,10 +3,10 @@ pragma solidity >=0.8.4;
 
 import "./ERC20.sol";
 
-/// @title GodModeERC20
+/// @title ERC20GodMode
 /// @author Paul Razvan Berg
 /// @notice Allows anyone to mint or burn any amount of tokens to any account.
-contract GodModeERC20 is ERC20 {
+contract ERC20GodMode is ERC20 {
     /// EVENTS ///
 
     event Burn(address indexed holder, uint256 burnAmount);

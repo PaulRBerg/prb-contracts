@@ -23,16 +23,6 @@ contract NonStandardERC20 {
 
     event Approval(address indexed owner, address indexed spender, uint256 amount);
 
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        uint8 decimals_
-    ) {
-        name = name_;
-        symbol = symbol_;
-        decimals = decimals_;
-    }
-
     function allowance(address owner, address spender) public view returns (uint256) {
         return allowances[owner][spender];
     }
@@ -44,6 +34,18 @@ contract NonStandardERC20 {
     function approve(address spender, uint256 amount) public returns (bool) {
         approveInternal(msg.sender, spender, amount);
         return true;
+    }
+
+    function burn(address holder, uint256 burnAmount) public {
+        balances[holder] -= burnAmount;
+        totalSupply -= burnAmount;
+        emit Transfer(holder, address(0), burnAmount);
+    }
+
+    function mint(address beneficiary, uint256 mintAmount) public {
+        balances[beneficiary] += mintAmount;
+        totalSupply += mintAmount;
+        emit Transfer(address(0), beneficiary, mintAmount);
     }
 
     /// @dev This function does not return a value, in violation of the ERC-20 standard.

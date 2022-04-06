@@ -29,13 +29,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
     getContractFactory(
-      name: "GodModeERC20Recover",
+      name: "ERC20RecoverGodMode",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.GodModeERC20Recover__factory>;
+    ): Promise<Contracts.ERC20RecoverGodMode__factory>;
     getContractFactory(
       name: "ERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC20__factory>;
+    getContractFactory(
+      name: "ERC20GodMode",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20GodMode__factory>;
     getContractFactory(
       name: "ERC20Permit",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -90,15 +94,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Ownable>;
     getContractAt(
-      name: "GodModeERC20Recover",
+      name: "ERC20RecoverGodMode",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.GodModeERC20Recover>;
+    ): Promise<Contracts.ERC20RecoverGodMode>;
     getContractAt(
       name: "ERC20",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ERC20>;
+    getContractAt(
+      name: "ERC20GodMode",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20GodMode>;
     getContractAt(
       name: "ERC20Permit",
       address: string,

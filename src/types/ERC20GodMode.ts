@@ -17,14 +17,16 @@ import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import { Listener, Provider } from "@ethersproject/providers";
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 
-export interface NonStandardERC20Interface extends utils.Interface {
-  contractName: "NonStandardERC20";
+export interface ERC20GodModeInterface extends utils.Interface {
+  contractName: "ERC20GodMode";
   functions: {
     "allowance(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
     "decimals()": FunctionFragment;
+    "decreaseAllowance(address,uint256)": FunctionFragment;
+    "increaseAllowance(address,uint256)": FunctionFragment;
     "mint(address,uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "symbol()": FunctionFragment;
@@ -47,6 +49,14 @@ export interface NonStandardERC20Interface extends utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "decreaseAllowance",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "increaseAllowance",
+    values: [string, BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "mint",
     values: [string, BigNumberish]
@@ -71,6 +81,14 @@ export interface NonStandardERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "increaseAllowance",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
@@ -86,10 +104,14 @@ export interface NonStandardERC20Interface extends utils.Interface {
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
+    "Burn(address,uint256)": EventFragment;
+    "Mint(address,uint256)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Burn"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Mint"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
@@ -100,6 +122,20 @@ export type ApprovalEvent = TypedEvent<
 
 export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>;
 
+export type BurnEvent = TypedEvent<
+  [string, BigNumber],
+  { holder: string; burnAmount: BigNumber }
+>;
+
+export type BurnEventFilter = TypedEventFilter<BurnEvent>;
+
+export type MintEvent = TypedEvent<
+  [string, BigNumber],
+  { beneficiary: string; mintAmount: BigNumber }
+>;
+
+export type MintEventFilter = TypedEventFilter<MintEvent>;
+
 export type TransferEvent = TypedEvent<
   [string, string, BigNumber],
   { from: string; to: string; amount: BigNumber }
@@ -107,13 +143,13 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface NonStandardERC20 extends BaseContract {
-  contractName: "NonStandardERC20";
+export interface ERC20GodMode extends BaseContract {
+  contractName: "ERC20GodMode";
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: NonStandardERC20Interface;
+  interface: ERC20GodModeInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -156,6 +192,18 @@ export interface NonStandardERC20 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
+
+    decreaseAllowance(
+      spender: string,
+      subtractedAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    increaseAllowance(
+      spender: string,
+      addedAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     mint(
       beneficiary: string,
@@ -205,6 +253,18 @@ export interface NonStandardERC20 extends BaseContract {
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
+  decreaseAllowance(
+    spender: string,
+    subtractedAmount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  increaseAllowance(
+    spender: string,
+    addedAmount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   mint(
     beneficiary: string,
     mintAmount: BigNumberish,
@@ -253,6 +313,18 @@ export interface NonStandardERC20 extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
+    decreaseAllowance(
+      spender: string,
+      subtractedAmount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    increaseAllowance(
+      spender: string,
+      addedAmount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     mint(
       beneficiary: string,
       mintAmount: BigNumberish,
@@ -269,14 +341,14 @@ export interface NonStandardERC20 extends BaseContract {
       recipient: string,
       amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<boolean>;
 
     transferFrom(
       sender: string,
       recipient: string,
       amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<boolean>;
   };
 
   filters: {
@@ -290,6 +362,18 @@ export interface NonStandardERC20 extends BaseContract {
       spender?: string | null,
       amount?: null
     ): ApprovalEventFilter;
+
+    "Burn(address,uint256)"(
+      holder?: string | null,
+      burnAmount?: null
+    ): BurnEventFilter;
+    Burn(holder?: string | null, burnAmount?: null): BurnEventFilter;
+
+    "Mint(address,uint256)"(
+      beneficiary?: string | null,
+      mintAmount?: null
+    ): MintEventFilter;
+    Mint(beneficiary?: string | null, mintAmount?: null): MintEventFilter;
 
     "Transfer(address,address,uint256)"(
       from?: string | null,
@@ -325,6 +409,18 @@ export interface NonStandardERC20 extends BaseContract {
     ): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
+
+    decreaseAllowance(
+      spender: string,
+      subtractedAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    increaseAllowance(
+      spender: string,
+      addedAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     mint(
       beneficiary: string,
@@ -377,6 +473,18 @@ export interface NonStandardERC20 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    decreaseAllowance(
+      spender: string,
+      subtractedAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    increaseAllowance(
+      spender: string,
+      addedAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     mint(
       beneficiary: string,

@@ -12,14 +12,14 @@ import {
   ERC20_PERMIT_SYMBOL,
   ERC20_SYMBOL,
 } from "../../helpers/constants";
+import type { ERC20GodMode as ERC20 } from "../../src/types/ERC20GodMode";
 import type { ERC20Permit } from "../../src/types/ERC20Permit";
-import type { GodModeERC20 as ERC20 } from "../../src/types/GodModeERC20";
-import type { GodModeERC20Recover as ERC20Recover } from "../../src/types/GodModeERC20Recover";
+import type { ERC20RecoverGodMode as ERC20Recover } from "../../src/types/ERC20RecoverGodMode";
 import { deployMockERC20 } from "./mocks";
 
 export async function erc20Fixture(signers: SignerWithAddress[]): Promise<{ erc20: ERC20 }> {
   const deployer: SignerWithAddress = signers[0];
-  const godModeERC20Artifact: Artifact = await artifacts.readArtifact("GodModeERC20");
+  const godModeERC20Artifact: Artifact = await artifacts.readArtifact("ERC20GodMode");
   const erc20: ERC20 = <ERC20>(
     await waffle.deployContract(deployer, godModeERC20Artifact, [ERC20_NAME, ERC20_SYMBOL, ERC20_DECIMALS])
   );
@@ -46,7 +46,9 @@ export async function erc20RecoverFixture(
   const mainToken: MockContract = await deployMockERC20(deployer, DEFAULT_DECIMALS, "Main Token", "MNT");
   const thirdPartyToken: MockContract = await deployMockERC20(deployer, DEFAULT_DECIMALS, "Third-Party Token", "TPT");
 
-  const godModeERC20Recover: Artifact = await artifacts.readArtifact("GodModeERC20Recover");
-  const erc20Recover: ERC20Recover = <ERC20Recover>await waffle.deployContract(deployer, godModeERC20Recover, []);
+  const erc20RecoverGodModeArtifact: Artifact = await artifacts.readArtifact("ERC20RecoverGodMode");
+  const erc20Recover: ERC20Recover = <ERC20Recover>(
+    await waffle.deployContract(deployer, erc20RecoverGodModeArtifact, [])
+  );
   return { erc20Recover, mainToken, thirdPartyToken };
 }

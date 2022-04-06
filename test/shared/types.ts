@@ -1,9 +1,9 @@
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import type { MockContract } from "ethereum-waffle";
 
+import type { ERC20GodMode } from "../../src/types/ERC20GodMode";
 import type { ERC20Permit } from "../../src/types/ERC20Permit";
-import type { GodModeERC20 } from "../../src/types/GodModeERC20";
-import type { GodModeERC20Recover } from "../../src/types/GodModeERC20Recover";
+import type { ERC20RecoverGodMode } from "../../src/types/ERC20RecoverGodMode";
 
 declare module "mocha" {
   export interface Context {
@@ -14,9 +14,9 @@ declare module "mocha" {
 }
 
 export interface Contracts {
-  erc20: GodModeERC20;
+  erc20: ERC20GodMode;
   erc20Permit: ERC20Permit;
-  erc20Recover: GodModeERC20Recover;
+  erc20Recover: ERC20RecoverGodMode;
 }
 
 export interface Signers {

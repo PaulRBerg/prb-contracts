@@ -1,1 +1,1 @@
-import "./godModeERC20";
+import "./erc20GodMode";
