@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Common Changelog](https://common-changelog.org/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2022-04-06
+
+### Added
+
+- Add `burn` and `mint` methods in the `NonStandardERC20` contract (@paulrberg)
+- Add a new contract `ERC20GodMode` that replicates `GodModeERC20` (@paulrberg)
+
 ## [4.0.0] - 2022-04-04
 
 ### Changed
@@ -38,6 +45,7 @@ The format is based on [Common Changelog](https://common-changelog.org/), and th
 
 - Fix the EIP-2612 permit typehash ([#24](https://github.com/paulrberg/prb-contracts/pull/24)) (@surbhiaudichya)
 
+[4.1.0]: https://github.com/paulrberg/prb-contracts/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/paulrberg/prb-contracts/compare/v3.9.0...v4.0.0
 [3.9.0]: https://github.com/paulrberg/prb-contracts/compare/v3.8.1...v3.9.0
 [3.8.1]: https://github.com/paulrberg/prb-contracts/compare/v3.8.0...v3.8.1
