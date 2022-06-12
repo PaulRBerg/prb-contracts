@@ -4,7 +4,7 @@ import { keccak256 } from "@ethersproject/keccak256";
 import { pack as solidityPack } from "@ethersproject/solidity";
 import { toUtf8Bytes } from "@ethersproject/strings";
 
-import type { ERC20Permit } from "../../src/types/ERC20Permit";
+import type { ERC20Permit } from "../../src/types/token/erc20/ERC20Permit";
 
 // Must match the typehash in ERC20Permit.sol
 export const PERMIT_TYPEHASH: string = keccak256(

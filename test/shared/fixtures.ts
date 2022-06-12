@@ -12,9 +12,9 @@ import {
   ERC20_PERMIT_SYMBOL,
   ERC20_SYMBOL,
 } from "../../helpers/constants";
-import type { ERC20GodMode as ERC20 } from "../../src/types/ERC20GodMode";
-import type { ERC20Permit } from "../../src/types/ERC20Permit";
-import type { ERC20RecoverGodMode as ERC20Recover } from "../../src/types/ERC20RecoverGodMode";
+import type { ERC20RecoverGodMode as ERC20Recover } from "../../src/types/test/ERC20RecoverGodMode";
+import type { ERC20GodMode as ERC20 } from "../../src/types/token/erc20/ERC20GodMode";
+import type { ERC20Permit } from "../../src/types/token/erc20/ERC20Permit";
 import { deployMockERC20 } from "./mocks";
 
 export async function erc20Fixture(signers: SignerWithAddress[]): Promise<{ erc20: ERC20 }> {
