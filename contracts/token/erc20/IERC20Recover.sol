@@ -37,6 +37,11 @@ interface IERC20Recover is IOwnable {
     /// @param nonRecoverableTokens An array of token addresses.
     event SetNonRecoverableTokens(address indexed owner, IERC20[] nonRecoverableTokens);
 
+    /// CONSTANT FUNCTIONS ///
+
+    /// @notice The tokens that can be recovered cannot be in this mapping.
+    function nonRecoverableTokens(uint256 index) external view returns (IERC20);
+
     /// NON-CONSTANT FUNCTIONS ///
 
     /// @notice Recover ERC-20 tokens sent to this contract (by accident or otherwise).
@@ -64,9 +69,4 @@ interface IERC20Recover is IOwnable {
     ///
     /// @param tokens The array of tokens to set as non-recoverable.
     function _setNonRecoverableTokens(IERC20[] calldata tokens) external;
-
-    /// CONSTANT FUNCTIONS ///
-
-    /// @notice The tokens that can be recovered cannot be in this mapping.
-    function nonRecoverableTokens(uint256 index) external view returns (IERC20);
 }
