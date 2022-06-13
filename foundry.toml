@@ -1,0 +1,16 @@
+# Full reference https://github.com/foundry-rs/foundry/tree/master/config
+
+[default]
+auto_detect_solc = false
+libs = ["lib"]
+optimizer = true
+optimizer_runs = 800
+out = "out"
+sender = "0x1D970A764a53b5234577f1FA19577D36f0e7C52d"
+solc = "0.8.14"
+src = "src"
+test = "test-sol"
+tx_origin = "0x1D970A764a53b5234577f1FA19577D36f0e7C52d"
+
+[ci]
+verbosity = 4

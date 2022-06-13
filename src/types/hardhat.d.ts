@@ -41,6 +41,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC20GodMode__factory>;
     getContractFactory(
+      name: "ERC20Normalizer",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Normalizer__factory>;
+    getContractFactory(
       name: "ERC20Permit",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC20Permit__factory>;
@@ -52,6 +56,10 @@ declare module "hardhat/types/runtime" {
       name: "IERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
+    getContractFactory(
+      name: "IERC20Normalizer",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Normalizer__factory>;
     getContractFactory(
       name: "IERC20Permit",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -105,6 +113,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ERC20GodMode>;
     getContractAt(
+      name: "ERC20Normalizer",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Normalizer>;
+    getContractAt(
       name: "ERC20Permit",
       address: string,
       signer?: ethers.Signer
@@ -119,6 +132,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
+    getContractAt(
+      name: "IERC20Normalizer",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Normalizer>;
     getContractAt(
       name: "IERC20Permit",
       address: string,
