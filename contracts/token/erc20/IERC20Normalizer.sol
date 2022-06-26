@@ -32,15 +32,15 @@ interface IERC20Normalizer {
     /// @return scalar The newly computed scalar for the given token.
     function computeScalar(IERC20 token) external returns (uint256 scalar);
 
-    /// @notice Scales down with respect to `scalar`.
+    /// @notice Denormalize the amount by diving by the token's scalar.
     /// @param token The ERC-20 token whose decimals are the units of the `amount` argumnet.
-    /// @param amount The amount to scale down, given in units of the token's decimals.
+    /// @param amount The amount to denormalize, in units of the token's decimals.
     /// @param denormalizedAmount The amount denormalized with respect to `scalar`.
     function denormalize(IERC20 token, uint256 amount) external returns (uint256 denormalizedAmount);
 
-    /// @notice Scales up with respect to `scalar`.
+    /// @notice Normalize the amount by multiplying by the token's scalar.
     /// @param token The ERC-20 token whose decimals are the units of `amount` argument.
-    /// @param amount The amount to normalize, given in units of the token's decimals.
+    /// @param amount The amount to normalize, in units of the token's decimals.
     /// @param normalizedAmount The amount normalized with respect to `scalar`.
     function normalize(IERC20 token, uint256 amount) external returns (uint256 normalizedAmount);
 }
