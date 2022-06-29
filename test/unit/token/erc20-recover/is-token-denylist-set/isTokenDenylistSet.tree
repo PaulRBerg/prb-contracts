@@ -1,0 +1,5 @@
+isTokenDenylistSet.t.sol
+├── when the token denylist was not set
+│  └── it should return false
+└── when the token denylist was set
+   └── it should return true

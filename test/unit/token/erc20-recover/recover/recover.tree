@@ -1,0 +1,15 @@
+recover.tree
+├── when the caller is not the owner
+│  └── it should revert
+└── when the caller is the owner
+   ├── when the token denylist was not set
+   │  └── it should revert
+   └── when the token denylist was set
+      ├── when the recover amount is zero
+      │  └── it should revert
+      └── when the recover amount is not zero
+         ├── when the token is not recoverable
+         │  └── it should revert
+         └── when the token is recoverable
+            ├── it should recover the tokens
+            └── it should emit a Recover event

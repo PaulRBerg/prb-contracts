@@ -1,0 +1,6 @@
+├── when the spender's allowance is not enough
+│  └── it should revert
+└── when the spender's allowance is enough
+   ├── it should make the transfer
+   └── it should emit an Approval and a Transfer event
+

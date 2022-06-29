@@ -1,0 +1,5 @@
+balanceOf.t.sol
+├── when the provided address does not have a balance
+│  └── it should return zero
+└── when the provided address has a balance
+   └── it should return the correct balance

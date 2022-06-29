@@ -1,0 +1,6 @@
+increaseAllowance.t.sol
+├── when the calculation overflows uint256
+│  └── it should revert
+└── when the calculation does not overflow uint256
+   ├── it should increase the allowance
+   └── it should emit an Approval event

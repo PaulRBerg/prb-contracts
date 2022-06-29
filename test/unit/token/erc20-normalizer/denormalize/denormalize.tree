@@ -1,0 +1,16 @@
+denormalize.t.sol
+├── when the scalar has not been computed
+│  └── it should return the denormalized amount
+└── when the scalar has been computed
+   ├── when the scalar is 1
+   │  └── it should return the denormalized amount
+   └── when the scalar is not 1
+      ├── when the amount is 0
+      │  └── it should return 0
+      └── when the amount is not 0
+         ├── when the amount is smaller than the scalar
+         │  └── it should return 0
+         ├── when the amount is equal to the scalar
+         │  └── it should return 1
+         └── when the amount is bigger than the scalar
+            └── it should return the denormalized amount

@@ -1,0 +1,13 @@
+mint.t.sol
+├── when the beneficiary is the zero address
+│  └── it should revert
+└── when the beneficiary is not the zero address
+   ├── when the beneficiary balance calculation overflows uint256
+   │  └── it should revert
+   └── when the beneficiary balance calculation does not overflow uint256
+      ├── when the total supply calculation overflows uint256
+      │  └── it should revert
+      └── when the total supply calculation does not overflow uint256
+         ├── it should increase the balance of the beneficiary
+         ├── it should increase the total supply
+         └── it should emit a Transfer event

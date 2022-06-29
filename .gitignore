@@ -5,20 +5,17 @@
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
-**/artifacts
-**/build
 **/cache
-**/coverage
-**/dist
 **/node_modules
 **/out
 
 # files
 *.env
 *.log
-*.tsbuildinfo
-contracts/README.md
-coverage.json
+.DS_Store
+.pnp.*
 npm-debug.log*
+src/CHANGELOG.md
+src/README.md
 yarn-debug.log*
 yarn-error.log*

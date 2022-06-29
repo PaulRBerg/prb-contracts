@@ -1,2 +1,3 @@
-@prb/contracts/=contracts/
+@prb/contracts/=src/
+@prb/math/=lib/prb-math/contracts/
 forge-std/=lib/forge-std/src/

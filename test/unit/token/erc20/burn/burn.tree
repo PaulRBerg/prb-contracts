@@ -1,0 +1,10 @@
+burn.t.sol
+├── when the holder is the zero address
+│  └── it should revert
+└── when the holder is not the zero address
+   ├── when the holder balance calculation underflows uint256
+   │  └── it should revert
+   └── when the holder balance calculation does not underflow uint256
+      ├── it should decrease the balance of the holder
+      ├── it should decrease the total supply
+      └── it should emit a Transfer event

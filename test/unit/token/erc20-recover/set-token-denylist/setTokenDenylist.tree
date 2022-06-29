@@ -1,0 +1,12 @@
+setTokenDenylist.t.sol
+├── when the caller is not the owner
+│  └── it should revert
+└── when the caller is the owner
+   ├── when the token denylist was already set
+   │  └── it should revert
+   └── when the token denylist was not already set
+      ├── when some tokens don't have a symbol
+      │  └── it should revert
+      └── when all tokens have a symbol
+         ├── it initializes the contract
+         └── it emits a SetTokenDenylist event

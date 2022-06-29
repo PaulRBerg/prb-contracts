@@ -1,0 +1,8 @@
+getTokenDenylist.t.sol
+├── when the token denylist was not set
+│  └── it should return an empty array
+└── when the token denylist was set
+   ├── when the token denylist was set to an empty array
+   │  └── it should return an empty array
+   └── when the token denylist was set to a non- empty array
+      └── it should return the token denylist
