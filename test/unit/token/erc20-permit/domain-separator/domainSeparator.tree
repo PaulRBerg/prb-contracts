@@ -1,0 +1,2 @@
+domainSeparator.t.sol
+└── it should return the correct EIP-2612 domain separator

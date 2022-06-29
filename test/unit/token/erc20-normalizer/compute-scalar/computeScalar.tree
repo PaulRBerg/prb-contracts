@@ -1,0 +1,10 @@
+computeScalar.t.sol
+├── when the token decimals are zero
+│  └── it should revert
+└── when the token decimals are not zero
+   ├── when the token decimals are greater than 18
+   │  └── it should revert
+   ├── when the token decimals are equal to 18
+   │  └── it should compute the scalar
+   └── when the token decimals are less than 18
+      └── it should compute the scalar

@@ -1,20 +1,14 @@
 # directories
 .yarn/
-**/.coverage_artifacts
-**/.coverage_cache
-**/.coverage_contracts
-**/artifacts
-**/build
+**/broadcast
 **/cache
-**/coverage
-**/dist
+**/lib
+**/out
 **/node_modules
-**/src/types
 
 # files
 *.env
 *.log
-*.tsbuildinfo
 .pnp.*
 coverage.json
 npm-debug.log*

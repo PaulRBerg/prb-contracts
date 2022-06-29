@@ -1,0 +1,19 @@
+permit.t.sol
+├── when the owner is the zero address
+│  └── it should revert
+└── when the owner is not the zero address
+   ├── when the spender is the zero address
+   │  └── it should revert
+   └── when the spender is not the zero address
+      ├── when the deadline is in the past
+      │  └── it should revert
+      └── when the deadline is not in the past
+         ├── when the recovered owner is the zero address
+         │  └── it should revert
+         └── when the recovered owner is not the zero address
+            ├── when the signature is not valid
+            │  └── it should revert
+            └── when the signature is valid
+               ├── it should update the spender's allowance
+               ├── it should increase the nonce of the owner
+               └── it should emit an Approval event

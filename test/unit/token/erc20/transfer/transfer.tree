@@ -1,0 +1,15 @@
+transfer.t.sol
+├── when the sender is the zero address
+│  └── it should revert
+└── when the sender is not the zero address
+   ├── when the recipient is the zero address
+   │  └── it should revert
+   └── when the recipient is not the zero address
+      ├── when the recipient is the sender
+      │  └── it should make the transfer
+      └── when the recipient is not the sender
+         ├── when the sender does not have enough balance
+         │  └── it should revert
+         └── when the sender has enough balance
+            ├── it should make the transfer
+            └── it should emit a Transfer event

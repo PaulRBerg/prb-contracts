@@ -1,16 +1,19 @@
 # Full reference https://github.com/foundry-rs/foundry/tree/master/config
 
-[default]
+[profile.default]
 auto_detect_solc = false
+fuzz_runs = 256
+gas_reports = ["*"]
 libs = ["lib"]
 optimizer = true
-optimizer_runs = 800
+optimizer_runs = 10_000
 out = "out"
 sender = "0x1D970A764a53b5234577f1FA19577D36f0e7C52d"
-solc = "0.8.14"
+solc = "0.8.15"
 src = "src"
-test = "test-sol"
+test = "test"
 tx_origin = "0x1D970A764a53b5234577f1FA19577D36f0e7C52d"
 
-[ci]
+[profile.ci]
+fuzz_runs = 1_000
 verbosity = 4

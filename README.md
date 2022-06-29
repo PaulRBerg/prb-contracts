@@ -1,32 +1,46 @@
-# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/prb-contracts/badge.svg?branch=main)](https://coveralls.io/github/paulrberg/prb-contracts?branch=main) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![license: Unlicense](https://img.shields.io/badge/license-Unlicense-yellow.svg)](https://spdx.org/licenses/Unlicense.html)
+# PRBContracts [![GitHub Actions][gha-badge]][gha] [![Coverage Status][coveralls-badge]][coveralls] [![Styled with Prettier][prettier-badge]][prettier] [![License: Unlicense][license-badge]][license]
 
-**Off-the-shelf Solidity smart contracts.** Built with my beloved [Solidity template](https://github.com/PaulRBerg/solidity-template).
+[gha]: https://github.com/paulrberg/prb-contracts/actions
+[gha-badge]: https://github.com/paulrberg/prb-contracts/actions/workflows/integration.yml/badge.svg
+[coveralls]: https://coveralls.io/github/paulrberg/prb-contracts?branch=main
+[coveralls-badge]: https://coveralls.io/repos/github/paulrberg/prb-contracts/badge.svg?branch=main
+[prettier]: https://prettier.io
+[prettier-badge]: https://img.shields.io/badge/Code_Style-Prettier-ff69b4.svg
+[license]: https://unlicense.org/
+[license-badge]: https://img.shields.io/badge/License-Unlicense-blue.svg
+
+Off-the-shelf Solidity smart contracts.
 
 - Designed for Solidity >=0.8.4
+- Uses custom errors instead of revert reason strings
 - Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
 - Promotes [PRBMath](https://github.com/paulrberg/prb-math) as a fixed-point math library for Solidity
 - Well-documented via NatSpec comments
-- Thoroughly tested with Hardhat and Waffle
+- Thoroughly tested with Foundry
 
 I created this library for my own use, to avoid having to maintain the same contracts in different repositories. If you find
 it useful too, that's a win-win.
 
-## Caveat Emptor
-
-This is experimental software and is provided on an "as is" and "as available" basis. I do not give any warranties and will not be liable for any loss, direct or indirect through continued use of this codebase.
-
 ## Install
 
-With yarn:
+### Foundry
+
+First, run the install step:
 
 ```sh
-$ yarn add @prb/contracts
+forge install --no-commit paulrberg/prb-contracts
 ```
 
-Or npm:
+Then, add the following line to your `remappings.txt` file:
+
+```text
+@prb/contracts/=lib/prb-contracts/src/
+```
+
+### Hardhat
 
 ```sh
-$ npm install @prb/contracts
+yarn add @prb/contracts
 ```
 
 ## Usage
@@ -52,28 +66,41 @@ contract MyToken is ERC20, ERC20Permit {
 
 ## Contributing
 
-Feel free to dive in! [Open](https://github.com/paulrberg/prb-proxy/issues/new) an issue,
-[start](https://github.com/paulrberg/prb-proxy/discussions/new) a discussion or submit a PR.
+Feel free to dive in! [Open](https://github.com/paulrberg/prb-proxy/issues/new) an issue, [start](https://github.com/paulrberg/prb-proxy/discussions/new) a discussion or submit a PR.
 
 ### Pre Requisites
 
 You will need the following software on your machine:
 
 - [Git](https://git-scm.com/downloads)
+- [Foundry](https://github.com/foundry-rs/foundry)
 - [Node.Js](https://nodejs.org/en/download/)
-- [Yarn](https://yarnpkg.com/getting-started/install)
+- [Yarn](https://yarnpkg.com/)
 
-In addition, familiarity with [Solidity](https://soliditylang.org/), [TypeScript](https://typescriptlang.org/) and [Hardhat](https://hardhat.org) is requisite.
+In addition, familiarity with [Solidity](https://soliditylang.org/) is requisite.
 
 ### Set Up
 
-Install the dependencies:
+Clone this repository including submodules:
 
-```bash
+```sh
+$ git clone --recurse-submodules -j8 git@github.com:paulrberg/prb-contracts.git
+```
+
+Then, inside the project's directory, run this to install the Node.js dependencies:
+
+```sh
 $ yarn install
 ```
 
-Then, follow the `.env.example` file to add the requisite environment variables in the `.env` file. Now you can start making changes.
+Now you can start making changes.
+
+### Syntax Highlighting
+
+You will need the following VSCode extensions:
+
+- [vscode-solidity](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity)
+- [vscode-tree-language](https://marketplace.visualstudio.com/items?itemName=CTC.vscode-tree-extension)
 
 ## Security
 
@@ -87,7 +114,7 @@ and will not be liable for any loss, direct or indirect through continued use of
 
 ### Contact
 
-If you discover any security issues, please report them via [Keybase](https://keybase.io/paulrberg).
+If you discover any security issues, please contact me via [Keybase](https://keybase.io/paulrberg).
 
 ## Related Efforts
 

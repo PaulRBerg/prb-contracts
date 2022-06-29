@@ -1,0 +1,2 @@
+permitTypehash.t.sol
+└── it should return the correct EIP-2612 permit typehash

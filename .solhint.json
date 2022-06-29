@@ -10,6 +10,8 @@
     "func-name-mixedcase": "off",
     "func-visibility": ["error", { "ignoreConstructors": true }],
     "max-line-length": ["error", 120],
+    "no-empty-blocks": "off",
+    "no-inline-assembly": "off",
     "not-rely-on-time": "off",
     "prettier/prettier": [
       "error",
@@ -17,6 +19,7 @@
         "endOfLine": "auto"
       }
     ],
-    "reason-string": ["warn", { "maxLength": 64 }]
+    "reason-string": ["warn", { "maxLength": 64 }],
+    "var-name-mixedcase": "off"
   }
 }
