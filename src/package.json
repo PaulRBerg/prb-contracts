@@ -14,8 +14,7 @@
   },
   "files": [
     "**/*.sol",
-    "CHANGELOG.md",
-    "!test/**/*.sol"
+    "CHANGELOG.md"
   ],
   "homepage": "https://github.com/paulrberg/prb-contracts#readme",
   "keywords": [
