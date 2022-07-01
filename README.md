@@ -1,4 +1,4 @@
-# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/prb-contracts/badge.svg?branch=main)](https://coveralls.io/github/paulrberg/prb-contracts?branch=main) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![license: Unlicense](https://img.shields.io/badge/license-Unlicense-yellow.svg)](https://spdx.org/licenses/Unlicense.html)
+# Contracts [![Coverage Status](https://coveralls.io/repos/github/paulrberg/prb-contracts/badge.svg?branch=main)](https://coveralls.io/github/paulrberg/prb-contracts?branch=main) [![Styled with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io) [![license: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](https://spdx.org/licenses/Unlicense.html)
 
 Off-the-shelf Solidity smart contracts.
 
