@@ -44,7 +44,7 @@ contract ScalarNot1 {}
 contract ERC20Normalizer__Normalize__CalculationOverflows is ScalarComputed, ScalarNot1 {
     /// @dev it should revert.
     function testCannotNormalize(uint256 amount) external {
-        vm.assume(amount > (MAX_UINT256 / USDC_SCALAR) + 1); // 10^12 is the scalar for USDC.
+        vm.assume(amount > (UINT256_MAX / USDC_SCALAR) + 1); // 10^12 is the scalar for USDC.
         erc20Normalizer.computeScalar(usdc);
         vm.expectRevert(stdError.arithmeticError);
         erc20Normalizer.normalize(usdc, amount);
@@ -70,7 +70,7 @@ contract ERC20Normalizer__Normalize is ScalarComputed, ScalarNot1, CalculationDo
     /// @dev it should return the normalized amount.
     function testNormalize(uint256 amount) external {
         vm.assume(amount > 0);
-        vm.assume(amount <= MAX_UINT256 / USDC_SCALAR); // 10^12 is the scalar for USDC.
+        vm.assume(amount <= UINT256_MAX / USDC_SCALAR); // 10^12 is the scalar for USDC.
         erc20Normalizer.computeScalar(usdc);
         uint256 actualNormalizedAmount = erc20Normalizer.normalize(usdc, amount);
         uint256 expectedNormalizedAmount;

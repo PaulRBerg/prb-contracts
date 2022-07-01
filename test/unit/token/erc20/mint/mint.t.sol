@@ -28,7 +28,7 @@ contract ERC20__Mint__BeneficiaryBalanceCalculationOverflowsUint256 is ERC20Unit
     ) external {
         vm.assume(beneficiary != address(0));
         vm.assume(amount0 > 0);
-        vm.assume(amount1 > MAX_UINT256 - amount0);
+        vm.assume(amount1 > UINT256_MAX - amount0);
 
         // Mint `amount0` tokens to `beneficiary`.
         dai.mint(beneficiary, amount0);
@@ -54,7 +54,7 @@ contract ERC20__Mint__TotalSupplyCalculationOverflowsUint256 is
     ) external {
         vm.assume(beneficiary != address(0));
         vm.assume(amount0 > 0);
-        vm.assume(amount1 > MAX_UINT256 - amount0);
+        vm.assume(amount1 > UINT256_MAX - amount0);
 
         // Mint `amount0` tokens to Alice.
         dai.mint(users.alice, amount0);

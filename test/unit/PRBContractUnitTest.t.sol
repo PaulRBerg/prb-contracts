@@ -20,7 +20,6 @@ abstract contract PRBContractUnitTest is Test {
 
     /// CONSTANTS ///
 
-    uint256 internal constant MAX_UINT256 = type(uint256).max;
     uint256 internal constant ONE_MILLION_DAI = 1_000_000e18;
     uint256 internal constant ONE_MILLION_USDC = 1_000_000e6;
 
@@ -36,7 +35,7 @@ abstract contract PRBContractUnitTest is Test {
 
     /// @dev A setup function invoked before each test case.
     function setUp() public virtual {
-        // Create 2 users for testing. Order matters.
+        // Create a few users for testing. Order matters.
         users = Users({ alice: getNextUser(), bob: getNextUser(), eve: getNextUser() });
 
         fundUser(users.alice);
