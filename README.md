@@ -1,4 +1,13 @@
-# PRBContracts ![Continuous Integration](https://github.com/paulrberg/prb-contracts/actions/workflows/integration.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/paulrberg/prb-contracts/badge.svg?branch=main)](https://coveralls.io/github/paulrberg/prb-contracts?branch=main) [![Styled with Prettier](https://img.shields.io/badge/Code_Style-Prettier-ff69b4.svg)](https://prettier.io) [![License: Unlicense](https://img.shields.io/badge/License-Unlicense-blue.svg)](https://spdx.org/licenses/Unlicense.html)
+# PRBContracts [![GitHub Actions][gha-badge]][gha] [![Coverage Status][coveralls-badge]][coveralls] [![Styled with Prettier][prettier-badge]][prettier] [![License: Unlicense][license-badge]][license]
+
+[gha]: https://github.com/paulrberg/prb-contracts/actions
+[gha-badge]: https://github.com/paulrberg/prb-contracts/actions/workflows/integration.yml/badge.svg
+[coveralls]: https://coveralls.io/github/paulrberg/prb-contracts?branch=main
+[coveralls-badge]: https://coveralls.io/repos/github/paulrberg/prb-contracts/badge.svg?branch=main
+[prettier]: https://prettier.io
+[prettier-badge]: https://img.shields.io/badge/Code_Style-Prettier-ff69b4.svg
+[license]: https://unlicense.org/
+[license-badge]: https://img.shields.io/badge/License-Unlicense-blue.svg
 
 Off-the-shelf Solidity smart contracts.
 
