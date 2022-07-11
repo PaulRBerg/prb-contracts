@@ -36,6 +36,17 @@ contract ERC721__UnitTest__Approve is ERC721UnitTest {
         assertEq(actualApproved, expectedApproved);
     }
 
+    /// @dev it should emit an Approval event.
+    function testApprove__CallerOwner__Event() external NotCurrentOwner AuthorizedApprover {
+        uint256 tokenId = 1;
+
+        nft.mint(users.owner, tokenId);
+
+        vm.expectEmit(true, true, false, true);
+        emit Approval(users.owner, users.to, tokenId);
+        nft.approve(users.to, tokenId);
+    }
+
     /// @dev it should make the approval.
     function testApprove__CallerApproved() external NotCurrentOwner AuthorizedApprover {
         changePrank(users.operator);
@@ -49,14 +60,12 @@ contract ERC721__UnitTest__Approve is ERC721UnitTest {
     }
 
     /// @dev it should emit an Approval event.
-    function testApprove__Event() external NotCurrentOwner AuthorizedApprover {
-        uint256 tokenId = 1;
-
-        nft.mint(users.owner, tokenId);
+    function testApprove__CallerApproved__Event() external NotCurrentOwner AuthorizedApprover {
+        changePrank(users.operator);
 
         vm.expectEmit(true, true, false, true);
-        emit Approval(users.owner, users.to, tokenId);
-        nft.approve(users.to, tokenId);
+        emit Approval(users.owner, users.to, TOKEN_ID);
+        nft.approve(users.to, TOKEN_ID);
     }
 
     /// @dev it should make the approval.

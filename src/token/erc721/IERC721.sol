@@ -5,7 +5,12 @@ pragma solidity >=0.8.13;
 /// @author Andrei Vlad Brg
 /// @notice Implementation for the ERC-721 standard.
 interface IERC721 {
-    /// CUSTOM ERRORS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CUSTOM ERRORS
+    //////////////////////////////////////////////////////////////////////////*/
+
+    /// @notice Emitted when the token has been already minted.
+    error ERC721__MintExistingToken(uint256 tokenId);
 
     /// @notice Emitted when the approved address is the current owner of the token.
     error ERC721__ApproveCurrentOwner(address owner);
@@ -15,9 +20,6 @@ interface IERC721 {
 
     /// @notice Emitted when the token id does not exist.
     error ERC721__InvalidTokenId(uint256 tokenId);
-
-    /// @notice Emitted when the token has been already minted.
-    error ERC721__MintExistingToken(uint256 tokenId);
 
     /// @notice Emitted when the address to receive the token is the zero address.
     error ERC721__MintZeroAddress();
@@ -38,7 +40,9 @@ interface IERC721 {
     /// @notice Emitted when the sender is neither the owner nor approved.
     error ERC721__UnauthorizedSender(address sender);
 
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                        EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Emitted when an approval happens.
     /// @param owner The address of the owner of the NFT.
@@ -58,7 +62,9 @@ interface IERC721 {
     /// @param tokenId The identifier for the NFT.
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
 
-    /// CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Returns the number of NFTs owned by `owner`.
     function balanceOf(address owner) external view returns (uint256);
@@ -86,7 +92,9 @@ interface IERC721 {
     /// @param tokenId The identifier for the NFT.
     function ownerOf(uint256 tokenId) external view returns (address);
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Change or reaffirm the approved address for a NFT.
     ///

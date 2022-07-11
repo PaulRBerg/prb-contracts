@@ -7,7 +7,9 @@ import { IERC721 } from "./IERC721.sol";
 import { IERC721Receiver } from "./IERC721Receiver.sol";
 
 contract ERC721 is IERC721 {
-    /// PUBLIC STORAGE ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    PUBLIC STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice The token collection name.
     string public name;
@@ -15,7 +17,9 @@ contract ERC721 is IERC721 {
     /// @notice The token collection symbol.
     string public symbol;
 
-    /// INTERNAL STORAGE ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    INTERNAL STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Internal mapping of balances.
     mapping(address => uint256) internal balances;
@@ -29,7 +33,9 @@ contract ERC721 is IERC721 {
     /// @dev Internal mapping of operator approvals.
     mapping(address => mapping(address => bool)) internal operatorApprovals;
 
-    /// CONSTRUCTOR ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @param name_ ERC-721 name of this token.
     /// @param symbol_ ERC-721 symbol of this token.
@@ -38,7 +44,9 @@ contract ERC721 is IERC721 {
         symbol = symbol_;
     }
 
-    /// PUBLIC CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                            PUBLIC CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC721
     function balanceOf(address owner) public view virtual returns (uint256) {
@@ -90,7 +98,9 @@ contract ERC721 is IERC721 {
     /// @notice Returns the Uniform Resource Identifier (URI) for `tokenId` token.
     function tokenURI(uint256 tokenId) public view virtual returns (string memory) {}
 
-    /// PUBLIC NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                            PUBLIC NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC721
     function approve(address to, uint256 tokenId) public virtual override {
@@ -139,7 +149,9 @@ contract ERC721 is IERC721 {
         transferFromInternal(from, to, tokenId);
     }
 
-    /// INTERNAL CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                            INTERNAL CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Internal function to invoke {IERC721Receiver-onERC721Received} on a target address.
     /// The call is not executed if the target address is not a contract.
@@ -172,7 +184,9 @@ contract ERC721 is IERC721 {
         }
     }
 
-    /// INTERNAL NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                            INTERNAL NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev See the documentation for the public functions that call this internal function.
     function approveInternal(address to, uint256 tokenId) internal virtual {

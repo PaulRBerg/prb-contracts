@@ -43,10 +43,18 @@ contract ERC721__UnitTest__Burn is ERC721UnitTest {
         vm.assume(tokenId != TOKEN_ID);
 
         nft.mint(to, tokenId);
+        uint256 actualBalance = nft.balanceOf(to);
+        uint256 expectedBalance = 1;
+        assertEq(actualBalance, expectedBalance);
+
+        address actualOwner = nft.ownerOf(tokenId);
+        address expectedOwner = to;
+        assertEq(actualOwner, expectedOwner);
+
         nft.burn(tokenId);
 
-        uint256 actualBalance = nft.balanceOf(to);
-        uint256 expectedBalance = 0;
+        actualBalance = nft.balanceOf(to);
+        expectedBalance = 0;
         assertEq(actualBalance, expectedBalance);
 
         vm.expectRevert(abi.encodeWithSelector(IERC721.ERC721__InvalidTokenId.selector, tokenId));

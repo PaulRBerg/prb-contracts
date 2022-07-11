@@ -7,17 +7,32 @@ import { ERC721 } from "./ERC721.sol";
 /// @author Andrei Vlad Brg
 /// @notice A mock for the ERC721 contract.
 contract ERC721GodMode is ERC721 {
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                        EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     event Burn(address indexed owner, uint256 tokenId);
 
     event Mint(address indexed to, uint256 tokenId);
 
-    /// CONSTRUCTOR ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
 
     constructor(string memory name_, string memory symbol_) ERC721(name_, symbol_) {
         // solhint-disable-previous-line no-empty-blocks
     }
+
+    /*//////////////////////////////////////////////////////////////////////////
+                            PUBLIC CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
+
+    /// @dev See the documentation for the function that is overriden.
+    function tokenURI(uint256) public pure virtual override returns (string memory) {}
+
+    /*//////////////////////////////////////////////////////////////////////////
+                            PUBLIC NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev See the documentation for the function that is called.
     function burn(uint256 tokenId) public virtual {
@@ -42,7 +57,4 @@ contract ERC721GodMode is ERC721 {
     ) public virtual {
         safeMintInternal(to, tokenId, data);
     }
-
-    /// @dev See the documentation for the function that is overriden.
-    function tokenURI(uint256) public pure virtual override returns (string memory) {}
 }

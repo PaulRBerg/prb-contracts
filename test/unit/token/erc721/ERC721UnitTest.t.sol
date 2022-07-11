@@ -11,20 +11,27 @@ import { Test } from "forge-std/Test.sol";
 /// @author Andrei Vlad Brg
 /// @notice Common contract members needed across ERC721 test contracts.
 abstract contract ERC721UnitTest is Test {
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                        EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
+
     event Approval(address indexed owner, address indexed spender, uint256 indexed tokenId);
 
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
 
-    /// CONSTANTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                        CONSTANTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     bool internal constant APPROVED = true;
     bytes internal constant DATA = "DATA BYTES";
     uint256 internal constant TOKEN_ID = 4_20;
 
-    /// STRUCTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                        STRUCTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     struct Users {
         address chad;
@@ -32,13 +39,18 @@ abstract contract ERC721UnitTest is Test {
         address owner;
         address to;
     }
-    /// STORAGE ///
+
+    /*//////////////////////////////////////////////////////////////////////////
+                                        STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     bytes32 internal nextUser = keccak256(abi.encodePacked("user address"));
     ERC721GodMode internal nft;
     Users internal users;
 
-    /// CONSTRUCTOR ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                        CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
 
     constructor() {
         // Create 4 users for testing. Order matters.
@@ -52,18 +64,26 @@ abstract contract ERC721UnitTest is Test {
         vm.label(users.to, "to");
     }
 
-    /// SETUP FUNCTION ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    SETUP FUNCTION
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev A setup function.
     function setUp() public {
         nft = new ERC721GodMode("Non-fungible token", "NFT");
+        // Sets all subsequent calls' `msg.sender` to be `users.owner`.
         vm.startPrank(users.owner);
+        // Create a NFT that will be used in the upcoming tests.
         nft.mint(users.owner, TOKEN_ID);
+        // Approve `TOKEN_ID` to `users.chad`.
         nft.approve(users.chad, TOKEN_ID);
+        // Approve all NFTs owned by `users.owner` to `users.operator`.
         nft.setApprovalForAll(users.operator, APPROVED);
     }
 
-    /// INTERNAL NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                            INTERNAL NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Converts bytes32 to address.
     function getNextUser() internal returns (address payable) {
@@ -73,6 +93,8 @@ abstract contract ERC721UnitTest is Test {
     }
 }
 
+// A contract with the `onERC721Received` method implementation that will be
+// used for the `safeMint` and `safeTransferFrom` passing tests.
 contract ERC721Recipient is IERC721Receiver {
     address public operator;
     address public from;
@@ -94,8 +116,14 @@ contract ERC721Recipient is IERC721Receiver {
     }
 }
 
-contract NonERC721ReceiverImplementer {}
+// A contract with no `onERC721Received` method implementation  that will be
+// used for the `safeMint` and `safeTransferFrom` failing tests.
+contract NonERC721ReceiverImplementer {
 
+}
+
+// A contract with the `onERC721Received` method implementation that returns a wrong
+// data that will be used for the `safeMint` and `safeTransferFrom` failing tests.
 contract WrongReturnDataERC721Recipient is IERC721Receiver {
     function onERC721Received(
         address operator,
