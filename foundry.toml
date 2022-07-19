@@ -4,7 +4,7 @@
 auto_detect_solc = false
 libs = ["lib"]
 optimizer = true
-optimizer_runs = 800
+optimizer_runs = 10_000
 out = "out"
 sender = "0x1D970A764a53b5234577f1FA19577D36f0e7C52d"
 solc = "0.8.15"
