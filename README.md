@@ -25,21 +25,19 @@ it useful too, that's a win-win.
 
 ### Foundry
 
-How to import prb-contracts in a Foundry project:
+First, run the install step:
 
 ```sh
 forge install --no-commit paulrberg/prb-contracts
 ```
 
-Then add the following line to your `remappings.txt` file:
+Then, add the following line to your `remappings.txt` file:
 
 ```text
-@prb/contracts/=lib/prb-contracts/contracts/
+@prb/contracts/=lib/prb-contracts/src/
 ```
 
 ### Hardhat
-
-How to import prb-contracts in a Hardhat project:
 
 ```sh
 yarn add @prb/contracts
@@ -76,6 +74,8 @@ You will need the following software on your machine:
 
 - [Git](https://git-scm.com/downloads)
 - [Foundry](https://github.com/foundry-rs/foundry)
+- [Node.Js](https://nodejs.org/en/download/)
+- [Yarn](https://yarnpkg.com/)
 
 In addition, familiarity with [Solidity](https://soliditylang.org/) is requisite.
 
@@ -87,7 +87,11 @@ Clone this repository including submodules:
 $ git clone --recurse-submodules -j8 git@github.com:paulrberg/prb-contracts.git
 ```
 
-Then, follow the example given in `.env.example` to create a `.env` file with the requisite environment variables.
+Then, inside the project's directory, run this to install the Node.js dependencies:
+
+```sh
+$ yarn install
+```
 
 Now you can start making changes.
 
