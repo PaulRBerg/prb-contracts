@@ -224,8 +224,8 @@ contract ERC721 is IERC721 {
     ///
     /// Requirements:
     ///
-    /// - `tokenId` must not exist.
     /// - `to` cannot be the zero address.
+    /// - `tokenId` must not exist.
     function mintInternal(address to, uint256 tokenId) internal virtual {
         if (to == address(0)) {
             revert ERC721__MintZeroAddress();
@@ -250,9 +250,9 @@ contract ERC721 is IERC721 {
     ///
     /// Requirements:
     ///
-    /// - `tokenId` must not exist.
     /// - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received},
     /// which is called upon a safe transfer.
+    /// - `tokenId` must not exist.
     function safeMintInternal(address to, uint256 tokenId) internal virtual {
         safeMintInternal(to, tokenId, "");
     }
@@ -303,9 +303,12 @@ contract ERC721 is IERC721 {
         address to,
         uint256 tokenId
     ) internal virtual {
+        // Checks: the `from` is not the zero address.
         if (from != ownerOf(tokenId)) {
             revert ERC721__TransferInvalidFrom(from);
         }
+
+        // Checks: the `to` is not the zero address.
         if (to == address(0)) {
             revert ERC721__TransferToZeroAddress();
         }

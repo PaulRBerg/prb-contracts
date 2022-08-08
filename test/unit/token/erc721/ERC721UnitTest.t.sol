@@ -116,7 +116,7 @@ contract ERC721Recipient is IERC721Receiver {
     }
 }
 
-// A contract with no `onERC721Received` method implementation  that will be
+// A contract with no `onERC721Received` method implementation that will be
 // used for the `safeMint` and `safeTransferFrom` failing tests.
 contract NonERC721ReceiverImplementer {
 
