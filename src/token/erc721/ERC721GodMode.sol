@@ -36,17 +36,17 @@ contract ERC721GodMode is ERC721 {
 
     /// @dev See the documentation for the function that is called.
     function burn(uint256 tokenId) public virtual {
-        burnInternal(tokenId);
+        _burn(tokenId);
     }
 
     /// @dev See the documentation for the function that is called.
     function mint(address to, uint256 tokenId) public virtual {
-        mintInternal(to, tokenId);
+        _mint(to, tokenId);
     }
 
     /// @dev See the documentation for the function that is called.
     function safeMint(address to, uint256 tokenId) public virtual {
-        safeMintInternal(to, tokenId);
+        _safeMint(to, tokenId);
     }
 
     /// @dev See the documentation for the function that is called.
@@ -55,6 +55,6 @@ contract ERC721GodMode is ERC721 {
         uint256 tokenId,
         bytes memory data
     ) public virtual {
-        safeMintInternal(to, tokenId, data);
+        _safeMint(to, tokenId, data);
     }
 }

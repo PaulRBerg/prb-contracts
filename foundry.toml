@@ -1,6 +1,6 @@
 # Full reference https://github.com/foundry-rs/foundry/tree/master/config
 
-[default]
+[profile.default]
 auto_detect_solc = false
 libs = ["lib"]
 optimizer = true
@@ -12,5 +12,5 @@ src = "src"
 test = "test"
 tx_origin = "0x1D970A764a53b5234577f1FA19577D36f0e7C52d"
 
-[ci]
+[profile.ci]
 verbosity = 4

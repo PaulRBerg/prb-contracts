@@ -22,16 +22,16 @@ contract ERC721 is IERC721 {
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Internal mapping of balances.
-    mapping(address => uint256) internal balances;
+    mapping(address => uint256) internal _balances;
 
     /// @dev Internal mapping of owners.
-    mapping(uint256 => address) internal owners;
+    mapping(uint256 => address) internal _owners;
 
     /// @dev Internal mapping of token approvals.
-    mapping(uint256 => address) internal tokenApprovals;
+    mapping(uint256 => address) internal _tokenApprovals;
 
     /// @dev Internal mapping of operator approvals.
-    mapping(address => mapping(address => bool)) internal operatorApprovals;
+    mapping(address => mapping(address => bool)) internal _operatorApprovals;
 
     /*//////////////////////////////////////////////////////////////////////////
                                     CONSTRUCTOR
@@ -54,28 +54,28 @@ contract ERC721 is IERC721 {
             revert ERC721__BalanceOfZeroAddress();
         }
 
-        return balances[owner];
+        return _balances[owner];
     }
 
     /// @inheritdoc IERC721
     function getApproved(uint256 tokenId) public view virtual override returns (address) {
-        address owner = owners[tokenId];
+        address owner = _owners[tokenId];
 
         if (owner == address(0)) {
             revert ERC721__InvalidTokenId(tokenId);
         }
 
-        return tokenApprovals[tokenId];
+        return _tokenApprovals[tokenId];
     }
 
     /// @inheritdoc IERC721
     function isApprovedForAll(address owner, address operator) public view virtual override returns (bool) {
-        return operatorApprovals[owner][operator];
+        return _operatorApprovals[owner][operator];
     }
 
     /// @inheritdoc IERC721
     function ownerOf(uint256 tokenId) public view virtual override returns (address) {
-        address owner = owners[tokenId];
+        address owner = _owners[tokenId];
 
         if (owner == address(0)) {
             revert ERC721__InvalidTokenId(tokenId);
@@ -113,7 +113,7 @@ contract ERC721 is IERC721 {
             revert ERC721__UnauthorizedApprover(msg.sender);
         }
 
-        approveInternal(to, tokenId);
+        _approve(to, tokenId);
     }
 
     /// @inheritdoc IERC721
@@ -132,12 +132,12 @@ contract ERC721 is IERC721 {
         uint256 tokenId,
         bytes memory data
     ) public virtual override {
-        safeTransferFromInternal(from, to, tokenId, data);
+        _safeTransferFrom(from, to, tokenId, data);
     }
 
     /// @inheritdoc IERC721
     function setApprovalForAll(address operator, bool approved) public virtual override {
-        setApprovalForAllInternal(msg.sender, operator, approved);
+        _setApprovalForAll(msg.sender, operator, approved);
     }
 
     /// @inheritdoc IERC721
@@ -146,7 +146,7 @@ contract ERC721 is IERC721 {
         address to,
         uint256 tokenId
     ) public virtual override {
-        transferFromInternal(from, to, tokenId);
+        _transferFrom(from, to, tokenId);
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -160,7 +160,7 @@ contract ERC721 is IERC721 {
     /// @param tokenId The ID of the token to be transferred.
     /// @param data The optional data to send along with the call.
     /// @return bool Whether the call correctly returned the expected magic value.
-    function checkOnERC721Received(
+    function _checkOnERC721Received(
         address from,
         address to,
         uint256 tokenId,
@@ -189,8 +189,8 @@ contract ERC721 is IERC721 {
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev See the documentation for the public functions that call this internal function.
-    function approveInternal(address to, uint256 tokenId) internal virtual {
-        tokenApprovals[tokenId] = to;
+    function _approve(address to, uint256 tokenId) internal virtual {
+        _tokenApprovals[tokenId] = to;
 
         emit Approval(ownerOf(tokenId), to, tokenId);
     }
@@ -204,14 +204,14 @@ contract ERC721 is IERC721 {
     /// Requirements:
     ///
     /// - `tokenId` must exist.
-    function burnInternal(uint256 tokenId) internal virtual {
+    function _burn(uint256 tokenId) internal virtual {
         address owner = ownerOf(tokenId);
 
         // Clear approvals
-        approveInternal(address(0), tokenId);
+        _approve(address(0), tokenId);
 
-        balances[owner] -= 1;
-        delete owners[tokenId];
+        _balances[owner] -= 1;
+        delete _owners[tokenId];
 
         emit Transfer(owner, address(0), tokenId);
     }
@@ -220,26 +220,26 @@ contract ERC721 is IERC721 {
     ///
     /// @dev Emits a {Transfer} event.
     ///
-    /// Usage of this method is discouraged, use {safeMintInternal} whenever possible.
+    /// Usage of this method is discouraged, use {_safeMint} whenever possible.
     ///
     /// Requirements:
     ///
     /// - `to` cannot be the zero address.
     /// - `tokenId` must not exist.
-    function mintInternal(address to, uint256 tokenId) internal virtual {
+    function _mint(address to, uint256 tokenId) internal virtual {
         if (to == address(0)) {
             revert ERC721__MintZeroAddress();
         }
-        if (owners[tokenId] != address(0)) {
+        if (_owners[tokenId] != address(0)) {
             revert ERC721__MintExistingToken(tokenId);
         }
 
         // Overflow is incredibly unrealistic.
         unchecked {
-            balances[to] += 1;
+            _balances[to] += 1;
         }
 
-        owners[tokenId] = to;
+        _owners[tokenId] = to;
 
         emit Transfer(address(0), to, tokenId);
     }
@@ -253,38 +253,38 @@ contract ERC721 is IERC721 {
     /// - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received},
     /// which is called upon a safe transfer.
     /// - `tokenId` must not exist.
-    function safeMintInternal(address to, uint256 tokenId) internal virtual {
-        safeMintInternal(to, tokenId, "");
+    function _safeMint(address to, uint256 tokenId) internal virtual {
+        _safeMint(to, tokenId, "");
     }
 
-    /// @dev Same as {safeMintInternal(address, uint256)} with an additional `data` parameter which is
+    /// @dev Same as {_safeMint(address, uint256)} with an additional `data` parameter which is
     /// forwarded in {IERC721Receiver-onERC721Received} to contract recipients.
-    function safeMintInternal(
+    function _safeMint(
         address to,
         uint256 tokenId,
         bytes memory data
     ) internal virtual {
-        mintInternal(to, tokenId);
-        if (!checkOnERC721Received(address(0), to, tokenId, data)) {
+        _mint(to, tokenId);
+        if (!_checkOnERC721Received(address(0), to, tokenId, data)) {
             revert ERC721__NonERC721ReceiverImplementer();
         }
     }
 
     /// @dev See the documentation for the public functions that call this internal function.
-    function safeTransferFromInternal(
+    function _safeTransferFrom(
         address from,
         address to,
         uint256 tokenId,
         bytes memory data
     ) internal virtual {
-        transferFromInternal(from, to, tokenId);
-        if (!checkOnERC721Received(from, to, tokenId, data)) {
+        _transferFrom(from, to, tokenId);
+        if (!_checkOnERC721Received(from, to, tokenId, data)) {
             revert ERC721__NonERC721ReceiverImplementer();
         }
     }
 
     /// @dev See the documentation for the public functions that call this internal function.
-    function setApprovalForAllInternal(
+    function _setApprovalForAll(
         address owner,
         address operator,
         bool approved
@@ -293,12 +293,12 @@ contract ERC721 is IERC721 {
             revert ERC721__ApproveCurrentOwner(owner);
         }
 
-        operatorApprovals[owner][operator] = approved;
+        _operatorApprovals[owner][operator] = approved;
         emit ApprovalForAll(owner, operator, approved);
     }
 
     /// @dev See the documentation for the public functions that call this internal function.
-    function transferFromInternal(
+    function _transferFrom(
         address from,
         address to,
         uint256 tokenId
@@ -317,16 +317,16 @@ contract ERC721 is IERC721 {
         }
 
         // Clear approvals from the previous owner.
-        approveInternal(address(0), tokenId);
+        _approve(address(0), tokenId);
 
         // Underflow of the sender's balance is impossible because we check for
-        // ownership above and the recipient's balance can't realistically overflow.
+        // _ownership above and the recipient's balance can't realistically overflow.
         unchecked {
-            balances[from] -= 1;
-            balances[to] += 1;
+            _balances[from] -= 1;
+            _balances[to] += 1;
         }
 
-        owners[tokenId] = to;
+        _owners[tokenId] = to;
 
         emit Transfer(from, to, tokenId);
     }
