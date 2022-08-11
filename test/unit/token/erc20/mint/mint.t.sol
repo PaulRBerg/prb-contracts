@@ -7,25 +7,25 @@ import { stdError } from "forge-std/Test.sol";
 
 import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
 
-contract ERC20__Mint__BeneficiaryZeroAddress is ERC20UnitTest {
+contract ERC20__Mint is ERC20UnitTest {
     /// @dev it should revert.
-    function testCannotMint() external {
+    function testCannotMint__BeneficiaryZeroAddress() external {
         address beneficiary = address(0);
         vm.expectRevert(IERC20.ERC20__MintBeneficiaryZeroAddress.selector);
         uint256 amount = 1;
         dai.mint(beneficiary, amount);
     }
-}
 
-contract BeneficiaryNotZeroAddress {}
+    modifier BeneficiaryNotZeroAddress() {
+        _;
+    }
 
-contract ERC20__Mint__BeneficiaryBalanceCalculationOverflowsUint256 is ERC20UnitTest, BeneficiaryNotZeroAddress {
     /// @dev it should revert.
-    function testCannotMint(
+    function testCannotMint__BeneficiaryBalanceCalculationOverflowsUint256(
         address beneficiary,
         uint256 amount0,
         uint256 amount1
-    ) external {
+    ) external BeneficiaryNotZeroAddress {
         vm.assume(beneficiary != address(0));
         vm.assume(amount0 > 0);
         vm.assume(amount1 > MAX_UINT256 - amount0);
@@ -37,21 +37,17 @@ contract ERC20__Mint__BeneficiaryBalanceCalculationOverflowsUint256 is ERC20Unit
         vm.expectRevert(stdError.arithmeticError);
         dai.mint(beneficiary, amount1);
     }
-}
 
-contract BeneficiaryBalanceCalculationDoesNotOverflowUint256 {}
+    modifier BeneficiaryBalanceCalculationDoesNotOverflowUint256() {
+        _;
+    }
 
-contract ERC20__Mint__TotalSupplyCalculationOverflowsUint256 is
-    ERC20UnitTest,
-    BeneficiaryNotZeroAddress,
-    BeneficiaryBalanceCalculationDoesNotOverflowUint256
-{
     /// @dev it should revert.
-    function testCannotMint(
+    function testCannotMint__TotalSupplyCalculationOverflowsUint256(
         address beneficiary,
         uint256 amount0,
         uint256 amount1
-    ) external {
+    ) external BeneficiaryNotZeroAddress BeneficiaryBalanceCalculationDoesNotOverflowUint256 {
         vm.assume(beneficiary != address(0));
         vm.assume(amount0 > 0);
         vm.assume(amount1 > MAX_UINT256 - amount0);
@@ -63,18 +59,18 @@ contract ERC20__Mint__TotalSupplyCalculationOverflowsUint256 is
         vm.expectRevert(stdError.arithmeticError);
         dai.mint(beneficiary, amount1);
     }
-}
 
-contract TotalSupplyCalculationDoesNotOverflowUint256 {}
+    modifier TotalSupplyCalculationDoesNotOverflowUint256() {
+        _;
+    }
 
-contract ERC20__Mint is
-    ERC20UnitTest,
-    BeneficiaryNotZeroAddress,
-    BeneficiaryBalanceCalculationDoesNotOverflowUint256,
-    TotalSupplyCalculationDoesNotOverflowUint256
-{
     /// @dev it should increase the balance of the beneficiary.
-    function testMint__IncreaseBeneficiaryBalance(address beneficiary, uint256 amount) external {
+    function testMint__IncreaseBeneficiaryBalance(address beneficiary, uint256 amount)
+        external
+        BeneficiaryNotZeroAddress
+        BeneficiaryBalanceCalculationDoesNotOverflowUint256
+        TotalSupplyCalculationDoesNotOverflowUint256
+    {
         vm.assume(beneficiary != address(0));
         vm.assume(amount > 0);
 
@@ -86,7 +82,12 @@ contract ERC20__Mint is
     }
 
     /// @dev it should increase the total supply.
-    function testMint__IncreaseTotalSupply(address beneficiary, uint256 amount) external {
+    function testMint__IncreaseTotalSupply(address beneficiary, uint256 amount)
+        external
+        BeneficiaryNotZeroAddress
+        BeneficiaryBalanceCalculationDoesNotOverflowUint256
+        TotalSupplyCalculationDoesNotOverflowUint256
+    {
         vm.assume(beneficiary != address(0));
         vm.assume(amount > 0);
 
@@ -98,7 +99,12 @@ contract ERC20__Mint is
     }
 
     /// @dev it should emit a Transfer event.
-    function testMint__Event(address beneficiary, uint256 amount) external {
+    function testMint__Event(address beneficiary, uint256 amount)
+        external
+        BeneficiaryNotZeroAddress
+        BeneficiaryBalanceCalculationDoesNotOverflowUint256
+        TotalSupplyCalculationDoesNotOverflowUint256
+    {
         vm.assume(beneficiary != address(0));
         vm.assume(amount > 0);
 

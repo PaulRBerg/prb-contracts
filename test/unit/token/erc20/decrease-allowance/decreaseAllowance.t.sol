@@ -5,26 +5,26 @@ import { stdError } from "forge-std/Test.sol";
 
 import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
 
-contract ERC20__DecreaseAllowance__CalculationUnderflowsUint256 is ERC20UnitTest {
+contract ERC20__DecreaseAllowance is ERC20UnitTest {
     /// @dev it should revert.
-    function testCannotDecreaseAllowance(address spender, uint256 value) external {
+    function testCannotDecreaseAllowance__CalculationUnderflowsUint256(address spender, uint256 value) external {
         vm.assume(spender != address(0));
         vm.assume(value > 0);
 
         vm.expectRevert(stdError.arithmeticError);
         dai.decreaseAllowance(spender, value);
     }
-}
 
-contract CalculationDoesNotUnderflowUint256 {}
+    modifier CalculationDoesNotUnderflowUint256() {
+        _;
+    }
 
-contract ERC20__DecreaseAllowance is ERC20UnitTest, CalculationDoesNotUnderflowUint256 {
     /// @dev it should decrease the allowance.
     function testDecreaseAllowance(
         address spender,
         uint256 value0,
         uint256 value1
-    ) external {
+    ) external CalculationDoesNotUnderflowUint256 {
         vm.assume(spender != address(0));
         vm.assume(value0 > 0);
         vm.assume(value1 <= value0);
@@ -44,7 +44,7 @@ contract ERC20__DecreaseAllowance is ERC20UnitTest, CalculationDoesNotUnderflowU
         address spender,
         uint256 value0,
         uint256 value1
-    ) external {
+    ) external CalculationDoesNotUnderflowUint256 {
         vm.assume(spender != address(0));
         vm.assume(value0 > 0);
         vm.assume(value1 <= value0);

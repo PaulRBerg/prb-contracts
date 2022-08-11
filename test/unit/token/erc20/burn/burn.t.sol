@@ -7,38 +7,41 @@ import { stdError } from "forge-std/Test.sol";
 
 import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
 
-contract ERC20__Burn__BeneficiaryZeroAddress is ERC20UnitTest {
+contract ERC20__Burn is ERC20UnitTest {
     /// @dev it should revert.
-    function testCannotBurn() external {
+    function testCannotBurn__HolderZeroAddress() external {
         address holder = address(0);
         vm.expectRevert(IERC20.ERC20__BurnHolderZeroAddress.selector);
         uint256 amount = 1;
         dai.burn(holder, amount);
     }
-}
 
-contract HolderNotZeroAddress {}
+    modifier HolderNotZeroAddress() {
+        _;
+    }
 
-contract ERC20__Burn__HolderBalanceCalculationUnderflowsUint256 is ERC20UnitTest, HolderNotZeroAddress {
     /// @dev it should revert.
-    function testCannotBurn(address holder, uint256 amount) external {
+    function testCannotBurn__HolderBalanceCalculationUnderflowsUint256(address holder, uint256 amount)
+        external
+        HolderNotZeroAddress
+    {
         vm.assume(holder != address(0));
         vm.assume(amount > 0);
 
         vm.expectRevert(stdError.arithmeticError);
         dai.burn(holder, amount);
     }
-}
 
-contract HolderBalanceCalculationDoesNotUnderflowUint256 {}
+    modifier HolderBalanceCalculationDoesNotUnderflowUint256() {
+        _;
+    }
 
-contract ERC20__Burn is ERC20UnitTest, HolderNotZeroAddress, HolderBalanceCalculationDoesNotUnderflowUint256 {
     /// @dev it should decrease the balance of the holder.
     function testBurn__DecreaseHolderBalance(
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external {
+    ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
         vm.assume(holder != address(0));
         vm.assume(mintAmount > 0);
         vm.assume(burnAmount > 0);
@@ -59,7 +62,7 @@ contract ERC20__Burn is ERC20UnitTest, HolderNotZeroAddress, HolderBalanceCalcul
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external {
+    ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
         vm.assume(holder != address(0));
         vm.assume(mintAmount > 0);
         vm.assume(burnAmount > 0);
@@ -81,7 +84,7 @@ contract ERC20__Burn is ERC20UnitTest, HolderNotZeroAddress, HolderBalanceCalcul
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external {
+    ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
         vm.assume(holder != address(0));
         vm.assume(mintAmount > 0);
         vm.assume(burnAmount > 0);

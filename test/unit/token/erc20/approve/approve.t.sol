@@ -7,9 +7,9 @@ import { stdError } from "forge-std/Test.sol";
 
 import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
 
-contract ERC20__Approve__OwnerZeroAddress is ERC20UnitTest {
+contract ERC20__Approve is ERC20UnitTest {
     /// @dev it should revert.
-    function testCannotApprove() external {
+    function testCannotApprove__OwnerZeroAddress() external {
         // Make the zero address the caller in this test.
         changePrank(address(0));
 
@@ -17,24 +17,24 @@ contract ERC20__Approve__OwnerZeroAddress is ERC20UnitTest {
         vm.expectRevert(IERC20.ERC20__ApproveOwnerZeroAddress.selector);
         dai.approve(users.alice, ONE_MILLION_DAI);
     }
-}
 
-contract OwnerNotZeroAddress {}
+    modifier OwnerNotZeroAddress() {
+        _;
+    }
 
-contract ERC20__Approve__SpenderZeroAddress is ERC20UnitTest, OwnerNotZeroAddress {
     /// @dev it should revert.
-    function testCannotApprove() external {
+    function testCannotApprove__SpenderZeroAddress() external OwnerNotZeroAddress {
         address spender = address(0);
         vm.expectRevert(IERC20.ERC20__ApproveSpenderZeroAddress.selector);
         dai.approve(spender, ONE_MILLION_DAI);
     }
-}
 
-contract SpenderNotZeroAddress {}
+    modifier SpenderNotZeroAddress() {
+        _;
+    }
 
-contract ERC20__Approve is ERC20UnitTest, OwnerNotZeroAddress, SpenderNotZeroAddress {
     /// @dev it should make the approval.
-    function testApprove(address spender, uint256 value) external {
+    function testApprove(address spender, uint256 value) external OwnerNotZeroAddress SpenderNotZeroAddress {
         vm.assume(spender != address(0));
 
         dai.approve(spender, value);
@@ -44,7 +44,7 @@ contract ERC20__Approve is ERC20UnitTest, OwnerNotZeroAddress, SpenderNotZeroAdd
     }
 
     /// @dev it should emit an Approval event.
-    function testApprove__Event(address spender, uint256 value) external {
+    function testApprove__Event(address spender, uint256 value) external OwnerNotZeroAddress SpenderNotZeroAddress {
         vm.assume(spender != address(0));
 
         vm.expectEmit(true, true, false, true);

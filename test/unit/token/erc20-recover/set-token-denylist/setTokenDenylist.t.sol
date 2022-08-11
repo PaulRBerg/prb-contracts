@@ -7,9 +7,9 @@ import { IOwnable } from "@prb/contracts/access/IOwnable.sol";
 
 import { ERC20RecoverUnitTest } from "../ERC20RecoverUnitTest.t.sol";
 
-contract ERC20Recover__SetTokenDenylist__CallerNotOwner is ERC20RecoverUnitTest {
+contract ERC20Recover__SetTokenDenylist is ERC20RecoverUnitTest {
     /// @dev it should revert.
-    function testCannotSetTokenDenylist() external {
+    function testCannotSetTokenDenylist__CallerNotOwner() external {
         // Make Eve the caller in this test.
         address caller = users.eve;
         changePrank(caller);
@@ -19,46 +19,37 @@ contract ERC20Recover__SetTokenDenylist__CallerNotOwner is ERC20RecoverUnitTest 
         vm.expectRevert(abi.encodeWithSelector(IOwnable.Ownable__NotOwner.selector, owner, caller));
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
-}
 
-contract CallerOwner {}
+    modifier CallerOwner() {
+        _;
+    }
 
-contract ERC20Recover__SetTokenDenylist__TokenDenylistAlreadySet is ERC20RecoverUnitTest, CallerOwner {
     /// @dev it should revert.
-    function testCannotSetTokenDenylist() external {
+    function testCannotSetTokenDenylist__TokenDenylistAlreadySet() external CallerOwner {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
         vm.expectRevert(IERC20Recover.ERC20Recover__TokenDenylistAlreadySet.selector);
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
-}
 
-contract TokenDenylistNotAlreadySet {}
+    modifier TokenDenylistNotAlreadySet() {
+        _;
+    }
 
-contract ERC20Recover__SetTokenDenylist__SomeTokensDontHaveASymbol is
-    ERC20RecoverUnitTest,
-    CallerOwner,
-    TokenDenylistNotAlreadySet
-{
     /// @dev it should revert.
-    function testCannotSetTokenDenylist() external {
+    function testCannotSetTokenDenylist__SomeTokensDontHaveASymbol() external CallerOwner TokenDenylistNotAlreadySet {
         vm.expectRevert();
         IERC20[] memory tokenDenylist = new IERC20[](2);
         tokenDenylist[0] = dai;
         tokenDenylist[1] = IERC20(address(symbollessToken));
         erc20Recover.setTokenDenylist(tokenDenylist);
     }
-}
 
-contract AllTokensHaveASymbol {}
+    modifier AllTokensHaveASymbol() {
+        _;
+    }
 
-contract ERC20Recover__SetTokenDenylist is
-    ERC20RecoverUnitTest,
-    CallerOwner,
-    TokenDenylistNotAlreadySet,
-    AllTokensHaveASymbol
-{
     /// @dev it should set the token denylist.
-    function testSetTokenDenylist() external {
+    function testSetTokenDenylist() external CallerOwner TokenDenylistNotAlreadySet AllTokensHaveASymbol {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
 
         // Compare the token denylists.
@@ -72,7 +63,7 @@ contract ERC20Recover__SetTokenDenylist is
     }
 
     /// @dev it should emit a SetTokenDenylist event.
-    function testSetTokenDenylist__Event() external {
+    function testSetTokenDenylist__Event() external CallerOwner TokenDenylistNotAlreadySet AllTokensHaveASymbol {
         vm.expectEmit(true, false, false, true);
         emit SetTokenDenylist(users.alice, TOKEN_DENYLIST);
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);

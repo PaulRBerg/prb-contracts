@@ -8,71 +8,57 @@ import { IERC20Normalizer } from "@prb/contracts/token/erc20/IERC20Normalizer.so
 
 import { ERC20NormalizerUnitTest } from "../ERC20NormalizerUnitTest.t.sol";
 
-contract ERC20Normalizer__Denormalize__ScalarNotComputed is ERC20NormalizerUnitTest {
+contract ERC20Normalizer__Denormalize is ERC20NormalizerUnitTest {
     /// @dev it should return the denormalized amount.
-    function testDenormalize() external {
+    function testDenormalize__ScalarNotComputed() external {
         uint256 amount = bn(100, STANDARD_DECIMALS);
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount = bn(100, usdc.decimals());
         assertEq(expectedDenormalizedAmount, actualDenormalizedAmount);
     }
-}
 
-contract ScalarComputed is ERC20NormalizerUnitTest {
-    /// @dev A setup function invoked before each test case.
-    function setUp() public override {
-        super.setUp();
-        erc20Normalizer.computeScalar(usdc);
+    modifier ScalarComputed() {
+        _;
     }
-}
 
-contract ERC20Normalizer__Denormalize__Scalar1 is ScalarComputed {
     /// @dev it should return the denormalized amount.
-    function testDenormalize() external {
+    function testDenormalize__Scalar1() external ScalarComputed {
+        erc20Normalizer.computeScalar(usdc);
         uint256 amount = bn(100, STANDARD_DECIMALS);
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount = bn(100, usdc.decimals());
         assertEq(actualDenormalizedAmount, expectedDenormalizedAmount);
     }
-}
 
-contract ScalarNot1 {}
+    modifier ScalarNot1() {
+        _;
+    }
 
-contract ERC20Normalizer__Denormalize__AmountZero is ScalarComputed, ScalarNot1 {
     /// @dev it should return zero.
-    function testDenormalize__A() external {
+    function testDenormalize__AmountZero() external ScalarComputed ScalarNot1 {
+        erc20Normalizer.computeScalar(usdc);
         uint256 amount = 0;
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount = 0;
         assertEq(actualDenormalizedAmount, expectedDenormalizedAmount);
     }
-}
 
-contract AmountNotZero {}
+    modifier AmountNotZero() {
+        _;
+    }
 
-contract ERC20Normalizer__Denormalize__AmountSmallerThanScalar is ScalarComputed, ScalarNot1, AmountNotZero {
     /// @dev it should return zero.
-    function testDenormalize__AmountSmallerThanScalar() external {
+    function testDenormalize__AmountSmallerThanScalar() external ScalarComputed ScalarNot1 AmountNotZero {
+        erc20Normalizer.computeScalar(usdc);
         uint256 amount = USDC_SCALAR - 1;
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount = 0;
         assertEq(actualDenormalizedAmount, expectedDenormalizedAmount);
     }
-}
 
-contract ERC20Normalizer__Denormalize__AmountEqualToScalar is ScalarComputed, ScalarNot1, AmountNotZero {
-    /// @dev it should return one.
-    function testDenormalize__AmountEqualToScalar() external {
-        uint256 amount = USDC_SCALAR;
-        uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
-        uint256 expectedDenormalizedAmount = 1;
-        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount);
-    }
-}
-
-contract ERC20Normalizer__Denormalize__AmountBiggerThanScalar is ScalarComputed, ScalarNot1, AmountNotZero {
     /// @dev it should return the denormalized amount.
-    function testDenormalize__AmountBiggerThanScalar(uint256 amount) external {
+    function testDenormalize__AmountBiggerThanScalar(uint256 amount) external ScalarComputed ScalarNot1 AmountNotZero {
+        erc20Normalizer.computeScalar(usdc);
         vm.assume(amount > USDC_SCALAR);
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount;

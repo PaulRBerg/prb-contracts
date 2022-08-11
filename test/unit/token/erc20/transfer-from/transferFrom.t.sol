@@ -7,11 +7,9 @@ import { stdError } from "forge-std/Test.sol";
 
 import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
 
-contract RecipientNotZeroAddress {}
-
-contract ERC20__TransferFrom__SpenderAllowanceNotEnough is ERC20UnitTest {
+contract ERC20__TransferFrom is ERC20UnitTest {
     /// @dev it should revert.
-    function testCannotTransferFrom(address owner, uint256 amount) external {
+    function testCannotTransferFrom__SpenderAllowanceNotEnough(address owner, uint256 amount) external {
         vm.assume(owner != address(0));
         vm.assume(amount > 0);
 
@@ -28,18 +26,18 @@ contract ERC20__TransferFrom__SpenderAllowanceNotEnough is ERC20UnitTest {
         );
         dai.transferFrom(owner, spender, amount);
     }
-}
 
-contract SpenderAllowanceEnough {}
+    modifier SpenderAllowanceEnough() {
+        _;
+    }
 
-contract ERC20__TransferFrom is ERC20UnitTest, SpenderAllowanceEnough {
     /// @dev it should transfer the tokens.
     function testTransferFrom(
         address owner,
         address to,
         uint256 amount0,
         uint256 amount1
-    ) external {
+    ) external SpenderAllowanceEnough {
         vm.assume(owner != address(0));
         vm.assume(to != address(0));
         vm.assume(owner != to);
@@ -76,7 +74,7 @@ contract ERC20__TransferFrom is ERC20UnitTest, SpenderAllowanceEnough {
         address to,
         uint256 amount0,
         uint256 amount1
-    ) external {
+    ) external SpenderAllowanceEnough {
         vm.assume(owner != address(0));
         vm.assume(to != address(0));
         vm.assume(owner != to);

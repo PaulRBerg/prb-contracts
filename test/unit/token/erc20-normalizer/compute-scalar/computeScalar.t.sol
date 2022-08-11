@@ -11,24 +11,19 @@ import { ERC20NormalizerUnitTest } from "../ERC20NormalizerUnitTest.t.sol";
 contract ERC20Normalizer__ComputeScalar is ERC20NormalizerUnitTest {
     ERC20GodMode internal tkn19 = new ERC20GodMode("Token 19", "TKN19", 19);
     ERC20GodMode internal tkn255 = new ERC20GodMode("Token 255", "TKN18", 255);
-}
 
-contract ERC20Normalizer__ComputeScalar__TokenDecimalsZero is ERC20Normalizer__ComputeScalar {
     /// @dev it should revert.
-    function testCannotComputeScalar() external {
+    function testCannotComputeScalar__TokenDecimalsZero() external {
         vm.expectRevert(abi.encodeWithSelector(IERC20Normalizer.IERC20Normalizer__TokenDecimalsZero.selector, tkn0));
         erc20Normalizer.computeScalar(tkn0);
     }
-}
 
-contract TokenDecimalsNotZero {}
+    modifier TokenDecimalsNotZero() {
+        _;
+    }
 
-contract ERC20Normalizer__ComputeScalar__TokenDecimalsGreaterThan18 is
-    ERC20Normalizer__ComputeScalar,
-    TokenDecimalsNotZero
-{
     /// @dev it should revert.
-    function testCannotComputeScalar__TokenDecimals19() external {
+    function testCannotComputeScalar__TokenDecimalsGreaterThan18__TokenDecimals19() external TokenDecimalsNotZero {
         uint256 decimals = 19;
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -41,7 +36,7 @@ contract ERC20Normalizer__ComputeScalar__TokenDecimalsGreaterThan18 is
     }
 
     /// @dev it should revert.
-    function testCannotComputeScalar__TokenDecimals255() external {
+    function testCannotComputeScalar__TokenDecimalsGreaterThan18__TokenDecimals255() external TokenDecimalsNotZero {
         uint256 decimals = 255;
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -52,27 +47,17 @@ contract ERC20Normalizer__ComputeScalar__TokenDecimalsGreaterThan18 is
         );
         erc20Normalizer.computeScalar(tkn255);
     }
-}
 
-contract ERC20Normalizer__ComputeScalar__TokenDecimalsEqualTo18 is
-    ERC20Normalizer__ComputeScalar,
-    TokenDecimalsNotZero
-{
     /// @dev it should compute the scalar.
-    function testComputeScalar() external {
+    function testComputeScalar__TokenDecimalsEqualTo18() external {
         erc20Normalizer.computeScalar(dai);
         uint256 actualScalar = erc20Normalizer.getScalar(dai);
         uint256 expectedScalar = 1;
         assertEq(actualScalar, expectedScalar);
     }
-}
 
-contract ERC20Normalizer__ComputeScalar__TokenDecimalsLessThan18 is
-    ERC20Normalizer__ComputeScalar,
-    TokenDecimalsNotZero
-{
     /// @dev it should compute the scalar.
-    function testComputeScalar() external {
+    function testComputeScalar__TokenDecimalsLessThan18() external {
         erc20Normalizer.computeScalar(usdc);
         uint256 actualScalar = erc20Normalizer.getScalar(usdc);
         uint256 expectedScalar = 10**(18 - usdc.decimals());

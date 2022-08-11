@@ -27,7 +27,7 @@ contract ERC20GodMode is ERC20 {
     /// @param holder The account whose tokens to burn.
     /// @param amount The amount of tokens to destroy.
     function burn(address holder, uint256 amount) public {
-        burnInternal(holder, amount);
+        _burn(holder, amount);
     }
 
     /// @notice Prints new tokens into existence and assigns them to `beneficiary`, increasing the
@@ -35,6 +35,6 @@ contract ERC20GodMode is ERC20 {
     /// @param beneficiary The account for which to mint the tokens.
     /// @param amount The amount of tokens to print into existence.
     function mint(address beneficiary, uint256 amount) public {
-        mintInternal(beneficiary, amount);
+        _mint(beneficiary, amount);
     }
 }

@@ -93,7 +93,7 @@ contract ERC20Permit is
         }
 
         // Effects: update the allowance.
-        allowances[owner][spender] = value;
+        _allowances[owner][spender] = value;
 
         // Emit an event.
         emit Approval(owner, spender, value);

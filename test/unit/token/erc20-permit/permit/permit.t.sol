@@ -7,9 +7,9 @@ import { console } from "forge-std/Test.sol";
 
 import { ERC20PermitUnitTest } from "../ERC20PermitUnitTest.t.sol";
 
-contract ERC20Permit__Permit__OwnerZeroAddress is ERC20PermitUnitTest {
+contract ERC20Permit__Permit is ERC20PermitUnitTest {
     /// @dev it should revert.
-    function testCannotPermit() external {
+    function testCannotPermit__OwnerZeroAddress() external {
         address owner = address(0);
         address spender = users.alice;
         uint256 value = 1;
@@ -17,13 +17,13 @@ contract ERC20Permit__Permit__OwnerZeroAddress is ERC20PermitUnitTest {
         vm.expectRevert(IERC20Permit.ERC20Permit__OwnerZeroAddress.selector);
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
-}
 
-contract OwnerNotZeroAddress {}
+    modifier OwnerNotZeroAddress() {
+        _;
+    }
 
-contract ERC20Permit__Permit__SpenderZeroAddress is ERC20PermitUnitTest, OwnerNotZeroAddress {
     /// @dev it should revert.
-    function testCannotPermit() external {
+    function testCannotPermit__SpenderZeroAddress() external OwnerNotZeroAddress {
         address owner = users.alice;
         address spender = address(0);
         uint256 value = 1;
@@ -31,13 +31,13 @@ contract ERC20Permit__Permit__SpenderZeroAddress is ERC20PermitUnitTest, OwnerNo
         vm.expectRevert(IERC20Permit.ERC20Permit__SpenderZeroAddress.selector);
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
-}
 
-contract SpenderNotZeroAddress {}
+    modifier SpenderNotZeroAddress() {
+        _;
+    }
 
-contract ERC20Permit__Permit__DeadlineInThePast is ERC20PermitUnitTest, OwnerNotZeroAddress, SpenderNotZeroAddress {
     /// @dev it should revert.
-    function testCannotPermit(uint256 deadline) external {
+    function testCannotPermit__DeadlineInThePast(uint256 deadline) external OwnerNotZeroAddress SpenderNotZeroAddress {
         vm.assume(deadline < block.timestamp);
 
         address owner = users.alice;
@@ -48,21 +48,21 @@ contract ERC20Permit__Permit__DeadlineInThePast is ERC20PermitUnitTest, OwnerNot
         );
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
-}
 
-contract DeadlineNotInThePast {}
+    modifier DeadlineNotInThePast() {
+        _;
+    }
 
-contract ERC20Permit__Permit__RecoveredOwnerZeroAddress is
-    ERC20PermitUnitTest,
-    OwnerNotZeroAddress,
-    SpenderNotZeroAddress,
-    DeadlineNotInThePast
-{
     /// @dev it should revert.
     ///
     /// Setting `v` to any number other than 27 or 28 makes the `ecrecover` precompile return the zero address.
     /// https://ethereum.stackexchange.com/questions/69328/how-to-get-the-zero-address-from-ecrecover
-    function testCannotPermit(uint256 deadline, uint8 v) external {
+    function testCannotPermit__RecoveredOwnerZeroAddress(uint256 deadline, uint8 v)
+        external
+        OwnerNotZeroAddress
+        SpenderNotZeroAddress
+        DeadlineNotInThePast
+    {
         vm.assume(deadline >= block.timestamp);
         vm.assume(v != 27 && v != 28);
 
@@ -72,19 +72,19 @@ contract ERC20Permit__Permit__RecoveredOwnerZeroAddress is
         vm.expectRevert(IERC20Permit.ERC20Permit__RecoveredOwnerZeroAddress.selector);
         erc20Permit.permit(owner, spender, value, deadline, v, DUMMY_R, DUMMY_S);
     }
-}
 
-contract RecoveredOwnerNotZeroAddress {}
+    modifier RecoveredOwnerNotZeroAddress() {
+        _;
+    }
 
-contract ERC20Permit__Permit__SignatureNotValid is
-    ERC20PermitUnitTest,
-    OwnerNotZeroAddress,
-    SpenderNotZeroAddress,
-    DeadlineNotInThePast,
-    RecoveredOwnerNotZeroAddress
-{
     /// @dev it should revert.
-    function testCannotPermit(uint256 deadline) external {
+    function testCannotPermit__SignatureNotValid(uint256 deadline)
+        external
+        OwnerNotZeroAddress
+        SpenderNotZeroAddress
+        DeadlineNotInThePast
+        RecoveredOwnerNotZeroAddress
+    {
         vm.assume(deadline >= block.timestamp);
         address owner = users.alice;
         address spender = users.bob;
@@ -100,25 +100,25 @@ contract ERC20Permit__Permit__SignatureNotValid is
         );
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
-}
 
-contract SignatureValid {}
+    modifier SignatureValid() {
+        _;
+    }
 
-contract ERC20Permit__Permit is
-    ERC20PermitUnitTest,
-    OwnerNotZeroAddress,
-    SpenderNotZeroAddress,
-    DeadlineNotInThePast,
-    RecoveredOwnerNotZeroAddress,
-    SignatureValid
-{
     /// @dev it should update the spender's allowance.
     function testPermit(
         uint256 privateKey,
         address spender,
         uint256 value,
         uint256 deadline
-    ) external {
+    )
+        external
+        OwnerNotZeroAddress
+        SpenderNotZeroAddress
+        DeadlineNotInThePast
+        RecoveredOwnerNotZeroAddress
+        SignatureValid
+    {
         vm.assume(privateKey > 0);
         vm.assume(privateKey < SECP256K1_ORDER);
         vm.assume(spender != address(0));
@@ -138,7 +138,14 @@ contract ERC20Permit__Permit is
         address spender,
         uint256 value,
         uint256 deadline
-    ) external {
+    )
+        external
+        OwnerNotZeroAddress
+        SpenderNotZeroAddress
+        DeadlineNotInThePast
+        RecoveredOwnerNotZeroAddress
+        SignatureValid
+    {
         vm.assume(privateKey > 0);
         vm.assume(privateKey < SECP256K1_ORDER);
         vm.assume(spender != address(0));
@@ -158,7 +165,14 @@ contract ERC20Permit__Permit is
         address spender,
         uint256 value,
         uint256 deadline
-    ) external {
+    )
+        external
+        OwnerNotZeroAddress
+        SpenderNotZeroAddress
+        DeadlineNotInThePast
+        RecoveredOwnerNotZeroAddress
+        SignatureValid
+    {
         vm.assume(privateKey > 0);
         vm.assume(privateKey < SECP256K1_ORDER);
         vm.assume(spender != address(0));

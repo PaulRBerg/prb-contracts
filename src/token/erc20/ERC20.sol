@@ -23,10 +23,10 @@ contract ERC20 is IERC20 {
     /// INTERNAL STORAGE ///
 
     /// @dev Internal mapping of balances.
-    mapping(address => uint256) internal balances;
+    mapping(address => uint256) internal _balances;
 
     /// @dev Internal mapping of allowances.
-    mapping(address => mapping(address => uint256)) internal allowances;
+    mapping(address => mapping(address => uint256)) internal _allowances;
 
     /// CONSTRUCTOR ///
 
@@ -48,44 +48,44 @@ contract ERC20 is IERC20 {
 
     /// @inheritdoc IERC20
     function allowance(address owner, address spender) public view override returns (uint256) {
-        return allowances[owner][spender];
+        return _allowances[owner][spender];
     }
 
     function balanceOf(address account) public view virtual override returns (uint256) {
-        return balances[account];
+        return _balances[account];
     }
 
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IERC20
     function approve(address spender, uint256 value) public virtual override returns (bool) {
-        approveInternal(msg.sender, spender, value);
+        _approve(msg.sender, spender, value);
         return true;
     }
 
     /// @inheritdoc IERC20
     function decreaseAllowance(address spender, uint256 value) public virtual override returns (bool) {
         // Calculate the new allowance.
-        uint256 newAllowance = allowances[msg.sender][spender] - value;
+        uint256 newAllowance = _allowances[msg.sender][spender] - value;
 
         // Make the approval.
-        approveInternal(msg.sender, spender, newAllowance);
+        _approve(msg.sender, spender, newAllowance);
         return true;
     }
 
     /// @inheritdoc IERC20
     function increaseAllowance(address spender, uint256 value) public virtual override returns (bool) {
         // Calculate the new allowance.
-        uint256 newAllowance = allowances[msg.sender][spender] + value;
+        uint256 newAllowance = _allowances[msg.sender][spender] + value;
 
         // Make the approval.
-        approveInternal(msg.sender, spender, newAllowance);
+        _approve(msg.sender, spender, newAllowance);
         return true;
     }
 
     /// @inheritdoc IERC20
     function transfer(address to, uint256 amount) public virtual override returns (bool) {
-        transferInternal(msg.sender, to, amount);
+        _transfer(msg.sender, to, amount);
         return true;
     }
 
@@ -97,18 +97,18 @@ contract ERC20 is IERC20 {
     ) public virtual override returns (bool) {
         // Checks: the spender's allowance is sufficient.
         address spender = msg.sender;
-        uint256 currentAllowance = allowances[from][spender];
+        uint256 currentAllowance = _allowances[from][spender];
         if (currentAllowance < amount) {
             revert ERC20__InsufficientAllowance(from, spender, currentAllowance, amount);
         }
 
         // Effects: update the allowance.
         unchecked {
-            approveInternal(from, spender, currentAllowance - amount);
+            _approve(from, spender, currentAllowance - amount);
         }
 
         // Checks, Effects and Interactions: make the transfer.
-        transferInternal(from, to, amount);
+        _transfer(from, to, amount);
 
         return true;
     }
@@ -123,7 +123,7 @@ contract ERC20 is IERC20 {
     ///
     /// - `owner` must not be the zero address.
     /// - `spender` must not be the zero address.
-    function approveInternal(
+    function _approve(
         address owner,
         address spender,
         uint256 value
@@ -139,7 +139,7 @@ contract ERC20 is IERC20 {
         }
 
         // Effects: update the allowance.
-        allowances[owner][spender] = value;
+        _allowances[owner][spender] = value;
 
         // Emit an event.
         emit Approval(owner, spender, value);
@@ -152,17 +152,20 @@ contract ERC20 is IERC20 {
     /// Requirements:
     ///
     /// - `holder` must have at least `amount` tokens.
-    function burnInternal(address holder, uint256 amount) internal {
+    function _burn(address holder, uint256 amount) internal {
         // Checks: `holder` is not the zero address.
         if (holder == address(0)) {
             revert ERC20__BurnHolderZeroAddress();
         }
 
         // Effects: burn the tokens.
-        balances[holder] -= amount;
+        _balances[holder] -= amount;
 
         // Effects: reduce the total supply.
-        totalSupply -= amount;
+        unchecked {
+            // Underflow not possible: amount <= account balance <= total supply.
+            totalSupply -= amount;
+        }
 
         // Emit an event.
         emit Transfer(holder, address(0), amount);
@@ -176,17 +179,20 @@ contract ERC20 is IERC20 {
     /// Requirements:
     ///
     /// - The beneficiary's balance and the total supply must not overflow.
-    function mintInternal(address beneficiary, uint256 amount) internal {
+    function _mint(address beneficiary, uint256 amount) internal {
         // Checks: `beneficiary` is not the zero address.
         if (beneficiary == address(0)) {
             revert ERC20__MintBeneficiaryZeroAddress();
         }
 
-        /// Effects: mint the new tokens.
-        balances[beneficiary] += amount;
-
         /// Effects: increase the total supply.
         totalSupply += amount;
+
+        /// Effects: mint the new tokens.
+        unchecked {
+            // Overflow not possible: `balance + amount` is at most `totalSupply + amount`, which is checked above.
+            _balances[beneficiary] += amount;
+        }
 
         // Emit an event.
         emit Transfer(address(0), beneficiary, amount);
@@ -201,7 +207,7 @@ contract ERC20 is IERC20 {
     /// - `from` must not be the zero address.
     /// - `to` must not be the zero address.
     /// - `from` must have a balance of at least `amount`.
-    function transferInternal(
+    function _transfer(
         address from,
         address to,
         uint256 amount
@@ -217,18 +223,18 @@ contract ERC20 is IERC20 {
         }
 
         // Checks: `from` has enough balance.
-        uint256 fromBalance = balances[from];
+        uint256 fromBalance = _balances[from];
         if (fromBalance < amount) {
             revert ERC20__FromInsufficientBalance(fromBalance, amount);
         }
 
-        // Effects: update the balance of `from`.
+        // Effects: update the balance of `from` and `to`..
         unchecked {
-            balances[from] = fromBalance - amount;
+            _balances[from] = fromBalance - amount;
+            // Overflow not possible: the sum of all balances is capped by the total supply, and the sum is preserved by
+            // decrementing then incrementing.
+            _balances[to] += amount;
         }
-
-        // Effects: update the balance of `from`.
-        balances[to] += amount;
 
         // Emit an event.
         emit Transfer(from, to, amount);
