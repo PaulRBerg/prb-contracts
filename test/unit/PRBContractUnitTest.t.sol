@@ -8,7 +8,7 @@ import { Cheats } from "forge-std/Cheats.sol";
 
 /// @title PRBContractUnitTest
 /// @author Paul Razvan Berg
-/// @notice Common contract members needed across Sablier V2 test contracts.
+/// @notice Common contract members needed across test contracts.
 abstract contract PRBContractUnitTest is PRBTest, Cheats {
     /// STRUCTS ///
 
@@ -26,7 +26,6 @@ abstract contract PRBContractUnitTest is PRBTest, Cheats {
     /// TESTING VARIABLES ///
 
     ERC20GodMode internal dai = new ERC20GodMode("Dai Stablecoin", "DAI", 18);
-    bytes32 internal nextUser = keccak256(abi.encodePacked("user address"));
     ERC20GodMode internal tkn0 = new ERC20GodMode("Token 0", "TKN0", 0);
     ERC20GodMode internal usdc = new ERC20GodMode("USD Coin", "USDC", 6);
     Users internal users;
@@ -74,7 +73,7 @@ abstract contract PRBContractUnitTest is PRBTest, Cheats {
         usdc.mint(user, ONE_MILLION_USDC);
     }
 
-    /// @dev Generates an address by hashing the name and also labels the address.
+    /// @dev Generates an address by hashing the name and labels the address.
     function mkaddr(string memory name) internal returns (address payable addr) {
         addr = payable(address(uint160(uint256(keccak256(abi.encodePacked(name))))));
         vm.label(addr, name);
