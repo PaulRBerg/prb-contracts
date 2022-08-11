@@ -32,6 +32,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.18.6":
+  version: 7.18.9
+  resolution: "@babel/runtime@npm:7.18.9"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 36dd736baba7164e82b3cc9d43e081f0cb2d05ff867ad39cac515d99546cee75b7f782018b02a3dcf5f2ef3d27f319faa68965fdfec49d4912c60c6002353a2e
+  languageName: node
+  linkType: hard
+
 "@commitlint/cli@npm:^16.2.3":
   version: 16.3.0
   resolution: "@commitlint/cli@npm:16.3.0"
@@ -270,6 +279,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ethersproject/bignumber@npm:^5.5.0":
+  version: 5.6.2
+  resolution: "@ethersproject/bignumber@npm:5.6.2"
+  dependencies:
+    "@ethersproject/bytes": ^5.6.1
+    "@ethersproject/logger": ^5.6.0
+    bn.js: ^5.2.1
+  checksum: 9cf31c10274f1b6d45b16aed29f43729e8f5edec38c8ec8bb90d6b44f0eae14fda6519536228d23916a375ce11e71a77279a912d653ea02503959910b6bf9de7
+  languageName: node
+  linkType: hard
+
+"@ethersproject/bytes@npm:^5.6.1":
+  version: 5.6.1
+  resolution: "@ethersproject/bytes@npm:5.6.1"
+  dependencies:
+    "@ethersproject/logger": ^5.6.0
+  checksum: d06ffe3bf12aa8a6588d99b82e40b46a2cbb8b057fc650aad836e3e8c95d4559773254eeeb8fed652066dcf8082e527e37cd2b9fff7ac8cabc4de7c49459a7eb
+  languageName: node
+  linkType: hard
+
+"@ethersproject/logger@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "@ethersproject/logger@npm:5.6.0"
+  checksum: 6eee38a973c7a458552278971c109a3e5df3c257e433cb959da9a287ea04628d1f510d41b83bd5f9da5ddc05d97d307ed2162a9ba1b4fcc50664e4f60061636c
+  languageName: node
+  linkType: hard
+
 "@jridgewell/resolve-uri@npm:^3.0.3":
   version: 3.0.7
   resolution: "@jridgewell/resolve-uri@npm:3.0.7"
@@ -291,6 +327,42 @@ __metadata:
     "@jridgewell/resolve-uri": ^3.0.3
     "@jridgewell/sourcemap-codec": ^1.4.10
   checksum: d89597752fd88d3f3480845691a05a44bd21faac18e2185b6f436c3b0fd0c5a859fbbd9aaa92050c4052caf325ad3e10e2e1d1b64327517471b7d51babc0ddef
+  languageName: node
+  linkType: hard
+
+"@prb/contracts@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@prb/contracts@workspace:."
+  dependencies:
+    "@commitlint/cli": ^16.2.3
+    "@commitlint/config-conventional": ^16.2.1
+    "@prb/math": ^2.5.0
+    commitizen: ^4.2.4
+    cz-conventional-changelog: ^3.3.0
+    husky: ^7.0.4
+    lint-staged: ^12.3.7
+    prettier: ^2.6.2
+    prettier-plugin-solidity: ^1.0.0-dev.21
+    solhint: ^3.3.7
+    solhint-plugin-prettier: ^0.0.5
+  peerDependencies:
+    "@prb/math": 2.x
+  languageName: unknown
+  linkType: soft
+
+"@prb/math@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "@prb/math@npm:2.5.0"
+  dependencies:
+    "@ethersproject/bignumber": ^5.5.0
+    decimal.js: ^10.3.1
+    evm-bn: ^1.1.1
+    mathjs: ^10.4.0
+  peerDependencies:
+    "@ethersproject/bignumber": 5.x
+    evm-bn: 1.x
+    mathjs: 10.x
+  checksum: 5c4fe2a5ee7558f42d7e97447a92e545f96c9ff1f4503397050b7f76d6858e1d1a05f5dc72b5050d00b907400b673e486deaf220bf4e541191cf4daf4793fa6c
   languageName: node
   linkType: hard
 
@@ -633,6 +705,13 @@ __metadata:
     mixin-deep: ^1.2.0
     pascalcase: ^0.1.1
   checksum: a4a146b912e27eea8f66d09cb0c9eab666f32ce27859a7dfd50f38cd069a2557b39f16dba1bc2aecb3b44bf096738dd207b7970d99b0318423285ab1b1994edd
+  languageName: node
+  linkType: hard
+
+"bn.js@npm:^5.2.1":
+  version: 5.2.1
+  resolution: "bn.js@npm:5.2.1"
+  checksum: 3dd8c8d38055fedfa95c1d5fc3c99f8dd547b36287b37768db0abab3c239711f88ff58d18d155dd8ad902b0b0cee973747b7ae20ea12a09473272b0201c9edd3
   languageName: node
   linkType: hard
 
@@ -982,6 +1061,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"complex.js@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "complex.js@npm:2.1.1"
+  checksum: a0802cc3f0eb7703088edfc3fe209ae7be5ce93c0e710a0f288be2e29ee31b3530a8c0d3330d7c2a668410dfe4293a4038554d66c7f1f1165997941bdc1092aa
+  languageName: node
+  linkType: hard
+
 "component-emitter@npm:^1.2.1":
   version: 1.3.0
   resolution: "component-emitter@npm:1.3.0"
@@ -1230,6 +1316,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"decimal.js@npm:^10.3.1":
+  version: 10.3.1
+  resolution: "decimal.js@npm:10.3.1"
+  checksum: 0351ac9f05fe050f23227aa6a4573bee2d58fa7378fcf28d969a8c789525032effb488a90320fd3fe86a66e17b4bc507d811b15eada5b7f0e7ec5d2af4c24a59
+  languageName: node
+  linkType: hard
+
 "decode-uri-component@npm:^0.2.0":
   version: 0.2.0
   resolution: "decode-uri-component@npm:0.2.0"
@@ -1366,6 +1459,13 @@ __metadata:
   version: 3.1.1
   resolution: "escalade@npm:3.1.1"
   checksum: a3e2a99f07acb74b3ad4989c48ca0c3140f69f923e56d0cba0526240ee470b91010f9d39001f2a4a313841d237ede70a729e92125191ba5d21e74b106800b133
+  languageName: node
+  linkType: hard
+
+"escape-latex@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "escape-latex@npm:1.2.0"
+  checksum: 73a787319f0965ecb8244bb38bf3a3cba872f0b9a5d3da8821140e9f39fe977045dc953a62b1a2bed4d12bfccbe75a7d8ec786412bf00739eaa2f627d0a8e0d6
   languageName: node
   linkType: hard
 
@@ -1512,6 +1612,18 @@ __metadata:
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
   checksum: 22b5b08f74737379a840b8ed2036a5fb35826c709ab000683b092d9054e5c2a82c27818f12604bfc2a9a76b90b6834ef081edbc1c7ae30d1627012e067c6ec87
+  languageName: node
+  linkType: hard
+
+"evm-bn@npm:^1.1.1":
+  version: 1.1.2
+  resolution: "evm-bn@npm:1.1.2"
+  dependencies:
+    "@ethersproject/bignumber": ^5.5.0
+    from-exponential: ^1.1.1
+  peerDependencies:
+    "@ethersproject/bignumber": 5.x
+  checksum: 863c9f055b07767f916a76a231aa0110f1e19724cdc2c8fa60e68c16f8d6e6b0652ae3780a70628fe8e32144fa58e678e6f893c3c2caf25658aa8c435a3f5787
   languageName: node
   linkType: hard
 
@@ -1782,12 +1894,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fraction.js@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "fraction.js@npm:4.2.0"
+  checksum: 8c76a6e21dedea87109d6171a0ac77afa14205794a565d71cb10d2925f629a3922da61bf45ea52dbc30bce4d8636dc0a27213a88cbd600eab047d82f9a3a94c5
+  languageName: node
+  linkType: hard
+
 "fragment-cache@npm:^0.2.1":
   version: 0.2.1
   resolution: "fragment-cache@npm:0.2.1"
   dependencies:
     map-cache: ^0.2.2
   checksum: 1cbbd0b0116b67d5790175de0038a11df23c1cd2e8dcdbade58ebba5594c2d641dade6b4f126d82a7b4a6ffc2ea12e3d387dbb64ea2ae97cf02847d436f60fdc
+  languageName: node
+  linkType: hard
+
+"from-exponential@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "from-exponential@npm:1.1.1"
+  checksum: af2765bd4f78836153c46cf4aff51ba9f2d1ac6b7d9568d69901d2045ba5b80a47de4f2a693bcc2006a7516cef71f636a4e42596cdd77a0addcc739539eb0f48
   languageName: node
   linkType: hard
 
@@ -2390,6 +2516,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"javascript-natural-sort@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "javascript-natural-sort@npm:0.7.1"
+  checksum: 161e2c512cc7884bc055a582c6645d9032cab88497a76123d73cb23bfb03d97a04cf7772ecdb8bd3366fc07192c2f996366f479f725c23ef073fffe03d6a586a
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -2702,6 +2835,25 @@ __metadata:
   dependencies:
     object-visit: ^1.0.0
   checksum: c27045a5021c344fc19b9132eb30313e441863b2951029f8f8b66f79d3d8c1e7e5091578075a996f74e417479506fe9ede28c44ca7bc351a61c9d8073daec36a
+  languageName: node
+  linkType: hard
+
+"mathjs@npm:^10.4.0":
+  version: 10.6.4
+  resolution: "mathjs@npm:10.6.4"
+  dependencies:
+    "@babel/runtime": ^7.18.6
+    complex.js: ^2.1.1
+    decimal.js: ^10.3.1
+    escape-latex: ^1.2.0
+    fraction.js: ^4.2.0
+    javascript-natural-sort: ^0.7.1
+    seedrandom: ^3.0.5
+    tiny-emitter: ^2.1.0
+    typed-function: ^2.1.0
+  bin:
+    mathjs: bin/cli.js
+  checksum: 64c785d6f3cd0500888be31793d677d50f7da51b04fe009ba2d5be5f29948b3ef70fd26f8fa80064f4c18716a9ab59dd600236ffcca7e9ea6265a91c5b1540a9
   languageName: node
   linkType: hard
 
@@ -3198,25 +3350,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"paulrberg-contracts@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "paulrberg-contracts@workspace:."
-  dependencies:
-    "@commitlint/cli": ^16.2.3
-    "@commitlint/config-conventional": ^16.2.1
-    commitizen: ^4.2.4
-    cz-conventional-changelog: ^3.3.0
-    husky: ^7.0.4
-    lint-staged: ^12.3.7
-    prettier: ^2.6.2
-    prettier-plugin-solidity: ^1.0.0-dev.21
-    solhint: ^3.3.7
-    solhint-plugin-prettier: ^0.0.5
-  peerDependencies:
-    "@prb/math": 2.x
-  languageName: unknown
-  linkType: soft
-
 "picomatch@npm:^2.2.3":
   version: 2.2.3
   resolution: "picomatch@npm:2.2.3"
@@ -3388,6 +3521,13 @@ __metadata:
     indent-string: ^4.0.0
     strip-indent: ^3.0.0
   checksum: fa1ef20404a2d399235e83cc80bd55a956642e37dd197b4b612ba7327bf87fa32745aeb4a1634b2bab25467164ab4ed9c15be2c307923dd08b0fe7c52431ae6b
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.4":
+  version: 0.13.9
+  resolution: "regenerator-runtime@npm:0.13.9"
+  checksum: 65ed455fe5afd799e2897baf691ca21c2772e1a969d19bb0c4695757c2d96249eb74ee3553ea34a91062b2a676beedf630b4c1551cc6299afb937be1426ec55e
   languageName: node
   linkType: hard
 
@@ -3591,6 +3731,13 @@ resolve@^1.10.0:
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: cab8f25ae6f1434abee8d80023d7e72b598cf1327164ddab31003c51215526801e40b66c5e65d658a0af1e9d6478cadcb4c745f4bd6751f97d8644786c0978b0
+  languageName: node
+  linkType: hard
+
+"seedrandom@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "seedrandom@npm:3.0.5"
+  checksum: 728b56bc3bc1b9ddeabd381e449b51cb31bdc0aa86e27fcd0190cea8c44613d5bcb2f6bb63ed79f78180cbe791c20b8ec31a9627f7b7fc7f476fd2bdb7e2da9f
   languageName: node
   linkType: hard
 
@@ -4181,6 +4328,13 @@ resolve@^1.10.0:
   languageName: node
   linkType: hard
 
+"tiny-emitter@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "tiny-emitter@npm:2.1.0"
+  checksum: fbcfb5145751a0e3b109507a828eb6d6d4501352ab7bb33eccef46e22e9d9ad3953158870a6966a59e57ab7c3f9cfac7cab8521db4de6a5e757012f4677df2dd
+  languageName: node
+  linkType: hard
+
 "tmp@npm:^0.0.33":
   version: 0.0.33
   resolution: "tmp@npm:0.0.33"
@@ -4330,6 +4484,13 @@ resolve@^1.10.0:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: d61c4b2eba24009033ae4500d7d818a94fd6d1b481a8111612ee141400d5f1db46f199c014766b9fa9b31a6a7374d96fc748c6d688a78a3ce5a33123839becb7
+  languageName: node
+  linkType: hard
+
+"typed-function@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "typed-function@npm:2.1.0"
+  checksum: 168c2c8f765fbecc842521a5fb62a5800958f9fcb0ce78d69c38a5e96c81fe133f853256ec8ee245ee2fc42b4c9342b5ba754c732189550c64c12e758892dc43
   languageName: node
   linkType: hard
 
