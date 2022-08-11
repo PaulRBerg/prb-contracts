@@ -5,9 +5,9 @@ import { IERC20Permit } from "@prb/contracts/token/erc20/IERC20Permit.sol";
 
 import { console } from "forge-std/Test.sol";
 
-import { ERC20PermitUnitTest } from "../ERC20PermitUnitTest.t.sol";
+import { ERC20PermitTest } from "../ERC20PermitTest.t.sol";
 
-contract ERC20Permit__Permit is ERC20PermitUnitTest {
+contract ERC20Permit__Permit is ERC20PermitTest {
     /// @dev it should revert.
     function testCannotPermit__OwnerZeroAddress() external {
         address owner = address(0);

@@ -6,9 +6,9 @@ import { ERC20GodMode } from "@prb/contracts/token/erc20/ERC20GodMode.sol";
 import { ERC20Normalizer } from "@prb/contracts/token/erc20/ERC20Normalizer.sol";
 import { IERC20Normalizer } from "@prb/contracts/token/erc20/IERC20Normalizer.sol";
 
-import { ERC20NormalizerUnitTest } from "../ERC20NormalizerUnitTest.t.sol";
+import { ERC20NormalizerTest } from "../ERC20NormalizerTest.t.sol";
 
-contract ERC20Normalizer__ComputeScalar is ERC20NormalizerUnitTest {
+contract ERC20Normalizer__ComputeScalar is ERC20NormalizerTest {
     ERC20GodMode internal tkn19 = new ERC20GodMode("Token 19", "TKN19", 19);
     ERC20GodMode internal tkn255 = new ERC20GodMode("Token 255", "TKN18", 255);
 

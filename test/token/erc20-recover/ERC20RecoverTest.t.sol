@@ -4,13 +4,13 @@ pragma solidity >=0.8.4;
 import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 
 import { ERC20RecoverMock } from "../../../shared/ERC20RecoverMock.t.sol";
-import { PRBContractUnitTest } from "../../PRBContractUnitTest.t.sol";
+import { PRBContractBaseTest } from "../../PRBContractBaseTest.t.sol";
 import { SymbollessERC20 } from "../../../shared/SymbollessERC20.t.sol";
 
-/// @title ERC20RecoverUnitTest
+/// @title ERC20RecoverTest
 /// @author Paul Razvan Berg
 /// @notice Common contract members needed across ERC20Recover test contracts.
-abstract contract ERC20RecoverUnitTest is PRBContractUnitTest {
+abstract contract ERC20RecoverTest is PRBContractBaseTest {
     /// EVENTS ///
 
     event Recover(address indexed owner, IERC20 token, uint256 amount);

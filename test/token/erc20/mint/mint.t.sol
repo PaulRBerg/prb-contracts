@@ -5,9 +5,9 @@ import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 
 import { stdError } from "forge-std/Test.sol";
 
-import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
+import { ERC20Test } from "../ERC20Test.t.sol";
 
-contract ERC20__Mint is ERC20UnitTest {
+contract ERC20__Mint is ERC20Test {
     /// @dev it should revert.
     function testCannotMint__BeneficiaryZeroAddress() external {
         address beneficiary = address(0);

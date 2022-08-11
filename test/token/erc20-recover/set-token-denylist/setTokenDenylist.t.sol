@@ -5,9 +5,9 @@ import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 import { IERC20Recover } from "@prb/contracts/token/erc20/IERC20Recover.sol";
 import { IOwnable } from "@prb/contracts/access/IOwnable.sol";
 
-import { ERC20RecoverUnitTest } from "../ERC20RecoverUnitTest.t.sol";
+import { ERC20RecoverTest } from "../ERC20RecoverTest.t.sol";
 
-contract ERC20Recover__SetTokenDenylist is ERC20RecoverUnitTest {
+contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
     /// @dev it should revert.
     function testCannotSetTokenDenylist__CallerNotOwner() external {
         // Make Eve the caller in this test.

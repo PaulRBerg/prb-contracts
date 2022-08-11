@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
+import { ERC20Test } from "../ERC20Test.t.sol";
 
-contract ERC20__Symbol is ERC20UnitTest {
+contract ERC20__Symbol is ERC20Test {
     /// @dev it should return the ERC-20 symbol.
     function testSymbol() external {
         string memory actualSymbol = dai.symbol();

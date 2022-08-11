@@ -5,9 +5,9 @@ import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 
 import { stdError } from "forge-std/Test.sol";
 
-import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
+import { ERC20Test } from "../ERC20Test.t.sol";
 
-contract ERC20__Approve is ERC20UnitTest {
+contract ERC20__Approve is ERC20Test {
     /// @dev it should revert.
     function testCannotApprove__OwnerZeroAddress() external {
         // Make the zero address the caller in this test.

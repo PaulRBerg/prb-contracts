@@ -3,9 +3,9 @@ pragma solidity >=0.8.4;
 
 import { stdError } from "forge-std/Test.sol";
 
-import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
+import { ERC20Test } from "../ERC20Test.t.sol";
 
-contract ERC20__DecreaseAllowance is ERC20UnitTest {
+contract ERC20__DecreaseAllowance is ERC20Test {
     /// @dev it should revert.
     function testCannotDecreaseAllowance__CalculationUnderflowsUint256(address spender, uint256 value) external {
         vm.assume(spender != address(0));

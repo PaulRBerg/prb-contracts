@@ -8,9 +8,9 @@ import { IERC20Normalizer } from "@prb/contracts/token/erc20/IERC20Normalizer.so
 
 import { stdError } from "forge-std/Test.sol";
 
-import { ERC20NormalizerUnitTest } from "../ERC20NormalizerUnitTest.t.sol";
+import { ERC20NormalizerTest } from "../ERC20NormalizerTest.t.sol";
 
-contract ERC20Normalizer__Normalize is ERC20NormalizerUnitTest {
+contract ERC20Normalizer__Normalize is ERC20NormalizerTest {
     /// @dev it should return the normalized amount.
     function testNormalize__ScalarNotComputed() external {
         uint256 amount = bn(100, usdc.decimals());

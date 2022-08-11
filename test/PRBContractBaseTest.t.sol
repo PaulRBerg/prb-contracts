@@ -6,10 +6,10 @@ import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 import { PRBTest } from "@prb/test/PRBTest.sol";
 import { Cheats } from "forge-std/Cheats.sol";
 
-/// @title PRBContractUnitTest
+/// @title PRBContractBaseTest
 /// @author Paul Razvan Berg
 /// @notice Common contract members needed across test contracts.
-abstract contract PRBContractUnitTest is PRBTest, Cheats {
+abstract contract PRBContractBaseTest is PRBTest, Cheats {
     /// STRUCTS ///
 
     struct Users {

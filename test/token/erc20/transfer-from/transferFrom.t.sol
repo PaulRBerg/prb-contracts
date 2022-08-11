@@ -5,9 +5,9 @@ import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 
 import { stdError } from "forge-std/Test.sol";
 
-import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
+import { ERC20Test } from "../ERC20Test.t.sol";
 
-contract ERC20__TransferFrom is ERC20UnitTest {
+contract ERC20__TransferFrom is ERC20Test {
     /// @dev it should revert.
     function testCannotTransferFrom__SpenderAllowanceNotEnough(address owner, uint256 amount) external {
         vm.assume(owner != address(0));

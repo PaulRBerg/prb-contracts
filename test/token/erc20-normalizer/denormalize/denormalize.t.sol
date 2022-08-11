@@ -6,9 +6,9 @@ import { ERC20GodMode } from "@prb/contracts/token/erc20/ERC20GodMode.sol";
 import { ERC20Normalizer } from "@prb/contracts/token/erc20/ERC20Normalizer.sol";
 import { IERC20Normalizer } from "@prb/contracts/token/erc20/IERC20Normalizer.sol";
 
-import { ERC20NormalizerUnitTest } from "../ERC20NormalizerUnitTest.t.sol";
+import { ERC20NormalizerTest } from "../ERC20NormalizerTest.t.sol";
 
-contract ERC20Normalizer__Denormalize is ERC20NormalizerUnitTest {
+contract ERC20Normalizer__Denormalize is ERC20NormalizerTest {
     /// @dev it should return the denormalized amount.
     function testDenormalize__ScalarNotComputed() external {
         uint256 amount = bn(100, STANDARD_DECIMALS);

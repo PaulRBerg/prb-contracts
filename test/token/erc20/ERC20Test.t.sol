@@ -3,12 +3,12 @@ pragma solidity >=0.8.4;
 
 import { ERC20 } from "@prb/contracts/token/erc20/ERC20.sol";
 
-import { PRBContractUnitTest } from "../../PRBContractUnitTest.t.sol";
+import { PRBContractBaseTest } from "../../PRBContractBaseTest.t.sol";
 
-/// @title ERC20UnitTest
+/// @title ERC20Test
 /// @author Paul Razvan Berg
 /// @notice Common contract members needed across ERC20 test contracts.
-abstract contract ERC20UnitTest is PRBContractUnitTest {
+abstract contract ERC20Test is PRBContractBaseTest {
     /// EVENTS ///
 
     event Approval(address indexed owner, address indexed spender, uint256 amount);

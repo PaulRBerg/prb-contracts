@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { ERC20UnitTest } from "../ERC20UnitTest.t.sol";
+import { ERC20Test } from "../ERC20Test.t.sol";
 
-contract ERC20__BalanceOf is ERC20UnitTest {
+contract ERC20__BalanceOf is ERC20Test {
     /// @dev it should return zero.
     function testBalanceOf__DoesNotHaveBalance(address foo) external {
         uint256 actualBalance = dai.balanceOf(foo);
