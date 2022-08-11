@@ -3,7 +3,7 @@ pragma solidity >=0.8.4;
 
 import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 
-import { ERC20NormalizerMock } from "../../../shared/ERC20NormalizerMock.t.sol";
+import { ERC20NormalizerMock } from "../../shared/ERC20NormalizerMock.t.sol";
 import { PRBContractBaseTest } from "../../PRBContractBaseTest.t.sol";
 
 /// @title ERC20NormalizerTest

@@ -3,9 +3,9 @@ pragma solidity >=0.8.4;
 
 import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 
-import { ERC20RecoverMock } from "../../../shared/ERC20RecoverMock.t.sol";
+import { ERC20RecoverMock } from "../../shared/ERC20RecoverMock.t.sol";
 import { PRBContractBaseTest } from "../../PRBContractBaseTest.t.sol";
-import { SymbollessERC20 } from "../../../shared/SymbollessERC20.t.sol";
+import { SymbollessERC20 } from "../../shared/SymbollessERC20.t.sol";
 
 /// @title ERC20RecoverTest
 /// @author Paul Razvan Berg

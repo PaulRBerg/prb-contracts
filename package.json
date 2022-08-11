@@ -1,10 +1,16 @@
 {
-  "name": "paulrberg-contracts",
+  "name": "@prb/contracts",
   "description": "Off-the-shelf Solidity smart contracts",
   "version": "4.1.1",
   "author": {
     "name": "Paul Razvan Berg",
     "url": "https://github.com/paulrberg"
+  },
+  "bugs": {
+    "url": "https://github.com/paulrberg/prb-contracts/issues"
+  },
+  "dependencies": {
+    "@prb/math": "^2.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
@@ -18,11 +24,32 @@
     "solhint": "^3.3.7",
     "solhint-plugin-prettier": "^0.0.5"
   },
+  "files": [
+    "**/*.sol",
+    "CHANGELOG.md"
+  ],
+  "homepage": "https://github.com/paulrberg/prb-contracts#readme",
+  "keywords": [
+    "blockchain",
+    "erc20",
+    "ethereum",
+    "library",
+    "smart-contracts",
+    "solidity"
+  ],
+  "license": "Unlicense",
   "packageManager": "yarn@3.2.0",
   "peerDependencies": {
     "@prb/math": "2.x"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulrberg/prb-contracts"
+  },
   "scripts": {
     "lint": "yarn solhint && yarn prettier:check",
     "lint:check": "yarn prettier:check && yarn solhint:check",
