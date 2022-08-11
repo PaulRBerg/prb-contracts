@@ -3,13 +3,13 @@ pragma solidity >=0.8.4;
 
 import { ERC20GodMode } from "@prb/contracts/token/erc20/ERC20GodMode.sol";
 import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
-
-import { Test } from "forge-std/Test.sol";
+import { PRBTest } from "@prb/test/PRBTest.sol";
+import { Cheats } from "forge-std/Cheats.sol";
 
 /// @title PRBContractUnitTest
 /// @author Paul Razvan Berg
 /// @notice Common contract members needed across Sablier V2 test contracts.
-abstract contract PRBContractUnitTest is Test {
+abstract contract PRBContractUnitTest is PRBTest, Cheats {
     /// STRUCTS ///
 
     struct Users {
@@ -36,16 +36,12 @@ abstract contract PRBContractUnitTest is Test {
     /// @dev A setup function invoked before each test case.
     function setUp() public virtual {
         // Create a few users for testing. Order matters.
-        users = Users({ alice: getNextUser(), bob: getNextUser(), eve: getNextUser() });
+        users = Users({ alice: mkaddr("Alice"), bob: mkaddr("Bob"), eve: mkaddr("Eve") });
 
+        // Fund the users.
         fundUser(users.alice);
-        vm.label(users.alice, "Alice");
-
         fundUser(users.bob);
-        vm.label(users.bob, "Bob");
-
         fundUser(users.eve);
-        vm.label(users.eve, "Eve");
 
         // Sets all subsequent calls' `msg.sender` to be Alice.
         vm.startPrank(users.alice);
@@ -78,10 +74,9 @@ abstract contract PRBContractUnitTest is Test {
         usdc.mint(user, ONE_MILLION_USDC);
     }
 
-    /// @dev Converts bytes32 to address.
-    function getNextUser() internal returns (address payable) {
-        address payable user = payable(address(uint160(uint256(nextUser))));
-        nextUser = keccak256(abi.encodePacked(nextUser));
-        return user;
+    /// @dev Generates an address by hashing the name and also labels the address.
+    function mkaddr(string memory name) internal returns (address payable addr) {
+        addr = payable(address(uint160(uint256(keccak256(abi.encodePacked(name))))));
+        vm.label(addr, name);
     }
 }

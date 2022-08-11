@@ -14,7 +14,7 @@ contract ERC20__IncreaseAllowance__CalculationOverflowsUint256 is ERC20UnitTest 
     ) external {
         vm.assume(spender != address(0));
         vm.assume(amount0 > 0);
-        vm.assume(amount1 > UINT256_MAX - amount0);
+        vm.assume(amount1 > MAX_UINT256 - amount0);
 
         dai.increaseAllowance(spender, amount0);
         vm.expectRevert(stdError.arithmeticError);
