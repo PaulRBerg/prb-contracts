@@ -106,13 +106,17 @@ contract ERC721 is IERC721 {
     function approve(address to, uint256 tokenId) public virtual override {
         address owner = ownerOf(tokenId);
 
+        // Checks: `to` is not the actual owner.
         if (to == owner) {
             revert ERC721__ApproveCurrentOwner(owner);
         }
+
+        // Checks: `msg.sender` is authorized.
         if (msg.sender != owner && !isApprovedForAll(owner, msg.sender)) {
             revert ERC721__UnauthorizedApprover(msg.sender);
         }
 
+        // Effects:
         _approve(to, tokenId);
     }
 
@@ -190,9 +194,11 @@ contract ERC721 is IERC721 {
 
     /// @dev See the documentation for the public functions that call this internal function.
     function _approve(address to, uint256 tokenId) internal virtual {
+        // Effects: update the approval.
         _tokenApprovals[tokenId] = to;
 
-        emit Approval(ownerOf(tokenId), to, tokenId);
+        // Emit an event.
+        emit Approval(_owners[tokenId], to, tokenId);
     }
 
     /// @notice Destroys `tokenId`.
@@ -207,12 +213,14 @@ contract ERC721 is IERC721 {
     function _burn(uint256 tokenId) internal virtual {
         address owner = ownerOf(tokenId);
 
-        // Clear approvals
+        // Effects: clear the approvals.
         _approve(address(0), tokenId);
 
+        // Effects: burn the token.
         _balances[owner] -= 1;
         delete _owners[tokenId];
 
+        // Emit an event.
         emit Transfer(owner, address(0), tokenId);
     }
 
@@ -227,9 +235,12 @@ contract ERC721 is IERC721 {
     /// - `to` cannot be the zero address.
     /// - `tokenId` must not exist.
     function _mint(address to, uint256 tokenId) internal virtual {
+        // Checks: `to` is not the zero address.
         if (to == address(0)) {
             revert ERC721__MintZeroAddress();
         }
+
+        // Checks: `tokenId` is already minted.
         if (_owners[tokenId] != address(0)) {
             revert ERC721__MintExistingToken(tokenId);
         }
@@ -239,8 +250,10 @@ contract ERC721 is IERC721 {
             _balances[to] += 1;
         }
 
+        // Effects: mint the new token.
         _owners[tokenId] = to;
 
+        // Emit an event.
         emit Transfer(address(0), to, tokenId);
     }
 
@@ -289,11 +302,15 @@ contract ERC721 is IERC721 {
         address operator,
         bool approved
     ) internal virtual {
+        // Checks: `operator` is not the actual owner.
         if (owner == operator) {
-            revert ERC721__ApproveCurrentOwner(owner);
+            revert ERC721__ApproveCurrentOwner(operator);
         }
 
+        // Effects: update the operator approval.
         _operatorApprovals[owner][operator] = approved;
+
+        // Emit an event.
         emit ApprovalForAll(owner, operator, approved);
     }
 
@@ -303,20 +320,22 @@ contract ERC721 is IERC721 {
         address to,
         uint256 tokenId
     ) internal virtual {
-        // Checks: the `from` is not the zero address.
+        // Checks: `from` is the owner.
         if (from != ownerOf(tokenId)) {
             revert ERC721__TransferInvalidFrom(from);
         }
 
-        // Checks: the `to` is not the zero address.
+        // Checks: `to` is not the zero address.
         if (to == address(0)) {
-            revert ERC721__TransferToZeroAddress();
+            revert ERC721__TransferZeroAddress();
         }
+
+        // Checks: `msg.sender` is authorized.
         if (msg.sender != from && !isApprovedForAll(from, msg.sender) && getApproved(tokenId) != msg.sender) {
             revert ERC721__UnauthorizedSender(msg.sender);
         }
 
-        // Clear approvals from the previous owner.
+        // Effects: Clear approvals from the previous owner.
         _approve(address(0), tokenId);
 
         // Underflow of the sender's balance is impossible because we check for
@@ -326,8 +345,10 @@ contract ERC721 is IERC721 {
             _balances[to] += 1;
         }
 
+        // Effects: update the new owner.
         _owners[tokenId] = to;
 
+        // Emit an event.
         emit Transfer(from, to, tokenId);
     }
 }

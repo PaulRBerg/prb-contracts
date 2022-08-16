@@ -19,7 +19,7 @@ contract ERC721__UnitTest__TransferFrom is ERC721UnitTest {
     /// @dev it should revert.
     function testCannotTransferFrom__ToZeroAddress() external ValidFrom {
         address to = address(0);
-        vm.expectRevert(abi.encodeWithSelector(IERC721.ERC721__TransferToZeroAddress.selector));
+        vm.expectRevert(abi.encodeWithSelector(IERC721.ERC721__TransferZeroAddress.selector));
         nft.transferFrom(users.owner, to, TOKEN_ID);
     }
 
@@ -151,7 +151,7 @@ contract ERC721__UnitTest__TransferFrom is ERC721UnitTest {
         uint256 tokenId
     ) external ValidFrom ToNotZeroAddress AuthorizedSender {
         vm.assume(from != address(0) && from != users.owner);
-        vm.assume(to != address(0) && to != from);
+        vm.assume(to != address(0) && to != from && to != users.owner);
         vm.assume(tokenId != TOKEN_ID);
         changePrank(from);
 

@@ -9,9 +9,6 @@ interface IERC721 {
                                     CUSTOM ERRORS
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Emitted when the token has been already minted.
-    error ERC721__MintExistingToken(uint256 tokenId);
-
     /// @notice Emitted when the approved address is the current owner of the token.
     error ERC721__ApproveCurrentOwner(address owner);
 
@@ -20,6 +17,9 @@ interface IERC721 {
 
     /// @notice Emitted when the token id does not exist.
     error ERC721__InvalidTokenId(uint256 tokenId);
+
+    /// @notice Emitted when the token has been already minted.
+    error ERC721__MintExistingToken(uint256 tokenId);
 
     /// @notice Emitted when the address to receive the token is the zero address.
     error ERC721__MintZeroAddress();
@@ -32,7 +32,7 @@ interface IERC721 {
     error ERC721__TransferInvalidFrom(address from);
 
     /// @notice Emitted when recipient is the zero address.
-    error ERC721__TransferToZeroAddress();
+    error ERC721__TransferZeroAddress();
 
     /// @notice Emitted when the approver is neither the owner nor approved.
     error ERC721__UnauthorizedApprover(address approver);

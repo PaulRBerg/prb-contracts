@@ -44,7 +44,6 @@ abstract contract ERC721UnitTest is Test {
                                         STORAGE
     //////////////////////////////////////////////////////////////////////////*/
 
-    bytes32 internal nextUser = keccak256(abi.encodePacked("user address"));
     ERC721GodMode internal nft;
     Users internal users;
 
@@ -54,14 +53,7 @@ abstract contract ERC721UnitTest is Test {
 
     constructor() {
         // Create 4 users for testing. Order matters.
-        users = Users({ chad: getNextUser(), operator: getNextUser(), owner: getNextUser(), to: getNextUser() });
-        vm.label(users.chad, "chad");
-
-        vm.label(users.operator, "operator");
-
-        vm.label(users.owner, "owner");
-
-        vm.label(users.to, "to");
+        users = Users({ chad: mkaddr("Chad"), operator: mkaddr("Operator"), owner: mkaddr("Owner"), to: mkaddr("To") });
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -85,11 +77,10 @@ abstract contract ERC721UnitTest is Test {
                             INTERNAL NON-CONSTANT FUNCTIONS
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @dev Converts bytes32 to address.
-    function getNextUser() internal returns (address payable) {
-        address payable user = payable(address(uint160(uint256(nextUser))));
-        nextUser = keccak256(abi.encodePacked(nextUser));
-        return user;
+    /// @dev Generates an address by hashing the name and labels the address.
+    function mkaddr(string memory name) internal returns (address payable addr) {
+        addr = payable(address(uint160(uint256(keccak256(abi.encodePacked(name))))));
+        vm.label(addr, name);
     }
 }
 
