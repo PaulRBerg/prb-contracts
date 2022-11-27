@@ -30,7 +30,7 @@ abstract contract PRBContractBaseTest is PRBTest, Cheats {
     ERC20GodMode internal usdc = new ERC20GodMode("USD Coin", "USDC", 6);
     Users internal users;
 
-    /// CONSTRUCTOR ///
+    /// SETUP FUNCTION ///
 
     /// @dev A setup function invoked before each test case.
     function setUp() public virtual {
