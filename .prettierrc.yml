@@ -4,9 +4,10 @@ printWidth: 120
 singleQuote: false
 tabWidth: 2
 trailingComma: "all"
+useTabs: false
 
 overrides:
-  - files: ["*.sol"]
+  - files: "*.sol"
     options:
       compiler: "0.8.15"
       tabWidth: 4
