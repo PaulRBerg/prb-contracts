@@ -41,8 +41,8 @@ contract NonCompliantERC20 {
         return _balances[account];
     }
 
-    function approve(address spender, uint256 amount) public returns (bool) {
-        _approve(msg.sender, spender, amount);
+    function approve(address spender, uint256 value) public returns (bool) {
+        _approve(msg.sender, spender, value);
         return true;
     }
 
@@ -61,10 +61,10 @@ contract NonCompliantERC20 {
     function _approve(
         address owner,
         address spender,
-        uint256 amount
+        uint256 value
     ) internal virtual {
-        _allowances[owner][spender] = amount;
-        emit Approval(owner, spender, amount);
+        _allowances[owner][spender] = value;
+        emit Approval(owner, spender, value);
     }
 
     /// @dev This function does not return a value, in violation of the ERC-20 standard.
