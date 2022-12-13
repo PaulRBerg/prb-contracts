@@ -7,7 +7,7 @@ pragma solidity >=0.8.4;
 /// account (an owner) that can be granted exclusive access to specific functions.
 ///
 /// By default, the owner account will be the one that deploys the contract. This can later be
-/// changed with {transfer}.
+/// changed with {transferOwnership}.
 ///
 /// This module is used through inheritance. It will make available the modifier `onlyOwner`,
 /// which can be applied to your functions to restrict their use to the owner.
@@ -18,7 +18,7 @@ interface IOwnable {
     /// CUSTOM ERRORS ///
 
     /// @notice Emitted when the caller is not the owner.
-    error Ownable__NotOwner(address owner, address caller);
+    error Ownable__CallerNotOwner(address owner, address caller);
 
     /// @notice Emitted when setting the owner to the zero address.
     error Ownable__OwnerZeroAddress();
@@ -35,7 +35,7 @@ interface IOwnable {
     /// @notice Leaves the contract without owner, so it will not be possible to call `onlyOwner`
     /// functions anymore.
     ///
-    /// WARNING: Doing this will leave the contract without an owner, thereby removing any
+    /// WARNING: Renouncing ownership will leave the contract without an owner, thereby removing any
     /// functionality that is only available to the owner.
     ///
     /// Requirements:

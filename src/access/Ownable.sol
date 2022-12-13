@@ -6,36 +6,41 @@ import { IOwnable } from "./IOwnable.sol";
 /// @title Ownable
 /// @author Paul Razvan Berg
 contract Ownable is IOwnable {
-    /// PUBLIC STORAGE ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IOwnable
     address public override owner;
 
-    /// MODIFIERS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                      MODIFIERS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Throws if called by any account other than the owner.
     modifier onlyOwner() {
         if (owner != msg.sender) {
-            revert Ownable__NotOwner(owner, msg.sender);
+            revert Ownable__CallerNotOwner({ owner: owner, caller: msg.sender });
         }
         _;
     }
 
-    /// CONSTRUCTOR ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                     CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Initializes the contract setting the deployer as the initial owner.
     constructor() {
-        address msgSender = msg.sender;
-        owner = msgSender;
-        emit TransferOwnership(address(0), msgSender);
+        _transferOwnership({ newOwner: msg.sender });
     }
 
-    /// PUBLIC NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                  PUBLIC FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IOwnable
     function renounceOwnership() public virtual override onlyOwner {
-        emit TransferOwnership(owner, address(0));
-        owner = address(0);
+        _transferOwnership({ newOwner: address(0) });
     }
 
     /// @inheritdoc IOwnable
@@ -45,5 +50,17 @@ contract Ownable is IOwnable {
         }
         emit TransferOwnership(owner, newOwner);
         owner = newOwner;
+    }
+
+    /*//////////////////////////////////////////////////////////////////////////
+                                 INTERNAL FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
+
+    /// @dev Transfers ownership of the contract to a new account (`newOwner`).
+    /// Internal function without access restriction.
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = owner;
+        owner = newOwner;
+        emit TransferOwnership(oldOwner, newOwner);
     }
 }

@@ -16,7 +16,7 @@ contract ERC20Recover__Recover is ERC20RecoverTest {
 
         // Run the test.
         address owner = users.alice;
-        vm.expectRevert(abi.encodeWithSelector(IOwnable.Ownable__NotOwner.selector, owner, caller));
+        vm.expectRevert(abi.encodeWithSelector(IOwnable.Ownable__CallerNotOwner.selector, owner, caller));
         erc20Recover.recover(dai, RECOVER_AMOUNT);
     }
 
