@@ -15,7 +15,9 @@ pragma solidity >=0.8.4;
 /// @dev Forked from OpenZeppelin
 /// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/access/Ownable.sol
 interface IOwnable {
-    /// CUSTOM ERRORS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CUSTOM ERRORS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Emitted when the caller is not the owner.
     error Ownable__CallerNotOwner(address owner, address caller);
@@ -23,14 +25,18 @@ interface IOwnable {
     /// @notice Emitted when setting the owner to the zero address.
     error Ownable__OwnerZeroAddress();
 
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Emitted when ownership is transferred.
     /// @param oldOwner The address of the old owner.
     /// @param newOwner The address of the new owner.
     event TransferOwnership(address indexed oldOwner, address indexed newOwner);
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                               NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Leaves the contract without owner, so it will not be possible to call `onlyOwner`
     /// functions anymore.
@@ -48,7 +54,9 @@ interface IOwnable {
     /// @param newOwner The account of the new owner.
     function transferOwnership(address newOwner) external;
 
-    /// CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                 CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice The address of the owner account or contract.
     /// @return The address of the owner.
