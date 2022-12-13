@@ -1,13 +1,13 @@
-# PRBContracts [![GitHub Actions][gha-badge]][gha] [![Coverage Status][coveralls-badge]][coveralls] [![Styled with Prettier][prettier-badge]][prettier] [![License: Unlicense][license-badge]][license]
+# PRBContracts [![GitHub Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![Styled with Prettier][prettier-badge]][prettier] [![License: MIT][license-badge]][license]
 
 [gha]: https://github.com/paulrberg/prb-contracts/actions
 [gha-badge]: https://github.com/paulrberg/prb-contracts/actions/workflows/ci.yml/badge.svg
-[coveralls]: https://coveralls.io/github/paulrberg/prb-contracts?branch=main
-[coveralls-badge]: https://coveralls.io/repos/github/paulrberg/prb-contracts/badge.svg?branch=main
+[foundry]: https://getfoundry.sh/
+[foundry-badge]: https://img.shields.io/badge/Built%20with-Foundry-FFDB1C.svg
 [prettier]: https://prettier.io
 [prettier-badge]: https://img.shields.io/badge/Code_Style-Prettier-ff69b4.svg
-[license]: https://unlicense.org/
-[license-badge]: https://img.shields.io/badge/License-Unlicense-blue.svg
+[license]: https://opensource.org/licenses/MIT
+[license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
 
 Off-the-shelf Solidity smart contracts.
 
@@ -18,8 +18,8 @@ Off-the-shelf Solidity smart contracts.
 - Well-documented via NatSpec comments
 - Thoroughly tested with Foundry
 
-I created this library for my own use, to avoid having to maintain the same contracts in different repositories. If you find
-it useful too, that's a win-win.
+I created this library for my own use, to avoid having to maintain the same contracts in different repositories. If you
+find it useful too, that's a win-win.
 
 ## Install
 
@@ -48,7 +48,7 @@ yarn add @prb/contracts
 Once installed, you can use the contracts like this:
 
 ```solidity
-// SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
 
 import "@prb/contracts/token/erc20/ERC20.sol";
@@ -66,7 +66,8 @@ contract MyToken is ERC20, ERC20Permit {
 
 ## Contributing
 
-Feel free to dive in! [Open](https://github.com/paulrberg/prb-proxy/issues/new) an issue, [start](https://github.com/paulrberg/prb-proxy/discussions/new) a discussion or submit a PR.
+Feel free to dive in! [Open](https://github.com/paulrberg/prb-proxy/issues/new) an issue,
+[start](https://github.com/paulrberg/prb-proxy/discussions/new) a discussion or submit a PR.
 
 ### Pre Requisites
 
@@ -104,13 +105,13 @@ You will need the following VSCode extensions:
 
 ## Security
 
-While I set a high bar for code quality and test coverage, you shouldn't assume that this project is completely safe to use. The contracts
-have not been audited by a security researcher.
+While I set a high bar for code quality and test coverage, you shouldn't assume that this project is completely safe to
+use. The contracts have not been audited by a security researcher.
 
 ### Caveat Emptor
 
-This is experimental software and is provided on an "as is" and "as available" basis. I do not give any warranties
-and will not be liable for any loss, direct or indirect through continued use of this codebase.
+This is experimental software and is provided on an "as is" and "as available" basis. I do not give any warranties and
+will not be liable for any loss, direct or indirect through continued use of this codebase.
 
 ### Contact
 
@@ -119,8 +120,9 @@ If you discover any security issues, please contact me via [Keybase](https://key
 ## Related Efforts
 
 - [openzeppelin-contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
-- Alberto Cuesta Cañada's [ERC20Permit](https://github.com/alcueca/ERC20Permit) and [Orchestrated](https://github.com/alcueca/Orchestrated)
+- Alberto Cuesta Cañada's [ERC20Permit](https://github.com/alcueca/ERC20Permit) and
+  [Orchestrated](https://github.com/alcueca/Orchestrated)
 
 ## License
 
-[Unlicense](./LICENSE.md)
+[MIT](./LICENSE.md) © Paul Razvan Berg
