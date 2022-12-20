@@ -2,7 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Common Changelog](https://common-changelog.org/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Common Changelog](https://common-changelog.org/), and this project adheres to
+[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [4.1.1] - 2022-04-06
 
@@ -21,7 +22,8 @@ The format is based on [Common Changelog](https://common-changelog.org/), and th
 
 ### Changed
 
-- Refactor the `Erc` prefix into `ERC` in all `ERC-20` references ([#25](https://github.com/paulrberg/prb-contracts/issues/25)) (@paulrberg)
+- Refactor the `Erc` prefix into `ERC` in all `ERC-20` references
+  ([#25](https://github.com/paulrberg/prb-contracts/issues/25)) (@paulrberg)
 
 ### Removed
 
