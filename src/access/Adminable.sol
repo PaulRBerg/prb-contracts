@@ -1,26 +1,26 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
 
-import { IOwnable } from "./IOwnable.sol";
+import { IAdminable } from "./IAdminable.sol";
 
-/// @title Ownable
+/// @title Adminable
 /// @author Paul Razvan Berg
-contract Ownable is IOwnable {
+contract Adminable is IAdminable {
     /*//////////////////////////////////////////////////////////////////////////
                                        STORAGE
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @inheritdoc IOwnable
-    address public override owner;
+    /// @inheritdoc IAdminable
+    address public override admin;
 
     /*//////////////////////////////////////////////////////////////////////////
                                       MODIFIERS
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Throws if called by any account other than the owner.
-    modifier onlyOwner() {
-        if (owner != msg.sender) {
-            revert Ownable__CallerNotOwner({ owner: owner, caller: msg.sender });
+    /// @notice Throws if called by any account other than the admin.
+    modifier onlyAdmin() {
+        if (admin != msg.sender) {
+            revert Adminable__CallerNotAdmin({ admin: admin, caller: msg.sender });
         }
         _;
     }
@@ -29,38 +29,38 @@ contract Ownable is IOwnable {
                                      CONSTRUCTOR
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Initializes the contract setting the deployer as the initial owner.
+    /// @notice Initializes the contract setting the deployer as the initial admin.
     constructor() {
-        _transferOwnership({ newOwner: msg.sender });
+        _transferAdmin({ newAdmin: msg.sender });
     }
 
     /*//////////////////////////////////////////////////////////////////////////
                                   PUBLIC FUNCTIONS
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @inheritdoc IOwnable
-    function renounceOwnership() public virtual override onlyOwner {
-        _transferOwnership({ newOwner: address(0) });
+    /// @inheritdoc IAdminable
+    function renounceAdmin() public virtual override onlyAdmin {
+        _transferAdmin({ newAdmin: address(0) });
     }
 
-    /// @inheritdoc IOwnable
-    function transferOwnership(address newOwner) public virtual override onlyOwner {
-        if (newOwner == address(0)) {
-            revert Ownable__OwnerZeroAddress();
+    /// @inheritdoc IAdminable
+    function transferAdmin(address newAdmin) public virtual override onlyAdmin {
+        if (newAdmin == address(0)) {
+            revert Adminable__AdminZeroAddress();
         }
-        emit TransferOwnership(owner, newOwner);
-        owner = newOwner;
+        emit TransferAdmin(admin, newAdmin);
+        admin = newAdmin;
     }
 
     /*//////////////////////////////////////////////////////////////////////////
                                  INTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @dev Transfers ownership of the contract to a new account (`newOwner`).
+    /// @dev Transfers the admin of the contract to a new account (`newAdmin`).
     /// Internal function without access restriction.
-    function _transferOwnership(address newOwner) internal virtual {
-        address oldOwner = owner;
-        owner = newOwner;
-        emit TransferOwnership(oldOwner, newOwner);
+    function _transferAdmin(address newAdmin) internal virtual {
+        address oldAdmin = admin;
+        admin = newAdmin;
+        emit TransferAdmin(oldAdmin, newAdmin);
     }
 }

@@ -3,13 +3,13 @@
 pragma solidity >=0.8.4;
 
 import { IERC20 } from "./IERC20.sol";
-import { IOwnable } from "../../access/IOwnable.sol";
+import { IAdminable } from "../../access/IAdminable.sol";
 
 /// @title IERC20Recover
 /// @author Paul Razvan Berg
 /// @notice Contract that gives the owner the ability to recover the ERC-20 tokens that were sent
 /// (accidentally, or not) to the contract.
-interface IERC20Recover is IOwnable {
+interface IERC20Recover is IAdminable {
     /// CUSTOM ERRORS ///
 
     /// @notice Emitted when attempting to recover a token marked as non-recoverable.

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
 
-import { IOwnable } from "./IOwnable.sol";
+import { IAdminable } from "./IAdminable.sol";
 
 /// @title IOrchestratable
 /// @author Paul Razvan Berg
@@ -18,7 +18,7 @@ import { IOwnable } from "./IOwnable.sol";
 ///
 /// @dev Forked from Alberto Cuesta Cañada
 /// https://github.com/albertocuestacanada/Orchestrated/blob/b0adb21/contracts/Orchestrated.sol
-interface IOrchestratable is IOwnable {
+interface IOrchestratable is IAdminable {
     /// CUSTOM ERRORS ///
 
     /// @notice Emitted when the caller is not an orchestrated address.

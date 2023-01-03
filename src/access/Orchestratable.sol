@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
 
-import { Ownable } from "./Ownable.sol";
+import { Adminable } from "./Adminable.sol";
 import { IOrchestratable } from "./IOrchestratable.sol";
 
 /// @title Orchestratable
 /// @author Paul Razvan Berg
 contract Orchestratable is
     IOrchestratable, // one dependency
-    Ownable // one dependency
+    Adminable // one dependency
 {
     /// @inheritdoc IOrchestratable
     address public override conductor;
@@ -25,7 +25,7 @@ contract Orchestratable is
     }
 
     /// @inheritdoc IOrchestratable
-    function orchestrate(address account, bytes4 signature) public override onlyOwner {
+    function orchestrate(address account, bytes4 signature) public override onlyAdmin {
         orchestration[account][signature] = true;
         emit GrantAccess(account);
     }

@@ -4,12 +4,12 @@ pragma solidity >=0.8.4;
 import "./IERC20.sol";
 import "./IERC20Recover.sol";
 import "./SafeERC20.sol";
-import "../../access/Ownable.sol";
+import "../../access/Adminable.sol";
 
 /// @title ERC20Recover
 /// @author Paul Razvan Berg
 abstract contract ERC20Recover is
-    Ownable, // one dependency
+    Adminable, // one dependency
     IERC20Recover // two dependencies
 {
     using SafeERC20 for IERC20;
@@ -34,7 +34,7 @@ abstract contract ERC20Recover is
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
     /// @inheritdoc IERC20Recover
-    function recover(IERC20 token, uint256 amount) public override onlyOwner {
+    function recover(IERC20 token, uint256 amount) public override onlyAdmin {
         // Checks: the token denylist is set.
         if (!isTokenDenylistSet) {
             revert ERC20Recover__TokenDenylistNotSet();
@@ -62,15 +62,15 @@ abstract contract ERC20Recover is
             }
         }
 
-        // Interactions: recover the tokens by transferring them to the owner.
-        token.safeTransfer(owner, amount);
+        // Interactions: recover the tokens by transferring them to the admin.
+        token.safeTransfer(admin, amount);
 
         // Emit an event.
-        emit Recover(owner, token, amount);
+        emit Recover(admin, token, amount);
     }
 
     /// @inheritdoc IERC20Recover
-    function setTokenDenylist(IERC20[] memory tokenDenylist_) public override onlyOwner {
+    function setTokenDenylist(IERC20[] memory tokenDenylist_) public override onlyAdmin {
         // Checks: the token denylist is not already set.
         if (isTokenDenylistSet) {
             revert ERC20Recover__TokenDenylistAlreadySet();
@@ -98,6 +98,6 @@ abstract contract ERC20Recover is
         isTokenDenylistSet = true;
 
         // Emit an event.
-        emit SetTokenDenylist(owner, tokenDenylist_);
+        emit SetTokenDenylist(admin, tokenDenylist_);
     }
 }

@@ -1,7 +1,7 @@
 setTokenDenylist.t.sol
-├── when the caller is not the owner
+├── when the caller is not the admin
 │  └── it should revert
-└── when the caller is the owner
+└── when the caller is the admin
    ├── when the token denylist was already set
    │  └── it should revert
    └── when the token denylist was not already set
