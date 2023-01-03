@@ -2,18 +2,15 @@
 
 [profile.default]
 auto_detect_solc = false
-fuzz_runs = 256
+fuzz_runs = 1_000
 gas_reports = ["*"]
 libs = ["lib"]
 optimizer = true
 optimizer_runs = 10_000
 out = "out"
-sender = "0x1D970A764a53b5234577f1FA19577D36f0e7C52d"
 solc = "0.8.17"
 src = "src"
 test = "test"
-tx_origin = "0x1D970A764a53b5234577f1FA19577D36f0e7C52d"
 
 [profile.ci]
-fuzz_runs = 1_000
-verbosity = 4
+fuzz_runs = 10_000

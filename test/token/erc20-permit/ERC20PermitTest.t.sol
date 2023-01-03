@@ -56,6 +56,7 @@ abstract contract ERC20PermitTest is BaseTest {
         uint256 deadline
     )
         internal
+        view
         returns (
             uint8 v,
             bytes32 r,
