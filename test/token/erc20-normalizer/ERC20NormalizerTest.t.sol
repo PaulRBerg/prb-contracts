@@ -7,15 +7,18 @@ import { ERC20NormalizerMock } from "../../shared/ERC20NormalizerMock.t.sol";
 import { BaseTest } from "../../BaseTest.t.sol";
 
 /// @title ERC20NormalizerTest
-/// @author Paul Razvan Berg
 /// @notice Common contract members needed across ERC20Normalizer test contracts.
 abstract contract ERC20NormalizerTest is BaseTest {
-    /// CONSTANTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                     CONSTANTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     uint256 internal constant STANDARD_DECIMALS = 18;
     uint256 internal constant USDC_SCALAR = 10**12;
 
-    /// TESTING VARIABLES ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                   TEST CONTRACTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     ERC20NormalizerMock internal erc20Normalizer = new ERC20NormalizerMock();
 }

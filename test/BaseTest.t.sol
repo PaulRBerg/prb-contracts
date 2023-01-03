@@ -14,6 +14,7 @@ abstract contract BaseTest is PRBTest, Cheats {
 
     struct Users {
         address payable alice;
+        address payable admin;
         address payable bob;
         address payable eve;
     }
@@ -34,16 +35,17 @@ abstract contract BaseTest is PRBTest, Cheats {
 
     /// @dev A setup function invoked before each test case.
     function setUp() public virtual {
-        // Create a few users for testing. Order matters.
-        users = Users({ alice: mkaddr("Alice"), bob: mkaddr("Bob"), eve: mkaddr("Eve") });
+        // Create a few users for testing.
+        users = Users({ alice: mkaddr("Alice"), admin: mkaddr("Admin"), bob: mkaddr("Bob"), eve: mkaddr("Eve") });
 
         // Fund the users.
         fundUser(users.alice);
+        fundUser(users.admin);
         fundUser(users.bob);
         fundUser(users.eve);
 
-        // Sets all subsequent calls' `msg.sender` to be Alice.
-        vm.startPrank(users.alice);
+        // Make the admin the default caller in all subsequent calls.
+        changePrank(users.admin);
     }
 
     /// INTERNAL CONSTANT FUNCTIONS ///

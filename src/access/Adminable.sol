@@ -48,8 +48,7 @@ contract Adminable is IAdminable {
         if (newAdmin == address(0)) {
             revert Adminable__AdminZeroAddress();
         }
-        emit TransferAdmin(admin, newAdmin);
-        admin = newAdmin;
+        _transferAdmin(newAdmin);
     }
 
     /*//////////////////////////////////////////////////////////////////////////

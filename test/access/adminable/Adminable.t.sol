@@ -1,25 +1,25 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { ERC20 } from "@prb/contracts/token/erc20/ERC20.sol";
+import { Adminable } from "@prb/contracts/access/Adminable.sol";
+import { IAdminable } from "@prb/contracts/access/IAdminable.sol";
 
 import { BaseTest } from "../../BaseTest.t.sol";
 
-/// @title ERC20Test
-/// @notice Common contract members needed across ERC20 test contracts.
-abstract contract ERC20Test is BaseTest {
+/// @title ERC20RecoverTest
+/// @notice Common contract members needed across ERC20Recover test contracts.
+abstract contract AdminableTest is BaseTest {
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS
     //////////////////////////////////////////////////////////////////////////*/
 
-    event Approval(address indexed owner, address indexed spender, uint256 amount);
-    event Transfer(address indexed from, address indexed to, uint256 amount);
+    event TransferAdmin(address indexed oldAdmin, address indexed newAdmin);
 
     /*//////////////////////////////////////////////////////////////////////////
-                                     CONSTANTS
+                                   TEST CONTRACTS
     //////////////////////////////////////////////////////////////////////////*/
 
-    uint256 internal TRANSFER_AMOUNT = bn(100, 18);
+    IAdminable internal adminable;
 
     /*//////////////////////////////////////////////////////////////////////////
                                    SETUP FUNCTION
@@ -28,10 +28,6 @@ abstract contract ERC20Test is BaseTest {
     /// @dev A setup function invoked before each test case.
     function setUp() public virtual override {
         BaseTest.setUp();
-
-        // Burn the $DAI tokens that all users have so that their balance do not interfere with the tests.
-        dai.burn(users.alice, ONE_MILLION_DAI);
-        dai.burn(users.bob, ONE_MILLION_DAI);
-        dai.burn(users.eve, ONE_MILLION_DAI);
+        adminable = new Adminable();
     }
 }

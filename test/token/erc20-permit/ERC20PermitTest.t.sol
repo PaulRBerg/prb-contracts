@@ -6,16 +6,19 @@ import { ERC20Permit } from "@prb/contracts/token/erc20/ERC20Permit.sol";
 import { BaseTest } from "../../BaseTest.t.sol";
 
 /// @title ERC20PermitTest
-/// @author Paul Razvan Berg
 /// @notice Common contract members needed across ERC20Permit test contracts.
 abstract contract ERC20PermitTest is BaseTest {
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     event Approval(address indexed owner, address indexed spender, uint256 amount);
 
-    /// CONSTANTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                     CONSTANTS
+    //////////////////////////////////////////////////////////////////////////*/
 
-    // December 31, 2099 at 16:00 UTC
+    /// @dev December 31, 2099 at 16:00 UTC
     uint256 internal constant DECEMBER_2099 = 4_102_416_000;
     bytes32 internal immutable DOMAIN_SEPARATOR;
     uint8 internal constant DUMMY_V = 27;
@@ -27,11 +30,15 @@ abstract contract ERC20PermitTest is BaseTest {
     uint256 internal constant SECP256K1_ORDER = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141;
     string internal constant version = "1";
 
-    /// TESTING VARIABLES ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                   TEST CONTRACTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     ERC20Permit internal erc20Permit = new ERC20Permit("EIP-2612 Permit Token", "PERMIT", 18);
 
-    /// CONSTRUCTOR ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
 
     constructor() {
         DOMAIN_SEPARATOR = keccak256(
@@ -45,7 +52,9 @@ abstract contract ERC20PermitTest is BaseTest {
         );
     }
 
-    /// INTERNAL NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                          INTERNAL NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Helper function to generate an EIP-712 digest, and then sign it.
     function getSignature(
