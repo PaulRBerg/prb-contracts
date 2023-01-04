@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { ERC20 } from "@prb/contracts/token/erc20/ERC20.sol";
+import { ERC20 } from "src/token/erc20/ERC20.sol";
 
 import { BaseTest } from "../../BaseTest.t.sol";
 
@@ -29,9 +29,13 @@ abstract contract ERC20Test is BaseTest {
     function setUp() public virtual override {
         BaseTest.setUp();
 
-        // Burn the $DAI tokens that all users have so that their balance do not interfere with the tests.
+        // Burn the token balances that all users have so that their balance do not interfere with the tests.
         dai.burn(users.alice, ONE_MILLION_DAI);
+        dai.burn(users.admin, ONE_MILLION_DAI);
         dai.burn(users.bob, ONE_MILLION_DAI);
         dai.burn(users.eve, ONE_MILLION_DAI);
+
+        // Make Alice the default caller in all subsequent tests.
+        changePrank(users.alice);
     }
 }

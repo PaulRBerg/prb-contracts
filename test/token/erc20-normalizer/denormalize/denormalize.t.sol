@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
-import { ERC20GodMode } from "@prb/contracts/token/erc20/ERC20GodMode.sol";
-import { ERC20Normalizer } from "@prb/contracts/token/erc20/ERC20Normalizer.sol";
-import { IERC20Normalizer } from "@prb/contracts/token/erc20/IERC20Normalizer.sol";
+import { IERC20 } from "src/token/erc20/IERC20.sol";
+import { ERC20GodMode } from "src/token/erc20/ERC20GodMode.sol";
+import { ERC20Normalizer } from "src/token/erc20/ERC20Normalizer.sol";
+import { IERC20Normalizer } from "src/token/erc20/IERC20Normalizer.sol";
 
-import { ERC20NormalizerTest } from "../ERC20NormalizerTest.t.sol";
+import { ERC20NormalizerTest } from "../ERC20Normalizer.t.sol";
 
 contract ERC20Normalizer__Denormalize is ERC20NormalizerTest {
     /// @dev it should return the denormalized amount.

@@ -1,16 +1,25 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { ERC20GodMode } from "@prb/contracts/token/erc20/ERC20GodMode.sol";
-import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
 import { PRBTest } from "@prb/test/PRBTest.sol";
 import { Cheats } from "forge-std/Cheats.sol";
+
+import { ERC20GodMode } from "src/token/erc20/ERC20GodMode.sol";
+import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 /// @title BaseTest
 /// @author Paul Razvan Berg
 /// @notice Common contract members needed across test contracts.
 abstract contract BaseTest is PRBTest, Cheats {
-    /// STRUCTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
+
+    event LogNamedArray(string key, IERC20[] value);
+
+    /*//////////////////////////////////////////////////////////////////////////
+                                      STRUCTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     struct Users {
         address payable alice;
@@ -19,65 +28,70 @@ abstract contract BaseTest is PRBTest, Cheats {
         address payable eve;
     }
 
-    /// CONSTANTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                     CONSTANTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     uint256 internal constant ONE_MILLION_DAI = 1_000_000e18;
     uint256 internal constant ONE_MILLION_USDC = 1_000_000e6;
 
-    /// TESTING VARIABLES ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                 TESTING CONTRACTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     ERC20GodMode internal dai = new ERC20GodMode("Dai Stablecoin", "DAI", 18);
     ERC20GodMode internal tkn0 = new ERC20GodMode("Token 0", "TKN0", 0);
     ERC20GodMode internal usdc = new ERC20GodMode("USD Coin", "USDC", 6);
     Users internal users;
 
-    /// SETUP FUNCTION ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                   SETUP FUNCTION
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev A setup function invoked before each test case.
     function setUp() public virtual {
-        // Create a few users for testing.
-        users = Users({ alice: mkaddr("Alice"), admin: mkaddr("Admin"), bob: mkaddr("Bob"), eve: mkaddr("Eve") });
+        // Create users for testing.
+        users = Users({
+            alice: createUser("Alice"),
+            admin: createUser("Admin"),
+            bob: createUser("Bob"),
+            eve: createUser("Eve")
+        });
 
-        // Fund the users.
-        fundUser(users.alice);
-        fundUser(users.admin);
-        fundUser(users.bob);
-        fundUser(users.eve);
-
-        // Make the admin the default caller in all subsequent calls.
+        // Make the admin the default caller in all subsequent tests.
         changePrank(users.admin);
     }
 
-    /// INTERNAL CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                            INTERNAL CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Helper function that multiplies the `amount` by `10^decimals` and returns a `uint256.`
     function bn(uint256 amount, uint256 decimals) internal pure returns (uint256 result) {
         result = amount * 10**decimals;
     }
 
-    /// INTERNAL NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                          INTERNAL NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Helper function to compare two `IERC20` arrays.
     function assertEq(IERC20[] memory a, IERC20[] memory b) internal {
-        address[] memory castedA;
-        address[] memory castedB;
-        assembly {
-            castedA := a
-            castedB := b
+        if (keccak256(abi.encode(a)) != keccak256(abi.encode(b))) {
+            emit Log("Error: a == b not satisfied [IERC20[]]");
+            emit LogNamedArray("  Expected", b);
+            emit LogNamedArray("    Actual", a);
+            fail();
         }
-        assertEq(castedA, castedB);
     }
 
-    /// @dev Give each user 100 ETH, 1M DAI and 1M USDC.
-    function fundUser(address payable user) internal {
-        vm.deal(user, 100 ether);
-        dai.mint(user, ONE_MILLION_DAI);
-        usdc.mint(user, ONE_MILLION_USDC);
-    }
-
-    /// @dev Generates an address by hashing the name and labels the address.
-    function mkaddr(string memory name) internal returns (address payable addr) {
+    /// @dev Generates an address by hashing the name, labels the address and funds it with 100 ETH, 1 million DAI,
+    /// and 1 million non-compliant tokens.
+    function createUser(string memory name) internal returns (address payable addr) {
         addr = payable(address(uint160(uint256(keccak256(abi.encodePacked(name))))));
-        vm.label(addr, name);
+        vm.label({ account: addr, newLabel: name });
+        vm.deal({ account: addr, newBalance: 100 ether });
+        dai.mint({ beneficiary: addr, amount: ONE_MILLION_DAI });
+        usdc.mint({ beneficiary: addr, amount: ONE_MILLION_USDC });
     }
 }

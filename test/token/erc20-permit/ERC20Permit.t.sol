@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { ERC20Permit } from "@prb/contracts/token/erc20/ERC20Permit.sol";
+import { ERC20Permit } from "src/token/erc20/ERC20Permit.sol";
 
 import { BaseTest } from "../../BaseTest.t.sol";
 

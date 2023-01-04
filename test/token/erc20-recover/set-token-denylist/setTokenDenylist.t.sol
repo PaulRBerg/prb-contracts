@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { IAdminable } from "@prb/contracts/access/IAdminable.sol";
-import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
-import { IERC20Recover } from "@prb/contracts/token/erc20/IERC20Recover.sol";
+import { IAdminable } from "src/access/IAdminable.sol";
+import { IERC20 } from "src/token/erc20/IERC20.sol";
+import { IERC20Recover } from "src/token/erc20/IERC20Recover.sol";
 
-import { ERC20RecoverTest } from "../ERC20RecoverTest.t.sol";
+import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
 
 contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
     /// @dev it should revert.
@@ -15,8 +15,7 @@ contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
         changePrank(caller);
 
         // Run the test.
-        address admin = users.alice;
-        vm.expectRevert(abi.encodeWithSelector(IAdminable.Adminable__CallerNotAdmin.selector, admin, caller));
+        vm.expectRevert(abi.encodeWithSelector(IAdminable.Adminable__CallerNotAdmin.selector, users.admin, caller));
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 
@@ -64,8 +63,8 @@ contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
 
     /// @dev it should emit a SetTokenDenylist event.
     function testSetTokenDenylist__Event() external CallerAdmin TokenDenylistNotAlreadySet AllTokensHaveASymbol {
-        vm.expectEmit(true, false, false, true);
-        emit SetTokenDenylist(users.alice, TOKEN_DENYLIST);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: false, checkTopic3: false, checkData: true });
+        emit SetTokenDenylist(users.admin, TOKEN_DENYLIST);
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 }

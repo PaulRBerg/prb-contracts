@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
+import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { stdError } from "forge-std/Test.sol";
 
-import { ERC20Test } from "../ERC20Test.t.sol";
+import { ERC20Test } from "../ERC20.t.sol";
 
 contract ERC20__TransferFrom is ERC20Test {
     /// @dev it should revert.

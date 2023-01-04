@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { IAdminable } from "@prb/contracts/access/IAdminable.sol";
+import { IAdminable } from "src/access/IAdminable.sol";
 
 import { AdminableTest } from "../Adminable.t.sol";
 

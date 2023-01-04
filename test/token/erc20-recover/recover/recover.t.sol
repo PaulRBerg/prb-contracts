@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { IAdminable } from "@prb/contracts/access/IAdminable.sol";
-import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
-import { IERC20Recover } from "@prb/contracts/token/erc20/IERC20Recover.sol";
+import { IAdminable } from "src/access/IAdminable.sol";
+import { IERC20 } from "src/token/erc20/IERC20.sol";
+import { IERC20Recover } from "src/token/erc20/IERC20Recover.sol";
 
-import { ERC20RecoverTest } from "../ERC20RecoverTest.t.sol";
+import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
 
 contract ERC20Recover__Recover is ERC20RecoverTest {
     /// @dev it should revert.
@@ -15,8 +15,7 @@ contract ERC20Recover__Recover is ERC20RecoverTest {
         changePrank(caller);
 
         // Run the test.
-        address owner = users.alice;
-        vm.expectRevert(abi.encodeWithSelector(IAdminable.Adminable__CallerNotAdmin.selector, owner, caller));
+        vm.expectRevert(abi.encodeWithSelector(IAdminable.Adminable__CallerNotAdmin.selector, users.admin, caller));
         erc20Recover.recover(dai, RECOVER_AMOUNT);
     }
 
@@ -66,8 +65,7 @@ contract ERC20Recover__Recover is ERC20RecoverTest {
     /// @dev it should emit a Recover event.
     function testRecover__Event() external CallerOwner TokenDenylistSet RecoverAmountNotZero TokenRecoverable {
         vm.expectEmit(true, false, false, true);
-        address owner = users.alice;
-        emit Recover(owner, usdc, RECOVER_AMOUNT);
+        emit Recover(users.admin, usdc, RECOVER_AMOUNT);
         erc20Recover.recover(usdc, RECOVER_AMOUNT);
     }
 }

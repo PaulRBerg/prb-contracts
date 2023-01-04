@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { ERC20RecoverTest } from "../ERC20RecoverTest.t.sol";
+import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
 
 contract ERC20Recover__IsTokenDenylistSet is ERC20RecoverTest {
     /// @dev it should return false.

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { IERC20 } from "@prb/contracts/token/erc20/IERC20.sol";
+import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { ERC20RecoverMock } from "../../shared/ERC20RecoverMock.t.sol";
 import { BaseTest } from "../../BaseTest.t.sol";

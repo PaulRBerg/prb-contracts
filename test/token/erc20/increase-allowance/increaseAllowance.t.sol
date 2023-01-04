@@ -3,7 +3,7 @@ pragma solidity >=0.8.4;
 
 import { stdError } from "forge-std/Test.sol";
 
-import { ERC20Test } from "../ERC20Test.t.sol";
+import { ERC20Test } from "../ERC20.t.sol";
 
 contract ERC20__IncreaseAllowance is ERC20Test {
     /// @dev it should revert.
