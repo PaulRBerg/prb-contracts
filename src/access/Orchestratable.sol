@@ -19,7 +19,7 @@ contract Orchestratable is
     /// @notice Restricts usage to authorized accounts.
     modifier onlyOrchestrated() {
         if (!orchestration[msg.sender][msg.sig]) {
-            revert Orchestratable__NotOrchestrated(msg.sender, msg.sig);
+            revert Orchestratable_NotOrchestrated(msg.sender, msg.sig);
         }
         _;
     }

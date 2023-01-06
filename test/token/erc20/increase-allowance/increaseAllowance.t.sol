@@ -5,9 +5,9 @@ import { stdError } from "forge-std/Test.sol";
 
 import { ERC20Test } from "../ERC20.t.sol";
 
-contract ERC20__IncreaseAllowance is ERC20Test {
+contract IncreaseAllowance_Test is ERC20Test {
     /// @dev it should revert.
-    function testCannotIncreaseAllowance__CalculationOverflowsUint256(
+    function test_RevertWhen_CalculationOverflowsUint256(
         address spender,
         uint256 amount0,
         uint256 amount1
@@ -26,7 +26,7 @@ contract ERC20__IncreaseAllowance is ERC20Test {
     }
 
     /// @dev it should increase the allowance.
-    function testIncreaseAllowance(address spender, uint256 value) external CalculationDoesNotOverflowUint256 {
+    function testFuzz_IncreaseAllowance(address spender, uint256 value) external CalculationDoesNotOverflowUint256 {
         vm.assume(spender != address(0));
 
         dai.increaseAllowance(spender, value);
@@ -36,11 +36,14 @@ contract ERC20__IncreaseAllowance is ERC20Test {
     }
 
     /// @dev it should emit an Approval event.
-    function testIncreaseAllowance__Event(address spender, uint256 value) external CalculationDoesNotOverflowUint256 {
+    function testFuzz_IncreaseAllowance_Event(address spender, uint256 value)
+        external
+        CalculationDoesNotOverflowUint256
+    {
         vm.assume(spender != address(0));
         vm.assume(value > 0);
 
-        vm.expectEmit(true, true, false, true);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Approval(users.alice, spender, value);
         dai.increaseAllowance(spender, value);
     }

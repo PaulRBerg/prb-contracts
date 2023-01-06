@@ -3,9 +3,9 @@ pragma solidity >=0.8.4;
 
 import { ERC20Test } from "../ERC20.t.sol";
 
-contract ERC20__Decimals is ERC20Test {
+contract Decimals_Test is ERC20Test {
     /// @dev it should return the ERC-20 decimals
-    function testDecimals() external {
+    function test_Decimals() external {
         uint8 actualDecimals = dai.decimals();
         uint8 expectedDecimals = 18;
         assertEq(actualDecimals, expectedDecimals);

@@ -5,14 +5,14 @@ import { IERC20Permit } from "src/token/erc20/IERC20Permit.sol";
 
 import { ERC20PermitTest } from "../ERC20Permit.t.sol";
 
-contract ERC20Permit__Permit is ERC20PermitTest {
+contract Permit_Test is ERC20PermitTest {
     /// @dev it should revert.
-    function testCannotPermit__OwnerZeroAddress() external {
+    function test_RevertWhen_OwnerZeroAddress() external {
         address owner = address(0);
         address spender = users.alice;
         uint256 value = 1;
         uint256 deadline = DECEMBER_2099;
-        vm.expectRevert(IERC20Permit.ERC20Permit__OwnerZeroAddress.selector);
+        vm.expectRevert(IERC20Permit.ERC20Permit_OwnerZeroAddress.selector);
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
 
@@ -21,12 +21,12 @@ contract ERC20Permit__Permit is ERC20PermitTest {
     }
 
     /// @dev it should revert.
-    function testCannotPermit__SpenderZeroAddress() external OwnerNotZeroAddress {
+    function test_RevertWhen_SpenderZeroAddress() external OwnerNotZeroAddress {
         address owner = users.alice;
         address spender = address(0);
         uint256 value = 1;
         uint256 deadline = DECEMBER_2099;
-        vm.expectRevert(IERC20Permit.ERC20Permit__SpenderZeroAddress.selector);
+        vm.expectRevert(IERC20Permit.ERC20Permit_SpenderZeroAddress.selector);
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
 
@@ -35,14 +35,14 @@ contract ERC20Permit__Permit is ERC20PermitTest {
     }
 
     /// @dev it should revert.
-    function testCannotPermit__DeadlineInThePast(uint256 deadline) external OwnerNotZeroAddress SpenderNotZeroAddress {
+    function test_RevertWhen_DeadlineInThePast(uint256 deadline) external OwnerNotZeroAddress SpenderNotZeroAddress {
         vm.assume(deadline < block.timestamp);
 
         address owner = users.alice;
         address spender = users.bob;
         uint256 value = 1;
         vm.expectRevert(
-            abi.encodeWithSelector(IERC20Permit.ERC20Permit__PermitExpired.selector, block.timestamp, deadline)
+            abi.encodeWithSelector(IERC20Permit.ERC20Permit_PermitExpired.selector, block.timestamp, deadline)
         );
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
@@ -55,7 +55,7 @@ contract ERC20Permit__Permit is ERC20PermitTest {
     ///
     /// Setting `v` to any number other than 27 or 28 makes the `ecrecover` precompile return the zero address.
     /// https://ethereum.stackexchange.com/questions/69328/how-to-get-the-zero-address-from-ecrecover
-    function testCannotPermit__RecoveredOwnerZeroAddress(uint256 deadline, uint8 v)
+    function test_RevertWhen_RecoveredOwnerZeroAddress(uint256 deadline, uint8 v)
         external
         OwnerNotZeroAddress
         SpenderNotZeroAddress
@@ -67,7 +67,7 @@ contract ERC20Permit__Permit is ERC20PermitTest {
         address owner = users.alice;
         address spender = users.bob;
         uint256 value = 1;
-        vm.expectRevert(IERC20Permit.ERC20Permit__RecoveredOwnerZeroAddress.selector);
+        vm.expectRevert(IERC20Permit.ERC20Permit_RecoveredOwnerZeroAddress.selector);
         erc20Permit.permit(owner, spender, value, deadline, v, DUMMY_R, DUMMY_S);
     }
 
@@ -76,7 +76,7 @@ contract ERC20Permit__Permit is ERC20PermitTest {
     }
 
     /// @dev it should revert.
-    function testCannotPermit__SignatureNotValid(uint256 deadline)
+    function test_RevertWhen_SignatureNotValid(uint256 deadline)
         external
         OwnerNotZeroAddress
         SpenderNotZeroAddress
@@ -88,13 +88,7 @@ contract ERC20Permit__Permit is ERC20PermitTest {
         address spender = users.bob;
         uint256 value = 1;
         vm.expectRevert(
-            abi.encodeWithSelector(
-                IERC20Permit.ERC20Permit__InvalidSignature.selector,
-                owner,
-                DUMMY_V,
-                DUMMY_R,
-                DUMMY_S
-            )
+            abi.encodeWithSelector(IERC20Permit.ERC20Permit_InvalidSignature.selector, owner, DUMMY_V, DUMMY_R, DUMMY_S)
         );
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
@@ -104,7 +98,7 @@ contract ERC20Permit__Permit is ERC20PermitTest {
     }
 
     /// @dev it should update the spender's allowance.
-    function testPermit(
+    function testFuzz_Permit(
         uint256 privateKey,
         address spender,
         uint256 value,
@@ -131,7 +125,7 @@ contract ERC20Permit__Permit is ERC20PermitTest {
     }
 
     /// @dev it should increase the nonce of the owner.
-    function testPermit__IncreaseNonce(
+    function testFuzz_Permit_IncreaseNonce(
         uint256 privateKey,
         address spender,
         uint256 value,
@@ -158,7 +152,7 @@ contract ERC20Permit__Permit is ERC20PermitTest {
     }
 
     /// @dev it should emit an Approval event.
-    function testPermit__Approval(
+    function testFuzz_Permit_Approval(
         uint256 privateKey,
         address spender,
         uint256 value,
@@ -177,7 +171,7 @@ contract ERC20Permit__Permit is ERC20PermitTest {
         vm.assume(deadline >= block.timestamp);
 
         address owner = vm.addr(privateKey);
-        vm.expectEmit(true, true, false, true);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Approval(owner, spender, value);
         (uint8 v, bytes32 r, bytes32 s) = getSignature(privateKey, owner, spender, value, deadline);
         erc20Permit.permit(owner, spender, value, deadline, v, r, s);

@@ -5,5 +5,5 @@ approve.t.sol
    ├── when the spender is the zero address
    │  └── it should revert
    └── when the spender is not the zero address
-      ├── it should make the approval
+      ├── it should emit an Approval event and make the approval.
       └── it should emit an Approval event

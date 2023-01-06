@@ -59,17 +59,17 @@ contract ERC20Permit is
     ) public override {
         // Checks: `owner` is not the zero address.
         if (owner == address(0)) {
-            revert ERC20Permit__OwnerZeroAddress();
+            revert ERC20Permit_OwnerZeroAddress();
         }
 
         // Checks: `spender` is not the zero address.
         if (spender == address(0)) {
-            revert ERC20Permit__SpenderZeroAddress();
+            revert ERC20Permit_SpenderZeroAddress();
         }
 
         // Checks: the deadline is in the future (or at least at present).
         if (deadline < block.timestamp) {
-            revert ERC20Permit__PermitExpired(block.timestamp, deadline);
+            revert ERC20Permit_PermitExpired(block.timestamp, deadline);
         }
 
         // It's safe to use unchecked here because the nonce cannot realistically overflow, ever.
@@ -84,12 +84,12 @@ contract ERC20Permit is
 
         // Checks: `recoveredOwner` is not the zero address.
         if (recoveredOwner == address(0)) {
-            revert ERC20Permit__RecoveredOwnerZeroAddress();
+            revert ERC20Permit_RecoveredOwnerZeroAddress();
         }
 
         // Checks: `recoveredOwner` is not the same as `owner`.
         if (recoveredOwner != owner) {
-            revert ERC20Permit__InvalidSignature(owner, v, r, s);
+            revert ERC20Permit_InvalidSignature(owner, v, r, s);
         }
 
         // Effects: update the allowance.

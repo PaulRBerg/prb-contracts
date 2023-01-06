@@ -29,12 +29,12 @@ abstract contract ERC20Normalizer is IERC20Normalizer {
 
         // Revert if the token's decimals are zero.
         if (decimals == 0) {
-            revert IERC20Normalizer__TokenDecimalsZero(token);
+            revert IERC20Normalizer_TokenDecimalsZero(token);
         }
 
         // Revert if the token's decimals are greater than 18.
         if (decimals > 18) {
-            revert IERC20Normalizer__TokenDecimalsGreaterThan18(token, decimals);
+            revert IERC20Normalizer_TokenDecimalsGreaterThan18(token, decimals);
         }
 
         // Calculate the scalar.

@@ -5,16 +5,16 @@ import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
 
-contract ERC20Recover__GetTokenDenylist is ERC20RecoverTest {
+contract GetTokenDenylist_Test is ERC20RecoverTest {
     /// @dev it should return an empty array.
-    function testGetTokenDenylist__TokenDenylistNotSet() external {
+    function test_GetTokenDenylist_TokenDenylistNotSet() external {
         IERC20[] memory actualTokenDenylist = erc20Recover.getTokenDenylist();
         IERC20[] memory expectedTokenDenylist;
         assertEq(actualTokenDenylist, expectedTokenDenylist);
     }
 
     /// @dev it should return an empty array.
-    function testGetTokenDenylist__EmptyArray() external {
+    function test_GetTokenDenylist_EmptyArray() external {
         IERC20[] memory tokenDenylist;
         erc20Recover.setTokenDenylist(tokenDenylist);
 
@@ -24,7 +24,7 @@ contract ERC20Recover__GetTokenDenylist is ERC20RecoverTest {
     }
 
     /// @dev it should return the token denylist.
-    function testGetTokenDenylist__NonEmptyArray() external {
+    function test_GetTokenDenylist_NonEmptyArray() external {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
         IERC20[] memory actualTokenDenylist = erc20Recover.getTokenDenylist();
         IERC20[] memory expectedTokenDenylist = TOKEN_DENYLIST;

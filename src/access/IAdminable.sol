@@ -20,10 +20,10 @@ interface IAdminable {
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Emitted when the caller is not the admin.
-    error Adminable__CallerNotAdmin(address admin, address caller);
+    error Adminable_CallerNotAdmin(address admin, address caller);
 
     /// @notice Emitted when setting the admin to the zero address.
-    error Adminable__AdminZeroAddress();
+    error Adminable_AdminZeroAddress();
 
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS

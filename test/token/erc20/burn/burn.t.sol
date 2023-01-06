@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { IERC20 } from "src/token/erc20/IERC20.sol";
-
 import { stdError } from "forge-std/Test.sol";
+
+import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { ERC20Test } from "../ERC20.t.sol";
 
-contract ERC20__Burn is ERC20Test {
+contract Burn_Test is ERC20Test {
     /// @dev it should revert.
-    function testCannotBurn__HolderZeroAddress() external {
+    function test_RevertWhen_HolderZeroAddress() external {
         address holder = address(0);
-        vm.expectRevert(IERC20.ERC20__BurnHolderZeroAddress.selector);
+        vm.expectRevert(IERC20.ERC20_BurnHolderZeroAddress.selector);
         uint256 amount = 1;
         dai.burn(holder, amount);
     }
@@ -21,7 +21,7 @@ contract ERC20__Burn is ERC20Test {
     }
 
     /// @dev it should revert.
-    function testCannotBurn__HolderBalanceCalculationUnderflowsUint256(address holder, uint256 amount)
+    function testFuzz_RevertWhen_HolderBalanceCalculationUnderflowsUint256(address holder, uint256 amount)
         external
         HolderNotZeroAddress
     {
@@ -37,7 +37,7 @@ contract ERC20__Burn is ERC20Test {
     }
 
     /// @dev it should decrease the balance of the holder.
-    function testBurn__DecreaseHolderBalance(
+    function testFuzz_Burn_DecreaseHolderBalance(
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
@@ -50,7 +50,7 @@ contract ERC20__Burn is ERC20Test {
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
         dai.mint(holder, mintAmount);
 
-        // Run the test.
+        // Assert that the
         dai.burn(holder, burnAmount);
         uint256 actualBalance = dai.balanceOf(holder);
         uint256 expectedBalance = mintAmount - burnAmount;
@@ -58,7 +58,7 @@ contract ERC20__Burn is ERC20Test {
     }
 
     /// @dev it should decrease the total supply.
-    function testBurn__IncreaseTotalSupply(
+    function testFuzz_Burn_DecreaseTotalSupply(
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
@@ -80,7 +80,7 @@ contract ERC20__Burn is ERC20Test {
     }
 
     /// @dev it should emit a Transfer event.
-    function testBurn__Event(
+    function testFuzz_Burn_Event(
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
@@ -94,7 +94,7 @@ contract ERC20__Burn is ERC20Test {
         dai.mint(holder, mintAmount);
 
         // Run the test.
-        vm.expectEmit(true, true, false, true);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Transfer(holder, address(0), burnAmount);
         dai.burn(holder, burnAmount);
     }

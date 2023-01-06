@@ -14,19 +14,19 @@ interface IERC20Permit is IERC20 {
     /// CUSTOM ERRORS ///
 
     /// @notice Emitted when the recovered owner does not match the actual owner.
-    error ERC20Permit__InvalidSignature(address owner, uint8 v, bytes32 r, bytes32 s);
+    error ERC20Permit_InvalidSignature(address owner, uint8 v, bytes32 r, bytes32 s);
 
     /// @notice Emitted when the owner is the zero address.
-    error ERC20Permit__OwnerZeroAddress();
+    error ERC20Permit_OwnerZeroAddress();
 
     /// @notice Emitted when the permit expired.
-    error ERC20Permit__PermitExpired(uint256 currentTime, uint256 deadline);
+    error ERC20Permit_PermitExpired(uint256 currentTime, uint256 deadline);
 
     /// @notice Emitted when the recovered owner is the zero address.
-    error ERC20Permit__RecoveredOwnerZeroAddress();
+    error ERC20Permit_RecoveredOwnerZeroAddress();
 
     /// @notice Emitted when attempting to permit the zero address as the spender.
-    error ERC20Permit__SpenderZeroAddress();
+    error ERC20Permit_SpenderZeroAddress();
 
     /// CONSTANT FUNCTIONS ///
 

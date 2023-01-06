@@ -7,15 +7,15 @@ import { IERC20Recover } from "src/token/erc20/IERC20Recover.sol";
 
 import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
 
-contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
+contract SetTokenDenylist_Test is ERC20RecoverTest {
     /// @dev it should revert.
-    function testCannotSetTokenDenylist__CallerNotAdmin() external {
+    function test_RevertWhen_CallerNotAdmin() external {
         // Make Eve the caller in this test.
         address caller = users.eve;
         changePrank(caller);
 
         // Run the test.
-        vm.expectRevert(abi.encodeWithSelector(IAdminable.Adminable__CallerNotAdmin.selector, users.admin, caller));
+        vm.expectRevert(abi.encodeWithSelector(IAdminable.Adminable_CallerNotAdmin.selector, users.admin, caller));
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 
@@ -24,9 +24,9 @@ contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
     }
 
     /// @dev it should revert.
-    function testCannotSetTokenDenylist__TokenDenylistAlreadySet() external CallerAdmin {
+    function test_RevertWhen_TokenDenylistAlreadySet() external CallerAdmin {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
-        vm.expectRevert(IERC20Recover.ERC20Recover__TokenDenylistAlreadySet.selector);
+        vm.expectRevert(IERC20Recover.ERC20Recover_TokenDenylistAlreadySet.selector);
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 
@@ -35,7 +35,7 @@ contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
     }
 
     /// @dev it should revert.
-    function testCannotSetTokenDenylist__SomeTokensDontHaveASymbol() external CallerAdmin TokenDenylistNotAlreadySet {
+    function test_RevertWhen_SomeTokensDontHaveASymbol() external CallerAdmin TokenDenylistNotAlreadySet {
         vm.expectRevert();
         IERC20[] memory tokenDenylist = new IERC20[](2);
         tokenDenylist[0] = dai;
@@ -48,7 +48,7 @@ contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
     }
 
     /// @dev it should set the token denylist.
-    function testSetTokenDenylist() external CallerAdmin TokenDenylistNotAlreadySet AllTokensHaveASymbol {
+    function test_SetTokenDenylist() external CallerAdmin TokenDenylistNotAlreadySet AllTokensHaveASymbol {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
 
         // Compare the token denylists.
@@ -62,7 +62,7 @@ contract ERC20Recover__SetTokenDenylist is ERC20RecoverTest {
     }
 
     /// @dev it should emit a SetTokenDenylist event.
-    function testSetTokenDenylist__Event() external CallerAdmin TokenDenylistNotAlreadySet AllTokensHaveASymbol {
+    function test_SetTokenDenylist_Event() external CallerAdmin TokenDenylistNotAlreadySet AllTokensHaveASymbol {
         vm.expectEmit({ checkTopic1: true, checkTopic2: false, checkTopic3: false, checkData: true });
         emit SetTokenDenylist(users.admin, TOKEN_DENYLIST);
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);

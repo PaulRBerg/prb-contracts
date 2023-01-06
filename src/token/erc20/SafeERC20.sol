@@ -5,10 +5,10 @@ import { IERC20 } from "./IERC20.sol";
 import { Address } from "../../utils/Address.sol";
 
 /// @notice Emitted when the call is made to a non-contract.
-error SafeERC20__CallToNonContract(address target);
+error SafeERC20_CallToNonContract(address target);
 
 /// @notice Emitted when there is no return data.
-error SafeERC20__NoReturnData();
+error SafeERC20_NoReturnData();
 
 /// @title SafeERC20.sol
 /// @author Paul Razvan Berg
@@ -57,7 +57,7 @@ library SafeERC20 {
         if (returndata.length > 0) {
             // Return data is optional.
             if (!abi.decode(returndata, (bool))) {
-                revert SafeERC20__NoReturnData();
+                revert SafeERC20_NoReturnData();
             }
         }
     }
@@ -68,7 +68,7 @@ library SafeERC20 {
         string memory errorMessage
     ) private returns (bytes memory) {
         if (!target.isContract()) {
-            revert SafeERC20__CallToNonContract(target);
+            revert SafeERC20_CallToNonContract(target);
         }
 
         // solhint-disable-next-line avoid-low-level-calls

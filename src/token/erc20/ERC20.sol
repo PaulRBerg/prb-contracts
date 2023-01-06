@@ -99,7 +99,7 @@ contract ERC20 is IERC20 {
         address spender = msg.sender;
         uint256 currentAllowance = _allowances[from][spender];
         if (currentAllowance < amount) {
-            revert ERC20__InsufficientAllowance(from, spender, currentAllowance, amount);
+            revert ERC20_InsufficientAllowance(from, spender, currentAllowance, amount);
         }
 
         // Effects: update the allowance.
@@ -130,12 +130,12 @@ contract ERC20 is IERC20 {
     ) internal virtual {
         // Checks: `owner` is not the zero address.
         if (owner == address(0)) {
-            revert ERC20__ApproveOwnerZeroAddress();
+            revert ERC20_ApproveOwnerZeroAddress();
         }
 
         // Checks: `spender` is not the zero address.
         if (spender == address(0)) {
-            revert ERC20__ApproveSpenderZeroAddress();
+            revert ERC20_ApproveSpenderZeroAddress();
         }
 
         // Effects: update the allowance.
@@ -155,7 +155,7 @@ contract ERC20 is IERC20 {
     function _burn(address holder, uint256 amount) internal {
         // Checks: `holder` is not the zero address.
         if (holder == address(0)) {
-            revert ERC20__BurnHolderZeroAddress();
+            revert ERC20_BurnHolderZeroAddress();
         }
 
         // Effects: burn the tokens.
@@ -182,7 +182,7 @@ contract ERC20 is IERC20 {
     function _mint(address beneficiary, uint256 amount) internal {
         // Checks: `beneficiary` is not the zero address.
         if (beneficiary == address(0)) {
-            revert ERC20__MintBeneficiaryZeroAddress();
+            revert ERC20_MintBeneficiaryZeroAddress();
         }
 
         /// Effects: increase the total supply.
@@ -214,18 +214,18 @@ contract ERC20 is IERC20 {
     ) internal virtual {
         // Checks: `from` is not the zero address.
         if (from == address(0)) {
-            revert ERC20__TransferFromZeroAddress();
+            revert ERC20_TransferFromZeroAddress();
         }
 
         // Checks: `to` is not the zero address.
         if (to == address(0)) {
-            revert ERC20__TransferToZeroAddress();
+            revert ERC20_TransferToZeroAddress();
         }
 
         // Checks: `from` has enough balance.
         uint256 fromBalance = _balances[from];
         if (fromBalance < amount) {
-            revert ERC20__FromInsufficientBalance(fromBalance, amount);
+            revert ERC20_FromInsufficientBalance(fromBalance, amount);
         }
 
         // Effects: update the balance of `from` and `to`..

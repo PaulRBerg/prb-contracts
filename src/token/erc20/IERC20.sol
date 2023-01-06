@@ -23,28 +23,28 @@ interface IERC20 {
     /// CUSTOM ERRORS ///
 
     /// @notice Emitted when attempting to approve with the zero address as the owner.
-    error ERC20__ApproveOwnerZeroAddress();
+    error ERC20_ApproveOwnerZeroAddress();
 
     /// @notice Emitted when attempting to approve the zero address as the spender.
-    error ERC20__ApproveSpenderZeroAddress();
+    error ERC20_ApproveSpenderZeroAddress();
 
     /// @notice Emitted when attempting to burn tokens from the zero address.
-    error ERC20__BurnHolderZeroAddress();
+    error ERC20_BurnHolderZeroAddress();
 
     /// @notice Emitted when attempting to transfer more tokens than there are in the from account.
-    error ERC20__FromInsufficientBalance(uint256 senderBalance, uint256 transferAmount);
+    error ERC20_FromInsufficientBalance(uint256 senderBalance, uint256 transferAmount);
 
     /// @notice Emitted when spender attempts to transfer more tokens than the owner had given them allowance for.
-    error ERC20__InsufficientAllowance(address owner, address spender, uint256 allowance, uint256 transferAmount);
+    error ERC20_InsufficientAllowance(address owner, address spender, uint256 allowance, uint256 transferAmount);
 
     /// @notice Emitted when attempting to mint tokens to the zero address.
-    error ERC20__MintBeneficiaryZeroAddress();
+    error ERC20_MintBeneficiaryZeroAddress();
 
     /// @notice Emitted when attempting to transfer tokens from the zero address.
-    error ERC20__TransferFromZeroAddress();
+    error ERC20_TransferFromZeroAddress();
 
     /// @notice Emitted when the attempting to transfer tokens to the zero address.
-    error ERC20__TransferToZeroAddress();
+    error ERC20_TransferToZeroAddress();
 
     /// EVENTS ///
 

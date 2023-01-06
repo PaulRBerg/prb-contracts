@@ -8,14 +8,14 @@ import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { ERC20Test } from "../ERC20.t.sol";
 
-contract ERC20__Transfer is ERC20Test {
+contract Transfer_Test is ERC20Test {
     /// @dev it should revert.
-    function testCannotTransfer__SenderZeroAddress() external {
+    function test_RevertWhen_SenderZeroAddress() external {
         // Make the zero address the caller in this test.
         changePrank(address(0));
 
         // Run the test.
-        vm.expectRevert(IERC20.ERC20__TransferFromZeroAddress.selector);
+        vm.expectRevert(IERC20.ERC20_TransferFromZeroAddress.selector);
         dai.transfer(users.alice, ONE_MILLION_DAI);
     }
 
@@ -24,8 +24,8 @@ contract ERC20__Transfer is ERC20Test {
     }
 
     /// @dev it should revert.
-    function testCannotTransfer__RecipientZeroAddress() external SenderNotZeroAddress {
-        vm.expectRevert(IERC20.ERC20__TransferToZeroAddress.selector);
+    function test_RevertWhen_RecipientZeroAddress() external SenderNotZeroAddress {
+        vm.expectRevert(IERC20.ERC20_TransferToZeroAddress.selector);
         address to = address(0);
         dai.transfer(to, ONE_MILLION_DAI);
     }
@@ -35,7 +35,7 @@ contract ERC20__Transfer is ERC20Test {
     }
 
     /// @dev it should revert.
-    function testCannotTransfer__SenderNotEnoughBalance(uint256 amount)
+    function testFuzz_RevertWhen_SenderNotEnoughBalance(uint256 amount)
         external
         SenderNotZeroAddress
         RecipientNotZeroAddress
@@ -43,7 +43,7 @@ contract ERC20__Transfer is ERC20Test {
         vm.assume(amount > 0);
 
         uint256 senderBalance = 0;
-        vm.expectRevert(abi.encodeWithSelector(IERC20.ERC20__FromInsufficientBalance.selector, senderBalance, amount));
+        vm.expectRevert(abi.encodeWithSelector(IERC20.ERC20_FromInsufficientBalance.selector, senderBalance, amount));
         dai.transfer(users.alice, amount);
     }
 
@@ -52,7 +52,7 @@ contract ERC20__Transfer is ERC20Test {
     }
 
     /// @dev it should transfer the tokens.
-    function testTransfer__RecipientSender(uint256 amount)
+    function testFuzz_Transfer_RecipientSender(uint256 amount)
         external
         SenderNotZeroAddress
         RecipientNotZeroAddress
@@ -71,7 +71,7 @@ contract ERC20__Transfer is ERC20Test {
     }
 
     /// @dev it should transfer the tokens.
-    function testTransfer__RecipientNotSender(address to, uint256 amount)
+    function testFuzz_Transfer_RecipientNotSender(address to, uint256 amount)
         external
         SenderNotZeroAddress
         RecipientNotZeroAddress
@@ -93,7 +93,7 @@ contract ERC20__Transfer is ERC20Test {
     }
 
     /// @dev it should emit a Transfer event.
-    function testTransfer__RecipientNotSender__Event(address to, uint256 amount)
+    function testFuzz_Transfer_RecipientNotSender_Event(address to, uint256 amount)
         external
         SenderNotZeroAddress
         RecipientNotZeroAddress
@@ -107,7 +107,7 @@ contract ERC20__Transfer is ERC20Test {
         dai.mint(users.alice, amount);
 
         // Run the test.
-        vm.expectEmit(true, true, false, true);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Transfer(users.alice, to, amount);
         dai.transfer(to, amount);
     }

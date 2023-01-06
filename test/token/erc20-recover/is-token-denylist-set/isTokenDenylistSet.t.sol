@@ -3,15 +3,15 @@ pragma solidity >=0.8.4;
 
 import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
 
-contract ERC20Recover__IsTokenDenylistSet is ERC20RecoverTest {
+contract IsTokenDenylistSet_Test is ERC20RecoverTest {
     /// @dev it should return false.
-    function testIsTokenDenylistSet__TokenDenylistNotSet() external {
+    function test_IsTokenDenylistSet_TokenDenylistNotSet() external {
         bool isTokenDenylistSet = erc20Recover.isTokenDenylistSet();
         assertEq(isTokenDenylistSet, false);
     }
 
     /// @dev it should return true.
-    function testIsTokenDenylistSet__TokenDenylistSet() external {
+    function test_IsTokenDenylistSet_TokenDenylistSet() external {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
         bool isTokenDenylistSet = erc20Recover.isTokenDenylistSet();
         assertEq(isTokenDenylistSet, true);

@@ -12,10 +12,10 @@ interface IERC20Normalizer {
     /// CUSTOM ERRORS ///
 
     /// @notice Emitted when attempting to compute the scalar for a token whose decimals are zero.
-    error IERC20Normalizer__TokenDecimalsZero(IERC20 token);
+    error IERC20Normalizer_TokenDecimalsZero(IERC20 token);
 
     /// @notice Emitted when attempting to compute the scalar for a token whose decimals are greater than 18.
-    error IERC20Normalizer__TokenDecimalsGreaterThan18(IERC20 token, uint256 decimals);
+    error IERC20Normalizer_TokenDecimalsGreaterThan18(IERC20 token, uint256 decimals);
 
     /// CONSTANT FUNCTIONS ///
 

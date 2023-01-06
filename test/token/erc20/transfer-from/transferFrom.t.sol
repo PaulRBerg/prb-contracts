@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
-import { IERC20 } from "src/token/erc20/IERC20.sol";
-
 import { stdError } from "forge-std/Test.sol";
+
+import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { ERC20Test } from "../ERC20.t.sol";
 
-contract ERC20__TransferFrom is ERC20Test {
+contract TransferFrom_Test is ERC20Test {
     /// @dev it should revert.
-    function testCannotTransferFrom__SpenderAllowanceNotEnough(address owner, uint256 amount) external {
+    function test_RevertWhen_SpenderAllowanceNotEnough(address owner, uint256 amount) external {
         vm.assume(owner != address(0));
         vm.assume(amount > 0);
 
@@ -17,7 +17,7 @@ contract ERC20__TransferFrom is ERC20Test {
         uint256 currentAllowance = 0;
         vm.expectRevert(
             abi.encodeWithSelector(
-                IERC20.ERC20__InsufficientAllowance.selector,
+                IERC20.ERC20_InsufficientAllowance.selector,
                 owner,
                 spender,
                 currentAllowance,
@@ -32,7 +32,7 @@ contract ERC20__TransferFrom is ERC20Test {
     }
 
     /// @dev it should transfer the tokens.
-    function testTransferFrom(
+    function testFuzz_TransferFrom(
         address owner,
         address to,
         uint256 amount0,
@@ -69,7 +69,7 @@ contract ERC20__TransferFrom is ERC20Test {
     }
 
     /// @dev it should emit an Approval and a Transfer event.
-    function testTransferFrom__Event(
+    function testFuzz_TransferFrom_Event(
         address owner,
         address to,
         uint256 amount0,
@@ -92,9 +92,9 @@ contract ERC20__TransferFrom is ERC20Test {
 
         // Run the test.
         changePrank(spender);
-        vm.expectEmit(true, true, false, true);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Approval(owner, spender, amount0 - amount1);
-        vm.expectEmit(true, true, false, true);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Transfer(owner, to, amount1);
         dai.transferFrom(owner, to, amount1);
     }

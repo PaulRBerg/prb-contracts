@@ -37,12 +37,12 @@ abstract contract ERC20Recover is
     function recover(IERC20 token, uint256 amount) public override onlyAdmin {
         // Checks: the token denylist is set.
         if (!isTokenDenylistSet) {
-            revert ERC20Recover__TokenDenylistNotSet();
+            revert ERC20Recover_TokenDenylistNotSet();
         }
 
         // Checks: the amount to recover is not zero.
         if (amount == 0) {
-            revert ERC20Recover__RecoverAmountZero();
+            revert ERC20Recover_RecoverAmountZero();
         }
 
         // Iterate over the non-recoverable token array.
@@ -53,7 +53,7 @@ abstract contract ERC20Recover is
             // Check that the addresses of the tokens are not the same.
             nonRecoverableToken = tokenDenylist[i];
             if (token == nonRecoverableToken) {
-                revert ERC20Recover__RecoverNonRecoverableToken(address(token));
+                revert ERC20Recover_RecoverNonRecoverableToken(address(token));
             }
 
             // Increment the for loop iterator.
@@ -73,7 +73,7 @@ abstract contract ERC20Recover is
     function setTokenDenylist(IERC20[] memory tokenDenylist_) public override onlyAdmin {
         // Checks: the token denylist is not already set.
         if (isTokenDenylistSet) {
-            revert ERC20Recover__TokenDenylistAlreadySet();
+            revert ERC20Recover_TokenDenylistAlreadySet();
         }
 
         // Iterate over the token list.

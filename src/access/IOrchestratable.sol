@@ -22,7 +22,7 @@ interface IOrchestratable is IAdminable {
     /// CUSTOM ERRORS ///
 
     /// @notice Emitted when the caller is not an orchestrated address.
-    error Orchestratable__NotOrchestrated(address caller, bytes4 signature);
+    error Orchestratable_NotOrchestrated(address caller, bytes4 signature);
 
     /// EVENTS ///
 

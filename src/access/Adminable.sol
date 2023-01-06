@@ -20,7 +20,7 @@ contract Adminable is IAdminable {
     /// @notice Throws if called by any account other than the admin.
     modifier onlyAdmin() {
         if (admin != msg.sender) {
-            revert Adminable__CallerNotAdmin({ admin: admin, caller: msg.sender });
+            revert Adminable_CallerNotAdmin({ admin: admin, caller: msg.sender });
         }
         _;
     }
@@ -46,7 +46,7 @@ contract Adminable is IAdminable {
     /// @inheritdoc IAdminable
     function transferAdmin(address newAdmin) public virtual override onlyAdmin {
         if (newAdmin == address(0)) {
-            revert Adminable__AdminZeroAddress();
+            revert Adminable_AdminZeroAddress();
         }
         _transferAdmin(newAdmin);
     }

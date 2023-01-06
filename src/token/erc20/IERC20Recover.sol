@@ -13,16 +13,16 @@ interface IERC20Recover is IAdminable {
     /// CUSTOM ERRORS ///
 
     /// @notice Emitted when attempting to recover a token marked as non-recoverable.
-    error ERC20Recover__RecoverNonRecoverableToken(address token);
+    error ERC20Recover_RecoverNonRecoverableToken(address token);
 
     /// @notice Emitted when attempting to recover a zero amount of tokens.
-    error ERC20Recover__RecoverAmountZero();
+    error ERC20Recover_RecoverAmountZero();
 
     /// @notice Emitted when the attempting to set the token denylist twice.
-    error ERC20Recover__TokenDenylistAlreadySet();
+    error ERC20Recover_TokenDenylistAlreadySet();
 
     /// @notice Emitted when the attempting to recover a token without having set the token denylist.
-    error ERC20Recover__TokenDenylistNotSet();
+    error ERC20Recover_TokenDenylistNotSet();
 
     /// EVENTS ///
 

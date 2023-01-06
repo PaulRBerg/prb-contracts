@@ -7,11 +7,11 @@ import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { ERC20Test } from "../ERC20.t.sol";
 
-contract ERC20__Mint is ERC20Test {
+contract Mint_Test is ERC20Test {
     /// @dev it should revert.
-    function testCannotMint__BeneficiaryZeroAddress() external {
+    function test_RevertWhen_BeneficiaryZeroAddress() external {
         address beneficiary = address(0);
-        vm.expectRevert(IERC20.ERC20__MintBeneficiaryZeroAddress.selector);
+        vm.expectRevert(IERC20.ERC20_MintBeneficiaryZeroAddress.selector);
         uint256 amount = 1;
         dai.mint(beneficiary, amount);
     }
@@ -21,7 +21,7 @@ contract ERC20__Mint is ERC20Test {
     }
 
     /// @dev it should revert.
-    function testCannotMint__BeneficiaryBalanceCalculationOverflowsUint256(
+    function testFuzz_RevertWhen_BeneficiaryBalanceCalculationOverflowsUint256(
         address beneficiary,
         uint256 amount0,
         uint256 amount1
@@ -43,7 +43,7 @@ contract ERC20__Mint is ERC20Test {
     }
 
     /// @dev it should revert.
-    function testCannotMint__TotalSupplyCalculationOverflowsUint256(
+    function testFuzz_RevertWhen_TotalSupplyCalculationOverflowsUint256(
         address beneficiary,
         uint256 amount0,
         uint256 amount1
@@ -65,7 +65,7 @@ contract ERC20__Mint is ERC20Test {
     }
 
     /// @dev it should increase the balance of the beneficiary.
-    function testMint__IncreaseBeneficiaryBalance(address beneficiary, uint256 amount)
+    function testFuzz_Mint_IncreaseBeneficiaryBalance(address beneficiary, uint256 amount)
         external
         BeneficiaryNotZeroAddress
         BeneficiaryBalanceCalculationDoesNotOverflowUint256
@@ -82,7 +82,7 @@ contract ERC20__Mint is ERC20Test {
     }
 
     /// @dev it should increase the total supply.
-    function testMint__IncreaseTotalSupply(address beneficiary, uint256 amount)
+    function testFuzz_Mint_IncreaseTotalSupply(address beneficiary, uint256 amount)
         external
         BeneficiaryNotZeroAddress
         BeneficiaryBalanceCalculationDoesNotOverflowUint256
@@ -99,7 +99,7 @@ contract ERC20__Mint is ERC20Test {
     }
 
     /// @dev it should emit a Transfer event.
-    function testMint__Event(address beneficiary, uint256 amount)
+    function testFuzz_Mint_Event(address beneficiary, uint256 amount)
         external
         BeneficiaryNotZeroAddress
         BeneficiaryBalanceCalculationDoesNotOverflowUint256
@@ -108,7 +108,7 @@ contract ERC20__Mint is ERC20Test {
         vm.assume(beneficiary != address(0));
         vm.assume(amount > 0);
 
-        vm.expectEmit(true, true, false, true);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Transfer(address(0), beneficiary, amount);
         dai.mint(beneficiary, amount);
     }
