@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
 
-import "./IERC20.sol";
-import "./IERC20Normalizer.sol";
+import { IERC20 } from "./IERC20.sol";
+import { IERC20Normalizer } from "./IERC20Normalizer.sol";
 
 /// @title ERC20Normalizer
 /// @author Paul Razvan Berg

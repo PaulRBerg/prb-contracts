@@ -28,7 +28,7 @@ abstract contract ReentrancyGuard {
 
     /// Storing an initial non-zero value makes deployment a bit more expensive but in exchange the
     /// refund on every call to nonReentrant will be lower in amount. Since refunds are capped to a
-    /// percetange of the total transaction's gas, it is best to keep them low in cases like this one,
+    /// percentage of the total transaction's gas, it is best to keep them low in cases like this one,
     /// to increase the likelihood of the full refund coming into effect.
     constructor() {
         notEntered = true;

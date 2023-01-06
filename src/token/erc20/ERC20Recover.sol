@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
 
-import "./IERC20.sol";
-import "./IERC20Recover.sol";
-import "./SafeERC20.sol";
-import "../../access/Adminable.sol";
+import { IERC20 } from "./IERC20.sol";
+import { IERC20Recover } from "./IERC20Recover.sol";
+import { SafeERC20 } from "./SafeERC20.sol";
+import { Adminable } from "../../access/Adminable.sol";
 
 /// @title ERC20Recover
 /// @author Paul Razvan Berg
