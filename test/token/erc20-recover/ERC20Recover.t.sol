@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.8.4;
+pragma solidity >=0.8.4 <0.9.0;
 
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 
