@@ -70,6 +70,13 @@ contract Transfer_Test is ERC20Test {
         assertEq(actualBalance, expectedBalance);
     }
 
+    /// @dev Checks common assumptions for the tests below.
+    function checkAssumptions(address to, uint256 amount) internal view {
+        vm.assume(to != address(0));
+        vm.assume(to != users.alice);
+        vm.assume(amount > 0);
+    }
+
     /// @dev it should transfer the tokens.
     function testFuzz_Transfer_RecipientNotSender(address to, uint256 amount)
         external
@@ -77,9 +84,7 @@ contract Transfer_Test is ERC20Test {
         RecipientNotZeroAddress
         SenderEnoughBalance
     {
-        vm.assume(to != address(0));
-        vm.assume(to != users.alice);
-        vm.assume(amount > 0);
+        checkAssumptions(to, amount);
 
         // Mint `amount` tokens to Alice so that we have something to transfer below.
         dai.mint(users.alice, amount);
@@ -99,9 +104,7 @@ contract Transfer_Test is ERC20Test {
         RecipientNotZeroAddress
         SenderEnoughBalance
     {
-        vm.assume(to != address(0));
-        vm.assume(to != users.alice);
-        vm.assume(amount > 0);
+        checkAssumptions(to, amount);
 
         // Mint `amount` tokens to Alice so that we have something to transfer below.
         dai.mint(users.alice, amount);

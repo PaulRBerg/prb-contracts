@@ -36,16 +36,24 @@ contract Burn_Test is ERC20Test {
         _;
     }
 
+    /// @dev Checks common assumptions for the tests below.
+    function checkAssumptions(
+        address holder,
+        uint256 mintAmount,
+        uint256 burnAmount
+    ) internal pure {
+        vm.assume(holder != address(0));
+        vm.assume(mintAmount > 0 && burnAmount > 0);
+        vm.assume(mintAmount > burnAmount);
+    }
+
     /// @dev it should decrease the balance of the holder.
     function testFuzz_Burn_DecreaseHolderBalance(
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
     ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
-        vm.assume(holder != address(0));
-        vm.assume(mintAmount > 0);
-        vm.assume(burnAmount > 0);
-        vm.assume(mintAmount > burnAmount);
+        checkAssumptions(holder, mintAmount, burnAmount);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
         dai.mint(holder, mintAmount);
@@ -63,10 +71,7 @@ contract Burn_Test is ERC20Test {
         uint256 mintAmount,
         uint256 burnAmount
     ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
-        vm.assume(holder != address(0));
-        vm.assume(mintAmount > 0);
-        vm.assume(burnAmount > 0);
-        vm.assume(mintAmount > burnAmount);
+        checkAssumptions(holder, mintAmount, burnAmount);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
         dai.mint(holder, mintAmount);
@@ -85,10 +90,7 @@ contract Burn_Test is ERC20Test {
         uint256 mintAmount,
         uint256 burnAmount
     ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
-        vm.assume(holder != address(0));
-        vm.assume(mintAmount > 0);
-        vm.assume(burnAmount > 0);
-        vm.assume(mintAmount > burnAmount);
+        checkAssumptions(holder, mintAmount, burnAmount);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
         dai.mint(holder, mintAmount);

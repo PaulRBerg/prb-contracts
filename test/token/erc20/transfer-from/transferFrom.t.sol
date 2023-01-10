@@ -31,6 +31,19 @@ contract TransferFrom_Test is ERC20Test {
         _;
     }
 
+    /// @dev Checks common assumptions for the tests below.
+    function checkAssumptions(
+        address owner,
+        address to,
+        uint256 amount0,
+        uint256 amount1
+    ) internal pure {
+        vm.assume(owner != address(0) && to != address(0));
+        vm.assume(owner != to);
+        vm.assume(amount0 > 0 && amount1 > 0);
+        vm.assume(amount1 <= amount0);
+    }
+
     /// @dev it should transfer the tokens.
     function testFuzz_TransferFrom(
         address owner,
@@ -38,12 +51,7 @@ contract TransferFrom_Test is ERC20Test {
         uint256 amount0,
         uint256 amount1
     ) external SpenderAllowanceEnough {
-        vm.assume(owner != address(0));
-        vm.assume(to != address(0));
-        vm.assume(owner != to);
-        vm.assume(amount0 > 0);
-        vm.assume(amount1 > 0);
-        vm.assume(amount1 <= amount0);
+        checkAssumptions(owner, to, amount0, amount1);
 
         // Mint `amount` tokens to the owner.
         dai.mint(owner, amount0);
@@ -75,12 +83,7 @@ contract TransferFrom_Test is ERC20Test {
         uint256 amount0,
         uint256 amount1
     ) external SpenderAllowanceEnough {
-        vm.assume(owner != address(0));
-        vm.assume(to != address(0));
-        vm.assume(owner != to);
-        vm.assume(amount0 > 0);
-        vm.assume(amount1 > 0);
-        vm.assume(amount1 <= amount0);
+        checkAssumptions(owner, to, amount0, amount1);
 
         // Mint `amount0` tokens to the owner.
         dai.mint(owner, amount0);

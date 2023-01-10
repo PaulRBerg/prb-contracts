@@ -97,6 +97,17 @@ contract Permit_Test is ERC20PermitTest {
         _;
     }
 
+    /// @dev Checks common assumptions for the tests below.
+    function checkAssumptions(
+        uint256 privateKey,
+        address spender,
+        uint256 deadline
+    ) internal view {
+        vm.assume(privateKey > 0 && privateKey < SECP256K1_ORDER);
+        vm.assume(spender != address(0));
+        vm.assume(deadline >= block.timestamp);
+    }
+
     /// @dev it should update the spender's allowance.
     function testFuzz_Permit(
         uint256 privateKey,
@@ -111,17 +122,14 @@ contract Permit_Test is ERC20PermitTest {
         RecoveredOwnerNotZeroAddress
         SignatureValid
     {
-        vm.assume(privateKey > 0);
-        vm.assume(privateKey < SECP256K1_ORDER);
-        vm.assume(spender != address(0));
-        vm.assume(deadline >= block.timestamp);
+        checkAssumptions(privateKey, spender, deadline);
 
         address owner = vm.addr(privateKey);
         (uint8 v, bytes32 r, bytes32 s) = getSignature(privateKey, owner, spender, value, deadline);
         erc20Permit.permit(owner, spender, value, deadline, v, r, s);
         uint256 actualAllowance = erc20Permit.allowance(owner, spender);
-        uint256 expectedAlowance = value;
-        assertEq(actualAllowance, expectedAlowance);
+        uint256 expectedAllowance = value;
+        assertEq(actualAllowance, expectedAllowance);
     }
 
     /// @dev it should increase the nonce of the owner.
@@ -138,10 +146,7 @@ contract Permit_Test is ERC20PermitTest {
         RecoveredOwnerNotZeroAddress
         SignatureValid
     {
-        vm.assume(privateKey > 0);
-        vm.assume(privateKey < SECP256K1_ORDER);
-        vm.assume(spender != address(0));
-        vm.assume(deadline >= block.timestamp);
+        checkAssumptions(privateKey, spender, deadline);
 
         address owner = vm.addr(privateKey);
         (uint8 v, bytes32 r, bytes32 s) = getSignature(privateKey, owner, spender, value, deadline);
@@ -165,10 +170,7 @@ contract Permit_Test is ERC20PermitTest {
         RecoveredOwnerNotZeroAddress
         SignatureValid
     {
-        vm.assume(privateKey > 0);
-        vm.assume(privateKey < SECP256K1_ORDER);
-        vm.assume(spender != address(0));
-        vm.assume(deadline >= block.timestamp);
+        checkAssumptions(privateKey, spender, deadline);
 
         address owner = vm.addr(privateKey);
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });

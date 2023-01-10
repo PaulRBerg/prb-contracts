@@ -19,15 +19,24 @@ contract DecreaseAllowance_Test is ERC20Test {
         _;
     }
 
+    /// @dev Check common assumptions for the tests below.
+    function checkAssumptions(
+        address spender,
+        uint256 value0,
+        uint256 value1
+    ) internal pure {
+        vm.assume(spender != address(0));
+        vm.assume(value0 > 0);
+        vm.assume(value1 <= value0);
+    }
+
     /// @dev it should decrease the allowance.
     function testFuzz_DecreaseAllowance(
         address spender,
         uint256 value0,
         uint256 value1
     ) external CalculationDoesNotUnderflowUint256 {
-        vm.assume(spender != address(0));
-        vm.assume(value0 > 0);
-        vm.assume(value1 <= value0);
+        checkAssumptions(spender, value0, value1);
 
         // Increase the allowance so that we have what to decrease below.
         dai.increaseAllowance(spender, value0);
@@ -45,9 +54,7 @@ contract DecreaseAllowance_Test is ERC20Test {
         uint256 value0,
         uint256 value1
     ) external CalculationDoesNotUnderflowUint256 {
-        vm.assume(spender != address(0));
-        vm.assume(value0 > 0);
-        vm.assume(value1 <= value0);
+        checkAssumptions(spender, value0, value1);
 
         // Increase the allowance so that we have what to decrease below.
         dai.increaseAllowance(spender, value0);

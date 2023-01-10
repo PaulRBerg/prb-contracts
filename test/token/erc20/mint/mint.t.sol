@@ -20,15 +20,24 @@ contract Mint_Test is ERC20Test {
         _;
     }
 
+    /// @dev Checks common assumptions for the tests below.
+    function checkAssumptions(
+        address beneficiary,
+        uint256 amount0,
+        uint256 amount1
+    ) internal pure {
+        vm.assume(beneficiary != address(0));
+        vm.assume(amount0 > 0);
+        vm.assume(amount1 > MAX_UINT256 - amount0);
+    }
+
     /// @dev it should revert.
     function testFuzz_RevertWhen_BeneficiaryBalanceCalculationOverflowsUint256(
         address beneficiary,
         uint256 amount0,
         uint256 amount1
     ) external BeneficiaryNotZeroAddress {
-        vm.assume(beneficiary != address(0));
-        vm.assume(amount0 > 0);
-        vm.assume(amount1 > MAX_UINT256 - amount0);
+        checkAssumptions(beneficiary, amount0, amount1);
 
         // Mint `amount0` tokens to `beneficiary`.
         dai.mint(beneficiary, amount0);
@@ -48,9 +57,7 @@ contract Mint_Test is ERC20Test {
         uint256 amount0,
         uint256 amount1
     ) external BeneficiaryNotZeroAddress BeneficiaryBalanceCalculationDoesNotOverflowUint256 {
-        vm.assume(beneficiary != address(0));
-        vm.assume(amount0 > 0);
-        vm.assume(amount1 > MAX_UINT256 - amount0);
+        checkAssumptions(beneficiary, amount0, amount1);
 
         // Mint `amount0` tokens to Alice.
         dai.mint(users.alice, amount0);
@@ -64,6 +71,12 @@ contract Mint_Test is ERC20Test {
         _;
     }
 
+    /// @dev Checks common assumptions for the tests below.
+    function checkAssumptions(address beneficiary, uint256 amount) internal pure {
+        vm.assume(beneficiary != address(0));
+        vm.assume(amount > 0);
+    }
+
     /// @dev it should increase the balance of the beneficiary.
     function testFuzz_Mint_IncreaseBeneficiaryBalance(address beneficiary, uint256 amount)
         external
@@ -71,8 +84,7 @@ contract Mint_Test is ERC20Test {
         BeneficiaryBalanceCalculationDoesNotOverflowUint256
         TotalSupplyCalculationDoesNotOverflowUint256
     {
-        vm.assume(beneficiary != address(0));
-        vm.assume(amount > 0);
+        checkAssumptions(beneficiary, amount);
 
         uint256 previousBalance = dai.balanceOf(beneficiary);
         dai.mint(beneficiary, amount);
@@ -88,8 +100,7 @@ contract Mint_Test is ERC20Test {
         BeneficiaryBalanceCalculationDoesNotOverflowUint256
         TotalSupplyCalculationDoesNotOverflowUint256
     {
-        vm.assume(beneficiary != address(0));
-        vm.assume(amount > 0);
+        checkAssumptions(beneficiary, amount);
 
         uint256 previousTotalSupply = dai.totalSupply();
         dai.mint(beneficiary, amount);
@@ -105,8 +116,7 @@ contract Mint_Test is ERC20Test {
         BeneficiaryBalanceCalculationDoesNotOverflowUint256
         TotalSupplyCalculationDoesNotOverflowUint256
     {
-        vm.assume(beneficiary != address(0));
-        vm.assume(amount > 0);
+        checkAssumptions(beneficiary, amount);
 
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Transfer(address(0), beneficiary, amount);
