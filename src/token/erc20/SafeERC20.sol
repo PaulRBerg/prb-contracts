@@ -20,7 +20,7 @@ error SafeERC20_NoReturnData();
 /// which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
 ///
 /// @dev Forked from OpenZeppelin
-/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/utils/Address.sol
+/// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/token/ERC20/SafeERC20.sol
 library SafeERC20 {
     using Address for address;
 
