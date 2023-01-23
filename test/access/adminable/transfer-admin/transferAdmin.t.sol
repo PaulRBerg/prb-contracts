@@ -23,7 +23,7 @@ contract TransferAdmin_Test is AdminableTest {
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_CallerZeroAddress() external CallerAdmin {
+    function test_RevertWhen_NewAdminZeroAddress() external CallerAdmin {
         vm.expectRevert(IAdminable.Adminable_AdminZeroAddress.selector);
         adminable.transferAdmin(address(0));
     }
@@ -37,6 +37,9 @@ contract TransferAdmin_Test is AdminableTest {
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: false });
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: users.admin });
         adminable.transferAdmin(users.admin);
+        address actualAdmin = adminable.admin();
+        address expectedAdmin = users.admin;
+        assertEq(actualAdmin, expectedAdmin);
     }
 
     /// @dev it should emit a TransferAdmin event and set the new admin.
@@ -45,5 +48,8 @@ contract TransferAdmin_Test is AdminableTest {
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: false });
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: newAdmin });
         adminable.transferAdmin(newAdmin);
+        address actualAdmin = adminable.admin();
+        address expectedAdmin = newAdmin;
+        assertEq(actualAdmin, expectedAdmin);
     }
 }
