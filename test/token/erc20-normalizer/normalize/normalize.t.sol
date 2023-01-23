@@ -19,12 +19,12 @@ contract Normalize_Test is ERC20NormalizerTest {
         assertEq(expectedNormalizedAmount, actualNormalizedAmount);
     }
 
-    modifier ScalarComputed() {
+    modifier scalarComputed() {
         _;
     }
 
     /// @dev it should return the normalized amount.
-    function test_Normalize_Scalar1() external ScalarComputed {
+    function test_Normalize_Scalar1() external scalarComputed {
         erc20Normalizer.computeScalar(usdc);
         uint256 amount = bn(100, usdc.decimals());
         uint256 actualNormalizedAmount = erc20Normalizer.normalize(usdc, amount);
@@ -32,24 +32,24 @@ contract Normalize_Test is ERC20NormalizerTest {
         assertEq(actualNormalizedAmount, expectedNormalizedAmount);
     }
 
-    modifier ScalarNot1() {
+    modifier scalarNot1() {
         _;
     }
 
     /// @dev it should revert.
-    function testFuzz_RevertWhen_CalculationOverflows(uint256 amount) external ScalarComputed ScalarNot1 {
+    function testFuzz_RevertWhen_CalculationOverflows(uint256 amount) external scalarComputed scalarNot1 {
         vm.assume(amount > (MAX_UINT256 / USDC_SCALAR) + 1); // 10^12 is the scalar for USDC.
         erc20Normalizer.computeScalar(usdc);
         vm.expectRevert(stdError.arithmeticError);
         erc20Normalizer.normalize(usdc, amount);
     }
 
-    modifier CalculationDoesNotOverflow() {
+    modifier calculationDoesNotOverflow() {
         _;
     }
 
     /// @dev it should return zero.
-    function test_Normalize_AmountZero() external ScalarComputed ScalarNot1 CalculationDoesNotOverflow {
+    function test_Normalize_AmountZero() external scalarComputed scalarNot1 calculationDoesNotOverflow {
         erc20Normalizer.computeScalar(usdc);
         uint256 amount = 0;
         uint256 actualNormalizedAmount = erc20Normalizer.normalize(usdc, amount);
@@ -57,17 +57,17 @@ contract Normalize_Test is ERC20NormalizerTest {
         assertEq(actualNormalizedAmount, expectedNormalizedAmount);
     }
 
-    modifier AmountNotZero() {
+    modifier amountNotZero() {
         _;
     }
 
     /// @dev it should return the normalized amount.
     function testFuzz_Normalize(uint256 amount)
         external
-        ScalarComputed
-        ScalarNot1
-        CalculationDoesNotOverflow
-        AmountNotZero
+        scalarComputed
+        scalarNot1
+        calculationDoesNotOverflow
+        amountNotZero
     {
         vm.assume(amount > 0);
         vm.assume(amount <= MAX_UINT256 / USDC_SCALAR); // 10^12 is the scalar for USDC.

@@ -16,12 +16,12 @@ contract Permit_Test is ERC20PermitTest {
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
 
-    modifier OwnerNotZeroAddress() {
+    modifier ownerNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_SpenderZeroAddress() external OwnerNotZeroAddress {
+    function test_RevertWhen_SpenderZeroAddress() external ownerNotZeroAddress {
         address owner = users.alice;
         address spender = address(0);
         uint256 value = 1;
@@ -30,12 +30,12 @@ contract Permit_Test is ERC20PermitTest {
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
 
-    modifier SpenderNotZeroAddress() {
+    modifier spenderNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_DeadlineInThePast(uint256 deadline) external OwnerNotZeroAddress SpenderNotZeroAddress {
+    function test_RevertWhen_DeadlineInThePast(uint256 deadline) external ownerNotZeroAddress spenderNotZeroAddress {
         vm.assume(deadline < block.timestamp);
 
         address owner = users.alice;
@@ -47,7 +47,7 @@ contract Permit_Test is ERC20PermitTest {
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
 
-    modifier DeadlineNotInThePast() {
+    modifier deadlineNotInThePast() {
         _;
     }
 
@@ -57,9 +57,9 @@ contract Permit_Test is ERC20PermitTest {
     /// https://ethereum.stackexchange.com/questions/69328/how-to-get-the-zero-address-from-ecrecover
     function test_RevertWhen_RecoveredOwnerZeroAddress(uint256 deadline, uint8 v)
         external
-        OwnerNotZeroAddress
-        SpenderNotZeroAddress
-        DeadlineNotInThePast
+        ownerNotZeroAddress
+        spenderNotZeroAddress
+        deadlineNotInThePast
     {
         vm.assume(deadline >= block.timestamp);
         vm.assume(v != 27 && v != 28);
@@ -71,17 +71,17 @@ contract Permit_Test is ERC20PermitTest {
         erc20Permit.permit(owner, spender, value, deadline, v, DUMMY_R, DUMMY_S);
     }
 
-    modifier RecoveredOwnerNotZeroAddress() {
+    modifier recoveredOwnerNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
     function test_RevertWhen_SignatureNotValid(uint256 deadline)
         external
-        OwnerNotZeroAddress
-        SpenderNotZeroAddress
-        DeadlineNotInThePast
-        RecoveredOwnerNotZeroAddress
+        ownerNotZeroAddress
+        spenderNotZeroAddress
+        deadlineNotInThePast
+        recoveredOwnerNotZeroAddress
     {
         vm.assume(deadline >= block.timestamp);
         address owner = users.alice;
@@ -93,7 +93,7 @@ contract Permit_Test is ERC20PermitTest {
         erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
     }
 
-    modifier SignatureValid() {
+    modifier signatureValid() {
         _;
     }
 
@@ -116,11 +116,11 @@ contract Permit_Test is ERC20PermitTest {
         uint256 deadline
     )
         external
-        OwnerNotZeroAddress
-        SpenderNotZeroAddress
-        DeadlineNotInThePast
-        RecoveredOwnerNotZeroAddress
-        SignatureValid
+        ownerNotZeroAddress
+        spenderNotZeroAddress
+        deadlineNotInThePast
+        recoveredOwnerNotZeroAddress
+        signatureValid
     {
         checkAssumptions(privateKey, spender, deadline);
 
@@ -140,11 +140,11 @@ contract Permit_Test is ERC20PermitTest {
         uint256 deadline
     )
         external
-        OwnerNotZeroAddress
-        SpenderNotZeroAddress
-        DeadlineNotInThePast
-        RecoveredOwnerNotZeroAddress
-        SignatureValid
+        ownerNotZeroAddress
+        spenderNotZeroAddress
+        deadlineNotInThePast
+        recoveredOwnerNotZeroAddress
+        signatureValid
     {
         checkAssumptions(privateKey, spender, deadline);
 
@@ -164,11 +164,11 @@ contract Permit_Test is ERC20PermitTest {
         uint256 deadline
     )
         external
-        OwnerNotZeroAddress
-        SpenderNotZeroAddress
-        DeadlineNotInThePast
-        RecoveredOwnerNotZeroAddress
-        SignatureValid
+        ownerNotZeroAddress
+        spenderNotZeroAddress
+        deadlineNotInThePast
+        recoveredOwnerNotZeroAddress
+        signatureValid
     {
         checkAssumptions(privateKey, spender, deadline);
 

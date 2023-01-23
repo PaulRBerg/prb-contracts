@@ -15,7 +15,7 @@ contract DecreaseAllowance_Test is ERC20Test {
         dai.decreaseAllowance(spender, value);
     }
 
-    modifier CalculationDoesNotUnderflowUint256() {
+    modifier calculationDoesNotUnderflowUint256() {
         _;
     }
 
@@ -35,7 +35,7 @@ contract DecreaseAllowance_Test is ERC20Test {
         address spender,
         uint256 value0,
         uint256 value1
-    ) external CalculationDoesNotUnderflowUint256 {
+    ) external calculationDoesNotUnderflowUint256 {
         checkAssumptions(spender, value0, value1);
 
         // Increase the allowance so that we have what to decrease below.
@@ -53,7 +53,7 @@ contract DecreaseAllowance_Test is ERC20Test {
         address spender,
         uint256 value0,
         uint256 value1
-    ) external CalculationDoesNotUnderflowUint256 {
+    ) external calculationDoesNotUnderflowUint256 {
         checkAssumptions(spender, value0, value1);
 
         // Increase the allowance so that we have what to decrease below.

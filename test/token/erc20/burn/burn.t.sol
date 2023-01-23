@@ -16,14 +16,14 @@ contract Burn_Test is ERC20Test {
         dai.burn(holder, amount);
     }
 
-    modifier HolderNotZeroAddress() {
+    modifier holderNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
     function testFuzz_RevertWhen_HolderBalanceCalculationUnderflowsUint256(address holder, uint256 amount)
         external
-        HolderNotZeroAddress
+        holderNotZeroAddress
     {
         vm.assume(holder != address(0));
         vm.assume(amount > 0);
@@ -32,7 +32,7 @@ contract Burn_Test is ERC20Test {
         dai.burn(holder, amount);
     }
 
-    modifier HolderBalanceCalculationDoesNotUnderflowUint256() {
+    modifier holderBalanceCalculationDoesNotUnderflowUint256() {
         _;
     }
 
@@ -52,7 +52,7 @@ contract Burn_Test is ERC20Test {
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
+    ) external holderNotZeroAddress holderBalanceCalculationDoesNotUnderflowUint256 {
         checkAssumptions(holder, mintAmount, burnAmount);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
@@ -70,7 +70,7 @@ contract Burn_Test is ERC20Test {
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
+    ) external holderNotZeroAddress holderBalanceCalculationDoesNotUnderflowUint256 {
         checkAssumptions(holder, mintAmount, burnAmount);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
@@ -89,7 +89,7 @@ contract Burn_Test is ERC20Test {
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external HolderNotZeroAddress HolderBalanceCalculationDoesNotUnderflowUint256 {
+    ) external holderNotZeroAddress holderBalanceCalculationDoesNotUnderflowUint256 {
         checkAssumptions(holder, mintAmount, burnAmount);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.

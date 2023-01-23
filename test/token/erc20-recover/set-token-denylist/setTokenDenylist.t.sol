@@ -19,23 +19,23 @@ contract SetTokenDenylist_Test is ERC20RecoverTest {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 
-    modifier CallerAdmin() {
+    modifier callerAdmin() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_TokenDenylistAlreadySet() external CallerAdmin {
+    function test_RevertWhen_TokenDenylistAlreadySet() external callerAdmin {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
         vm.expectRevert(IERC20Recover.ERC20Recover_TokenDenylistAlreadySet.selector);
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 
-    modifier TokenDenylistNotAlreadySet() {
+    modifier tokenDenylistNotAlreadySet() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_SomeTokensDontHaveASymbol() external CallerAdmin TokenDenylistNotAlreadySet {
+    function test_RevertWhen_SomeTokensDontHaveASymbol() external callerAdmin tokenDenylistNotAlreadySet {
         vm.expectRevert();
         IERC20[] memory tokenDenylist = new IERC20[](2);
         tokenDenylist[0] = dai;
@@ -43,12 +43,12 @@ contract SetTokenDenylist_Test is ERC20RecoverTest {
         erc20Recover.setTokenDenylist(tokenDenylist);
     }
 
-    modifier AllTokensHaveASymbol() {
+    modifier allTokensHaveASymbol() {
         _;
     }
 
     /// @dev it should set the token denylist.
-    function test_SetTokenDenylist() external CallerAdmin TokenDenylistNotAlreadySet AllTokensHaveASymbol {
+    function test_SetTokenDenylist() external callerAdmin tokenDenylistNotAlreadySet allTokensHaveASymbol {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
 
         // Compare the token denylists.
@@ -62,7 +62,7 @@ contract SetTokenDenylist_Test is ERC20RecoverTest {
     }
 
     /// @dev it should emit a SetTokenDenylist event.
-    function test_SetTokenDenylist_Event() external CallerAdmin TokenDenylistNotAlreadySet AllTokensHaveASymbol {
+    function test_SetTokenDenylist_Event() external callerAdmin tokenDenylistNotAlreadySet allTokensHaveASymbol {
         vm.expectEmit({ checkTopic1: true, checkTopic2: false, checkTopic3: false, checkData: true });
         emit SetTokenDenylist(users.admin, TOKEN_DENYLIST);
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);

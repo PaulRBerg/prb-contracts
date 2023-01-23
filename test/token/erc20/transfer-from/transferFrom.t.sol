@@ -27,7 +27,7 @@ contract TransferFrom_Test is ERC20Test {
         dai.transferFrom(owner, spender, amount);
     }
 
-    modifier SpenderAllowanceEnough() {
+    modifier spenderAllowanceEnough() {
         _;
     }
 
@@ -50,7 +50,7 @@ contract TransferFrom_Test is ERC20Test {
         address to,
         uint256 amount0,
         uint256 amount1
-    ) external SpenderAllowanceEnough {
+    ) external spenderAllowanceEnough {
         checkAssumptions(owner, to, amount0, amount1);
 
         // Mint `amount` tokens to the owner.
@@ -82,7 +82,7 @@ contract TransferFrom_Test is ERC20Test {
         address to,
         uint256 amount0,
         uint256 amount1
-    ) external SpenderAllowanceEnough {
+    ) external spenderAllowanceEnough {
         checkAssumptions(owner, to, amount0, amount1);
 
         // Mint `amount0` tokens to the owner.

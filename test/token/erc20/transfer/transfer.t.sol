@@ -19,26 +19,26 @@ contract Transfer_Test is ERC20Test {
         dai.transfer(users.alice, ONE_MILLION_DAI);
     }
 
-    modifier SenderNotZeroAddress() {
+    modifier senderNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_RecipientZeroAddress() external SenderNotZeroAddress {
+    function test_RevertWhen_RecipientZeroAddress() external senderNotZeroAddress {
         vm.expectRevert(IERC20.ERC20_TransferToZeroAddress.selector);
         address to = address(0);
         dai.transfer(to, ONE_MILLION_DAI);
     }
 
-    modifier RecipientNotZeroAddress() {
+    modifier recipientNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
     function testFuzz_RevertWhen_SenderNotEnoughBalance(uint256 amount)
         external
-        SenderNotZeroAddress
-        RecipientNotZeroAddress
+        senderNotZeroAddress
+        recipientNotZeroAddress
     {
         vm.assume(amount > 0);
 
@@ -47,16 +47,16 @@ contract Transfer_Test is ERC20Test {
         dai.transfer(users.alice, amount);
     }
 
-    modifier SenderEnoughBalance() {
+    modifier senderEnoughBalance() {
         _;
     }
 
     /// @dev it should transfer the tokens.
     function testFuzz_Transfer_RecipientSender(uint256 amount)
         external
-        SenderNotZeroAddress
-        RecipientNotZeroAddress
-        SenderEnoughBalance
+        senderNotZeroAddress
+        recipientNotZeroAddress
+        senderEnoughBalance
     {
         vm.assume(amount > 0);
 
@@ -80,9 +80,9 @@ contract Transfer_Test is ERC20Test {
     /// @dev it should transfer the tokens.
     function testFuzz_Transfer_RecipientNotSender(address to, uint256 amount)
         external
-        SenderNotZeroAddress
-        RecipientNotZeroAddress
-        SenderEnoughBalance
+        senderNotZeroAddress
+        recipientNotZeroAddress
+        senderEnoughBalance
     {
         checkAssumptions(to, amount);
 
@@ -100,9 +100,9 @@ contract Transfer_Test is ERC20Test {
     /// @dev it should emit a Transfer event.
     function testFuzz_Transfer_RecipientNotSender_Event(address to, uint256 amount)
         external
-        SenderNotZeroAddress
-        RecipientNotZeroAddress
-        SenderEnoughBalance
+        senderNotZeroAddress
+        recipientNotZeroAddress
+        senderEnoughBalance
     {
         checkAssumptions(to, amount);
 

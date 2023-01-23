@@ -16,7 +16,7 @@ contract Mint_Test is ERC20Test {
         dai.mint(beneficiary, amount);
     }
 
-    modifier BeneficiaryNotZeroAddress() {
+    modifier beneficiaryNotZeroAddress() {
         _;
     }
 
@@ -36,7 +36,7 @@ contract Mint_Test is ERC20Test {
         address beneficiary,
         uint256 amount0,
         uint256 amount1
-    ) external BeneficiaryNotZeroAddress {
+    ) external beneficiaryNotZeroAddress {
         checkAssumptions(beneficiary, amount0, amount1);
 
         // Mint `amount0` tokens to `beneficiary`.
@@ -47,7 +47,7 @@ contract Mint_Test is ERC20Test {
         dai.mint(beneficiary, amount1);
     }
 
-    modifier BeneficiaryBalanceCalculationDoesNotOverflowUint256() {
+    modifier beneficiaryBalanceCalculationDoesNotOverflowUint256() {
         _;
     }
 
@@ -56,7 +56,7 @@ contract Mint_Test is ERC20Test {
         address beneficiary,
         uint256 amount0,
         uint256 amount1
-    ) external BeneficiaryNotZeroAddress BeneficiaryBalanceCalculationDoesNotOverflowUint256 {
+    ) external beneficiaryNotZeroAddress beneficiaryBalanceCalculationDoesNotOverflowUint256 {
         checkAssumptions(beneficiary, amount0, amount1);
 
         // Mint `amount0` tokens to Alice.
@@ -67,7 +67,7 @@ contract Mint_Test is ERC20Test {
         dai.mint(beneficiary, amount1);
     }
 
-    modifier TotalSupplyCalculationDoesNotOverflowUint256() {
+    modifier totalSupplyCalculationDoesNotOverflowUint256() {
         _;
     }
 
@@ -80,9 +80,9 @@ contract Mint_Test is ERC20Test {
     /// @dev it should increase the balance of the beneficiary.
     function testFuzz_Mint_IncreaseBeneficiaryBalance(address beneficiary, uint256 amount)
         external
-        BeneficiaryNotZeroAddress
-        BeneficiaryBalanceCalculationDoesNotOverflowUint256
-        TotalSupplyCalculationDoesNotOverflowUint256
+        beneficiaryNotZeroAddress
+        beneficiaryBalanceCalculationDoesNotOverflowUint256
+        totalSupplyCalculationDoesNotOverflowUint256
     {
         checkAssumptions(beneficiary, amount);
 
@@ -96,9 +96,9 @@ contract Mint_Test is ERC20Test {
     /// @dev it should increase the total supply.
     function testFuzz_Mint_IncreaseTotalSupply(address beneficiary, uint256 amount)
         external
-        BeneficiaryNotZeroAddress
-        BeneficiaryBalanceCalculationDoesNotOverflowUint256
-        TotalSupplyCalculationDoesNotOverflowUint256
+        beneficiaryNotZeroAddress
+        beneficiaryBalanceCalculationDoesNotOverflowUint256
+        totalSupplyCalculationDoesNotOverflowUint256
     {
         checkAssumptions(beneficiary, amount);
 
@@ -112,9 +112,9 @@ contract Mint_Test is ERC20Test {
     /// @dev it should emit a Transfer event.
     function testFuzz_Mint_Event(address beneficiary, uint256 amount)
         external
-        BeneficiaryNotZeroAddress
-        BeneficiaryBalanceCalculationDoesNotOverflowUint256
-        TotalSupplyCalculationDoesNotOverflowUint256
+        beneficiaryNotZeroAddress
+        beneficiaryBalanceCalculationDoesNotOverflowUint256
+        totalSupplyCalculationDoesNotOverflowUint256
     {
         checkAssumptions(beneficiary, amount);
 
