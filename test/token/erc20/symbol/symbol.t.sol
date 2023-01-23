@@ -8,6 +8,6 @@ contract Symbol_Test is ERC20Test {
     function test_Symbol() external {
         string memory actualSymbol = dai.symbol();
         string memory expectedSymbol = "DAI";
-        assertEq(actualSymbol, expectedSymbol);
+        assertEq(actualSymbol, expectedSymbol, "symbol");
     }
 }

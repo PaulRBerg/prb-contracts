@@ -90,7 +90,7 @@ contract Mint_Test is ERC20Test {
         dai.mint(beneficiary, amount);
         uint256 actualBalance = dai.balanceOf(beneficiary);
         uint256 expectedBalance = previousBalance + amount;
-        assertEq(actualBalance, expectedBalance);
+        assertEq(actualBalance, expectedBalance, "balance");
     }
 
     /// @dev it should increase the total supply.
@@ -106,7 +106,7 @@ contract Mint_Test is ERC20Test {
         dai.mint(beneficiary, amount);
         uint256 actualTotalSupply = dai.totalSupply();
         uint256 expectedTotalSupply = previousTotalSupply + amount;
-        assertEq(actualTotalSupply, expectedTotalSupply);
+        assertEq(actualTotalSupply, expectedTotalSupply, "totalSupply");
     }
 
     /// @dev it should emit a Transfer event.

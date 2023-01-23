@@ -39,7 +39,7 @@ contract Approve_Test is ERC20Test {
         dai.approve(spender, value);
         uint256 actualAllowance = dai.allowance(users.alice, spender);
         uint256 expectedAllowance = value;
-        assertEq(actualAllowance, expectedAllowance);
+        assertEq(actualAllowance, expectedAllowance, "allowance");
     }
 
     /// @dev it should emit an Approval event.

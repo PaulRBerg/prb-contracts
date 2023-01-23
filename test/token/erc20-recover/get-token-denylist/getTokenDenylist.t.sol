@@ -10,7 +10,7 @@ contract GetTokenDenylist_Test is ERC20RecoverTest {
     function test_GetTokenDenylist_TokenDenylistNotSet() external {
         IERC20[] memory actualTokenDenylist = erc20Recover.getTokenDenylist();
         IERC20[] memory expectedTokenDenylist;
-        assertEq(actualTokenDenylist, expectedTokenDenylist);
+        assertEq(actualTokenDenylist, expectedTokenDenylist, "tokenDenylist");
     }
 
     /// @dev it should return an empty array.
@@ -20,7 +20,7 @@ contract GetTokenDenylist_Test is ERC20RecoverTest {
 
         IERC20[] memory actualTokenDenylist = erc20Recover.getTokenDenylist();
         IERC20[] memory expectedTokenDenylist;
-        assertEq(actualTokenDenylist, expectedTokenDenylist);
+        assertEq(actualTokenDenylist, expectedTokenDenylist, "tokenDenylist");
     }
 
     /// @dev it should return the token denylist.
@@ -28,6 +28,6 @@ contract GetTokenDenylist_Test is ERC20RecoverTest {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
         IERC20[] memory actualTokenDenylist = erc20Recover.getTokenDenylist();
         IERC20[] memory expectedTokenDenylist = TOKEN_DENYLIST;
-        assertEq(actualTokenDenylist, expectedTokenDenylist);
+        assertEq(actualTokenDenylist, expectedTokenDenylist, "tokenDenylist");
     }
 }

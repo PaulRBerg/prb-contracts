@@ -16,7 +16,7 @@ contract Normalize_Test is ERC20NormalizerTest {
         uint256 amount = bn(100, usdc.decimals());
         uint256 actualNormalizedAmount = erc20Normalizer.normalize(usdc, amount);
         uint256 expectedNormalizedAmount = bn(100, STANDARD_DECIMALS);
-        assertEq(expectedNormalizedAmount, actualNormalizedAmount);
+        assertEq(actualNormalizedAmount, expectedNormalizedAmount, "normalizedAmount");
     }
 
     modifier scalarComputed() {
@@ -29,7 +29,7 @@ contract Normalize_Test is ERC20NormalizerTest {
         uint256 amount = bn(100, usdc.decimals());
         uint256 actualNormalizedAmount = erc20Normalizer.normalize(usdc, amount);
         uint256 expectedNormalizedAmount = bn(100, STANDARD_DECIMALS);
-        assertEq(actualNormalizedAmount, expectedNormalizedAmount);
+        assertEq(actualNormalizedAmount, expectedNormalizedAmount, "normalizedAmount");
     }
 
     modifier scalarNot1() {
@@ -54,7 +54,7 @@ contract Normalize_Test is ERC20NormalizerTest {
         uint256 amount = 0;
         uint256 actualNormalizedAmount = erc20Normalizer.normalize(usdc, amount);
         uint256 expectedNormalizedAmount = 0;
-        assertEq(actualNormalizedAmount, expectedNormalizedAmount);
+        assertEq(actualNormalizedAmount, expectedNormalizedAmount, "normalizedAmount");
     }
 
     modifier amountNotZero() {
@@ -77,6 +77,6 @@ contract Normalize_Test is ERC20NormalizerTest {
         unchecked {
             expectedNormalizedAmount = amount * USDC_SCALAR;
         }
-        assertEq(actualNormalizedAmount, expectedNormalizedAmount);
+        assertEq(actualNormalizedAmount, expectedNormalizedAmount, "normalizedAmount");
     }
 }

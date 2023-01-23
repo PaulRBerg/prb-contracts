@@ -8,7 +8,7 @@ contract BalanceOf_Test is ERC20Test {
     function test_BalanceOf_DoesNotHaveBalance(address foo) external {
         uint256 actualBalance = dai.balanceOf(foo);
         uint256 expectedBalance = 0;
-        assertEq(actualBalance, expectedBalance);
+        assertEq(actualBalance, expectedBalance, "balance");
     }
 
     /// @dev it should return the correct balance.
@@ -22,6 +22,6 @@ contract BalanceOf_Test is ERC20Test {
         // Run the test.
         uint256 actualBalance = dai.balanceOf(foo);
         uint256 expectedBalance = amount;
-        assertEq(actualBalance, expectedBalance);
+        assertEq(actualBalance, expectedBalance, "balance");
     }
 }

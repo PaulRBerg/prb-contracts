@@ -85,6 +85,18 @@ abstract contract BaseTest is PRBTest, Cheats {
         }
     }
 
+    /// @dev Helper function to compare two `IERC20` arrays.
+    function assertEq(
+        IERC20[] memory a,
+        IERC20[] memory b,
+        string memory err
+    ) internal {
+        if (keccak256(abi.encode(a)) != keccak256(abi.encode(b))) {
+            emit LogNamedString("Error", err);
+            assertEq(a, b);
+        }
+    }
+
     /// @dev Generates an address by hashing the name, labels the address and funds it with 100 ETH, 1 million DAI,
     /// and 1 million non-compliant tokens.
     function createUser(string memory name) internal returns (address payable addr) {

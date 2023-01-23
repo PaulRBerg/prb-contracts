@@ -8,6 +8,6 @@ contract Version_Test is ERC20PermitTest {
     function test_Version() external {
         string memory actualVersion = erc20Permit.version();
         string memory expectedVersion = version;
-        assertEq(actualVersion, expectedVersion);
+        assertEq(actualVersion, expectedVersion, "version");
     }
 }

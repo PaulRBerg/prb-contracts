@@ -8,6 +8,6 @@ contract DomainSeparator_Test is ERC20PermitTest {
     function test_DomainSeparator() external {
         bytes32 actualDomainSeparator = erc20Permit.DOMAIN_SEPARATOR();
         bytes32 expectedDomainSeparator = DOMAIN_SEPARATOR;
-        assertEq(actualDomainSeparator, expectedDomainSeparator);
+        assertEq(actualDomainSeparator, expectedDomainSeparator, "domainSeparator");
     }
 }

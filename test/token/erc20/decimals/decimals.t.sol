@@ -8,6 +8,6 @@ contract Decimals_Test is ERC20Test {
     function test_Decimals() external {
         uint8 actualDecimals = dai.decimals();
         uint8 expectedDecimals = 18;
-        assertEq(actualDecimals, expectedDecimals);
+        assertEq(actualDecimals, expectedDecimals, "decimals");
     }
 }

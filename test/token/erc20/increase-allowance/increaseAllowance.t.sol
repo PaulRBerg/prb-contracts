@@ -32,7 +32,7 @@ contract IncreaseAllowance_Test is ERC20Test {
         dai.increaseAllowance(spender, value);
         uint256 actualAllowance = dai.allowance(users.alice, spender);
         uint256 expectedAllowance = value;
-        assertEq(actualAllowance, expectedAllowance);
+        assertEq(actualAllowance, expectedAllowance, "allowance");
     }
 
     /// @dev it should emit an Approval event.

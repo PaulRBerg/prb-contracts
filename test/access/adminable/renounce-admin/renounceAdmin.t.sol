@@ -29,6 +29,6 @@ contract RenounceAdmin_Test is AdminableTest {
         adminable.renounceAdmin();
         address actualAdmin = adminable.admin();
         address expectedAdmin = address(0);
-        assertEq(actualAdmin, expectedAdmin);
+        assertEq(actualAdmin, expectedAdmin, "admin");
     }
 }

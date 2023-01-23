@@ -45,7 +45,7 @@ contract DecreaseAllowance_Test is ERC20Test {
         dai.decreaseAllowance(spender, value1);
         uint256 actualAllowance = dai.allowance(users.alice, spender);
         uint256 expectedAllowance = value0 - value1;
-        assertEq(actualAllowance, expectedAllowance);
+        assertEq(actualAllowance, expectedAllowance, "allowance");
     }
 
     /// @dev it should emit an Approval event.

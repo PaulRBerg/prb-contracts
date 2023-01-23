@@ -129,7 +129,7 @@ contract Permit_Test is ERC20PermitTest {
         erc20Permit.permit(owner, spender, value, deadline, v, r, s);
         uint256 actualAllowance = erc20Permit.allowance(owner, spender);
         uint256 expectedAllowance = value;
-        assertEq(actualAllowance, expectedAllowance);
+        assertEq(actualAllowance, expectedAllowance, "allowance");
     }
 
     /// @dev it should increase the nonce of the owner.
@@ -153,7 +153,7 @@ contract Permit_Test is ERC20PermitTest {
         erc20Permit.permit(owner, spender, value, deadline, v, r, s);
         uint256 actualNonce = erc20Permit.nonces(owner);
         uint256 expectedNonce = 1;
-        assertEq(actualNonce, expectedNonce);
+        assertEq(actualNonce, expectedNonce, "nonce");
     }
 
     /// @dev it should emit an Approval event.

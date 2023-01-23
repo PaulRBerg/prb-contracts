@@ -8,6 +8,6 @@ contract Name_Test is ERC20Test {
     function test_Name() external {
         string memory actualName = dai.name();
         string memory expectedName = "Dai Stablecoin";
-        assertEq(actualName, expectedName);
+        assertEq(actualName, expectedName, "name");
     }
 }

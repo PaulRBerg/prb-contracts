@@ -47,7 +47,7 @@ contract Transfer_Test is ERC20Test {
         dai.transfer(users.alice, amount);
     }
 
-    modifier senderEnoughBalance() {
+    modifier enderEnoughBalance() {
         _;
     }
 
@@ -56,7 +56,7 @@ contract Transfer_Test is ERC20Test {
         external
         senderNotZeroAddress
         recipientNotZeroAddress
-        senderEnoughBalance
+        enderEnoughBalance
     {
         vm.assume(amount > 0);
 
@@ -67,7 +67,7 @@ contract Transfer_Test is ERC20Test {
         uint256 expectedBalance = dai.balanceOf(users.alice);
         dai.transfer(users.alice, amount);
         uint256 actualBalance = dai.balanceOf(users.alice);
-        assertEq(actualBalance, expectedBalance);
+        assertEq(actualBalance, expectedBalance, "balance");
     }
 
     /// @dev Checks common assumptions for the tests below.
@@ -82,7 +82,7 @@ contract Transfer_Test is ERC20Test {
         external
         senderNotZeroAddress
         recipientNotZeroAddress
-        senderEnoughBalance
+        enderEnoughBalance
     {
         checkAssumptions(to, amount);
 
@@ -94,7 +94,7 @@ contract Transfer_Test is ERC20Test {
         dai.transfer(to, amount);
         uint256 actualBalance = dai.balanceOf(to);
         uint256 expectedBalance = previousBalance + amount;
-        assertEq(actualBalance, expectedBalance);
+        assertEq(actualBalance, expectedBalance, "balance");
     }
 
     /// @dev it should emit a Transfer event.
@@ -102,7 +102,7 @@ contract Transfer_Test is ERC20Test {
         external
         senderNotZeroAddress
         recipientNotZeroAddress
-        senderEnoughBalance
+        enderEnoughBalance
     {
         checkAssumptions(to, amount);
 

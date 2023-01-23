@@ -53,7 +53,7 @@ contract ComputeScalar_Test is ERC20NormalizerTest {
         erc20Normalizer.computeScalar(dai);
         uint256 actualScalar = erc20Normalizer.getScalar(dai);
         uint256 expectedScalar = 1;
-        assertEq(actualScalar, expectedScalar);
+        assertEq(actualScalar, expectedScalar, "scalar");
     }
 
     /// @dev it should compute the scalar.
@@ -61,6 +61,6 @@ contract ComputeScalar_Test is ERC20NormalizerTest {
         erc20Normalizer.computeScalar(usdc);
         uint256 actualScalar = erc20Normalizer.getScalar(usdc);
         uint256 expectedScalar = 10**(18 - usdc.decimals());
-        assertEq(actualScalar, expectedScalar);
+        assertEq(actualScalar, expectedScalar, "scalar");
     }
 }

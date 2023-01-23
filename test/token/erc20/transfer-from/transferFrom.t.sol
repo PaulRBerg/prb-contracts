@@ -72,8 +72,8 @@ contract TransferFrom_Test is ERC20Test {
         uint256 expectedOwnerBalance = previousOwnerBalance - amount1;
         uint256 expectedToBalance = previousToBalance + amount1;
 
-        assertEq(actualOwnerBalance, expectedOwnerBalance);
-        assertEq(actualToBalance, expectedToBalance);
+        assertEq(actualOwnerBalance, expectedOwnerBalance, "owner balance");
+        assertEq(actualToBalance, expectedToBalance, "to balance");
     }
 
     /// @dev it should emit an Approval and a Transfer event.

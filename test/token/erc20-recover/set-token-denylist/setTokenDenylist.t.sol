@@ -54,11 +54,11 @@ contract SetTokenDenylist_Test is ERC20RecoverTest {
         // Compare the token denylists.
         IERC20[] memory actualTokenDenylist = erc20Recover.getTokenDenylist();
         IERC20[] memory expectedTokenDenylist = TOKEN_DENYLIST;
-        assertEq(actualTokenDenylist, expectedTokenDenylist);
+        assertEq(actualTokenDenylist, expectedTokenDenylist, "tokenDenylist");
 
         // Check that the flag has been set to true.
         bool isTokenDenylistSet = erc20Recover.isTokenDenylistSet();
-        assertEq(isTokenDenylistSet, true);
+        assertTrue(isTokenDenylistSet, "isTokenDenylistSet");
     }
 
     /// @dev it should emit a SetTokenDenylist event.

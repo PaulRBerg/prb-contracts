@@ -62,7 +62,7 @@ contract Burn_Test is ERC20Test {
         dai.burn(holder, burnAmount);
         uint256 actualBalance = dai.balanceOf(holder);
         uint256 expectedBalance = mintAmount - burnAmount;
-        assertEq(actualBalance, expectedBalance);
+        assertEq(actualBalance, expectedBalance, "balance");
     }
 
     /// @dev it should decrease the total supply.
@@ -81,7 +81,7 @@ contract Burn_Test is ERC20Test {
         dai.burn(holder, burnAmount);
         uint256 actualTotalSupply = dai.totalSupply();
         uint256 expectedTotalSupply = previousTotalSupply - burnAmount;
-        assertEq(actualTotalSupply, expectedTotalSupply);
+        assertEq(actualTotalSupply, expectedTotalSupply, "balance");
     }
 
     /// @dev it should emit a Transfer event.

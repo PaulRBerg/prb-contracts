@@ -14,7 +14,7 @@ contract Denormalize_Test is ERC20NormalizerTest {
         uint256 amount = bn(100, STANDARD_DECIMALS);
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount = bn(100, usdc.decimals());
-        assertEq(expectedDenormalizedAmount, actualDenormalizedAmount);
+        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount, "normalizedAmount");
     }
 
     modifier scalarComputed() {
@@ -27,7 +27,7 @@ contract Denormalize_Test is ERC20NormalizerTest {
         uint256 amount = bn(100, STANDARD_DECIMALS);
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount = bn(100, usdc.decimals());
-        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount);
+        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount, "normalizedAmount");
     }
 
     modifier scalarNot1() {
@@ -40,7 +40,7 @@ contract Denormalize_Test is ERC20NormalizerTest {
         uint256 amount = 0;
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount = 0;
-        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount);
+        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount, "normalizedAmount");
     }
 
     modifier amountNotZero() {
@@ -53,7 +53,7 @@ contract Denormalize_Test is ERC20NormalizerTest {
         uint256 amount = USDC_SCALAR - 1;
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize(usdc, amount);
         uint256 expectedDenormalizedAmount = 0;
-        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount);
+        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount, "normalizedAmount");
     }
 
     /// @dev it should return the denormalized amount.
@@ -70,6 +70,6 @@ contract Denormalize_Test is ERC20NormalizerTest {
         unchecked {
             expectedDenormalizedAmount = amount / USDC_SCALAR;
         }
-        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount);
+        assertEq(actualDenormalizedAmount, expectedDenormalizedAmount, "normalizedAmount");
     }
 }

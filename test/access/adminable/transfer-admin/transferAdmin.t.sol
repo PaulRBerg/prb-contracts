@@ -39,7 +39,7 @@ contract TransferAdmin_Test is AdminableTest {
         adminable.transferAdmin(users.admin);
         address actualAdmin = adminable.admin();
         address expectedAdmin = users.admin;
-        assertEq(actualAdmin, expectedAdmin);
+        assertEq(actualAdmin, expectedAdmin, "admin");
     }
 
     /// @dev it should emit a TransferAdmin event and set the new admin.
@@ -50,6 +50,6 @@ contract TransferAdmin_Test is AdminableTest {
         adminable.transferAdmin(newAdmin);
         address actualAdmin = adminable.admin();
         address expectedAdmin = newAdmin;
-        assertEq(actualAdmin, expectedAdmin);
+        assertEq(actualAdmin, expectedAdmin, "admin");
     }
 }

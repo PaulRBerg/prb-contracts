@@ -8,6 +8,6 @@ contract PermitTypehash_Test is ERC20PermitTest {
     function test_PermitTypehash() external {
         bytes32 actualPermitTypehash = erc20Permit.PERMIT_TYPEHASH();
         bytes32 expectedPermitTypehash = PERMIT_TYPEHASH;
-        assertEq(actualPermitTypehash, expectedPermitTypehash);
+        assertEq(actualPermitTypehash, expectedPermitTypehash, "permitTypehash");
     }
 }
