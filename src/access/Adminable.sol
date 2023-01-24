@@ -17,7 +17,7 @@ contract Adminable is IAdminable {
                                       MODIFIERS
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Throws if called by any account other than the admin.
+    /// @notice Reverts if called by any account other than the admin.
     modifier onlyAdmin() {
         if (admin != msg.sender) {
             revert Adminable_CallerNotAdmin({ admin: admin, caller: msg.sender });

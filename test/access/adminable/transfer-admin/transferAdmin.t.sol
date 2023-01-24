@@ -43,7 +43,7 @@ contract TransferAdmin_Test is AdminableTest {
     }
 
     /// @dev it should emit a TransferAdmin event and set the new admin.
-    function testFuzz_TransferAdmin_SameAdmin(address newAdmin) external callerAdmin adminNotZeroAddress {
+    function testFuzz_TransferAdmin_NewAdmin(address newAdmin) external callerAdmin adminNotZeroAddress {
         vm.assume(newAdmin != address(0) && newAdmin != users.admin);
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: false });
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: newAdmin });

@@ -19,11 +19,11 @@ interface IAdminable {
                                     CUSTOM ERRORS
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Emitted when the caller is not the admin.
-    error Adminable_CallerNotAdmin(address admin, address caller);
-
     /// @notice Emitted when setting the admin to the zero address.
     error Adminable_AdminZeroAddress();
+
+    /// @notice Emitted when the caller is not the admin.
+    error Adminable_CallerNotAdmin(address admin, address caller);
 
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS
@@ -33,6 +33,14 @@ interface IAdminable {
     /// @param oldAdmin The address of the old admin.
     /// @param newAdmin The address of the new admin.
     event TransferAdmin(address indexed oldAdmin, address indexed newAdmin);
+
+    /*//////////////////////////////////////////////////////////////////////////
+                                 CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
+
+    /// @notice The address of the admin account or contract.
+    /// @return The address of the admin.
+    function admin() external view returns (address);
 
     /*//////////////////////////////////////////////////////////////////////////
                                NON-CONSTANT FUNCTIONS
@@ -53,12 +61,4 @@ interface IAdminable {
     /// called by the current admin.
     /// @param newAdmin The address of the new admin.
     function transferAdmin(address newAdmin) external;
-
-    /*//////////////////////////////////////////////////////////////////////////
-                                 CONSTANT FUNCTIONS
-    //////////////////////////////////////////////////////////////////////////*/
-
-    /// @notice The address of the admin account or contract.
-    /// @return The address of the admin.
-    function admin() external view returns (address);
 }
