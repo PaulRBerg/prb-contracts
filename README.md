@@ -1,7 +1,7 @@
 # PRBContracts [![GitHub Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![Styled with Prettier][prettier-badge]][prettier] [![License: MIT][license-badge]][license]
 
-[gha]: https://github.com/paulrberg/prb-contracts/actions
-[gha-badge]: https://github.com/paulrberg/prb-contracts/actions/workflows/ci.yml/badge.svg
+[gha]: https://github.com/PaulRBerg/prb-contracts/actions
+[gha-badge]: https://github.com/PaulRBerg/prb-contracts/actions/workflows/ci.yml/badge.svg
 [foundry]: https://getfoundry.sh/
 [foundry-badge]: https://img.shields.io/badge/Built%20with-Foundry-FFDB1C.svg
 [prettier]: https://prettier.io
@@ -27,7 +27,7 @@ find it useful too, that's a win-win.
 First, run the install step:
 
 ```sh
-forge install --no-commit paulrberg/prb-contracts
+forge install --no-commit PaulRBerg/prb-contracts
 ```
 
 Then, add the following line to your `remappings.txt` file:
@@ -60,8 +60,8 @@ contract MyToken is ERC20, ERC20Permit {
 
 ## Contributing
 
-Feel free to dive in! [Open](https://github.com/paulrberg/prb-proxy/issues/new) an issue,
-[start](https://github.com/paulrberg/prb-proxy/discussions/new) a discussion or submit a PR.
+Feel free to dive in! [Open](https://github.com/PaulRBerg/prb-proxy/issues/new) an issue,
+[start](https://github.com/PaulRBerg/prb-proxy/discussions/new) a discussion or submit a PR.
 
 ### Pre Requisites
 
@@ -79,7 +79,7 @@ In addition, familiarity with [Solidity](https://soliditylang.org/) is requisite
 Clone this repository including submodules:
 
 ```sh
-$ git clone --recurse-submodules -j8 git@github.com:paulrberg/prb-contracts.git
+$ git clone --recurse-submodules -j8 git@github.com:PaulRBerg/prb-contracts.git
 ```
 
 Then, inside the project's directory, run this to install the Node.js dependencies:
@@ -109,7 +109,7 @@ will not be liable for any loss, direct or indirect through continued use of thi
 
 ### Contact
 
-If you discover any security issues, please contact me via [Keybase](https://keybase.io/paulrberg).
+If you discover any security issues, please contact me via [Keybase](https://keybase.io/PaulRBerg).
 
 ## Related Efforts
 
