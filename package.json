@@ -9,9 +9,6 @@
   "bugs": {
     "url": "https://github.com/paulrberg/prb-contracts/issues"
   },
-  "dependencies": {
-    "@prb/math": "^2.5.0"
-  },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
@@ -40,9 +37,6 @@
   ],
   "license": "MIT",
   "packageManager": "yarn@3.2.0",
-  "peerDependencies": {
-    "@prb/math": "2.x"
-  },
   "publishConfig": {
     "access": "public"
   },
@@ -52,12 +46,11 @@
     "url": "https://github.com/paulrberg/prb-contracts"
   },
   "scripts": {
+    "build": "forge build",
     "clean": "rimraf broadcast cache out",
-    "lint": "yarn solhint && yarn prettier:check",
-    "lint:check": "yarn prettier:check && yarn solhint:check",
+    "lint": "yarn prettier:check && yarn solhint \"{src,test}/**/*.sol\"",
     "postinstall": "husky install",
     "prettier:check": "prettier --check \"**/*.{json,md,sol,yml}\"",
-    "prettier:write": "prettier --write \"**/*.{json,md,sol,yml}\"",
-    "solhint": "solhint \"{src,test}/**/*.sol\""
+    "prettier:write": "prettier --write \"**/*.{json,md,sol,yml}\""
   }
 }
