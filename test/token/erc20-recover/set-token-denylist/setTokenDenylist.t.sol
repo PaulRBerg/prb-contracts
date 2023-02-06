@@ -5,9 +5,9 @@ import { IAdminable } from "src/access/IAdminable.sol";
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 import { IERC20Recover } from "src/token/erc20/IERC20Recover.sol";
 
-import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
+import { ERC20Recover_Test } from "../ERC20Recover.t.sol";
 
-contract SetTokenDenylist_Test is ERC20RecoverTest {
+contract SetTokenDenylist_Test is ERC20Recover_Test {
     /// @dev it should revert.
     function test_RevertWhen_CallerNotAdmin() external {
         // Make Eve the caller in this test.
@@ -61,10 +61,10 @@ contract SetTokenDenylist_Test is ERC20RecoverTest {
         assertTrue(isTokenDenylistSet, "isTokenDenylistSet");
     }
 
-    /// @dev it should emit a SetTokenDenylist event.
+    /// @dev it should emit a {SetTokenDenylist} event.
     function test_SetTokenDenylist_Event() external callerAdmin tokenDenylistNotAlreadySet allTokensHaveASymbol {
         vm.expectEmit({ checkTopic1: true, checkTopic2: false, checkTopic3: false, checkData: true });
-        emit SetTokenDenylist(users.admin, TOKEN_DENYLIST);
+        emit SetTokenDenylist({ owner: users.admin, tokenDenylist: TOKEN_DENYLIST });
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 }

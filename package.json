@@ -21,6 +21,7 @@
     "lint-staged": "^12.3.7",
     "prettier": "^2.6.2",
     "prettier-plugin-solidity": "^1.0.0-dev.21",
+    "rimraf": "^4.1.2",
     "solhint": "^3.3.7",
     "solhint-plugin-prettier": "^0.0.5"
   },
@@ -51,6 +52,7 @@
     "url": "https://github.com/paulrberg/prb-contracts"
   },
   "scripts": {
+    "clean": "rimraf broadcast cache out",
     "lint": "yarn solhint && yarn prettier:check",
     "lint:check": "yarn prettier:check && yarn solhint:check",
     "postinstall": "husky install",

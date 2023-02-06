@@ -4,11 +4,11 @@ pragma solidity >=0.8.4 <0.9.0;
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { ERC20NormalizerMock } from "../../shared/ERC20NormalizerMock.t.sol";
-import { BaseTest } from "../../BaseTest.t.sol";
+import { Base_Test } from "../../Base.t.sol";
 
-/// @title ERC20NormalizerTest
-/// @notice Common contract members needed across ERC20Normalizer test contracts.
-abstract contract ERC20NormalizerTest is BaseTest {
+/// @title ERC20Normalizer_Test
+/// @notice Common contract members needed across {ERC20Normalizer} test contracts.
+abstract contract ERC20Normalizer_Test is Base_Test {
     /*//////////////////////////////////////////////////////////////////////////
                                      CONSTANTS
     //////////////////////////////////////////////////////////////////////////*/

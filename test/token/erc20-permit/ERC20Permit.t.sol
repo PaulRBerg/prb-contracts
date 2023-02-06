@@ -3,11 +3,11 @@ pragma solidity >=0.8.4 <0.9.0;
 
 import { ERC20Permit } from "src/token/erc20/ERC20Permit.sol";
 
-import { BaseTest } from "../../BaseTest.t.sol";
+import { Base_Test } from "../../Base.t.sol";
 
-/// @title ERC20PermitTest
-/// @notice Common contract members needed across ERC20Permit test contracts.
-abstract contract ERC20PermitTest is BaseTest {
+/// @title ERC20Permit_Test
+/// @notice Common contract members needed across {ERC20Permit} test contracts.
+abstract contract ERC20Permit_Test is Base_Test {
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS
     //////////////////////////////////////////////////////////////////////////*/

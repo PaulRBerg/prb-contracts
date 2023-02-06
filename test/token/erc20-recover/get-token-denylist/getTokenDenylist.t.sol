@@ -3,9 +3,9 @@ pragma solidity >=0.8.4 <0.9.0;
 
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 
-import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
+import { ERC20Recover_Test } from "../ERC20Recover.t.sol";
 
-contract GetTokenDenylist_Test is ERC20RecoverTest {
+contract GetTokenDenylist_Test is ERC20Recover_Test {
     /// @dev it should return an empty array.
     function test_GetTokenDenylist_TokenDenylistNotSet() external {
         IERC20[] memory actualTokenDenylist = erc20Recover.getTokenDenylist();

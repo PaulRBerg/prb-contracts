@@ -1,17 +1,20 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import { stdError } from "forge-std/Test.sol";
+import { stdError } from "forge-std/StdError.sol";
 
-import { ERC20Test } from "../ERC20.t.sol";
+import { ERC20_Test } from "../ERC20.t.sol";
 
-contract DecreaseAllowance_Test is ERC20Test {
+contract DecreaseAllowance_Test is ERC20_Test {
     /// @dev it should revert.
     function test_RevertWhen_CalculationUnderflowsUint256(address spender, uint256 value) external {
         vm.assume(spender != address(0));
         vm.assume(value > 0);
 
+        // Expect an arithmetic error.
         vm.expectRevert(stdError.arithmeticError);
+
+        // Decrease the allowance.
         dai.decreaseAllowance(spender, value);
     }
 
@@ -20,14 +23,9 @@ contract DecreaseAllowance_Test is ERC20Test {
     }
 
     /// @dev Check common assumptions for the tests below.
-    function checkAssumptions(
-        address spender,
-        uint256 value0,
-        uint256 value1
-    ) internal pure {
+    function checkAssumptions(address spender, uint256 value0) internal pure {
         vm.assume(spender != address(0));
         vm.assume(value0 > 0);
-        vm.assume(value1 <= value0);
     }
 
     /// @dev it should decrease the allowance.
@@ -36,13 +34,16 @@ contract DecreaseAllowance_Test is ERC20Test {
         uint256 value0,
         uint256 value1
     ) external calculationDoesNotUnderflowUint256 {
-        checkAssumptions(spender, value0, value1);
+        checkAssumptions(spender, value0);
+        value1 = bound(value1, 0, value0);
 
         // Increase the allowance so that we have what to decrease below.
         dai.increaseAllowance(spender, value0);
 
-        // Run the test.
+        // Decrease the allowance.
         dai.decreaseAllowance(spender, value1);
+
+        // Assert that the allowance has been decreased.
         uint256 actualAllowance = dai.allowance(users.alice, spender);
         uint256 expectedAllowance = value0 - value1;
         assertEq(actualAllowance, expectedAllowance, "allowance");
@@ -54,15 +55,18 @@ contract DecreaseAllowance_Test is ERC20Test {
         uint256 value0,
         uint256 value1
     ) external calculationDoesNotUnderflowUint256 {
-        checkAssumptions(spender, value0, value1);
+        checkAssumptions(spender, value0);
+        value1 = bound(value1, 0, value0);
 
         // Increase the allowance so that we have what to decrease below.
         dai.increaseAllowance(spender, value0);
 
-        // Run the test.
+        // Expect an {Approval} event to be emitted.
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         uint256 expectedAllowance = value0 - value1;
         emit Approval(users.alice, spender, expectedAllowance);
+
+        // Decrease the allowance.
         dai.decreaseAllowance(spender, value1);
     }
 }

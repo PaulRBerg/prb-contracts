@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import { ERC20Test } from "../ERC20.t.sol";
+import { ERC20_Test } from "../ERC20.t.sol";
 
-contract BalanceOf_Test is ERC20Test {
+contract BalanceOf_Test is ERC20_Test {
     /// @dev it should return zero.
     function test_BalanceOf_DoesNotHaveBalance(address foo) external {
         uint256 actualBalance = dai.balanceOf(foo);
@@ -11,13 +11,17 @@ contract BalanceOf_Test is ERC20Test {
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
+    modifier hasBalance() {
+        _;
+    }
+
     /// @dev it should return the correct balance.
-    function testFuzz_BalanceOf_HasBalance(address foo, uint256 amount) external {
+    function testFuzz_BalanceOf(address foo, uint256 amount) external hasBalance {
         vm.assume(foo != address(0));
-        vm.assume(amount < ONE_MILLION_DAI);
+        amount = bound(amount, 1, ONE_MILLION_DAI);
 
         // Mint `amount` tokens to `foo`.
-        dai.mint(foo, amount);
+        dai.mint({ beneficiary: foo, amount: amount });
 
         // Run the test.
         uint256 actualBalance = dai.balanceOf(foo);

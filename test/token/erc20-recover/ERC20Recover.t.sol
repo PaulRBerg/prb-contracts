@@ -4,17 +4,17 @@ pragma solidity >=0.8.4 <0.9.0;
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 
 import { ERC20RecoverMock } from "../../shared/ERC20RecoverMock.t.sol";
-import { BaseTest } from "../../BaseTest.t.sol";
+import { Base_Test } from "../../Base.t.sol";
 import { SymbollessERC20 } from "../../shared/SymbollessERC20.t.sol";
 
-/// @title ERC20RecoverTest
-/// @notice Common contract members needed across ERC20Recover test contracts.
-abstract contract ERC20RecoverTest is BaseTest {
+/// @title ERC20Recover_Test
+/// @notice Common contract members needed across {ERC20Recover} test contracts.
+abstract contract ERC20Recover_Test is Base_Test {
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS
     //////////////////////////////////////////////////////////////////////////*/
 
-    event Recover(address indexed owner, IERC20 token, uint256 amount);
+    event Recover(address indexed owner, IERC20 indexed token, uint256 amount);
     event SetTokenDenylist(address indexed owner, IERC20[] tokenDenylist);
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ abstract contract ERC20RecoverTest is BaseTest {
     //////////////////////////////////////////////////////////////////////////*/
 
     IERC20[] internal TOKEN_DENYLIST = [dai];
-    uint256 internal RECOVER_AMOUNT = bn(100, 6);
+    uint256 internal constant DEFAULT_RECOVER_AMOUNT = 100e6;
 
     /*//////////////////////////////////////////////////////////////////////////
                                    TEST CONTRACTS
@@ -37,13 +37,13 @@ abstract contract ERC20RecoverTest is BaseTest {
 
     /// @dev A setup function invoked before each test case.
     function setUp() public virtual override {
-        BaseTest.setUp();
+        Base_Test.setUp();
 
         // Deploy the contracts.
         erc20Recover = new ERC20RecoverMock();
         symbollessToken = new SymbollessERC20("Symbolless Token", 18);
 
         // Give 100 USDC to the recover contract.
-        usdc.mint(address(erc20Recover), RECOVER_AMOUNT);
+        usdc.mint(address(erc20Recover), DEFAULT_RECOVER_AMOUNT);
     }
 }

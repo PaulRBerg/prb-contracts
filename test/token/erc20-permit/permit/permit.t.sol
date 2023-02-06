@@ -3,17 +3,21 @@ pragma solidity >=0.8.4 <0.9.0;
 
 import { IERC20Permit } from "src/token/erc20/IERC20Permit.sol";
 
-import { ERC20PermitTest } from "../ERC20Permit.t.sol";
+import { ERC20Permit_Test } from "../ERC20Permit.t.sol";
 
-contract Permit_Test is ERC20PermitTest {
+contract Permit_Test is ERC20Permit_Test {
     /// @dev it should revert.
     function test_RevertWhen_OwnerZeroAddress() external {
-        address owner = address(0);
-        address spender = users.alice;
-        uint256 value = 1;
-        uint256 deadline = DECEMBER_2099;
         vm.expectRevert(IERC20Permit.ERC20Permit_OwnerZeroAddress.selector);
-        erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
+        erc20Permit.permit({
+            owner: address(0),
+            spender: users.alice,
+            value: 1,
+            deadline: DECEMBER_2099,
+            v: DUMMY_V,
+            r: DUMMY_R,
+            s: DUMMY_S
+        });
     }
 
     modifier ownerNotZeroAddress() {
@@ -22,12 +26,16 @@ contract Permit_Test is ERC20PermitTest {
 
     /// @dev it should revert.
     function test_RevertWhen_SpenderZeroAddress() external ownerNotZeroAddress {
-        address owner = users.alice;
-        address spender = address(0);
-        uint256 value = 1;
-        uint256 deadline = DECEMBER_2099;
         vm.expectRevert(IERC20Permit.ERC20Permit_SpenderZeroAddress.selector);
-        erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
+        erc20Permit.permit({
+            owner: users.alice,
+            spender: address(0),
+            value: 1,
+            deadline: DECEMBER_2099,
+            v: DUMMY_V,
+            r: DUMMY_R,
+            s: DUMMY_S
+        });
     }
 
     modifier spenderNotZeroAddress() {
@@ -36,15 +44,20 @@ contract Permit_Test is ERC20PermitTest {
 
     /// @dev it should revert.
     function test_RevertWhen_DeadlineInThePast(uint256 deadline) external ownerNotZeroAddress spenderNotZeroAddress {
-        vm.assume(deadline < block.timestamp);
+        deadline = bound(deadline, 0, block.timestamp - 1);
 
-        address owner = users.alice;
-        address spender = users.bob;
-        uint256 value = 1;
         vm.expectRevert(
             abi.encodeWithSelector(IERC20Permit.ERC20Permit_PermitExpired.selector, block.timestamp, deadline)
         );
-        erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
+        erc20Permit.permit({
+            owner: users.alice,
+            spender: users.bob,
+            value: 1,
+            deadline: deadline,
+            v: DUMMY_V,
+            r: DUMMY_R,
+            s: DUMMY_S
+        });
     }
 
     modifier deadlineNotInThePast() {
@@ -61,14 +74,19 @@ contract Permit_Test is ERC20PermitTest {
         spenderNotZeroAddress
         deadlineNotInThePast
     {
-        vm.assume(deadline >= block.timestamp);
         vm.assume(v != 27 && v != 28);
+        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
-        address owner = users.alice;
-        address spender = users.bob;
-        uint256 value = 1;
         vm.expectRevert(IERC20Permit.ERC20Permit_RecoveredOwnerZeroAddress.selector);
-        erc20Permit.permit(owner, spender, value, deadline, v, DUMMY_R, DUMMY_S);
+        erc20Permit.permit({
+            owner: users.alice,
+            spender: users.bob,
+            value: 1,
+            deadline: deadline,
+            v: v,
+            r: DUMMY_R,
+            s: DUMMY_S
+        });
     }
 
     modifier recoveredOwnerNotZeroAddress() {
@@ -83,29 +101,25 @@ contract Permit_Test is ERC20PermitTest {
         deadlineNotInThePast
         recoveredOwnerNotZeroAddress
     {
-        vm.assume(deadline >= block.timestamp);
+        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
+
         address owner = users.alice;
-        address spender = users.bob;
-        uint256 value = 1;
         vm.expectRevert(
             abi.encodeWithSelector(IERC20Permit.ERC20Permit_InvalidSignature.selector, owner, DUMMY_V, DUMMY_R, DUMMY_S)
         );
-        erc20Permit.permit(owner, spender, value, deadline, DUMMY_V, DUMMY_R, DUMMY_S);
+        erc20Permit.permit({
+            owner: owner,
+            spender: users.bob,
+            value: 1,
+            deadline: deadline,
+            v: DUMMY_V,
+            r: DUMMY_R,
+            s: DUMMY_S
+        });
     }
 
     modifier signatureValid() {
         _;
-    }
-
-    /// @dev Checks common assumptions for the tests below.
-    function checkAssumptions(
-        uint256 privateKey,
-        address spender,
-        uint256 deadline
-    ) internal view {
-        vm.assume(privateKey > 0 && privateKey < SECP256K1_ORDER);
-        vm.assume(spender != address(0));
-        vm.assume(deadline >= block.timestamp);
     }
 
     /// @dev it should update the spender's allowance.
@@ -122,7 +136,9 @@ contract Permit_Test is ERC20PermitTest {
         recoveredOwnerNotZeroAddress
         signatureValid
     {
-        checkAssumptions(privateKey, spender, deadline);
+        vm.assume(spender != address(0));
+        privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);
+        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
         (uint8 v, bytes32 r, bytes32 s) = getSignature(privateKey, owner, spender, value, deadline);
@@ -146,7 +162,9 @@ contract Permit_Test is ERC20PermitTest {
         recoveredOwnerNotZeroAddress
         signatureValid
     {
-        checkAssumptions(privateKey, spender, deadline);
+        vm.assume(spender != address(0));
+        privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);
+        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
         (uint8 v, bytes32 r, bytes32 s) = getSignature(privateKey, owner, spender, value, deadline);
@@ -170,7 +188,9 @@ contract Permit_Test is ERC20PermitTest {
         recoveredOwnerNotZeroAddress
         signatureValid
     {
-        checkAssumptions(privateKey, spender, deadline);
+        vm.assume(spender != address(0));
+        privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);
+        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });

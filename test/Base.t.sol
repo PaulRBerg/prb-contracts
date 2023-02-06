@@ -2,15 +2,16 @@
 pragma solidity >=0.8.4 <0.9.0;
 
 import { PRBTest } from "@prb/test/PRBTest.sol";
-import { Cheats } from "forge-std/Cheats.sol";
+import { StdCheats } from "forge-std/StdCheats.sol";
+import { StdUtils } from "forge-std/StdUtils.sol";
 
 import { ERC20GodMode } from "src/token/erc20/ERC20GodMode.sol";
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 
-/// @title BaseTest
+/// @title Base_Test
 /// @author Paul Razvan Berg
 /// @notice Common contract members needed across test contracts.
-abstract contract BaseTest is PRBTest, Cheats {
+abstract contract Base_Test is PRBTest, StdCheats, StdUtils {
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS
     //////////////////////////////////////////////////////////////////////////*/

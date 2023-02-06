@@ -5,9 +5,9 @@ import { IAdminable } from "src/access/IAdminable.sol";
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 import { IERC20Recover } from "src/token/erc20/IERC20Recover.sol";
 
-import { ERC20RecoverTest } from "../ERC20Recover.t.sol";
+import { ERC20Recover_Test } from "../ERC20Recover.t.sol";
 
-contract Recover_Test is ERC20RecoverTest {
+contract Recover_Test is ERC20Recover_Test {
     /// @dev it should revert.
     function test_RevertWhen_CallerNotOwner() external {
         // Make Eve the caller in this test.
@@ -16,7 +16,7 @@ contract Recover_Test is ERC20RecoverTest {
 
         // Run the test.
         vm.expectRevert(abi.encodeWithSelector(IAdminable.Adminable_CallerNotAdmin.selector, users.admin, caller));
-        erc20Recover.recover(dai, RECOVER_AMOUNT);
+        erc20Recover.recover({ token: dai, amount: DEFAULT_RECOVER_AMOUNT });
     }
 
     modifier callerOwner() {
@@ -26,7 +26,7 @@ contract Recover_Test is ERC20RecoverTest {
     /// @dev it should revert.
     function test_RevertWhen_TokenDenylistNotSet() external callerOwner {
         vm.expectRevert(IERC20Recover.ERC20Recover_TokenDenylistNotSet.selector);
-        erc20Recover.recover(dai, RECOVER_AMOUNT);
+        erc20Recover.recover({ token: dai, amount: DEFAULT_RECOVER_AMOUNT });
     }
 
     modifier tokenDenylistSet() {
@@ -37,7 +37,7 @@ contract Recover_Test is ERC20RecoverTest {
     /// @dev it should revert.
     function test_RevertWhen_RecoverAmountZero() external callerOwner tokenDenylistSet {
         vm.expectRevert(IERC20Recover.ERC20Recover_RecoverAmountZero.selector);
-        erc20Recover.recover(dai, 0);
+        erc20Recover.recover({ token: dai, amount: 0 });
     }
 
     modifier recoverAmountNotZero() {
@@ -50,7 +50,7 @@ contract Recover_Test is ERC20RecoverTest {
         vm.expectRevert(
             abi.encodeWithSelector(IERC20Recover.ERC20Recover_RecoverNonRecoverableToken.selector, nonRecoverableToken)
         );
-        erc20Recover.recover(nonRecoverableToken, bn(1, 18));
+        erc20Recover.recover({ token: nonRecoverableToken, amount: 1e18 });
     }
 
     modifier tokenRecoverable() {
@@ -59,13 +59,13 @@ contract Recover_Test is ERC20RecoverTest {
 
     /// @dev it should recover the tokens.
     function test_Recover() external callerOwner tokenDenylistSet recoverAmountNotZero tokenRecoverable {
-        erc20Recover.recover(usdc, RECOVER_AMOUNT);
+        erc20Recover.recover({ token: usdc, amount: DEFAULT_RECOVER_AMOUNT });
     }
 
-    /// @dev it should emit a Recover event.
+    /// @dev it should emit a {Recover} event.
     function test_Recover_Event() external callerOwner tokenDenylistSet recoverAmountNotZero tokenRecoverable {
-        vm.expectEmit(true, false, false, true);
-        emit Recover(users.admin, usdc, RECOVER_AMOUNT);
-        erc20Recover.recover(usdc, RECOVER_AMOUNT);
+        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
+        emit Recover({ owner: users.admin, token: usdc, amount: DEFAULT_RECOVER_AMOUNT });
+        erc20Recover.recover({ token: usdc, amount: DEFAULT_RECOVER_AMOUNT });
     }
 }

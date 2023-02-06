@@ -27,10 +27,10 @@ interface IERC20Recover is IAdminable {
     /// EVENTS ///
 
     /// @notice Emitted when tokens are recovered.
-    /// @param owner The address of the owner recoverring the tokens.
+    /// @param owner The address of the owner recovering the tokens.
     /// @param token The address of the recovered token.
     /// @param amount The amount of recovered tokens.
-    event Recover(address indexed owner, IERC20 token, uint256 amount);
+    event Recover(address indexed owner, IERC20 indexed token, uint256 amount);
 
     /// @notice Emitted when the token denylist is set.
     /// @param owner The address of the owner of the contract.

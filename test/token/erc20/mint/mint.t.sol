@@ -1,19 +1,17 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import { stdError } from "forge-std/Test.sol";
+import { stdError } from "forge-std/StdError.sol";
 
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 
-import { ERC20Test } from "../ERC20.t.sol";
+import { ERC20_Test } from "../ERC20.t.sol";
 
-contract Mint_Test is ERC20Test {
+contract Mint_Test is ERC20_Test {
     /// @dev it should revert.
     function test_RevertWhen_BeneficiaryZeroAddress() external {
-        address beneficiary = address(0);
         vm.expectRevert(IERC20.ERC20_MintBeneficiaryZeroAddress.selector);
-        uint256 amount = 1;
-        dai.mint(beneficiary, amount);
+        dai.mint({ beneficiary: address(0), amount: 1 });
     }
 
     modifier beneficiaryNotZeroAddress() {
@@ -21,14 +19,9 @@ contract Mint_Test is ERC20Test {
     }
 
     /// @dev Checks common assumptions for the tests below.
-    function checkAssumptions(
-        address beneficiary,
-        uint256 amount0,
-        uint256 amount1
-    ) internal pure {
+    function checkAssumptions(address beneficiary, uint256 amount0) internal pure {
         vm.assume(beneficiary != address(0));
         vm.assume(amount0 > 0);
-        vm.assume(amount1 > MAX_UINT256 - amount0);
     }
 
     /// @dev it should revert.
@@ -37,13 +30,16 @@ contract Mint_Test is ERC20Test {
         uint256 amount0,
         uint256 amount1
     ) external beneficiaryNotZeroAddress {
-        checkAssumptions(beneficiary, amount0, amount1);
+        checkAssumptions(beneficiary, amount0);
+        amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
 
         // Mint `amount0` tokens to `beneficiary`.
         dai.mint(beneficiary, amount0);
 
-        // Run the test.
+        // Expect an arithmetic error.
         vm.expectRevert(stdError.arithmeticError);
+
+        // Mint the tokens.
         dai.mint(beneficiary, amount1);
     }
 
@@ -57,24 +53,21 @@ contract Mint_Test is ERC20Test {
         uint256 amount0,
         uint256 amount1
     ) external beneficiaryNotZeroAddress beneficiaryBalanceCalculationDoesNotOverflowUint256 {
-        checkAssumptions(beneficiary, amount0, amount1);
+        checkAssumptions(beneficiary, amount0);
+        amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
 
         // Mint `amount0` tokens to Alice.
         dai.mint(users.alice, amount0);
 
-        // Run the test.
+        // Expect an arithmetic panic.
         vm.expectRevert(stdError.arithmeticError);
+
+        // Mint the tokens.
         dai.mint(beneficiary, amount1);
     }
 
     modifier totalSupplyCalculationDoesNotOverflowUint256() {
         _;
-    }
-
-    /// @dev Checks common assumptions for the tests below.
-    function checkAssumptions(address beneficiary, uint256 amount) internal pure {
-        vm.assume(beneficiary != address(0));
-        vm.assume(amount > 0);
     }
 
     /// @dev it should increase the balance of the beneficiary.
@@ -86,10 +79,15 @@ contract Mint_Test is ERC20Test {
     {
         checkAssumptions(beneficiary, amount);
 
-        uint256 previousBalance = dai.balanceOf(beneficiary);
+        // Load the initial balance.
+        uint256 initialBalance = dai.balanceOf(beneficiary);
+
+        // Mint the tokens.
         dai.mint(beneficiary, amount);
+
+        // Assert that the balance has increased.
         uint256 actualBalance = dai.balanceOf(beneficiary);
-        uint256 expectedBalance = previousBalance + amount;
+        uint256 expectedBalance = initialBalance + amount;
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
@@ -102,14 +100,19 @@ contract Mint_Test is ERC20Test {
     {
         checkAssumptions(beneficiary, amount);
 
-        uint256 previousTotalSupply = dai.totalSupply();
+        // Load the initial total supply.
+        uint256 initialTotalSupply = dai.totalSupply();
+
+        // Mint the tokens.
         dai.mint(beneficiary, amount);
+
+        // Assert that the total supply has increased.
         uint256 actualTotalSupply = dai.totalSupply();
-        uint256 expectedTotalSupply = previousTotalSupply + amount;
+        uint256 expectedTotalSupply = initialTotalSupply + amount;
         assertEq(actualTotalSupply, expectedTotalSupply, "totalSupply");
     }
 
-    /// @dev it should emit a Transfer event.
+    /// @dev it should emit a {Transfer} event.
     function testFuzz_Mint_Event(address beneficiary, uint256 amount)
         external
         beneficiaryNotZeroAddress
@@ -118,8 +121,11 @@ contract Mint_Test is ERC20Test {
     {
         checkAssumptions(beneficiary, amount);
 
+        // Expect a {Transfer} event to be emitted.
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
-        emit Transfer(address(0), beneficiary, amount);
+        emit Transfer({ from: address(0), to: beneficiary, amount: amount });
+
+        // Mint the tokens.
         dai.mint(beneficiary, amount);
     }
 }

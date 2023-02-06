@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import { console2 } from "forge-std/console2.sol";
-import { stdError } from "forge-std/Test.sol";
+import { stdError } from "forge-std/StdError.sol";
 
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 
-import { ERC20Test } from "../ERC20.t.sol";
+import { ERC20_Test } from "../ERC20.t.sol";
 
-contract Transfer_Test is ERC20Test {
+contract Transfer_Test is ERC20_Test {
     /// @dev it should revert.
     function test_RevertWhen_SenderZeroAddress() external {
         // Make the zero address the caller in this test.
@@ -16,7 +15,7 @@ contract Transfer_Test is ERC20Test {
 
         // Run the test.
         vm.expectRevert(IERC20.ERC20_TransferFromZeroAddress.selector);
-        dai.transfer(users.alice, ONE_MILLION_DAI);
+        dai.transfer({ to: users.alice, amount: ONE_MILLION_DAI });
     }
 
     modifier senderNotZeroAddress() {
@@ -24,10 +23,9 @@ contract Transfer_Test is ERC20Test {
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_RecipientZeroAddress() external senderNotZeroAddress {
+    function test_RevertWhen_ReceiverZeroAddress() external senderNotZeroAddress {
         vm.expectRevert(IERC20.ERC20_TransferToZeroAddress.selector);
-        address to = address(0);
-        dai.transfer(to, ONE_MILLION_DAI);
+        dai.transfer({ to: address(0), amount: ONE_MILLION_DAI });
     }
 
     modifier recipientNotZeroAddress() {
@@ -52,7 +50,7 @@ contract Transfer_Test is ERC20Test {
     }
 
     /// @dev it should transfer the tokens.
-    function testFuzz_Transfer_RecipientSender(uint256 amount)
+    function testFuzz_Transfer_ReceiverSender(uint256 amount)
         external
         senderNotZeroAddress
         recipientNotZeroAddress
@@ -61,12 +59,17 @@ contract Transfer_Test is ERC20Test {
         vm.assume(amount > 0);
 
         // Mint `amount` tokens to Alice so that we have something to transfer below.
-        dai.mint(users.alice, amount);
+        dai.mint({ beneficiary: users.alice, amount: amount });
 
-        // Run the test.
-        uint256 expectedBalance = dai.balanceOf(users.alice);
+        // Load the initial balance.
+        uint256 initialBalance = dai.balanceOf(users.alice);
+
+        // Transfer the tokens.
         dai.transfer(users.alice, amount);
+
+        // Assert that the user's balance has remained unchanged.
         uint256 actualBalance = dai.balanceOf(users.alice);
+        uint256 expectedBalance = initialBalance;
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
@@ -78,7 +81,7 @@ contract Transfer_Test is ERC20Test {
     }
 
     /// @dev it should transfer the tokens.
-    function testFuzz_Transfer_RecipientNotSender(address to, uint256 amount)
+    function testFuzz_Transfer_ReceiverNotSender_DecreaseSenderBalance(address to, uint256 amount)
         external
         senderNotZeroAddress
         recipientNotZeroAddress
@@ -90,15 +93,43 @@ contract Transfer_Test is ERC20Test {
         dai.mint(users.alice, amount);
 
         // Run the test.
-        uint256 previousBalance = dai.balanceOf(to);
+        uint256 initialBalance = dai.balanceOf(users.alice);
+
+        // Transfer the tokens.
         dai.transfer(to, amount);
+
+        // Assert that the sender's balance has decreased.
+        uint256 actualBalance = dai.balanceOf(users.alice);
+        uint256 expectedBalance = initialBalance - amount;
+        assertEq(actualBalance, expectedBalance, "balance");
+    }
+
+    /// @dev it should transfer the tokens.
+    function testFuzz_Transfer_ReceiverNotSender_IncreaseReceiverBalance(address to, uint256 amount)
+        external
+        senderNotZeroAddress
+        recipientNotZeroAddress
+        enderEnoughBalance
+    {
+        checkAssumptions(to, amount);
+
+        // Mint `amount` tokens to Alice so that we have something to transfer below.
+        dai.mint(users.alice, amount);
+
+        // Run the test.
+        uint256 initialBalance = dai.balanceOf(to);
+
+        // Transfer the tokens.
+        dai.transfer(to, amount);
+
+        // Assert that the receiver's balance has increased.
         uint256 actualBalance = dai.balanceOf(to);
-        uint256 expectedBalance = previousBalance + amount;
+        uint256 expectedBalance = initialBalance + amount;
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
     /// @dev it should emit a Transfer event.
-    function testFuzz_Transfer_RecipientNotSender_Event(address to, uint256 amount)
+    function testFuzz_Transfer_ReceiverNotSender_Event(address to, uint256 amount)
         external
         senderNotZeroAddress
         recipientNotZeroAddress
@@ -109,9 +140,11 @@ contract Transfer_Test is ERC20Test {
         // Mint `amount` tokens to Alice so that we have something to transfer below.
         dai.mint(users.alice, amount);
 
-        // Run the test.
+        // Expect a {Transfer} event to be emitted.
         vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
         emit Transfer(users.alice, to, amount);
+
+        // Transfer the tokens.
         dai.transfer(to, amount);
     }
 }
