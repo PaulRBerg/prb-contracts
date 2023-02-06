@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[5.0.1]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/PaulRBerg/prb-contracts/compare/v4.1.1...v5.0.0
 [4.1.1]: https://github.com/PaulRBerg/prb-contracts/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/PaulRBerg/prb-contracts/compare/v4.0.0...v4.1.0
@@ -12,6 +13,12 @@ The format is based on [Common Changelog](https://common-changelog.org/), and th
 [3.9.0]: https://github.com/PaulRBerg/prb-contracts/compare/v3.8.1...v3.9.0
 [3.8.1]: https://github.com/PaulRBerg/prb-contracts/compare/v3.8.0...v3.8.1
 [3.8.0]: https://github.com/PaulRBerg/prb-contracts/releases/tag/v3.8.0
+
+## [5.0.1] - 2023-02-06
+
+### Fixed
+
+- Fix installation in Node.js projects with `pinst` (@PaulRBerg)
 
 ## [5.0.0] - 2023-02-06
 
