@@ -10,16 +10,16 @@
     "url": "https://github.com/paulrberg/prb-contracts/issues"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
-    "commitizen": "^4.2.4",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.6.2",
-    "prettier-plugin-solidity": "^1.0.0-dev.21",
+    "husky": "^8.0.3",
+    "lint-staged": "^12.5.0",
+    "prettier": "^2.8.3",
+    "prettier-plugin-solidity": "^1.1.1",
     "rimraf": "^4.1.2",
-    "solhint": "^3.3.7",
+    "solhint": "^3.3.8",
     "solhint-plugin-prettier": "^0.0.5"
   },
   "files": [
@@ -36,7 +36,7 @@
     "solidity"
   ],
   "license": "MIT",
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@3.4.1",
   "publishConfig": {
     "access": "public"
   },

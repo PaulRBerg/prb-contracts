@@ -54,13 +54,8 @@ import "@prb/contracts/token/erc20/ERC20.sol";
 import "@prb/contracts/token/erc20/ERC20Permit.sol";
 
 contract MyToken is ERC20, ERC20Permit {
-  constructor(
-    string memory name_,
-    string memory symbol_,
-    uint8 decimals_
-  ) ERC20Permit(name_, symbol_, decimals_) {}
+  constructor(string memory name_, string memory symbol_, uint8 decimals_) ERC20Permit(name_, symbol_, decimals_) {}
 }
-
 ```
 
 ## Contributing

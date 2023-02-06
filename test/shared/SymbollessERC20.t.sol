@@ -51,31 +51,19 @@ contract SymbollessERC20 {
         return true;
     }
 
-    function transferFrom(
-        address from,
-        address to,
-        uint256 amount
-    ) public returns (bool) {
+    function transferFrom(address from, address to, uint256 amount) public returns (bool) {
         _transfer(from, to, amount);
         _approve(from, msg.sender, _allowances[from][msg.sender] - amount);
         return true;
     }
 
-    function _transfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual {
+    function _transfer(address from, address to, uint256 amount) internal virtual {
         _balances[from] = _balances[from] - amount;
         _balances[to] = _balances[to] + amount;
         emit Transfer(from, to, amount);
     }
 
-    function _approve(
-        address owner,
-        address spender,
-        uint256 amount
-    ) internal virtual {
+    function _approve(address owner, address spender, uint256 amount) internal virtual {
         _allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
     }

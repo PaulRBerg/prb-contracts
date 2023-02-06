@@ -69,7 +69,7 @@ abstract contract Base_Test is PRBTest, StdCheats, StdUtils {
 
     /// @dev Helper function that multiplies the `amount` by `10^decimals` and returns a `uint256.`
     function bn(uint256 amount, uint256 decimals) internal pure returns (uint256 result) {
-        result = amount * 10**decimals;
+        result = amount * 10 ** decimals;
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -87,11 +87,7 @@ abstract contract Base_Test is PRBTest, StdCheats, StdUtils {
     }
 
     /// @dev Helper function to compare two `IERC20` arrays.
-    function assertEq(
-        IERC20[] memory a,
-        IERC20[] memory b,
-        string memory err
-    ) internal {
+    function assertEq(IERC20[] memory a, IERC20[] memory b, string memory err) internal {
         if (keccak256(abi.encode(a)) != keccak256(abi.encode(b))) {
             emit LogNamedString("Error", err);
             assertEq(a, b);

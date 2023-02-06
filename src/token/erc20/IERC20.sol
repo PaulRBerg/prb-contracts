@@ -150,9 +150,5 @@ interface IERC20 {
     /// - The caller must have approed `from` to spent at least `amount` tokens.
     ///
     /// @return a boolean value indicating whether the operation succeeded.
-    function transferFrom(
-        address from,
-        address to,
-        uint256 amount
-    ) external returns (bool);
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
 }

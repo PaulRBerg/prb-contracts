@@ -39,7 +39,7 @@ abstract contract ERC20Normalizer is IERC20Normalizer {
 
         // Calculate the scalar.
         unchecked {
-            scalar = 10**(18 - decimals);
+            scalar = 10 ** (18 - decimals);
         }
 
         // Save the scalar in storage.

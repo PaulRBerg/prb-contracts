@@ -26,20 +26,11 @@ library SafeERC20 {
 
     /// INTERNAL FUNCTIONS ///
 
-    function safeTransfer(
-        IERC20 token,
-        address to,
-        uint256 amount
-    ) internal {
+    function safeTransfer(IERC20 token, address to, uint256 amount) internal {
         callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, amount));
     }
 
-    function safeTransferFrom(
-        IERC20 token,
-        address from,
-        address to,
-        uint256 amount
-    ) internal {
+    function safeTransferFrom(IERC20 token, address from, address to, uint256 amount) internal {
         callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, amount));
     }
 

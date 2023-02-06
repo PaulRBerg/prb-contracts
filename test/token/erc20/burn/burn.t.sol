@@ -19,10 +19,10 @@ contract Burn_Test is ERC20_Test {
     }
 
     /// @dev it should revert.
-    function testFuzz_RevertWhen_HolderBalanceCalculationUnderflowsUint256(address holder, uint256 amount)
-        external
-        holderNotZeroAddress
-    {
+    function testFuzz_RevertWhen_HolderBalanceCalculationUnderflowsUint256(
+        address holder,
+        uint256 amount
+    ) external holderNotZeroAddress {
         vm.assume(holder != address(0));
         vm.assume(amount > 0);
 

@@ -15,15 +15,11 @@ contract ERC20GodMode is ERC20 {
 
     /// CONSTRUCTOR ///
 
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        uint8 decimals_
-    ) ERC20(name_, symbol_, decimals_) {}
+    constructor(string memory name_, string memory symbol_, uint8 decimals_) ERC20(name_, symbol_, decimals_) {}
 
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
 
-    /// @notice Destroys `amount` tokens from `holder`, decreaasing the token supply.
+    /// @notice Destroys `amount` tokens from `holder`, decreasing the token supply.
     /// @param holder The account whose tokens to burn.
     /// @param amount The amount of tokens to destroy.
     function burn(address holder, uint256 amount) public {

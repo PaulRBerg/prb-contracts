@@ -33,11 +33,9 @@ contract Transfer_Test is ERC20_Test {
     }
 
     /// @dev it should revert.
-    function testFuzz_RevertWhen_SenderNotEnoughBalance(uint256 amount)
-        external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-    {
+    function testFuzz_RevertWhen_SenderNotEnoughBalance(
+        uint256 amount
+    ) external senderNotZeroAddress recipientNotZeroAddress {
         vm.assume(amount > 0);
 
         uint256 senderBalance = 0;
@@ -50,12 +48,9 @@ contract Transfer_Test is ERC20_Test {
     }
 
     /// @dev it should transfer the tokens.
-    function testFuzz_Transfer_ReceiverSender(uint256 amount)
-        external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-        enderEnoughBalance
-    {
+    function testFuzz_Transfer_ReceiverSender(
+        uint256 amount
+    ) external senderNotZeroAddress recipientNotZeroAddress enderEnoughBalance {
         vm.assume(amount > 0);
 
         // Mint `amount` tokens to Alice so that we have something to transfer below.
@@ -81,12 +76,10 @@ contract Transfer_Test is ERC20_Test {
     }
 
     /// @dev it should transfer the tokens.
-    function testFuzz_Transfer_ReceiverNotSender_DecreaseSenderBalance(address to, uint256 amount)
-        external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-        enderEnoughBalance
-    {
+    function testFuzz_Transfer_ReceiverNotSender_DecreaseSenderBalance(
+        address to,
+        uint256 amount
+    ) external senderNotZeroAddress recipientNotZeroAddress enderEnoughBalance {
         checkAssumptions(to, amount);
 
         // Mint `amount` tokens to Alice so that we have something to transfer below.
@@ -105,12 +98,10 @@ contract Transfer_Test is ERC20_Test {
     }
 
     /// @dev it should transfer the tokens.
-    function testFuzz_Transfer_ReceiverNotSender_IncreaseReceiverBalance(address to, uint256 amount)
-        external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-        enderEnoughBalance
-    {
+    function testFuzz_Transfer_ReceiverNotSender_IncreaseReceiverBalance(
+        address to,
+        uint256 amount
+    ) external senderNotZeroAddress recipientNotZeroAddress enderEnoughBalance {
         checkAssumptions(to, amount);
 
         // Mint `amount` tokens to Alice so that we have something to transfer below.
@@ -129,12 +120,10 @@ contract Transfer_Test is ERC20_Test {
     }
 
     /// @dev it should emit a Transfer event.
-    function testFuzz_Transfer_ReceiverNotSender_Event(address to, uint256 amount)
-        external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-        enderEnoughBalance
-    {
+    function testFuzz_Transfer_ReceiverNotSender_Event(
+        address to,
+        uint256 amount
+    ) external senderNotZeroAddress recipientNotZeroAddress enderEnoughBalance {
         checkAssumptions(to, amount);
 
         // Mint `amount` tokens to Alice so that we have something to transfer below.

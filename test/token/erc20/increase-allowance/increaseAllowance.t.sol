@@ -7,11 +7,7 @@ import { ERC20_Test } from "../ERC20.t.sol";
 
 contract IncreaseAllowance_Test is ERC20_Test {
     /// @dev it should revert.
-    function test_RevertWhen_CalculationOverflowsUint256(
-        address spender,
-        uint256 amount0,
-        uint256 amount1
-    ) external {
+    function test_RevertWhen_CalculationOverflowsUint256(address spender, uint256 amount0, uint256 amount1) external {
         vm.assume(spender != address(0));
         vm.assume(amount0 > 0);
         amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
@@ -44,10 +40,10 @@ contract IncreaseAllowance_Test is ERC20_Test {
     }
 
     /// @dev it should emit an Approval event.
-    function testFuzz_IncreaseAllowance_Event(address spender, uint256 value)
-        external
-        calculationDoesNotOverflowUint256
-    {
+    function testFuzz_IncreaseAllowance_Event(
+        address spender,
+        uint256 value
+    ) external calculationDoesNotOverflowUint256 {
         vm.assume(spender != address(0));
         vm.assume(value > 0);
 

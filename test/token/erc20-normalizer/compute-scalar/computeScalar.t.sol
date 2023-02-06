@@ -60,7 +60,7 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
     function test_ComputeScalar_TokenDecimalsLessThan18() external {
         erc20Normalizer.computeScalar({ token: usdc });
         uint256 actualScalar = erc20Normalizer.getScalar({ token: usdc });
-        uint256 expectedScalar = 10**(18 - usdc.decimals());
+        uint256 expectedScalar = 10 ** (18 - usdc.decimals());
         assertEq(actualScalar, expectedScalar, "scalar");
     }
 }

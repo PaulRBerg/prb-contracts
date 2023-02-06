@@ -68,12 +68,10 @@ contract Permit_Test is ERC20Permit_Test {
     ///
     /// Setting `v` to any number other than 27 or 28 makes the `ecrecover` precompile return the zero address.
     /// https://ethereum.stackexchange.com/questions/69328/how-to-get-the-zero-address-from-ecrecover
-    function test_RevertWhen_RecoveredOwnerZeroAddress(uint256 deadline, uint8 v)
-        external
-        ownerNotZeroAddress
-        spenderNotZeroAddress
-        deadlineNotInThePast
-    {
+    function test_RevertWhen_RecoveredOwnerZeroAddress(
+        uint256 deadline,
+        uint8 v
+    ) external ownerNotZeroAddress spenderNotZeroAddress deadlineNotInThePast {
         vm.assume(v != 27 && v != 28);
         deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
@@ -94,13 +92,9 @@ contract Permit_Test is ERC20Permit_Test {
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_SignatureNotValid(uint256 deadline)
-        external
-        ownerNotZeroAddress
-        spenderNotZeroAddress
-        deadlineNotInThePast
-        recoveredOwnerNotZeroAddress
-    {
+    function test_RevertWhen_SignatureNotValid(
+        uint256 deadline
+    ) external ownerNotZeroAddress spenderNotZeroAddress deadlineNotInThePast recoveredOwnerNotZeroAddress {
         deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = users.alice;

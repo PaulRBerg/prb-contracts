@@ -33,11 +33,7 @@ contract TransferFrom_Test is ERC20_Test {
     }
 
     /// @dev Checks common assumptions for the tests below.
-    function checkAssumptions(
-        address owner,
-        address to,
-        uint256 amount0
-    ) internal pure {
+    function checkAssumptions(address owner, address to, uint256 amount0) internal pure {
         vm.assume(owner != address(0) && to != address(0));
         vm.assume(owner != to);
         vm.assume(amount0 > 0);

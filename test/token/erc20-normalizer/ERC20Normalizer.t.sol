@@ -14,7 +14,7 @@ abstract contract ERC20Normalizer_Test is Base_Test {
     //////////////////////////////////////////////////////////////////////////*/
 
     uint256 internal constant STANDARD_DECIMALS = 18;
-    uint256 internal constant USDC_SCALAR = 10**12;
+    uint256 internal constant USDC_SCALAR = 10 ** 12;
 
     /*//////////////////////////////////////////////////////////////////////////
                                    TEST CONTRACTS

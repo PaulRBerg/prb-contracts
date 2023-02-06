@@ -28,11 +28,7 @@ contract ERC20Permit is
 
     /// CONSTRUCTOR ///
 
-    constructor(
-        string memory _name,
-        string memory _symbol,
-        uint8 _decimals
-    ) ERC20(_name, _symbol, _decimals) {
+    constructor(string memory _name, string memory _symbol, uint8 _decimals) ERC20(_name, _symbol, _decimals) {
         uint256 chainId = block.chainid;
         DOMAIN_SEPARATOR = keccak256(
             abi.encode(

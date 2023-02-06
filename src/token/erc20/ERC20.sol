@@ -34,11 +34,7 @@ contract ERC20 is IERC20 {
     /// @param name_ ERC-20 name of this token.
     /// @param symbol_ ERC-20 symbol of this token.
     /// @param decimals_ ERC-20 decimal precision of this token.
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        uint8 decimals_
-    ) {
+    constructor(string memory name_, string memory symbol_, uint8 decimals_) {
         name = name_;
         symbol = symbol_;
         decimals = decimals_;
@@ -90,11 +86,7 @@ contract ERC20 is IERC20 {
     }
 
     /// @inheritdoc IERC20
-    function transferFrom(
-        address from,
-        address to,
-        uint256 amount
-    ) public virtual override returns (bool) {
+    function transferFrom(address from, address to, uint256 amount) public virtual override returns (bool) {
         // Checks: the spender's allowance is sufficient.
         address spender = msg.sender;
         uint256 currentAllowance = _allowances[from][spender];
@@ -123,11 +115,7 @@ contract ERC20 is IERC20 {
     ///
     /// - `owner` must not be the zero address.
     /// - `spender` must not be the zero address.
-    function _approve(
-        address owner,
-        address spender,
-        uint256 value
-    ) internal virtual {
+    function _approve(address owner, address spender, uint256 value) internal virtual {
         // Checks: `owner` is not the zero address.
         if (owner == address(0)) {
             revert ERC20_ApproveOwnerZeroAddress();
@@ -145,7 +133,7 @@ contract ERC20 is IERC20 {
         emit Approval(owner, spender, value);
     }
 
-    /// @notice Destroys `amount` tokens from `holder`, decreaasing the token supply.
+    /// @notice Destroys `amount` tokens from `holder`, decreasing the token supply.
     ///
     /// @dev Emits a {Transfer} event.
     ///
@@ -207,11 +195,7 @@ contract ERC20 is IERC20 {
     /// - `from` must not be the zero address.
     /// - `to` must not be the zero address.
     /// - `from` must have a balance of at least `amount`.
-    function _transfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual {
+    function _transfer(address from, address to, uint256 amount) internal virtual {
         // Checks: `from` is not the zero address.
         if (from == address(0)) {
             revert ERC20_TransferFromZeroAddress();

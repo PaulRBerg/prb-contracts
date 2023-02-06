@@ -23,11 +23,7 @@ contract NonCompliantERC20 {
 
     event Approval(address indexed owner, address indexed spender, uint256 amount);
 
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        uint8 decimals_
-    ) {
+    constructor(string memory name_, string memory symbol_, uint8 decimals_) {
         name = name_;
         symbol = symbol_;
         decimals = decimals_;
@@ -58,11 +54,7 @@ contract NonCompliantERC20 {
         emit Transfer(address(0), beneficiary, amount);
     }
 
-    function _approve(
-        address owner,
-        address spender,
-        uint256 value
-    ) internal virtual {
+    function _approve(address owner, address spender, uint256 value) internal virtual {
         _allowances[owner][spender] = value;
         emit Approval(owner, spender, value);
     }
@@ -73,20 +65,12 @@ contract NonCompliantERC20 {
     }
 
     /// @dev This function does not return a value, in violation of the ERC-20 standard.
-    function transferFrom(
-        address from,
-        address to,
-        uint256 amount
-    ) public {
+    function transferFrom(address from, address to, uint256 amount) public {
         _transfer(from, to, amount);
         _approve(from, msg.sender, _allowances[from][msg.sender] - amount);
     }
 
-    function _transfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual {
+    function _transfer(address from, address to, uint256 amount) internal virtual {
         _balances[from] = _balances[from] - amount;
         _balances[to] = _balances[to] + amount;
         emit Transfer(from, to, amount);
