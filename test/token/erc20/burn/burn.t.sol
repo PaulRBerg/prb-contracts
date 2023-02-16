@@ -101,7 +101,7 @@ contract Burn_Test is ERC20_Test {
         dai.mint(holder, mintAmount);
 
         // Expect a {Transfer} event to be emitted.
-        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
+        expectEmit();
         emit Transfer({ from: holder, to: address(0), amount: burnAmount });
 
         // Burn the tokens.

@@ -62,7 +62,7 @@ contract DecreaseAllowance_Test is ERC20_Test {
         dai.increaseAllowance(spender, value0);
 
         // Expect an {Approval} event to be emitted.
-        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
+        expectEmit();
         uint256 expectedAllowance = value0 - value1;
         emit Approval(users.alice, spender, expectedAllowance);
 

@@ -63,7 +63,7 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
 
     /// @dev it should emit a {SetTokenDenylist} event.
     function test_SetTokenDenylist_Event() external callerAdmin tokenDenylistNotAlreadySet allTokensHaveASymbol {
-        vm.expectEmit({ checkTopic1: true, checkTopic2: false, checkTopic3: false, checkData: true });
+        expectEmit();
         emit SetTokenDenylist({ owner: users.admin, tokenDenylist: TOKEN_DENYLIST });
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }

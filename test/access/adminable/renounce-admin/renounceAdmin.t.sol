@@ -24,7 +24,7 @@ contract RenounceAdmin_Test is AdminableTest {
 
     /// @dev it should emit a TransferAdmin event and renounce the admin.
     function test_RenounceAdmin() external callerAdmin {
-        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: false });
+        expectEmit();
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: address(0) });
         adminable.renounceAdmin();
         address actualAdmin = adminable.admin();

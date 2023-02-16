@@ -187,7 +187,7 @@ contract Permit_Test is ERC20Permit_Test {
         deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
-        vm.expectEmit({ checkTopic1: true, checkTopic2: true, checkTopic3: false, checkData: true });
+        expectEmit();
         emit Approval(owner, spender, value);
         (uint8 v, bytes32 r, bytes32 s) = getSignature(privateKey, owner, spender, value, deadline);
         erc20Permit.permit(owner, spender, value, deadline, v, r, s);
