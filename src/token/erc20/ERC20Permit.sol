@@ -52,7 +52,10 @@ contract ERC20Permit is
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) public override {
+    )
+        public
+        override
+    {
         // Checks: `owner` is not the zero address.
         if (owner == address(0)) {
             revert ERC20Permit_OwnerZeroAddress();

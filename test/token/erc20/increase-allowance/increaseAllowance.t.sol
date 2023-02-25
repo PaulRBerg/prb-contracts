@@ -43,7 +43,10 @@ contract IncreaseAllowance_Test is ERC20_Test {
     function testFuzz_IncreaseAllowance_Event(
         address spender,
         uint256 value
-    ) external calculationDoesNotOverflowUint256 {
+    )
+        external
+        calculationDoesNotOverflowUint256
+    {
         vm.assume(spender != address(0));
         vm.assume(value > 0);
 

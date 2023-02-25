@@ -71,7 +71,12 @@ contract Permit_Test is ERC20Permit_Test {
     function test_RevertWhen_RecoveredOwnerZeroAddress(
         uint256 deadline,
         uint8 v
-    ) external ownerNotZeroAddress spenderNotZeroAddress deadlineNotInThePast {
+    )
+        external
+        ownerNotZeroAddress
+        spenderNotZeroAddress
+        deadlineNotInThePast
+    {
         vm.assume(v != 27 && v != 28);
         deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
@@ -92,9 +97,13 @@ contract Permit_Test is ERC20Permit_Test {
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_SignatureNotValid(
-        uint256 deadline
-    ) external ownerNotZeroAddress spenderNotZeroAddress deadlineNotInThePast recoveredOwnerNotZeroAddress {
+    function test_RevertWhen_SignatureNotValid(uint256 deadline)
+        external
+        ownerNotZeroAddress
+        spenderNotZeroAddress
+        deadlineNotInThePast
+        recoveredOwnerNotZeroAddress
+    {
         deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = users.alice;

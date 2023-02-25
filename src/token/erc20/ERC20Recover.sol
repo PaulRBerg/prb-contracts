@@ -49,7 +49,7 @@ abstract contract ERC20Recover is
         uint256 length = tokenDenylist.length;
         IERC20 nonRecoverableToken;
 
-        for (uint256 i = 0; i < length; ) {
+        for (uint256 i = 0; i < length;) {
             // Check that the addresses of the tokens are not the same.
             nonRecoverableToken = tokenDenylist[i];
             if (token == nonRecoverableToken) {
@@ -79,7 +79,7 @@ abstract contract ERC20Recover is
         // Iterate over the token list.
         uint256 length = tokenDenylist_.length;
         IERC20 token;
-        for (uint256 i = 0; i < length; ) {
+        for (uint256 i = 0; i < length;) {
             token = tokenDenylist_[i];
 
             // Sanity check each token contract by calling the `symbol` method.

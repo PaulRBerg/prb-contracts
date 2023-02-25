@@ -57,7 +57,10 @@ library SafeERC20 {
         address target,
         bytes memory data,
         string memory errorMessage
-    ) private returns (bytes memory) {
+    )
+        private
+        returns (bytes memory)
+    {
         if (!target.isContract()) {
             revert SafeERC20_CallToNonContract(target);
         }

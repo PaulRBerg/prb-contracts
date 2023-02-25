@@ -63,7 +63,11 @@ abstract contract ERC20Permit_Test is Base_Test {
         address spender,
         uint256 value,
         uint256 deadline
-    ) internal view returns (uint8 v, bytes32 r, bytes32 s) {
+    )
+        internal
+        view
+        returns (uint8 v, bytes32 r, bytes32 s)
+    {
         uint256 nonce = 0;
         bytes32 hashStruct = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, value, nonce, deadline));
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, hashStruct));

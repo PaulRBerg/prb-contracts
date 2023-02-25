@@ -29,7 +29,10 @@ contract Mint_Test is ERC20_Test {
         address beneficiary,
         uint256 amount0,
         uint256 amount1
-    ) external beneficiaryNotZeroAddress {
+    )
+        external
+        beneficiaryNotZeroAddress
+    {
         checkAssumptions(beneficiary, amount0);
         amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
 
@@ -52,7 +55,11 @@ contract Mint_Test is ERC20_Test {
         address beneficiary,
         uint256 amount0,
         uint256 amount1
-    ) external beneficiaryNotZeroAddress beneficiaryBalanceCalculationDoesNotOverflowUint256 {
+    )
+        external
+        beneficiaryNotZeroAddress
+        beneficiaryBalanceCalculationDoesNotOverflowUint256
+    {
         checkAssumptions(beneficiary, amount0);
         amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
 

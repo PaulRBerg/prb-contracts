@@ -15,7 +15,7 @@ contract ERC20GodMode is ERC20 {
 
     /// CONSTRUCTOR ///
 
-    constructor(string memory name_, string memory symbol_, uint8 decimals_) ERC20(name_, symbol_, decimals_) {}
+    constructor(string memory name_, string memory symbol_, uint8 decimals_) ERC20(name_, symbol_, decimals_) { }
 
     /// PUBLIC NON-CONSTANT FUNCTIONS ///
 

@@ -27,9 +27,7 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
         uint256 decimals = 19;
         vm.expectRevert(
             abi.encodeWithSelector(
-                IERC20Normalizer.IERC20Normalizer_TokenDecimalsGreaterThan18.selector,
-                tkn19,
-                decimals
+                IERC20Normalizer.IERC20Normalizer_TokenDecimalsGreaterThan18.selector, tkn19, decimals
             )
         );
         erc20Normalizer.computeScalar({ token: tkn19 });
@@ -40,9 +38,7 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
         uint256 decimals = 255;
         vm.expectRevert(
             abi.encodeWithSelector(
-                IERC20Normalizer.IERC20Normalizer_TokenDecimalsGreaterThan18.selector,
-                tkn255,
-                decimals
+                IERC20Normalizer.IERC20Normalizer_TokenDecimalsGreaterThan18.selector, tkn255, decimals
             )
         );
         erc20Normalizer.computeScalar({ token: tkn255 });

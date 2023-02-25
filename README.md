@@ -1,11 +1,9 @@
-# PRBContracts [![GitHub Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![Styled with Prettier][prettier-badge]][prettier] [![License: MIT][license-badge]][license]
+# PRBContracts [![GitHub Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![License: MIT][license-badge]][license]
 
 [gha]: https://github.com/PaulRBerg/prb-contracts/actions
 [gha-badge]: https://github.com/PaulRBerg/prb-contracts/actions/workflows/ci.yml/badge.svg
 [foundry]: https://getfoundry.sh/
 [foundry-badge]: https://img.shields.io/badge/Built%20with-Foundry-FFDB1C.svg
-[prettier]: https://prettier.io
-[prettier-badge]: https://img.shields.io/badge/Code_Style-Prettier-ff69b4.svg
 [license]: https://opensource.org/licenses/MIT
 [license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
 
@@ -13,7 +11,7 @@ Off-the-shelf Solidity smart contracts.
 
 - Designed for Solidity >=0.8.4
 - Uses custom errors instead of revert reason strings
-- Complementary to [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
+- Complementary to [OpenZeppelin's library](https://github.com/OpenZeppelin/openzeppelin-contracts)
 - Well-documented via NatSpec comments
 - Thoroughly tested with Foundry
 

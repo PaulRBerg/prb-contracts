@@ -45,7 +45,11 @@ contract Approve_Test is ERC20_Test {
     function testFuzz_Approve_Event(
         address spender,
         uint256 amount
-    ) external ownerNotZeroAddress spenderNotZeroAddress {
+    )
+        external
+        ownerNotZeroAddress
+        spenderNotZeroAddress
+    {
         vm.assume(spender != address(0));
         expectEmit();
         emit Approval({ owner: users.alice, spender: spender, amount: amount });

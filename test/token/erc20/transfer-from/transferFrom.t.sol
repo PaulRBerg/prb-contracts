@@ -18,11 +18,7 @@ contract TransferFrom_Test is ERC20_Test {
         uint256 currentAllowance = 0;
         vm.expectRevert(
             abi.encodeWithSelector(
-                IERC20.ERC20_InsufficientAllowance.selector,
-                owner,
-                spender,
-                currentAllowance,
-                amount
+                IERC20.ERC20_InsufficientAllowance.selector, owner, spender, currentAllowance, amount
             )
         );
         dai.transferFrom({ from: owner, to: spender, amount: amount });
@@ -45,7 +41,10 @@ contract TransferFrom_Test is ERC20_Test {
         address to,
         uint256 amount0,
         uint256 amount1
-    ) external spenderAllowanceEnough {
+    )
+        external
+        spenderAllowanceEnough
+    {
         checkAssumptions(owner, to, amount0);
         amount1 = bound(amount1, 1, amount0);
 
@@ -77,7 +76,10 @@ contract TransferFrom_Test is ERC20_Test {
         address to,
         uint256 amount0,
         uint256 amount1
-    ) external spenderAllowanceEnough {
+    )
+        external
+        spenderAllowanceEnough
+    {
         checkAssumptions(owner, to, amount0);
         amount1 = bound(amount1, 1, amount0);
 
@@ -109,7 +111,10 @@ contract TransferFrom_Test is ERC20_Test {
         address to,
         uint256 amount0,
         uint256 amount1
-    ) external spenderAllowanceEnough {
+    )
+        external
+        spenderAllowanceEnough
+    {
         checkAssumptions(owner, to, amount0);
         amount1 = bound(amount1, 1, amount0);
 

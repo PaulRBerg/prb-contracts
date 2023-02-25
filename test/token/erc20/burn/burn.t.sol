@@ -22,7 +22,10 @@ contract Burn_Test is ERC20_Test {
     function testFuzz_RevertWhen_HolderBalanceCalculationUnderflowsUint256(
         address holder,
         uint256 amount
-    ) external holderNotZeroAddress {
+    )
+        external
+        holderNotZeroAddress
+    {
         vm.assume(holder != address(0));
         vm.assume(amount > 0);
 
@@ -48,7 +51,11 @@ contract Burn_Test is ERC20_Test {
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external holderNotZeroAddress holderBalanceCalculationDoesNotUnderflowUint256 {
+    )
+        external
+        holderNotZeroAddress
+        holderBalanceCalculationDoesNotUnderflowUint256
+    {
         checkAssumptions(holder, burnAmount);
         mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);
 
@@ -69,7 +76,11 @@ contract Burn_Test is ERC20_Test {
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external holderNotZeroAddress holderBalanceCalculationDoesNotUnderflowUint256 {
+    )
+        external
+        holderNotZeroAddress
+        holderBalanceCalculationDoesNotUnderflowUint256
+    {
         checkAssumptions(holder, burnAmount);
         mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);
 
@@ -93,7 +104,11 @@ contract Burn_Test is ERC20_Test {
         address holder,
         uint256 mintAmount,
         uint256 burnAmount
-    ) external holderNotZeroAddress holderBalanceCalculationDoesNotUnderflowUint256 {
+    )
+        external
+        holderNotZeroAddress
+        holderBalanceCalculationDoesNotUnderflowUint256
+    {
         checkAssumptions(holder, burnAmount);
         mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);
 

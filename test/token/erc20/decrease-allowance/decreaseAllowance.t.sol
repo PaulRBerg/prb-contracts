@@ -33,7 +33,10 @@ contract DecreaseAllowance_Test is ERC20_Test {
         address spender,
         uint256 value0,
         uint256 value1
-    ) external calculationDoesNotUnderflowUint256 {
+    )
+        external
+        calculationDoesNotUnderflowUint256
+    {
         checkAssumptions(spender, value0);
         value1 = bound(value1, 0, value0);
 
@@ -54,7 +57,10 @@ contract DecreaseAllowance_Test is ERC20_Test {
         address spender,
         uint256 value0,
         uint256 value1
-    ) external calculationDoesNotUnderflowUint256 {
+    )
+        external
+        calculationDoesNotUnderflowUint256
+    {
         checkAssumptions(spender, value0);
         value1 = bound(value1, 0, value0);
 
