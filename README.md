@@ -15,8 +15,9 @@ Off-the-shelf Solidity smart contracts.
 - Well-documented via NatSpec comments
 - Thoroughly tested with Foundry
 
-I created this library for my own use, to avoid having to maintain the same contracts in different repositories. If you
-find it useful too, that's a win-win.
+I initially created this library to streamline my personal workflow, as I was tired of having to maintain identical
+contracts across multiple repositories. However, if you find this library beneficial to your own projects, that's a
+win-win situation for both of us.
 
 ## Install
 
@@ -25,10 +26,19 @@ find it useful too, that's a win-win.
 First, run the install step:
 
 ```sh
-forge install --no-commit PaulRBerg/prb-contracts
+forge install --no-commit PaulRBerg/prb-contracts@v5
 ```
 
-Then, add the following line to your `remappings.txt` file:
+Your `.gitmodules` file should now contain the following entry:
+
+```toml
+[submodule "lib/prb-contracts"]
+  branch = "v5"
+  path = "lib/prb-contracts"
+  url = "https://github.com/PaulRBerg/prb-contracts"
+```
+
+Finally, add this to your `remappings.txt` file:
 
 ```text
 @prb/contracts/=lib/prb-contracts/src/
@@ -97,17 +107,19 @@ You will need the following VSCode extensions:
 
 ## Security
 
-While I set a high bar for code quality and test coverage, you shouldn't assume that this project is completely safe to
-use. The contracts have not been audited by a security researcher.
+While I have strict standards for code quality and test coverage, it's important to note that this project may not be
+entirely risk-free. Although I have taken measures to ensure the security of the contracts, they have not yet been
+audited by a third-party security researcher.
 
 ### Caveat Emptor
 
-This is experimental software and is provided on an "as is" and "as available" basis. I do not give any warranties and
-will not be liable for any loss, direct or indirect through continued use of this codebase.
+Please be aware that this software is experimental and is provided on an "as is" and "as available" basis. I do not
+offer any warranties, and I cannot be held responsible for any direct or indirect loss resulting from the continued use
+of this codebase.
 
 ### Contact
 
-If you discover any security issues, please contact me via [Keybase](https://keybase.io/PaulRBerg).
+If you discover any bugs or security issues, please report them via [Telegram](https://t.me/PaulRBerg).
 
 ## Related Efforts
 
