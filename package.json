@@ -42,7 +42,7 @@
     "build": "forge build",
     "clean": "rimraf broadcast cache out",
     "lint": "yarn lint:sol && yarn prettier:check",
-    "lint:sol": "solhint \"{script,src,test}/**/*.sol\"",
+    "lint:sol": "forge fmt --check && yarn solhint \"{script,src,test}/**/*.sol\"",
     "prettier:check": "prettier --check \"**/*.{json,md,yml}\"",
     "prettier:write": "prettier --write \"**/*.{json,md,yml}\""
   }
