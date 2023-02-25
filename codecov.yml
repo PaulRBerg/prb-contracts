@@ -1,2 +1,4 @@
+comment: false
 ignore:
+  - "script"
   - "test"
