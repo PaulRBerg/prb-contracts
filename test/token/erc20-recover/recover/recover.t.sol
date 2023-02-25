@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.8.4 <0.9.0;
+pragma solidity >=0.8.19 <0.9.0;
 
 import { IAdminable } from "src/access/IAdminable.sol";
 import { IERC20 } from "src/token/erc20/IERC20.sol";
