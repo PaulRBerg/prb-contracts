@@ -58,8 +58,8 @@ Once installed, you can use the contracts like this:
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4;
 
-import "@prb/contracts/token/erc20/ERC20.sol";
-import "@prb/contracts/token/erc20/ERC20Permit.sol";
+import { ERC20 } from "@prb/contracts/token/erc20/ERC20.sol";
+import { ERC20Permit } from "@prb/contracts/token/erc20/ERC20Permit.sol";
 
 contract MyToken is ERC20, ERC20Permit {
   constructor(string memory name_, string memory symbol_, uint8 decimals_) ERC20Permit(name_, symbol_, decimals_) {}
