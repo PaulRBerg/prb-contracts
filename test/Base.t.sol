@@ -60,7 +60,7 @@ abstract contract Base_Test is PRBTest, StdCheats, StdUtils {
         });
 
         // Make the admin the default caller in all subsequent tests.
-        changePrank(users.admin);
+        changePrank({ msgSender: users.admin });
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -97,8 +97,7 @@ abstract contract Base_Test is PRBTest, StdCheats, StdUtils {
     /// @dev Generates an address by hashing the name, labels the address and funds it with 100 ETH, 1 million DAI,
     /// and 1 million non-compliant tokens.
     function createUser(string memory name) internal returns (address payable addr) {
-        addr = payable(address(uint160(uint256(keccak256(abi.encodePacked(name))))));
-        vm.label({ account: addr, newLabel: name });
+        addr = payable(makeAddr(name));
         vm.deal({ account: addr, newBalance: 100 ether });
         dai.mint({ beneficiary: addr, amount: ONE_MILLION_DAI });
         usdc.mint({ beneficiary: addr, amount: ONE_MILLION_USDC });
