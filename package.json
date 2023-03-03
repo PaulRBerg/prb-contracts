@@ -1,7 +1,7 @@
 {
   "name": "@prb/contracts",
   "description": "Off-the-shelf Solidity smart contracts",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "author": {
     "name": "Paul Razvan Berg",
     "url": "https://github.com/PaulRBerg"
