@@ -4,12 +4,6 @@ pragma solidity >=0.8.4;
 import { IERC20 } from "./IERC20.sol";
 import { Address } from "../../utils/Address.sol";
 
-/// @notice Emitted when the call is made to a non-contract.
-error SafeERC20_CallToNonContract(address target);
-
-/// @notice Emitted when there is no return data.
-error SafeERC20_NoReturnData();
-
 /// @title SafeERC20.sol
 /// @author Paul Razvan Berg
 /// @notice Wraps around ERC-20 operations that throw on failure (when the token contract
@@ -24,7 +18,19 @@ error SafeERC20_NoReturnData();
 library SafeERC20 {
     using Address for address;
 
-    /// INTERNAL FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       ERRORS
+    //////////////////////////////////////////////////////////////////////////*/
+
+    /// @notice Thrown when the call is made to a non-contract.
+    error SafeERC20_CallToNonContract(address target);
+
+    /// @notice Thrown when there is no return data.
+    error SafeERC20_NoReturnData();
+
+    /*//////////////////////////////////////////////////////////////////////////
+                                 INTERNAL FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     function safeTransfer(IERC20 token, address to, uint256 amount) internal {
         callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, amount));
@@ -34,7 +40,9 @@ library SafeERC20 {
         callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, amount));
     }
 
-    /// PRIVATE FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                 PRIVATE FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Imitates a Solidity high-level call (a regular function call to a contract), relaxing the requirement
     /// on the return value: the return value is optional (but if data is returned, it cannot be false).

@@ -20,33 +20,37 @@ pragma solidity >=0.8.4;
 /// @dev Forked from OpenZeppelin
 /// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/token/ERC20/ERC20.sol
 interface IERC20 {
-    /// CUSTOM ERRORS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       ERRORS
+    //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Emitted when attempting to approve with the zero address as the owner.
+    /// @notice Thrown when attempting to approve with the zero address as the owner.
     error ERC20_ApproveOwnerZeroAddress();
 
-    /// @notice Emitted when attempting to approve the zero address as the spender.
+    /// @notice Thrown when attempting to approve the zero address as the spender.
     error ERC20_ApproveSpenderZeroAddress();
 
-    /// @notice Emitted when attempting to burn tokens from the zero address.
+    /// @notice Thrown when attempting to burn tokens from the zero address.
     error ERC20_BurnHolderZeroAddress();
 
-    /// @notice Emitted when attempting to transfer more tokens than there are in the from account.
+    /// @notice Thrown when attempting to transfer more tokens than there are in the from account.
     error ERC20_FromInsufficientBalance(uint256 senderBalance, uint256 transferAmount);
 
-    /// @notice Emitted when spender attempts to transfer more tokens than the owner had given them allowance for.
+    /// @notice Thrown when spender attempts to transfer more tokens than the owner had given them allowance for.
     error ERC20_InsufficientAllowance(address owner, address spender, uint256 allowance, uint256 transferAmount);
 
-    /// @notice Emitted when attempting to mint tokens to the zero address.
+    /// @notice Thrown when attempting to mint tokens to the zero address.
     error ERC20_MintBeneficiaryZeroAddress();
 
-    /// @notice Emitted when attempting to transfer tokens from the zero address.
+    /// @notice Thrown when attempting to transfer tokens from the zero address.
     error ERC20_TransferFromZeroAddress();
 
-    /// @notice Emitted when the attempting to transfer tokens to the zero address.
+    /// @notice Thrown when the attempting to transfer tokens to the zero address.
     error ERC20_TransferToZeroAddress();
 
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Emitted when an approval occurs.
     /// @param owner The address of the owner of the tokens.
@@ -60,7 +64,9 @@ interface IERC20 {
     /// @param amount The amount of tokens transferred.
     event Transfer(address indexed from, address indexed to, uint256 amount);
 
-    /// CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                 CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Returns the remaining number of tokens that `spender` will be allowed to spend
     /// on behalf of `owner` through {transferFrom}. This is zero by default.
@@ -83,7 +89,9 @@ interface IERC20 {
     /// @notice Returns the amount of tokens in existence.
     function totalSupply() external view returns (uint256);
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                               NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Sets `value` as the allowance of `spender` over the caller's tokens.
     ///
@@ -147,7 +155,7 @@ interface IERC20 {
     ///
     /// - `from` and `to` must not be the zero address.
     /// - `from` must have a balance of at least `amount`.
-    /// - The caller must have approed `from` to spent at least `amount` tokens.
+    /// - The caller must have approved `from` to spent at least `amount` tokens.
     ///
     /// @return a boolean value indicating whether the operation succeeded.
     function transferFrom(address from, address to, uint256 amount) external returns (bool);

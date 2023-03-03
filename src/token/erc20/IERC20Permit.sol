@@ -11,24 +11,28 @@ import { IERC20 } from "./IERC20.sol";
 /// them via `transferFrom`.
 /// @dev See https://eips.ethereum.org/EIPS/eip-2612.
 interface IERC20Permit is IERC20 {
-    /// CUSTOM ERRORS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       ERRORS
+    //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Emitted when the recovered owner does not match the actual owner.
+    /// @notice Thrown when the recovered owner does not match the actual owner.
     error ERC20Permit_InvalidSignature(address owner, uint8 v, bytes32 r, bytes32 s);
 
-    /// @notice Emitted when the owner is the zero address.
+    /// @notice Thrown when the owner is the zero address.
     error ERC20Permit_OwnerZeroAddress();
 
-    /// @notice Emitted when the permit expired.
+    /// @notice Thrown when the permit expired.
     error ERC20Permit_PermitExpired(uint256 currentTime, uint256 deadline);
 
-    /// @notice Emitted when the recovered owner is the zero address.
+    /// @notice Thrown when the recovered owner is the zero address.
     error ERC20Permit_RecoveredOwnerZeroAddress();
 
-    /// @notice Emitted when attempting to permit the zero address as the spender.
+    /// @notice Thrown when attempting to permit the zero address as the spender.
     error ERC20Permit_SpenderZeroAddress();
 
-    /// CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                 CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice The Eip712 domain's keccak256 hash.
     function DOMAIN_SEPARATOR() external view returns (bytes32);
@@ -42,7 +46,9 @@ interface IERC20Permit is IERC20 {
     /// @notice Eip712 version of this implementation.
     function version() external view returns (string memory);
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                               NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Sets `value` as the allowance of `spender` over `owner`'s tokens, assuming the latter's
     /// signed approval.

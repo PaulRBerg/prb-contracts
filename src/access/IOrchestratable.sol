@@ -19,12 +19,16 @@ import { IAdminable } from "./IAdminable.sol";
 /// @dev Forked from Alberto Cuesta Cañada
 /// https://github.com/albertocuestacanada/Orchestrated/blob/b0adb21/contracts/Orchestrated.sol
 interface IOrchestratable is IAdminable {
-    /// CUSTOM ERRORS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       ERRORS
+    //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Emitted when the caller is not an orchestrated address.
+    /// @notice Thrown when the caller is not an orchestrated address.
     error Orchestratable_NotOrchestrated(address caller, bytes4 signature);
 
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Emitted when access is granted to a new address.
     /// @param access The new granted address.
@@ -35,7 +39,9 @@ interface IOrchestratable is IAdminable {
     /// @param newConductor The address of the new conductor.
     event TransferConductor(address indexed oldConductor, address indexed newConductor);
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                               NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Adds new orchestrated address.
     /// @param account Address of EOA or contract to give access to this contract.

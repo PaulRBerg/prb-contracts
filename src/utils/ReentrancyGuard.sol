@@ -17,7 +17,7 @@ pragma solidity >=0.8.4;
 abstract contract ReentrancyGuard {
     /// CUSTOM ERRORS ///
 
-    /// @notice Emitted when there is a reentrancy call.
+    /// @notice Thrown when there is a reentrancy call.
     error ReentrantCall();
 
     /// PRIVATE STORAGE ///

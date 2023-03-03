@@ -10,21 +10,25 @@ import { IAdminable } from "../../access/IAdminable.sol";
 /// @notice Contract that gives the owner the ability to recover the ERC-20 tokens that were sent
 /// (accidentally, or not) to the contract.
 interface IERC20Recover is IAdminable {
-    /// CUSTOM ERRORS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       ERRORS
+    //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Emitted when attempting to recover a token marked as non-recoverable.
+    /// @notice Thrown when attempting to recover a token marked as non-recoverable.
     error ERC20Recover_RecoverNonRecoverableToken(address token);
 
-    /// @notice Emitted when attempting to recover a zero amount of tokens.
+    /// @notice Thrown when attempting to recover a zero amount of tokens.
     error ERC20Recover_RecoverAmountZero();
 
-    /// @notice Emitted when the attempting to set the token denylist twice.
+    /// @notice Thrown when the attempting to set the token denylist twice.
     error ERC20Recover_TokenDenylistAlreadySet();
 
-    /// @notice Emitted when the attempting to recover a token without having set the token denylist.
+    /// @notice Thrown when the attempting to recover a token without having set the token denylist.
     error ERC20Recover_TokenDenylistNotSet();
 
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Emitted when tokens are recovered.
     /// @param owner The address of the owner recovering the tokens.
@@ -37,7 +41,9 @@ interface IERC20Recover is IAdminable {
     /// @param tokenDenylist The array of tokens that will not be recoverable.
     event SetTokenDenylist(address indexed owner, IERC20[] tokenDenylist);
 
-    /// CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                 CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Getter for the token denylist.
     function getTokenDenylist() external view returns (IERC20[] memory);
@@ -46,7 +52,9 @@ interface IERC20Recover is IAdminable {
     /// the token denylist can be set to an empty array.
     function isTokenDenylistSet() external view returns (bool);
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                               NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Initializes the contract by setting the tokens that this contract cannot recover.
     ///

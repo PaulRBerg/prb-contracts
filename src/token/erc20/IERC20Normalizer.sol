@@ -9,15 +9,19 @@ import { IERC20 } from "./IERC20.sol";
 /// @notice Caches ERC-20 token decimals and scales the amounts up or down using 18 decimals as a frame of reference.
 /// @dev Does not support ERC-20 tokens with decimals greater than 18.
 interface IERC20Normalizer {
-    /// CUSTOM ERRORS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       ERRORS
+    //////////////////////////////////////////////////////////////////////////*/
 
-    /// @notice Emitted when attempting to compute the scalar for a token whose decimals are zero.
+    /// @notice Thrown when attempting to compute the scalar for a token whose decimals are zero.
     error IERC20Normalizer_TokenDecimalsZero(IERC20 token);
 
-    /// @notice Emitted when attempting to compute the scalar for a token whose decimals are greater than 18.
+    /// @notice Thrown when attempting to compute the scalar for a token whose decimals are greater than 18.
     error IERC20Normalizer_TokenDecimalsGreaterThan18(IERC20 token, uint256 decimals);
 
-    /// CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                 CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Returns the scalar $10^(18 - decimals)$ for the given token.
     /// @dev Returns zero when there is no cached scalar for the given token.
@@ -25,7 +29,9 @@ interface IERC20Normalizer {
     /// @return scalar The scalar for the given token.
     function getScalar(IERC20 token) external view returns (uint256 scalar);
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                               NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Computes the scalar $10^(18 - decimals)$ for the given token.
     /// @param token The ERC-20 token to make the query for.
