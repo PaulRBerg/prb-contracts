@@ -64,7 +64,7 @@ contract Recover_Test is ERC20Recover_Test {
 
     /// @dev it should emit a {Recover} event.
     function test_Recover_Event() external callerOwner tokenDenylistSet recoverAmountNotZero tokenRecoverable {
-        expectEmit();
+        vm.expectEmit();
         emit Recover({ owner: users.admin, token: usdc, amount: DEFAULT_RECOVER_AMOUNT });
         erc20Recover.recover({ token: usdc, amount: DEFAULT_RECOVER_AMOUNT });
     }

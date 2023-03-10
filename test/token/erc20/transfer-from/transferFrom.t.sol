@@ -129,9 +129,9 @@ contract TransferFrom_Test is ERC20_Test {
         changePrank(users.alice);
 
         // Expect an {Approval} and a {Transfer} event to be emitted.
-        expectEmit();
+        vm.expectEmit();
         emit Approval({ owner: owner, spender: users.alice, amount: amount0 - amount1 });
-        expectEmit();
+        vm.expectEmit();
         emit Transfer({ from: owner, to: to, amount: amount1 });
 
         // Transfer the tokens.

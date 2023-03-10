@@ -51,7 +51,7 @@ contract Approve_Test is ERC20_Test {
         spenderNotZeroAddress
     {
         vm.assume(spender != address(0));
-        expectEmit();
+        vm.expectEmit();
         emit Approval({ owner: users.alice, spender: spender, amount: amount });
         dai.approve(spender, amount);
     }
