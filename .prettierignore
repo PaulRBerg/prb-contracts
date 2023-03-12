@@ -1,5 +1,4 @@
 # directories
-.yarn/
 **/broadcast
 **/cache
 **/lib
@@ -9,8 +8,9 @@
 # files
 *.env
 *.log
+.DS_Store
 .pnp.*
-coverage.json
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+lcov.info
+package-lock.json
+pnpm-lock.json
+yarn.lock
