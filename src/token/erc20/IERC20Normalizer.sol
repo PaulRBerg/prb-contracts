@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: MIT
-// solhint-disable var-name-mixedcase
 pragma solidity >=0.8.4;
 
 import { IERC20 } from "./IERC20.sol";
