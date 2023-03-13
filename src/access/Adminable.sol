@@ -14,6 +14,15 @@ contract Adminable is IAdminable {
     address public override admin;
 
     /*//////////////////////////////////////////////////////////////////////////
+                                     CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
+
+    /// @notice Initializes the contract setting the deployer as the initial admin.
+    constructor() {
+        _transferAdmin({ newAdmin: msg.sender });
+    }
+
+    /*//////////////////////////////////////////////////////////////////////////
                                       MODIFIERS
     //////////////////////////////////////////////////////////////////////////*/
 
@@ -23,15 +32,6 @@ contract Adminable is IAdminable {
             revert Adminable_CallerNotAdmin({ admin: admin, caller: msg.sender });
         }
         _;
-    }
-
-    /*//////////////////////////////////////////////////////////////////////////
-                                     CONSTRUCTOR
-    //////////////////////////////////////////////////////////////////////////*/
-
-    /// @notice Initializes the contract setting the deployer as the initial admin.
-    constructor() {
-        _transferAdmin({ newAdmin: msg.sender });
     }
 
     /*//////////////////////////////////////////////////////////////////////////
