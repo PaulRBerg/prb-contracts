@@ -21,6 +21,11 @@
 [profile.ci]
   fuzz = { runs = 10_000 }
 
+[etherscan]
+  ethereum = { key = "${API_KEY_ETHERSCAN}" }
+  goerli = { key = "${API_KEY_ETHERSCAN}" }
+  sepolia = { key = "${API_KEY_ETHERSCAN}" }
+
 [fmt]
   bracket_spacing = true
   int_types = "long"
@@ -30,3 +35,9 @@
   quote_style = "double"
   tab_width = 4
   wrap_comments = true
+
+[rpc_endpoints]
+  ethereum = "https://mainnet.infura.io/v3/${API_KEY_INFURA}"
+  goerli = "https://goerli.infura.io/v3/${API_KEY_INFURA}"
+  localhost = "http://localhost:8545"
+  sepolia = "https://sepolia.infura.io/v3/${API_KEY_INFURA}"
