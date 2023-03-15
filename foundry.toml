@@ -22,8 +22,8 @@
   fuzz = { runs = 10_000 }
 
 [etherscan]
-  ethereum = { key = "${API_KEY_ETHERSCAN}" }
   goerli = { key = "${API_KEY_ETHERSCAN}" }
+  mainnet = { key = "${API_KEY_ETHERSCAN}" }
   sepolia = { key = "${API_KEY_ETHERSCAN}" }
 
 [fmt]
@@ -37,7 +37,7 @@
   wrap_comments = true
 
 [rpc_endpoints]
-  ethereum = "https://mainnet.infura.io/v3/${API_KEY_INFURA}"
   goerli = "https://goerli.infura.io/v3/${API_KEY_INFURA}"
   localhost = "http://localhost:8545"
+  mainnet = "https://mainnet.infura.io/v3/${API_KEY_INFURA}"
   sepolia = "https://sepolia.infura.io/v3/${API_KEY_INFURA}"
