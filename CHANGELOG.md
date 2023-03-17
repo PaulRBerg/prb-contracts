@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[5.0.4]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.3...v5.0.4
 [5.0.3]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.2...v5.0.3
 [5.0.2]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.0...v5.0.1
