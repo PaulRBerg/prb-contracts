@@ -16,6 +16,12 @@ The format is based on [Common Changelog](https://common-changelog.org/), and th
 [3.8.1]: https://github.com/PaulRBerg/prb-contracts/compare/v3.8.0...v3.8.1
 [3.8.0]: https://github.com/PaulRBerg/prb-contracts/releases/tag/v3.8.0
 
+## [5.0.4] - 2023-03-17
+
+### Changed
+
+- Bump submodules (@PaulRBerg)
+
 ## [5.0.3] - 2023-03-03
 
 ### Changed
