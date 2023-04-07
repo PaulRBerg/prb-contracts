@@ -75,7 +75,7 @@ contract Recover_Test is ERC20Recover_Test {
         whenRecoverAmountNotZero
         whenTokenRecoverable
     {
-        vm.expectEmit();
+        vm.expectEmit({ emitter: address(erc20Recover) });
         emit Recover({ owner: users.admin, token: usdc, amount: DEFAULT_RECOVER_AMOUNT });
         erc20Recover.recover({ token: usdc, amount: DEFAULT_RECOVER_AMOUNT });
     }

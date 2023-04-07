@@ -54,7 +54,7 @@ contract IncreaseAllowance_Test is ERC20_Test {
         vm.assume(value > 0);
 
         // Expect an {Approval} event to be emitted.
-        vm.expectEmit();
+        vm.expectEmit({ emitter: address(dai) });
         emit Approval(users.alice, spender, value);
 
         // Increase the allowance.

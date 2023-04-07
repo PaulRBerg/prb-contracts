@@ -132,7 +132,7 @@ contract Mint_Test is ERC20_Test {
         checkAssumptions(beneficiary, amount);
 
         // Expect a {Transfer} event to be emitted.
-        vm.expectEmit();
+        vm.expectEmit({ emitter: address(dai) });
         emit Transfer({ from: address(0), to: beneficiary, amount: amount });
 
         // Mint the tokens.

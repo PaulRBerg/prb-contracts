@@ -22,7 +22,7 @@ contract RenounceAdmin_Test is AdminableTest {
     }
 
     function test_RenounceAdmin() external whenCallerAdmin {
-        vm.expectEmit();
+        vm.expectEmit({ emitter: address(adminable) });
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: address(0) });
         adminable.renounceAdmin();
         address actualAdmin = adminable.admin();

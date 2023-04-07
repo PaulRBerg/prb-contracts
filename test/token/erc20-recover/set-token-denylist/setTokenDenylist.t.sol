@@ -63,7 +63,7 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
         whenTokenDenylistNotAlreadySet
         whenAllTokensHaveASymbol
     {
-        vm.expectEmit();
+        vm.expectEmit({ emitter: address(erc20Recover) });
         emit SetTokenDenylist({ owner: users.admin, tokenDenylist: TOKEN_DENYLIST });
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }

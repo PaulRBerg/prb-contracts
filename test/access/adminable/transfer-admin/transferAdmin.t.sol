@@ -31,7 +31,7 @@ contract TransferAdmin_Test is AdminableTest {
     }
 
     function test_TransferAdmin_SameAdmin() external whenCallerAdmin whenAdminNotZeroAddress {
-        vm.expectEmit();
+        vm.expectEmit({ emitter: address(adminable) });
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: users.admin });
         adminable.transferAdmin(users.admin);
         address actualAdmin = adminable.admin();
@@ -41,7 +41,7 @@ contract TransferAdmin_Test is AdminableTest {
 
     function testFuzz_TransferAdmin_NewAdmin(address newAdmin) external whenCallerAdmin whenAdminNotZeroAddress {
         vm.assume(newAdmin != address(0) && newAdmin != users.admin);
-        vm.expectEmit();
+        vm.expectEmit({ emitter: address(adminable) });
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: newAdmin });
         adminable.transferAdmin(newAdmin);
         address actualAdmin = adminable.admin();

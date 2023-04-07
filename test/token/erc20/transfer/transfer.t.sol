@@ -142,7 +142,7 @@ contract Transfer_Test is ERC20_Test {
         dai.mint(users.alice, amount);
 
         // Expect a {Transfer} event to be emitted.
-        vm.expectEmit();
+        vm.expectEmit({ emitter: address(dai) });
         emit Transfer(users.alice, to, amount);
 
         // Transfer the tokens.
