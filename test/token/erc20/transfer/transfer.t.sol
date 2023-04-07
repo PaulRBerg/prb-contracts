@@ -8,7 +8,6 @@ import { IERC20 } from "src/token/erc20/IERC20.sol";
 import { ERC20_Test } from "../ERC20.t.sol";
 
 contract Transfer_Test is ERC20_Test {
-    /// @dev it should revert.
     function test_RevertWhen_SenderZeroAddress() external {
         // Make the zero address the caller in this test.
         changePrank(address(0));
@@ -22,7 +21,6 @@ contract Transfer_Test is ERC20_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_ReceiverZeroAddress() external whenSenderNotZeroAddress {
         vm.expectRevert(IERC20.ERC20_TransferToZeroAddress.selector);
         dai.transfer({ to: address(0), amount: ONE_MILLION_DAI });
@@ -32,7 +30,6 @@ contract Transfer_Test is ERC20_Test {
         _;
     }
 
-    /// @dev it should revert.
     function testFuzz_RevertWhen_SenderNotEnoughBalance(uint256 amount)
         external
         whenSenderNotZeroAddress
@@ -49,7 +46,6 @@ contract Transfer_Test is ERC20_Test {
         _;
     }
 
-    /// @dev it should transfer the tokens.
     function testFuzz_Transfer_ReceiverSender(uint256 amount)
         external
         whenSenderNotZeroAddress
@@ -73,14 +69,12 @@ contract Transfer_Test is ERC20_Test {
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
-    /// @dev Checks common assumptions for the tests below.
     function checkAssumptions(address to, uint256 amount) internal view {
         vm.assume(to != address(0));
         vm.assume(to != users.alice);
         vm.assume(amount > 0);
     }
 
-    /// @dev it should transfer the tokens.
     function testFuzz_Transfer_ReceiverNotSender_DecreaseSenderBalance(
         address to,
         uint256 amount
@@ -107,7 +101,6 @@ contract Transfer_Test is ERC20_Test {
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
-    /// @dev it should transfer the tokens.
     function testFuzz_Transfer_ReceiverNotSender_IncreaseReceiverBalance(
         address to,
         uint256 amount
@@ -134,7 +127,6 @@ contract Transfer_Test is ERC20_Test {
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
-    /// @dev it should emit a Transfer event.
     function testFuzz_Transfer_ReceiverNotSender_Event(
         address to,
         uint256 amount

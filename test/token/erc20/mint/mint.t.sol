@@ -8,7 +8,6 @@ import { IERC20 } from "src/token/erc20/IERC20.sol";
 import { ERC20_Test } from "../ERC20.t.sol";
 
 contract Mint_Test is ERC20_Test {
-    /// @dev it should revert.
     function test_RevertWhen_BeneficiaryZeroAddress() external {
         vm.expectRevert(IERC20.ERC20_MintBeneficiaryZeroAddress.selector);
         dai.mint({ beneficiary: address(0), amount: 1 });
@@ -24,7 +23,6 @@ contract Mint_Test is ERC20_Test {
         vm.assume(amount0 > 0);
     }
 
-    /// @dev it should revert.
     function testFuzz_RevertWhen_BeneficiaryBalanceCalculationOverflowsUint256(
         address beneficiary,
         uint256 amount0,
@@ -50,7 +48,6 @@ contract Mint_Test is ERC20_Test {
         _;
     }
 
-    /// @dev it should revert.
     function testFuzz_RevertWhen_TotalSupplyCalculationOverflowsUint256(
         address beneficiary,
         uint256 amount0,
@@ -77,7 +74,6 @@ contract Mint_Test is ERC20_Test {
         _;
     }
 
-    /// @dev it should increase the balance of the beneficiary.
     function testFuzz_Mint_IncreaseBeneficiaryBalance(
         address beneficiary,
         uint256 amount
@@ -101,7 +97,6 @@ contract Mint_Test is ERC20_Test {
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
-    /// @dev it should increase the total supply.
     function testFuzz_Mint_IncreaseTotalSupply(
         address beneficiary,
         uint256 amount
@@ -125,7 +120,6 @@ contract Mint_Test is ERC20_Test {
         assertEq(actualTotalSupply, expectedTotalSupply, "totalSupply");
     }
 
-    /// @dev it should emit a {Transfer} event.
     function testFuzz_Mint_Event(
         address beneficiary,
         uint256 amount

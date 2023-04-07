@@ -6,7 +6,6 @@ import { stdError } from "forge-std/StdError.sol";
 import { ERC20_Test } from "../ERC20.t.sol";
 
 contract DecreaseAllowance_Test is ERC20_Test {
-    /// @dev it should revert.
     function test_RevertWhen_CalculationUnderflowsUint256(address spender, uint256 value) external {
         vm.assume(spender != address(0));
         vm.assume(value > 0);
@@ -28,7 +27,6 @@ contract DecreaseAllowance_Test is ERC20_Test {
         vm.assume(value0 > 0);
     }
 
-    /// @dev it should decrease the allowance.
     function testFuzz_DecreaseAllowance(
         address spender,
         uint256 value0,
@@ -52,7 +50,6 @@ contract DecreaseAllowance_Test is ERC20_Test {
         assertEq(actualAllowance, expectedAllowance, "allowance");
     }
 
-    /// @dev it should emit an Approval event.
     function testFuzz_DecreaseAllowance_Event(
         address spender,
         uint256 value0,

@@ -12,7 +12,6 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
     ERC20GodMode internal tkn19 = new ERC20GodMode("Token 19", "TKN19", 19);
     ERC20GodMode internal tkn255 = new ERC20GodMode("Token 255", "TKN18", 255);
 
-    /// @dev it should revert.
     function test_RevertWhen_TokenDecimalsZero() external {
         vm.expectRevert(abi.encodeWithSelector(IERC20Normalizer.IERC20Normalizer_TokenDecimalsZero.selector, tkn0));
         erc20Normalizer.computeScalar({ token: tkn0 });
@@ -22,7 +21,6 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_TokenDecimalsGreaterThan18_TokenDecimals19() external whenTokenDecimalsNotZero {
         uint256 decimals = 19;
         vm.expectRevert(
@@ -33,7 +31,6 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
         erc20Normalizer.computeScalar({ token: tkn19 });
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_TokenDecimalsGreaterThan18_TokenDecimals255() external whenTokenDecimalsNotZero {
         uint256 decimals = 255;
         vm.expectRevert(
@@ -44,7 +41,6 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
         erc20Normalizer.computeScalar({ token: tkn255 });
     }
 
-    /// @dev it should compute the scalar.
     function test_ComputeScalar_TokenDecimalsEqualTo18() external {
         erc20Normalizer.computeScalar({ token: dai });
         uint256 actualScalar = erc20Normalizer.getScalar({ token: dai });
@@ -52,7 +48,6 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
         assertEq(actualScalar, expectedScalar, "scalar");
     }
 
-    /// @dev it should compute the scalar.
     function test_ComputeScalar_TokenDecimalsLessThan18() external {
         erc20Normalizer.computeScalar({ token: usdc });
         uint256 actualScalar = erc20Normalizer.getScalar({ token: usdc });

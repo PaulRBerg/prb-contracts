@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.19 <0.9.0;
 
-import { stdError } from "forge-std/StdError.sol";
+import {stdError} from "forge-std/StdError.sol";
 
-import { IERC20 } from "src/token/erc20/IERC20.sol";
+import {IERC20} from "src/token/erc20/IERC20.sol";
 
-import { ERC20_Test } from "../ERC20.t.sol";
+import {ERC20_Test} from "../ERC20.t.sol";
 
 contract TransferFrom_Test is ERC20_Test {
-    /// @dev it should revert.
     function test_RevertWhen_SpenderAllowanceNotEnough(address owner, uint256 amount) external {
         vm.assume(owner != address(0));
         vm.assume(amount > 0);
@@ -20,27 +19,20 @@ contract TransferFrom_Test is ERC20_Test {
                 IERC20.ERC20_InsufficientAllowance.selector, owner, spender, currentAllowance, amount
             )
         );
-        dai.transferFrom({ from: owner, to: spender, amount: amount });
+        dai.transferFrom({from: owner, to: spender, amount: amount});
     }
 
     modifier whenSpenderAllowanceEnough() {
         _;
     }
 
-    /// @dev Checks common assumptions for the tests below.
     function checkAssumptions(address owner, address to, uint256 amount0) internal pure {
         vm.assume(owner != address(0) && to != address(0));
         vm.assume(owner != to);
         vm.assume(amount0 > 0);
     }
 
-    /// @dev it should transfer the tokens.
-    function testFuzz_TransferFrom_DecreaseOwnerBalance(
-        address owner,
-        address to,
-        uint256 amount0,
-        uint256 amount1
-    )
+    function testFuzz_TransferFrom_DecreaseOwnerBalance(address owner, address to, uint256 amount0, uint256 amount1)
         external
         whenSpenderAllowanceEnough
     {
@@ -52,7 +44,7 @@ contract TransferFrom_Test is ERC20_Test {
 
         // Approve Alice to spend tokens from the owner.
         changePrank(owner);
-        dai.approve({ spender: users.alice, value: amount0 });
+        dai.approve({spender: users.alice, value: amount0});
 
         // Make Alice the caller in this test.
         changePrank(users.alice);
@@ -61,7 +53,7 @@ contract TransferFrom_Test is ERC20_Test {
         uint256 initialOwnerBalance = dai.balanceOf(owner);
 
         // Transfer the tokens.
-        dai.transferFrom({ from: owner, to: to, amount: amount1 });
+        dai.transferFrom({from: owner, to: to, amount: amount1});
 
         // Assert that the owner's balance has decreased.
         uint256 actualOwnerBalance = dai.balanceOf(owner);
@@ -69,13 +61,7 @@ contract TransferFrom_Test is ERC20_Test {
         assertEq(actualOwnerBalance, expectedOwnerBalance, "owner balance");
     }
 
-    /// @dev it should transfer the tokens.
-    function testFuzz_TransferFrom_IncreaseReceiverBalance(
-        address owner,
-        address to,
-        uint256 amount0,
-        uint256 amount1
-    )
+    function testFuzz_TransferFrom_IncreaseReceiverBalance(address owner, address to, uint256 amount0, uint256 amount1)
         external
         whenSpenderAllowanceEnough
     {
@@ -87,7 +73,7 @@ contract TransferFrom_Test is ERC20_Test {
 
         // Approve Alice to spend tokens from the owner.
         changePrank(owner);
-        dai.approve({ spender: users.alice, value: amount0 });
+        dai.approve({spender: users.alice, value: amount0});
 
         // Make Alice the caller in this test.
         changePrank(users.alice);
@@ -96,7 +82,7 @@ contract TransferFrom_Test is ERC20_Test {
         uint256 initialToBalance = dai.balanceOf(to);
 
         // Transfer the tokens.
-        dai.transferFrom({ from: owner, to: to, amount: amount1 });
+        dai.transferFrom({from: owner, to: to, amount: amount1});
 
         // Assert that the receiver's balance has increased.
         uint256 actualToBalance = dai.balanceOf(to);
@@ -104,13 +90,7 @@ contract TransferFrom_Test is ERC20_Test {
         assertEq(actualToBalance, expectedToBalance, "to balance");
     }
 
-    /// @dev it should emit an {Approval} and a {Transfer} event.
-    function testFuzz_TransferFrom_Event(
-        address owner,
-        address to,
-        uint256 amount0,
-        uint256 amount1
-    )
+    function testFuzz_TransferFrom_Event(address owner, address to, uint256 amount0, uint256 amount1)
         external
         whenSpenderAllowanceEnough
     {
@@ -122,18 +102,18 @@ contract TransferFrom_Test is ERC20_Test {
 
         // Approve Alice to spend tokens from the owner.
         changePrank(owner);
-        dai.approve({ spender: users.alice, value: amount0 });
+        dai.approve({spender: users.alice, value: amount0});
 
         // Make the spender the caller in this test.
         changePrank(users.alice);
 
         // Expect an {Approval} and a {Transfer} event to be emitted.
         vm.expectEmit();
-        emit Approval({ owner: owner, spender: users.alice, amount: amount0 - amount1 });
+        emit Approval({owner: owner, spender: users.alice, amount: amount0 - amount1});
         vm.expectEmit();
-        emit Transfer({ from: owner, to: to, amount: amount1 });
+        emit Transfer({from: owner, to: to, amount: amount1});
 
         // Transfer the tokens.
-        dai.transferFrom({ from: owner, to: to, amount: amount1 });
+        dai.transferFrom({from: owner, to: to, amount: amount1});
     }
 }

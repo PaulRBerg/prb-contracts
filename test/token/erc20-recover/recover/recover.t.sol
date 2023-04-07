@@ -8,7 +8,6 @@ import { IERC20Recover } from "src/token/erc20/IERC20Recover.sol";
 import { ERC20Recover_Test } from "../ERC20Recover.t.sol";
 
 contract Recover_Test is ERC20Recover_Test {
-    /// @dev it should revert.
     function test_RevertWhen_CallerNotOwner() external {
         // Make Eve the caller in this test.
         address caller = users.eve;
@@ -23,7 +22,6 @@ contract Recover_Test is ERC20Recover_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_TokenDenylistNotSet() external whenCallerOwner {
         vm.expectRevert(IERC20Recover.ERC20Recover_TokenDenylistNotSet.selector);
         erc20Recover.recover({ token: dai, amount: DEFAULT_RECOVER_AMOUNT });
@@ -34,7 +32,6 @@ contract Recover_Test is ERC20Recover_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_RecoverAmountZero() external whenCallerOwner whenTokenDenylistSet {
         vm.expectRevert(IERC20Recover.ERC20Recover_RecoverAmountZero.selector);
         erc20Recover.recover({ token: dai, amount: 0 });
@@ -44,7 +41,6 @@ contract Recover_Test is ERC20Recover_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_TokenNotRecoverable()
         external
         whenCallerOwner
@@ -62,7 +58,6 @@ contract Recover_Test is ERC20Recover_Test {
         _;
     }
 
-    /// @dev it should recover the tokens.
     function test_Recover()
         external
         whenCallerOwner
@@ -73,7 +68,6 @@ contract Recover_Test is ERC20Recover_Test {
         erc20Recover.recover({ token: usdc, amount: DEFAULT_RECOVER_AMOUNT });
     }
 
-    /// @dev it should emit a {Recover} event.
     function test_Recover_Event()
         external
         whenCallerOwner

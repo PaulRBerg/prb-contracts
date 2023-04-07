@@ -25,7 +25,6 @@ abstract contract ERC20_Test is Base_Test {
                                    SETUP FUNCTION
     //////////////////////////////////////////////////////////////////////////*/
 
-    /// @dev A setup function invoked before each test case.
     function setUp() public virtual override {
         Base_Test.setUp();
 

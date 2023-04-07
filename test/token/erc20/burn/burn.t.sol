@@ -8,7 +8,6 @@ import { IERC20 } from "src/token/erc20/IERC20.sol";
 import { ERC20_Test } from "../ERC20.t.sol";
 
 contract Burn_Test is ERC20_Test {
-    /// @dev it should revert.
     function test_RevertWhen_HolderZeroAddress() external {
         vm.expectRevert(IERC20.ERC20_BurnHolderZeroAddress.selector);
         dai.burn({ holder: address(0), amount: 1 });
@@ -18,7 +17,6 @@ contract Burn_Test is ERC20_Test {
         _;
     }
 
-    /// @dev it should revert.
     function testFuzz_RevertWhen_HolderBalanceCalculationUnderflowsUint256(
         address holder,
         uint256 amount
@@ -46,7 +44,6 @@ contract Burn_Test is ERC20_Test {
         vm.assume(burnAmount > 0 && burnAmount < MAX_UINT256);
     }
 
-    /// @dev it should decrease the balance of the holder.
     function testFuzz_Burn_DecreaseHolderBalance(
         address holder,
         uint256 mintAmount,
@@ -71,7 +68,6 @@ contract Burn_Test is ERC20_Test {
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
-    /// @dev it should decrease the total supply and emit a {Transfer} event.
     function testFuzz_Burn_DecreaseTotalSupply(
         address holder,
         uint256 mintAmount,
@@ -99,7 +95,6 @@ contract Burn_Test is ERC20_Test {
         assertEq(actualTotalSupply, expectedTotalSupply, "totalSupply");
     }
 
-    /// @dev it should emit a {Transfer} event.
     function testFuzz_Burn_Event(
         address holder,
         uint256 mintAmount,

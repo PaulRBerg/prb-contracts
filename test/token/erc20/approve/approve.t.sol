@@ -8,7 +8,6 @@ import { IERC20 } from "src/token/erc20/IERC20.sol";
 import { ERC20_Test } from "../ERC20.t.sol";
 
 contract Approve_Test is ERC20_Test {
-    /// @dev it should revert.
     function test_RevertWhen_OwnerZeroAddress() external {
         // Make the zero address the caller in this test.
         changePrank(address(0));
@@ -22,7 +21,6 @@ contract Approve_Test is ERC20_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_SpenderZeroAddress() external whenOwnerNotZeroAddress {
         vm.expectRevert(IERC20.ERC20_ApproveSpenderZeroAddress.selector);
         dai.approve({ spender: address(0), value: ONE_MILLION_DAI });
@@ -32,7 +30,6 @@ contract Approve_Test is ERC20_Test {
         _;
     }
 
-    /// @dev it should make the approval.
     function testFuzz_Approve(
         address spender,
         uint256 amount
@@ -48,7 +45,6 @@ contract Approve_Test is ERC20_Test {
         assertEq(actualAllowance, expectedAllowance, "allowance");
     }
 
-    /// @dev it should emit an Approval event.
     function testFuzz_Approve_Event(
         address spender,
         uint256 amount

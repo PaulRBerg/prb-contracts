@@ -6,7 +6,6 @@ import { IAdminable } from "src/access/IAdminable.sol";
 import { AdminableTest } from "../Adminable.t.sol";
 
 contract RenounceAdmin_Test is AdminableTest {
-    /// @dev it should revert.
     function testFuzz_RevertWhen_CallerNotAdmin(address eve) external {
         vm.assume(eve != address(0) && eve != users.admin);
 
@@ -22,7 +21,6 @@ contract RenounceAdmin_Test is AdminableTest {
         _;
     }
 
-    /// @dev it should emit a TransferAdmin event and renounce the admin.
     function test_RenounceAdmin() external whenCallerAdmin {
         vm.expectEmit();
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: address(0) });

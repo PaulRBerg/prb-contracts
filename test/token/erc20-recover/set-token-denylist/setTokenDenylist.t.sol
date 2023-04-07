@@ -8,7 +8,6 @@ import { IERC20Recover } from "src/token/erc20/IERC20Recover.sol";
 import { ERC20Recover_Test } from "../ERC20Recover.t.sol";
 
 contract SetTokenDenylist_Test is ERC20Recover_Test {
-    /// @dev it should revert.
     function test_RevertWhen_CallerNotAdmin() external {
         // Make Eve the caller in this test.
         address caller = users.eve;
@@ -23,7 +22,6 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_TokenDenylistAlreadySet() external whenCallerAdmin {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
         vm.expectRevert(IERC20Recover.ERC20Recover_TokenDenylistAlreadySet.selector);
@@ -34,7 +32,6 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_SomeTokensDontHaveASymbol() external whenCallerAdmin whenTokenDenylistNotAlreadySet {
         vm.expectRevert();
         IERC20[] memory tokenDenylist = new IERC20[](2);
@@ -47,7 +44,6 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
         _;
     }
 
-    /// @dev it should set the token denylist.
     function test_SetTokenDenylist() external whenCallerAdmin whenTokenDenylistNotAlreadySet whenAllTokensHaveASymbol {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
 
@@ -61,7 +57,6 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
         assertTrue(isTokenDenylistSet, "isTokenDenylistSet");
     }
 
-    /// @dev it should emit a {SetTokenDenylist} event.
     function test_SetTokenDenylist_Event()
         external
         whenCallerAdmin

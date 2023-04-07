@@ -6,7 +6,6 @@ import { IERC20Permit } from "src/token/erc20/IERC20Permit.sol";
 import { ERC20Permit_Test } from "../ERC20Permit.t.sol";
 
 contract Permit_Test is ERC20Permit_Test {
-    /// @dev it should revert.
     function test_RevertWhen_OwnerZeroAddress() external {
         vm.expectRevert(IERC20Permit.ERC20Permit_OwnerZeroAddress.selector);
         erc20Permit.permit({
@@ -24,7 +23,6 @@ contract Permit_Test is ERC20Permit_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_SpenderZeroAddress() external whenOwnerNotZeroAddress {
         vm.expectRevert(IERC20Permit.ERC20Permit_SpenderZeroAddress.selector);
         erc20Permit.permit({
@@ -42,7 +40,6 @@ contract Permit_Test is ERC20Permit_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_DeadlineInThePast(uint256 deadline)
         external
         whenOwnerNotZeroAddress
@@ -68,9 +65,7 @@ contract Permit_Test is ERC20Permit_Test {
         _;
     }
 
-    /// @dev it should revert.
-    ///
-    /// Setting `v` to any number other than 27 or 28 makes the `ecrecover` precompile return the zero address.
+    /// @dev Setting `v` to any number other than 27 or 28 makes the `ecrecover` precompile return the zero address.
     /// https://ethereum.stackexchange.com/questions/69328/how-to-get-the-zero-address-from-ecrecover
     function test_RevertWhen_RecoveredOwnerZeroAddress(
         uint256 deadline,
@@ -100,7 +95,6 @@ contract Permit_Test is ERC20Permit_Test {
         _;
     }
 
-    /// @dev it should revert.
     function test_RevertWhen_SignatureNotValid(uint256 deadline)
         external
         whenOwnerNotZeroAddress
@@ -129,7 +123,6 @@ contract Permit_Test is ERC20Permit_Test {
         _;
     }
 
-    /// @dev it should update the spender's allowance.
     function testFuzz_Permit(
         uint256 privateKey,
         address spender,
@@ -155,7 +148,6 @@ contract Permit_Test is ERC20Permit_Test {
         assertEq(actualAllowance, expectedAllowance, "allowance");
     }
 
-    /// @dev it should increase the nonce of the owner.
     function testFuzz_Permit_IncreaseNonce(
         uint256 privateKey,
         address spender,
@@ -181,7 +173,6 @@ contract Permit_Test is ERC20Permit_Test {
         assertEq(actualNonce, expectedNonce, "nonce");
     }
 
-    /// @dev it should emit an Approval event.
     function testFuzz_Permit_Approval(
         uint256 privateKey,
         address spender,

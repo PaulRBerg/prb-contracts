@@ -6,7 +6,6 @@ import { IAdminable } from "src/access/IAdminable.sol";
 import { AdminableTest } from "../Adminable.t.sol";
 
 contract TransferAdmin_Test is AdminableTest {
-    /// @dev it should revert.
     function testFuzz_RevertWhen_CallerNotAdmin(address eve) external {
         vm.assume(eve != address(0) && eve != users.admin);
 
