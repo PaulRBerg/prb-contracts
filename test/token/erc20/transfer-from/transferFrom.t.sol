@@ -23,7 +23,7 @@ contract TransferFrom_Test is ERC20_Test {
         dai.transferFrom({ from: owner, to: spender, amount: amount });
     }
 
-    modifier spenderAllowanceEnough() {
+    modifier whenSpenderAllowanceEnough() {
         _;
     }
 
@@ -42,7 +42,7 @@ contract TransferFrom_Test is ERC20_Test {
         uint256 amount1
     )
         external
-        spenderAllowanceEnough
+        whenSpenderAllowanceEnough
     {
         checkAssumptions(owner, to, amount0);
         amount1 = bound(amount1, 1, amount0);
@@ -77,7 +77,7 @@ contract TransferFrom_Test is ERC20_Test {
         uint256 amount1
     )
         external
-        spenderAllowanceEnough
+        whenSpenderAllowanceEnough
     {
         checkAssumptions(owner, to, amount0);
         amount1 = bound(amount1, 1, amount0);
@@ -112,7 +112,7 @@ contract TransferFrom_Test is ERC20_Test {
         uint256 amount1
     )
         external
-        spenderAllowanceEnough
+        whenSpenderAllowanceEnough
     {
         checkAssumptions(owner, to, amount0);
         amount1 = bound(amount1, 1, amount0);

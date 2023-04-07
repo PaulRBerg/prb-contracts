@@ -18,22 +18,29 @@ contract Approve_Test is ERC20_Test {
         dai.approve({ spender: users.alice, value: ONE_MILLION_DAI });
     }
 
-    modifier ownerNotZeroAddress() {
+    modifier whenOwnerNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_SpenderZeroAddress() external ownerNotZeroAddress {
+    function test_RevertWhen_SpenderZeroAddress() external whenOwnerNotZeroAddress {
         vm.expectRevert(IERC20.ERC20_ApproveSpenderZeroAddress.selector);
         dai.approve({ spender: address(0), value: ONE_MILLION_DAI });
     }
 
-    modifier spenderNotZeroAddress() {
+    modifier whenSpenderNotZeroAddress() {
         _;
     }
 
     /// @dev it should make the approval.
-    function testFuzz_Approve(address spender, uint256 amount) external ownerNotZeroAddress spenderNotZeroAddress {
+    function testFuzz_Approve(
+        address spender,
+        uint256 amount
+    )
+        external
+        whenOwnerNotZeroAddress
+        whenSpenderNotZeroAddress
+    {
         vm.assume(spender != address(0));
         dai.approve(spender, amount);
         uint256 actualAllowance = dai.allowance({ owner: users.alice, spender: spender });
@@ -47,8 +54,8 @@ contract Approve_Test is ERC20_Test {
         uint256 amount
     )
         external
-        ownerNotZeroAddress
-        spenderNotZeroAddress
+        whenOwnerNotZeroAddress
+        whenSpenderNotZeroAddress
     {
         vm.assume(spender != address(0));
         vm.expectEmit();

@@ -14,7 +14,7 @@ contract Mint_Test is ERC20_Test {
         dai.mint({ beneficiary: address(0), amount: 1 });
     }
 
-    modifier beneficiaryNotZeroAddress() {
+    modifier whenBeneficiaryNotZeroAddress() {
         _;
     }
 
@@ -31,7 +31,7 @@ contract Mint_Test is ERC20_Test {
         uint256 amount1
     )
         external
-        beneficiaryNotZeroAddress
+        whenBeneficiaryNotZeroAddress
     {
         checkAssumptions(beneficiary, amount0);
         amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
@@ -46,7 +46,7 @@ contract Mint_Test is ERC20_Test {
         dai.mint(beneficiary, amount1);
     }
 
-    modifier beneficiaryBalanceCalculationDoesNotOverflowUint256() {
+    modifier whenBeneficiaryBalanceCalculationDoesNotOverflowUint256() {
         _;
     }
 
@@ -57,8 +57,8 @@ contract Mint_Test is ERC20_Test {
         uint256 amount1
     )
         external
-        beneficiaryNotZeroAddress
-        beneficiaryBalanceCalculationDoesNotOverflowUint256
+        whenBeneficiaryNotZeroAddress
+        whenBeneficiaryBalanceCalculationDoesNotOverflowUint256
     {
         checkAssumptions(beneficiary, amount0);
         amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
@@ -73,7 +73,7 @@ contract Mint_Test is ERC20_Test {
         dai.mint(beneficiary, amount1);
     }
 
-    modifier totalSupplyCalculationDoesNotOverflowUint256() {
+    modifier whenTotalSupplyCalculationDoesNotOverflowUint256() {
         _;
     }
 
@@ -83,9 +83,9 @@ contract Mint_Test is ERC20_Test {
         uint256 amount
     )
         external
-        beneficiaryNotZeroAddress
-        beneficiaryBalanceCalculationDoesNotOverflowUint256
-        totalSupplyCalculationDoesNotOverflowUint256
+        whenBeneficiaryNotZeroAddress
+        whenBeneficiaryBalanceCalculationDoesNotOverflowUint256
+        whenTotalSupplyCalculationDoesNotOverflowUint256
     {
         checkAssumptions(beneficiary, amount);
 
@@ -107,9 +107,9 @@ contract Mint_Test is ERC20_Test {
         uint256 amount
     )
         external
-        beneficiaryNotZeroAddress
-        beneficiaryBalanceCalculationDoesNotOverflowUint256
-        totalSupplyCalculationDoesNotOverflowUint256
+        whenBeneficiaryNotZeroAddress
+        whenBeneficiaryBalanceCalculationDoesNotOverflowUint256
+        whenTotalSupplyCalculationDoesNotOverflowUint256
     {
         checkAssumptions(beneficiary, amount);
 
@@ -131,9 +131,9 @@ contract Mint_Test is ERC20_Test {
         uint256 amount
     )
         external
-        beneficiaryNotZeroAddress
-        beneficiaryBalanceCalculationDoesNotOverflowUint256
-        totalSupplyCalculationDoesNotOverflowUint256
+        whenBeneficiaryNotZeroAddress
+        whenBeneficiaryBalanceCalculationDoesNotOverflowUint256
+        whenTotalSupplyCalculationDoesNotOverflowUint256
     {
         checkAssumptions(beneficiary, amount);
 

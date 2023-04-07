@@ -19,23 +19,23 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 
-    modifier callerAdmin() {
+    modifier whenCallerAdmin() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_TokenDenylistAlreadySet() external callerAdmin {
+    function test_RevertWhen_TokenDenylistAlreadySet() external whenCallerAdmin {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
         vm.expectRevert(IERC20Recover.ERC20Recover_TokenDenylistAlreadySet.selector);
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
     }
 
-    modifier tokenDenylistNotAlreadySet() {
+    modifier whenTokenDenylistNotAlreadySet() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_SomeTokensDontHaveASymbol() external callerAdmin tokenDenylistNotAlreadySet {
+    function test_RevertWhen_SomeTokensDontHaveASymbol() external whenCallerAdmin whenTokenDenylistNotAlreadySet {
         vm.expectRevert();
         IERC20[] memory tokenDenylist = new IERC20[](2);
         tokenDenylist[0] = dai;
@@ -43,12 +43,12 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
         erc20Recover.setTokenDenylist(tokenDenylist);
     }
 
-    modifier allTokensHaveASymbol() {
+    modifier whenAllTokensHaveASymbol() {
         _;
     }
 
     /// @dev it should set the token denylist.
-    function test_SetTokenDenylist() external callerAdmin tokenDenylistNotAlreadySet allTokensHaveASymbol {
+    function test_SetTokenDenylist() external whenCallerAdmin whenTokenDenylistNotAlreadySet whenAllTokensHaveASymbol {
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);
 
         // Compare the token denylists.
@@ -62,7 +62,12 @@ contract SetTokenDenylist_Test is ERC20Recover_Test {
     }
 
     /// @dev it should emit a {SetTokenDenylist} event.
-    function test_SetTokenDenylist_Event() external callerAdmin tokenDenylistNotAlreadySet allTokensHaveASymbol {
+    function test_SetTokenDenylist_Event()
+        external
+        whenCallerAdmin
+        whenTokenDenylistNotAlreadySet
+        whenAllTokensHaveASymbol
+    {
         vm.expectEmit();
         emit SetTokenDenylist({ owner: users.admin, tokenDenylist: TOKEN_DENYLIST });
         erc20Recover.setTokenDenylist(TOKEN_DENYLIST);

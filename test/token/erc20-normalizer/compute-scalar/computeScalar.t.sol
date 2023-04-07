@@ -18,12 +18,12 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
         erc20Normalizer.computeScalar({ token: tkn0 });
     }
 
-    modifier tokenDecimalsNotZero() {
+    modifier whenTokenDecimalsNotZero() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_TokenDecimalsGreaterThan18_TokenDecimals19() external tokenDecimalsNotZero {
+    function test_RevertWhen_TokenDecimalsGreaterThan18_TokenDecimals19() external whenTokenDecimalsNotZero {
         uint256 decimals = 19;
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -34,7 +34,7 @@ contract ComputeScalar_Test is ERC20Normalizer_Test {
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_TokenDecimalsGreaterThan18_TokenDecimals255() external tokenDecimalsNotZero {
+    function test_RevertWhen_TokenDecimalsGreaterThan18_TokenDecimals255() external whenTokenDecimalsNotZero {
         uint256 decimals = 255;
         vm.expectRevert(
             abi.encodeWithSelector(

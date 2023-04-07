@@ -22,12 +22,18 @@ contract IncreaseAllowance_Test is ERC20_Test {
         dai.increaseAllowance(spender, amount1);
     }
 
-    modifier calculationDoesNotOverflowUint256() {
+    modifier whenCalculationDoesNotOverflowUint256() {
         _;
     }
 
     /// @dev it should increase the allowance.
-    function testFuzz_IncreaseAllowance(address spender, uint256 value) external calculationDoesNotOverflowUint256 {
+    function testFuzz_IncreaseAllowance(
+        address spender,
+        uint256 value
+    )
+        external
+        whenCalculationDoesNotOverflowUint256
+    {
         vm.assume(spender != address(0));
 
         // Increase the allowance.
@@ -45,7 +51,7 @@ contract IncreaseAllowance_Test is ERC20_Test {
         uint256 value
     )
         external
-        calculationDoesNotOverflowUint256
+        whenCalculationDoesNotOverflowUint256
     {
         vm.assume(spender != address(0));
         vm.assume(value > 0);

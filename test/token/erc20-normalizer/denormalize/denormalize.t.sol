@@ -17,12 +17,12 @@ contract Denormalize_Test is ERC20Normalizer_Test {
         assertEq(actualDenormalizedAmount, expectedDenormalizedAmount, "normalizedAmount");
     }
 
-    modifier scalarComputed() {
+    modifier whenScalarComputed() {
         _;
     }
 
     /// @dev it should return the denormalized amount.
-    function test_Denormalize_Scalar1() external scalarComputed {
+    function test_Denormalize_Scalar1() external whenScalarComputed {
         erc20Normalizer.computeScalar({ token: usdc });
         uint256 amount = bn(100, STANDARD_DECIMALS);
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize({ token: usdc, amount: amount });
@@ -30,12 +30,12 @@ contract Denormalize_Test is ERC20Normalizer_Test {
         assertEq(actualDenormalizedAmount, expectedDenormalizedAmount, "normalizedAmount");
     }
 
-    modifier scalarNot1() {
+    modifier whenScalarNot1() {
         _;
     }
 
     /// @dev it should return zero.
-    function test_Denormalize_AmountZero() external scalarComputed scalarNot1 {
+    function test_Denormalize_AmountZero() external whenScalarComputed whenScalarNot1 {
         erc20Normalizer.computeScalar({ token: usdc });
         uint256 amount = 0;
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize({ token: usdc, amount: amount });
@@ -43,12 +43,12 @@ contract Denormalize_Test is ERC20Normalizer_Test {
         assertEq(actualDenormalizedAmount, expectedDenormalizedAmount, "normalizedAmount");
     }
 
-    modifier amountNotZero() {
+    modifier whenAmountNotZero() {
         _;
     }
 
     /// @dev it should return zero.
-    function test_Denormalize_AmountSmallerThanScalar() external scalarComputed scalarNot1 amountNotZero {
+    function test_Denormalize_AmountSmallerThanScalar() external whenScalarComputed whenScalarNot1 whenAmountNotZero {
         erc20Normalizer.computeScalar({ token: usdc });
         uint256 amount = USDC_SCALAR - 1;
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize({ token: usdc, amount: amount });
@@ -59,9 +59,9 @@ contract Denormalize_Test is ERC20Normalizer_Test {
     /// @dev it should return the denormalized amount.
     function testFuzz_Denormalize_AmountBiggerThanScalar(uint256 amount)
         external
-        scalarComputed
-        scalarNot1
-        amountNotZero
+        whenScalarComputed
+        whenScalarNot1
+        whenAmountNotZero
     {
         erc20Normalizer.computeScalar({ token: usdc });
         amount = bound(amount, USDC_SCALAR + 1, MAX_UINT256);

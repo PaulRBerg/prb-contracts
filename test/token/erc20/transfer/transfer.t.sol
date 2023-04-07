@@ -18,25 +18,25 @@ contract Transfer_Test is ERC20_Test {
         dai.transfer({ to: users.alice, amount: ONE_MILLION_DAI });
     }
 
-    modifier senderNotZeroAddress() {
+    modifier whenSenderNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_ReceiverZeroAddress() external senderNotZeroAddress {
+    function test_RevertWhen_ReceiverZeroAddress() external whenSenderNotZeroAddress {
         vm.expectRevert(IERC20.ERC20_TransferToZeroAddress.selector);
         dai.transfer({ to: address(0), amount: ONE_MILLION_DAI });
     }
 
-    modifier recipientNotZeroAddress() {
+    modifier whenRecipientNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
     function testFuzz_RevertWhen_SenderNotEnoughBalance(uint256 amount)
         external
-        senderNotZeroAddress
-        recipientNotZeroAddress
+        whenSenderNotZeroAddress
+        whenRecipientNotZeroAddress
     {
         vm.assume(amount > 0);
 
@@ -45,16 +45,16 @@ contract Transfer_Test is ERC20_Test {
         dai.transfer(users.alice, amount);
     }
 
-    modifier enderEnoughBalance() {
+    modifier whenSenderEnoughBalance() {
         _;
     }
 
     /// @dev it should transfer the tokens.
     function testFuzz_Transfer_ReceiverSender(uint256 amount)
         external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-        enderEnoughBalance
+        whenSenderNotZeroAddress
+        whenRecipientNotZeroAddress
+        whenSenderEnoughBalance
     {
         vm.assume(amount > 0);
 
@@ -86,9 +86,9 @@ contract Transfer_Test is ERC20_Test {
         uint256 amount
     )
         external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-        enderEnoughBalance
+        whenSenderNotZeroAddress
+        whenRecipientNotZeroAddress
+        whenSenderEnoughBalance
     {
         checkAssumptions(to, amount);
 
@@ -113,9 +113,9 @@ contract Transfer_Test is ERC20_Test {
         uint256 amount
     )
         external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-        enderEnoughBalance
+        whenSenderNotZeroAddress
+        whenRecipientNotZeroAddress
+        whenSenderEnoughBalance
     {
         checkAssumptions(to, amount);
 
@@ -140,9 +140,9 @@ contract Transfer_Test is ERC20_Test {
         uint256 amount
     )
         external
-        senderNotZeroAddress
-        recipientNotZeroAddress
-        enderEnoughBalance
+        whenSenderNotZeroAddress
+        whenRecipientNotZeroAddress
+        whenSenderEnoughBalance
     {
         checkAssumptions(to, amount);
 

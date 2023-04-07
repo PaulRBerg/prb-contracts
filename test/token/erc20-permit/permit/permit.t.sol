@@ -20,12 +20,12 @@ contract Permit_Test is ERC20Permit_Test {
         });
     }
 
-    modifier ownerNotZeroAddress() {
+    modifier whenOwnerNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_SpenderZeroAddress() external ownerNotZeroAddress {
+    function test_RevertWhen_SpenderZeroAddress() external whenOwnerNotZeroAddress {
         vm.expectRevert(IERC20Permit.ERC20Permit_SpenderZeroAddress.selector);
         erc20Permit.permit({
             owner: users.alice,
@@ -38,12 +38,16 @@ contract Permit_Test is ERC20Permit_Test {
         });
     }
 
-    modifier spenderNotZeroAddress() {
+    modifier whenSpenderNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
-    function test_RevertWhen_DeadlineInThePast(uint256 deadline) external ownerNotZeroAddress spenderNotZeroAddress {
+    function test_RevertWhen_DeadlineInThePast(uint256 deadline)
+        external
+        whenOwnerNotZeroAddress
+        whenSpenderNotZeroAddress
+    {
         deadline = bound(deadline, 0, block.timestamp - 1);
 
         vm.expectRevert(
@@ -60,7 +64,7 @@ contract Permit_Test is ERC20Permit_Test {
         });
     }
 
-    modifier deadlineNotInThePast() {
+    modifier whenDeadlineNotInThePast() {
         _;
     }
 
@@ -73,9 +77,9 @@ contract Permit_Test is ERC20Permit_Test {
         uint8 v
     )
         external
-        ownerNotZeroAddress
-        spenderNotZeroAddress
-        deadlineNotInThePast
+        whenOwnerNotZeroAddress
+        whenSpenderNotZeroAddress
+        whenDeadlineNotInThePast
     {
         vm.assume(v != 27 && v != 28);
         deadline = bound(deadline, block.timestamp, DECEMBER_2099);
@@ -92,17 +96,17 @@ contract Permit_Test is ERC20Permit_Test {
         });
     }
 
-    modifier recoveredOwnerNotZeroAddress() {
+    modifier whenRecoveredOwnerNotZeroAddress() {
         _;
     }
 
     /// @dev it should revert.
     function test_RevertWhen_SignatureNotValid(uint256 deadline)
         external
-        ownerNotZeroAddress
-        spenderNotZeroAddress
-        deadlineNotInThePast
-        recoveredOwnerNotZeroAddress
+        whenOwnerNotZeroAddress
+        whenSpenderNotZeroAddress
+        whenDeadlineNotInThePast
+        whenRecoveredOwnerNotZeroAddress
     {
         deadline = bound(deadline, block.timestamp, DECEMBER_2099);
 
@@ -121,7 +125,7 @@ contract Permit_Test is ERC20Permit_Test {
         });
     }
 
-    modifier signatureValid() {
+    modifier whenSignatureValid() {
         _;
     }
 
@@ -133,11 +137,11 @@ contract Permit_Test is ERC20Permit_Test {
         uint256 deadline
     )
         external
-        ownerNotZeroAddress
-        spenderNotZeroAddress
-        deadlineNotInThePast
-        recoveredOwnerNotZeroAddress
-        signatureValid
+        whenOwnerNotZeroAddress
+        whenSpenderNotZeroAddress
+        whenDeadlineNotInThePast
+        whenRecoveredOwnerNotZeroAddress
+        whenSignatureValid
     {
         vm.assume(spender != address(0));
         privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);
@@ -159,11 +163,11 @@ contract Permit_Test is ERC20Permit_Test {
         uint256 deadline
     )
         external
-        ownerNotZeroAddress
-        spenderNotZeroAddress
-        deadlineNotInThePast
-        recoveredOwnerNotZeroAddress
-        signatureValid
+        whenOwnerNotZeroAddress
+        whenSpenderNotZeroAddress
+        whenDeadlineNotInThePast
+        whenRecoveredOwnerNotZeroAddress
+        whenSignatureValid
     {
         vm.assume(spender != address(0));
         privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);
@@ -185,11 +189,11 @@ contract Permit_Test is ERC20Permit_Test {
         uint256 deadline
     )
         external
-        ownerNotZeroAddress
-        spenderNotZeroAddress
-        deadlineNotInThePast
-        recoveredOwnerNotZeroAddress
-        signatureValid
+        whenOwnerNotZeroAddress
+        whenSpenderNotZeroAddress
+        whenDeadlineNotInThePast
+        whenRecoveredOwnerNotZeroAddress
+        whenSignatureValid
     {
         vm.assume(spender != address(0));
         privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);

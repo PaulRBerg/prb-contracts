@@ -18,22 +18,20 @@ contract TransferAdmin_Test is AdminableTest {
         adminable.transferAdmin(eve);
     }
 
-    modifier callerAdmin() {
+    modifier whenCallerAdmin() {
         _;
     }
 
-    /// @dev it should revert.
-    function test_RevertWhen_NewAdminZeroAddress() external callerAdmin {
+    function test_RevertWhen_NewAdminZeroAddress() external whenCallerAdmin {
         vm.expectRevert(IAdminable.Adminable_AdminZeroAddress.selector);
         adminable.transferAdmin(address(0));
     }
 
-    modifier adminNotZeroAddress() {
+    modifier whenAdminNotZeroAddress() {
         _;
     }
 
-    /// @dev it should emit a TransferAdmin event and re-set the admin.
-    function test_TransferAdmin_SameAdmin() external callerAdmin adminNotZeroAddress {
+    function test_TransferAdmin_SameAdmin() external whenCallerAdmin whenAdminNotZeroAddress {
         vm.expectEmit();
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: users.admin });
         adminable.transferAdmin(users.admin);
@@ -42,8 +40,7 @@ contract TransferAdmin_Test is AdminableTest {
         assertEq(actualAdmin, expectedAdmin, "admin");
     }
 
-    /// @dev it should emit a TransferAdmin event and set the new admin.
-    function testFuzz_TransferAdmin_NewAdmin(address newAdmin) external callerAdmin adminNotZeroAddress {
+    function testFuzz_TransferAdmin_NewAdmin(address newAdmin) external whenCallerAdmin whenAdminNotZeroAddress {
         vm.assume(newAdmin != address(0) && newAdmin != users.admin);
         vm.expectEmit();
         emit TransferAdmin({ oldAdmin: users.admin, newAdmin: newAdmin });

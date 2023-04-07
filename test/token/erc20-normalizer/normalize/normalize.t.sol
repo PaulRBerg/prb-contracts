@@ -19,12 +19,12 @@ contract Normalize_Test is ERC20Normalizer_Test {
         assertEq(actualNormalizedAmount, expectedNormalizedAmount, "normalizedAmount");
     }
 
-    modifier scalarComputed() {
+    modifier whenScalarComputed() {
         _;
     }
 
     /// @dev it should return the normalized amount.
-    function test_Normalize_Scalar1() external scalarComputed {
+    function test_Normalize_Scalar1() external whenScalarComputed {
         erc20Normalizer.computeScalar({ token: usdc });
         uint256 amount = bn(100, usdc.decimals());
         uint256 actualNormalizedAmount = erc20Normalizer.normalize({ token: usdc, amount: amount });
@@ -32,24 +32,24 @@ contract Normalize_Test is ERC20Normalizer_Test {
         assertEq(actualNormalizedAmount, expectedNormalizedAmount, "normalizedAmount");
     }
 
-    modifier scalarNot1() {
+    modifier whenScalarNot1() {
         _;
     }
 
     /// @dev it should revert.
-    function testFuzz_RevertWhen_CalculationOverflows(uint256 amount) external scalarComputed scalarNot1 {
+    function testFuzz_RevertWhen_CalculationOverflows(uint256 amount) external whenScalarComputed whenScalarNot1 {
         vm.assume(amount > (MAX_UINT256 / USDC_SCALAR) + 1); // 10^12 is the scalar for USDC.
         erc20Normalizer.computeScalar({ token: usdc });
         vm.expectRevert(stdError.arithmeticError);
         erc20Normalizer.normalize({ token: usdc, amount: amount });
     }
 
-    modifier calculationDoesNotOverflow() {
+    modifier whenCalculationDoesNotOverflow() {
         _;
     }
 
     /// @dev it should return zero.
-    function test_Normalize_AmountZero() external scalarComputed scalarNot1 calculationDoesNotOverflow {
+    function test_Normalize_AmountZero() external whenScalarComputed whenScalarNot1 whenCalculationDoesNotOverflow {
         erc20Normalizer.computeScalar({ token: usdc });
         uint256 amount = 0;
         uint256 actualNormalizedAmount = erc20Normalizer.normalize({ token: usdc, amount: amount });
@@ -57,17 +57,17 @@ contract Normalize_Test is ERC20Normalizer_Test {
         assertEq(actualNormalizedAmount, expectedNormalizedAmount, "normalizedAmount");
     }
 
-    modifier amountNotZero() {
+    modifier whenAmountNotZero() {
         _;
     }
 
     /// @dev it should return the normalized amount.
     function testFuzz_Normalize(uint256 amount)
         external
-        scalarComputed
-        scalarNot1
-        calculationDoesNotOverflow
-        amountNotZero
+        whenScalarComputed
+        whenScalarNot1
+        whenCalculationDoesNotOverflow
+        whenAmountNotZero
     {
         amount = bound(amount, 1, MAX_UINT256 / USDC_SCALAR); // 10^12 is the scalar for USDC
         erc20Normalizer.computeScalar({ token: usdc });

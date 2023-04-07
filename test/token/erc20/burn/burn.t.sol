@@ -14,7 +14,7 @@ contract Burn_Test is ERC20_Test {
         dai.burn({ holder: address(0), amount: 1 });
     }
 
-    modifier holderNotZeroAddress() {
+    modifier whenHolderNotZeroAddress() {
         _;
     }
 
@@ -24,7 +24,7 @@ contract Burn_Test is ERC20_Test {
         uint256 amount
     )
         external
-        holderNotZeroAddress
+        whenHolderNotZeroAddress
     {
         vm.assume(holder != address(0));
         vm.assume(amount > 0);
@@ -36,7 +36,7 @@ contract Burn_Test is ERC20_Test {
         dai.burn(holder, amount);
     }
 
-    modifier holderBalanceCalculationDoesNotUnderflowUint256() {
+    modifier whenHolderBalanceCalculationDoesNotUnderflowUint256() {
         _;
     }
 
@@ -53,8 +53,8 @@ contract Burn_Test is ERC20_Test {
         uint256 burnAmount
     )
         external
-        holderNotZeroAddress
-        holderBalanceCalculationDoesNotUnderflowUint256
+        whenHolderNotZeroAddress
+        whenHolderBalanceCalculationDoesNotUnderflowUint256
     {
         checkAssumptions(holder, burnAmount);
         mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);
@@ -78,8 +78,8 @@ contract Burn_Test is ERC20_Test {
         uint256 burnAmount
     )
         external
-        holderNotZeroAddress
-        holderBalanceCalculationDoesNotUnderflowUint256
+        whenHolderNotZeroAddress
+        whenHolderBalanceCalculationDoesNotUnderflowUint256
     {
         checkAssumptions(holder, burnAmount);
         mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);
@@ -106,8 +106,8 @@ contract Burn_Test is ERC20_Test {
         uint256 burnAmount
     )
         external
-        holderNotZeroAddress
-        holderBalanceCalculationDoesNotUnderflowUint256
+        whenHolderNotZeroAddress
+        whenHolderBalanceCalculationDoesNotUnderflowUint256
     {
         checkAssumptions(holder, burnAmount);
         mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);

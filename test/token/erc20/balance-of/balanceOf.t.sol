@@ -11,12 +11,12 @@ contract BalanceOf_Test is ERC20_Test {
         assertEq(actualBalance, expectedBalance, "balance");
     }
 
-    modifier hasBalance() {
+    modifier whenBalanceNonZero() {
         _;
     }
 
     /// @dev it should return the correct balance.
-    function testFuzz_BalanceOf(address foo, uint256 amount) external hasBalance {
+    function testFuzz_BalanceOf(address foo, uint256 amount) external whenBalanceNonZero {
         vm.assume(foo != address(0));
         amount = bound(amount, 1, ONE_MILLION_DAI);
 
