@@ -1,5 +1,6 @@
-transferAdmin.t.sol
+renounceAdmin.t.sol
 ├── when the caller is not the admin
 │  └── it should revert
 └── when the caller is the admin
-   └── it should emit a TransferAdmin event and set the new admin
+   └── it should set the new admin
+   └── it should emit a {TransferAdmin} event and set the new admin

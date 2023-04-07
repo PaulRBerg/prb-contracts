@@ -6,6 +6,8 @@ transferAdmin.t.sol
    │  └── it should revert
    └── when the new admin is not the zero address
       ├── when the admin is the same as the current admin
-      │  └── it should emit a TransferAdmin event and re-set the admin
+      │  ├── it should re-set the admin
+      │  └── it should emit a TransferAdmin event
       └── when the admin is not the same as the current admin
-         └── it should emit a TransferAdmin event and set the new admin
+         ├── it should set the new admin
+         └── it should emit a TransferAdmin event
