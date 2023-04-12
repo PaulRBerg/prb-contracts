@@ -7,8 +7,8 @@ import { IERC20Permit } from "./IERC20Permit.sol";
 /// @title ERC20Permit
 /// @author Paul Razvan Berg
 contract ERC20Permit is
-    IERC20Permit, // one dependency
-    ERC20 // one dependency
+    IERC20Permit, // 1 inherited component
+    ERC20 // 1 inherited component
 {
     /// PUBLIC STORAGE ///
 

@@ -9,8 +9,8 @@ import { Adminable } from "../../access/Adminable.sol";
 /// @title ERC20Recover
 /// @author Paul Razvan Berg
 abstract contract ERC20Recover is
-    Adminable, // one dependency
-    IERC20Recover // two dependencies
+    Adminable, // 1 inherited component
+    IERC20Recover // 2 inherited components
 {
     using SafeERC20 for IERC20;
 

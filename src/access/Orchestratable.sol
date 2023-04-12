@@ -7,8 +7,8 @@ import { IOrchestratable } from "./IOrchestratable.sol";
 /// @title Orchestratable
 /// @author Paul Razvan Berg
 contract Orchestratable is
-    IOrchestratable, // one dependency
-    Adminable // one dependency
+    IOrchestratable, // 1 inherited component
+    Adminable // 1 inherited component
 {
     /// @inheritdoc IOrchestratable
     address public override conductor;
