@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[5.0.6]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.5...v5.0.6
 [5.0.5]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.4...v5.0.5
 [5.0.4]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.3...v5.0.4
 [5.0.3]: https://github.com/PaulRBerg/prb-contracts/compare/v5.0.2...v5.0.3
@@ -17,6 +18,18 @@ The format is based on [Common Changelog](https://common-changelog.org/), and th
 [3.9.0]: https://github.com/PaulRBerg/prb-contracts/compare/v3.8.1...v3.9.0
 [3.8.1]: https://github.com/PaulRBerg/prb-contracts/compare/v3.8.0...v3.8.1
 [3.8.0]: https://github.com/PaulRBerg/prb-contracts/releases/tag/v3.8.0
+
+## [5.0.6] - 2023-04-13
+
+### Changed
+
+- Bump submodules (@PaulRBerg)
+- Bump Node.js dependencies (@PaulRBerg)
+- Improve writing in comments (@PaulRBerg)
+
+### Removed
+
+- Remove `rimraf` Node.js dependency (@PaulRBerg)
 
 ## [5.0.5] - 2023-03-17
 
