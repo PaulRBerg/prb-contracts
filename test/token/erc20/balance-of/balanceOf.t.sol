@@ -16,7 +16,7 @@ contract BalanceOf_Test is ERC20_Test {
 
     function testFuzz_BalanceOf(address foo, uint256 amount) external whenBalanceNonZero {
         vm.assume(foo != address(0));
-        amount = bound(amount, 1, ONE_MILLION_DAI);
+        amount = _bound(amount, 1, ONE_MILLION_DAI);
 
         // Mint `amount` tokens to `foo`.
         dai.mint({ beneficiary: foo, amount: amount });

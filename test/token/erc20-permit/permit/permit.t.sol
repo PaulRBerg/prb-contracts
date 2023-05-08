@@ -45,7 +45,7 @@ contract Permit_Test is ERC20Permit_Test {
         whenOwnerNotZeroAddress
         whenSpenderNotZeroAddress
     {
-        deadline = bound(deadline, 0, block.timestamp - 1);
+        deadline = _bound(deadline, 0, block.timestamp - 1 seconds);
 
         vm.expectRevert(
             abi.encodeWithSelector(IERC20Permit.ERC20Permit_PermitExpired.selector, block.timestamp, deadline)
@@ -77,7 +77,7 @@ contract Permit_Test is ERC20Permit_Test {
         whenDeadlineNotInThePast
     {
         vm.assume(v != 27 && v != 28);
-        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
+        deadline = _bound(deadline, block.timestamp, DECEMBER_2099);
 
         vm.expectRevert(IERC20Permit.ERC20Permit_RecoveredOwnerZeroAddress.selector);
         erc20Permit.permit({
@@ -102,7 +102,7 @@ contract Permit_Test is ERC20Permit_Test {
         whenDeadlineNotInThePast
         whenRecoveredOwnerNotZeroAddress
     {
-        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
+        deadline = _bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = users.alice;
         vm.expectRevert(
@@ -137,8 +137,8 @@ contract Permit_Test is ERC20Permit_Test {
         whenSignatureValid
     {
         vm.assume(spender != address(0));
-        privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);
-        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
+        privateKey = _bound(privateKey, 1, SECP256K1_ORDER - 1);
+        deadline = _bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
         (uint8 v, bytes32 r, bytes32 s) = getSignature(privateKey, owner, spender, value, deadline);
@@ -162,8 +162,8 @@ contract Permit_Test is ERC20Permit_Test {
         whenSignatureValid
     {
         vm.assume(spender != address(0));
-        privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);
-        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
+        privateKey = _bound(privateKey, 1, SECP256K1_ORDER - 1);
+        deadline = _bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
         (uint8 v, bytes32 r, bytes32 s) = getSignature(privateKey, owner, spender, value, deadline);
@@ -187,8 +187,8 @@ contract Permit_Test is ERC20Permit_Test {
         whenSignatureValid
     {
         vm.assume(spender != address(0));
-        privateKey = bound(privateKey, 1, SECP256K1_ORDER - 1);
-        deadline = bound(deadline, block.timestamp, DECEMBER_2099);
+        privateKey = _bound(privateKey, 1, SECP256K1_ORDER - 1);
+        deadline = _bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
         vm.expectEmit({ emitter: address(erc20Permit) });

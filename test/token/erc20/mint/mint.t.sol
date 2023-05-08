@@ -32,7 +32,7 @@ contract Mint_Test is ERC20_Test {
         whenBeneficiaryNotZeroAddress
     {
         checkAssumptions(beneficiary, amount0);
-        amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
+        amount1 = _bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
 
         // Mint `amount0` tokens to `beneficiary`.
         dai.mint(beneficiary, amount0);
@@ -58,7 +58,7 @@ contract Mint_Test is ERC20_Test {
         whenBeneficiaryBalanceCalculationDoesNotOverflowUint256
     {
         checkAssumptions(beneficiary, amount0);
-        amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
+        amount1 = _bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
 
         // Mint `amount0` tokens to Alice.
         dai.mint(users.alice, amount0);

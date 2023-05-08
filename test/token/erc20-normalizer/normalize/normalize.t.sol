@@ -64,7 +64,7 @@ contract Normalize_Test is ERC20Normalizer_Test {
         whenCalculationDoesNotOverflow
         whenAmountNotZero
     {
-        amount = bound(amount, 1, MAX_UINT256 / USDC_SCALAR); // 10^12 is the scalar for USDC
+        amount = _bound(amount, 1, MAX_UINT256 / USDC_SCALAR); // 10^12 is the scalar for USDC
         erc20Normalizer.computeScalar({ token: usdc });
         uint256 actualNormalizedAmount = erc20Normalizer.normalize({ token: usdc, amount: amount });
         uint256 expectedNormalizedAmount;

@@ -9,7 +9,7 @@ contract IncreaseAllowance_Test is ERC20_Test {
     function test_RevertWhen_CalculationOverflowsUint256(address spender, uint256 amount0, uint256 amount1) external {
         vm.assume(spender != address(0));
         vm.assume(amount0 > 0);
-        amount1 = bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
+        amount1 = _bound(amount1, MAX_UINT256 - amount0 + 1, MAX_UINT256);
 
         // Increase the allowance.
         dai.increaseAllowance(spender, amount0);

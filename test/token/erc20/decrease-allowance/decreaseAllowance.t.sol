@@ -36,7 +36,7 @@ contract DecreaseAllowance_Test is ERC20_Test {
         whenCalculationDoesNotUnderflowUint256
     {
         checkAssumptions(spender, value0);
-        value1 = bound(value1, 0, value0);
+        value1 = _bound(value1, 0, value0);
 
         // Increase the allowance so that we have what to decrease below.
         dai.increaseAllowance(spender, value0);
@@ -59,7 +59,7 @@ contract DecreaseAllowance_Test is ERC20_Test {
         whenCalculationDoesNotUnderflowUint256
     {
         checkAssumptions(spender, value0);
-        value1 = bound(value1, 0, value0);
+        value1 = _bound(value1, 0, value0);
 
         // Increase the allowance so that we have what to decrease below.
         dai.increaseAllowance(spender, value0);

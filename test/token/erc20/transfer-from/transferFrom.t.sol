@@ -42,7 +42,7 @@ contract TransferFrom_Test is ERC20_Test {
         whenSpenderAllowanceEnough
     {
         checkAssumptions(owner, to, amount0);
-        amount1 = bound(amount1, 1, amount0);
+        amount1 = _bound(amount1, 1, amount0);
 
         // Mint `amount0` tokens to the owner.
         dai.mint(owner, amount0);
@@ -76,7 +76,7 @@ contract TransferFrom_Test is ERC20_Test {
         whenSpenderAllowanceEnough
     {
         checkAssumptions(owner, to, amount0);
-        amount1 = bound(amount1, 1, amount0);
+        amount1 = _bound(amount1, 1, amount0);
 
         // Mint `amount0` tokens to the owner.
         dai.mint(owner, amount0);
@@ -110,7 +110,7 @@ contract TransferFrom_Test is ERC20_Test {
         whenSpenderAllowanceEnough
     {
         checkAssumptions(owner, to, amount0);
-        amount1 = bound(amount1, 1, amount0);
+        amount1 = _bound(amount1, 1, amount0);
 
         // Mint `amount0` tokens to the owner.
         dai.mint(owner, amount0);

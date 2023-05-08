@@ -54,7 +54,7 @@ contract Burn_Test is ERC20_Test {
         whenHolderBalanceCalculationDoesNotUnderflowUint256
     {
         checkAssumptions(holder, burnAmount);
-        mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);
+        mintAmount = _bound(mintAmount, burnAmount + 1, MAX_UINT256);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
         dai.mint(holder, mintAmount);
@@ -78,7 +78,7 @@ contract Burn_Test is ERC20_Test {
         whenHolderBalanceCalculationDoesNotUnderflowUint256
     {
         checkAssumptions(holder, burnAmount);
-        mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);
+        mintAmount = _bound(mintAmount, burnAmount + 1, MAX_UINT256);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
         dai.mint(holder, mintAmount);
@@ -105,7 +105,7 @@ contract Burn_Test is ERC20_Test {
         whenHolderBalanceCalculationDoesNotUnderflowUint256
     {
         checkAssumptions(holder, burnAmount);
-        mintAmount = bound(mintAmount, burnAmount + 1, MAX_UINT256);
+        mintAmount = _bound(mintAmount, burnAmount + 1, MAX_UINT256);
 
         // Mint `mintAmount` tokens to `holder` so that we have what to burn below.
         dai.mint(holder, mintAmount);

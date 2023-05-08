@@ -59,7 +59,7 @@ contract Denormalize_Test is ERC20Normalizer_Test {
         whenAmountNotZero
     {
         erc20Normalizer.computeScalar({ token: usdc });
-        amount = bound(amount, USDC_SCALAR + 1, MAX_UINT256);
+        amount = _bound(amount, USDC_SCALAR + 1, MAX_UINT256);
 
         uint256 actualDenormalizedAmount = erc20Normalizer.denormalize({ token: usdc, amount: amount });
         uint256 expectedDenormalizedAmount;
