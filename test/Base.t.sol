@@ -60,7 +60,7 @@ abstract contract Base_Test is PRBTest, StdCheats, StdUtils {
         });
 
         // Make the admin the default caller in all subsequent tests.
-        changePrank({ msgSender: users.admin });
+        vm.startPrank({ msgSender: users.admin });
     }
 
     /*//////////////////////////////////////////////////////////////////////////
