@@ -7,17 +7,23 @@ import { ERC20 } from "./ERC20.sol";
 /// @author Paul Razvan Berg
 /// @notice Allows anyone to mint or burn any amount of tokens to any account.
 contract ERC20GodMode is ERC20 {
-    /// EVENTS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                       EVENTS
+    //////////////////////////////////////////////////////////////////////////*/
 
     event Burn(address indexed holder, uint256 amount);
 
     event Mint(address indexed beneficiary, uint256 amount);
 
-    /// CONSTRUCTOR ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
 
     constructor(string memory name_, string memory symbol_, uint8 decimals_) ERC20(name_, symbol_, decimals_) { }
 
-    /// PUBLIC NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                         USER-FACING NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Destroys `amount` tokens from `holder`, decreasing the token supply.
     /// @param holder The account whose tokens to burn.

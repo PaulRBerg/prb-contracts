@@ -10,7 +10,9 @@ contract ERC20Permit is
     IERC20Permit, // 1 inherited component
     ERC20 // 1 inherited component
 {
-    /// PUBLIC STORAGE ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                USER-FACING STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20Permit
     bytes32 public immutable override DOMAIN_SEPARATOR;
@@ -25,7 +27,9 @@ contract ERC20Permit is
     /// @inheritdoc IERC20Permit
     string public constant override version = "1";
 
-    /// CONSTRUCTOR ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
 
     constructor(string memory _name, string memory _symbol, uint8 _decimals) ERC20(_name, _symbol, _decimals) {
         uint256 chainId = block.chainid;
@@ -40,7 +44,9 @@ contract ERC20Permit is
         );
     }
 
-    /// PUBLIC NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                         USER-FACING NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20Permit
     function permit(

@@ -7,20 +7,26 @@ import { IERC20Normalizer } from "./IERC20Normalizer.sol";
 /// @title ERC20Normalizer
 /// @author Paul Razvan Berg
 abstract contract ERC20Normalizer is IERC20Normalizer {
-    /// INTERNAL STORAGE ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                  INTERNAL STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Mapping between ERC-20 tokens and their associated scalars $10^(18 - decimals)$.
-    mapping(IERC20 => uint256) internal scalars;
+    mapping(IERC20 => uint256) internal _scalars;
 
-    /// CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                           USER-FACING CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20Normalizer
     function getScalar(IERC20 token) public view override returns (uint256 scalar) {
         // Check if we already have a cached scalar for the given token.
-        scalar = scalars[token];
+        scalar = _scalars[token];
     }
 
-    /// NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                         USER-FACING NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20Normalizer
     function computeScalar(IERC20 token) public returns (uint256 scalar) {
@@ -43,7 +49,7 @@ abstract contract ERC20Normalizer is IERC20Normalizer {
         }
 
         // Save the scalar in storage.
-        scalars[token] = scalar;
+        _scalars[token] = scalar;
     }
 
     /// @inheritdoc IERC20Normalizer

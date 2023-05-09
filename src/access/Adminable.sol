@@ -7,7 +7,7 @@ import { IAdminable } from "./IAdminable.sol";
 /// @author Paul Razvan Berg
 contract Adminable is IAdminable {
     /*//////////////////////////////////////////////////////////////////////////
-                                       STORAGE
+                                USER-FACING STORAGE
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IAdminable
@@ -35,7 +35,7 @@ contract Adminable is IAdminable {
     }
 
     /*//////////////////////////////////////////////////////////////////////////
-                                  PUBLIC FUNCTIONS
+                               USER-FACING FUNCTIONS
     //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IAdminable

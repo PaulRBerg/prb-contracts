@@ -6,7 +6,9 @@ import { IERC20 } from "./IERC20.sol";
 /// @title ERC20
 /// @author Paul Razvan Berg
 contract ERC20 is IERC20 {
-    /// PUBLIC STORAGE ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                USER-FACING STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20
     string public override name;
@@ -20,15 +22,19 @@ contract ERC20 is IERC20 {
     /// @inheritdoc IERC20
     uint256 public override totalSupply;
 
-    /// INTERNAL STORAGE ///
-
-    /// @dev Internal mapping of balances.
-    mapping(address => uint256) internal _balances;
+    /*//////////////////////////////////////////////////////////////////////////
+                                  INTERNAL STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Internal mapping of allowances.
     mapping(address => mapping(address => uint256)) internal _allowances;
 
-    /// CONSTRUCTOR ///
+    /// @dev Internal mapping of balances.
+    mapping(address => uint256) internal _balances;
+
+    /*//////////////////////////////////////////////////////////////////////////
+                                    CONSTRUCTOR
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice All three of these arguments are immutable: they can only be set once during construction.
     /// @param name_ ERC-20 name of this token.
@@ -40,7 +46,9 @@ contract ERC20 is IERC20 {
         decimals = decimals_;
     }
 
-    /// PUBLIC CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                           USER-FACING CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20
     function allowance(address owner, address spender) public view override returns (uint256) {
@@ -51,7 +59,9 @@ contract ERC20 is IERC20 {
         return _balances[account];
     }
 
-    /// PUBLIC NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                         USER-FACING NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20
     function approve(address spender, uint256 value) public virtual override returns (bool) {
@@ -105,7 +115,9 @@ contract ERC20 is IERC20 {
         return true;
     }
 
-    /// INTERNAL NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                          INTERNAL NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @notice Sets `value` as the allowance of `spender` over the `owner`s tokens.
     ///

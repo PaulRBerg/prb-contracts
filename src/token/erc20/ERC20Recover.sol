@@ -14,24 +14,32 @@ abstract contract ERC20Recover is
 {
     using SafeERC20 for IERC20;
 
-    /// PUBLIC STORAGE ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                USER-FACING STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20Recover
     bool public override isTokenDenylistSet;
 
-    /// INTERNAL STORAGE ///
+    /*//////////////////////////////////////////////////////////////////////////
+                                  INTERNAL STORAGE
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @dev Mapping between unsigned integers and non-recoverable tokens.
     IERC20[] internal tokenDenylist;
 
-    /// PUBLIC CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                           USER-FACING CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20Recover
     function getTokenDenylist() external view returns (IERC20[] memory) {
         return tokenDenylist;
     }
 
-    /// PUBLIC NON-CONSTANT FUNCTIONS ///
+    /*//////////////////////////////////////////////////////////////////////////
+                         USER-FACING NON-CONSTANT FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC20Recover
     function recover(IERC20 token, uint256 amount) public override onlyAdmin {
