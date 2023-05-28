@@ -26,8 +26,6 @@ abstract contract ERC20Permit_Test is Base_Test {
     bytes32 internal constant DUMMY_S = bytes32(uint256(0x02));
     bytes32 internal constant PERMIT_TYPEHASH =
         keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
-    // https://en.bitcoin.it/wiki/Secp256k1
-    uint256 internal constant SECP256K1_ORDER = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141;
     string internal constant version = "1";
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -68,6 +66,7 @@ abstract contract ERC20Permit_Test is Base_Test {
         view
         returns (uint8 v, bytes32 r, bytes32 s)
     {
+        privateKey = boundPrivateKey(privateKey);
         uint256 nonce = 0;
         bytes32 hashStruct = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, value, nonce, deadline));
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, hashStruct));

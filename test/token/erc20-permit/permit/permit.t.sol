@@ -137,7 +137,7 @@ contract Permit_Test is ERC20Permit_Test {
         whenSignatureValid
     {
         vm.assume(spender != address(0));
-        privateKey = _bound(privateKey, 1, SECP256K1_ORDER - 1);
+        privateKey = boundPrivateKey(privateKey);
         deadline = _bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
@@ -162,7 +162,7 @@ contract Permit_Test is ERC20Permit_Test {
         whenSignatureValid
     {
         vm.assume(spender != address(0));
-        privateKey = _bound(privateKey, 1, SECP256K1_ORDER - 1);
+        privateKey = boundPrivateKey(privateKey);
         deadline = _bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
@@ -187,7 +187,7 @@ contract Permit_Test is ERC20Permit_Test {
         whenSignatureValid
     {
         vm.assume(spender != address(0));
-        privateKey = _bound(privateKey, 1, SECP256K1_ORDER - 1);
+        privateKey = boundPrivateKey(privateKey);
         deadline = _bound(deadline, block.timestamp, DECEMBER_2099);
 
         address owner = vm.addr(privateKey);
