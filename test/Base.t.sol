@@ -8,8 +8,6 @@ import { StdUtils } from "forge-std/StdUtils.sol";
 import { ERC20GodMode } from "src/token/erc20/ERC20GodMode.sol";
 import { IERC20 } from "src/token/erc20/IERC20.sol";
 
-/// @title Base_Test
-/// @author Paul Razvan Berg
 /// @notice Common contract members needed across test contracts.
 abstract contract Base_Test is PRBTest, StdCheats, StdUtils {
     /*//////////////////////////////////////////////////////////////////////////

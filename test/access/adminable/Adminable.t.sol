@@ -6,8 +6,7 @@ import { IAdminable } from "src/access/IAdminable.sol";
 
 import { Base_Test } from "../../Base.t.sol";
 
-/// @title ERC20Recover_Test
-/// @notice Common contract members needed across ERC20Recover test contracts.
+/// @notice Common logic needed by all ERC20Recover unit tests.
 abstract contract AdminableTest is Base_Test {
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS

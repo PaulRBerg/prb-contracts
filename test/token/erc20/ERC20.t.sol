@@ -5,8 +5,7 @@ import { ERC20 } from "src/token/erc20/ERC20.sol";
 
 import { Base_Test } from "../../Base.t.sol";
 
-/// @title ERC20_Test
-/// @notice Common contract members needed across {ERC20} test contracts.
+/// @notice Common logic needed by all {ERC20} tests.
 abstract contract ERC20_Test is Base_Test {
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS

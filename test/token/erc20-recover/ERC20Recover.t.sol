@@ -7,8 +7,7 @@ import { ERC20RecoverMock } from "../../shared/ERC20RecoverMock.t.sol";
 import { Base_Test } from "../../Base.t.sol";
 import { SymbollessERC20 } from "../../shared/SymbollessERC20.t.sol";
 
-/// @title ERC20Recover_Test
-/// @notice Common contract members needed across {ERC20Recover} test contracts.
+/// @notice Common logic needed by all {ERC20Recover} unit tests.
 abstract contract ERC20Recover_Test is Base_Test {
     /*//////////////////////////////////////////////////////////////////////////
                                        EVENTS
