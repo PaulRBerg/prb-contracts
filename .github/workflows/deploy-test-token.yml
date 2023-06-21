@@ -10,7 +10,7 @@ on:
     inputs:
       chain:
         default: "goerli"
-        description: 'Chain name. Defaults to "goerli" if unspecified'
+        description: "Chain name as defined in the Foundry config."
         required: false
 
 jobs:
@@ -27,7 +27,10 @@ jobs:
 
       - name: "Deploy a test ERC-20 token contract"
         run: >-
-          forge script script/deploy/DeployTestToken.s.sol --broadcast --rpc-url "${{ github.event.inputs.chain }}"
+          forge script script/DeployTestToken.s.sol
+          --broadcast
+          --rpc-url "${{github.event.inputs.chain }}"
+          --verify
           -vvvv
 
       - name: "Add summary"

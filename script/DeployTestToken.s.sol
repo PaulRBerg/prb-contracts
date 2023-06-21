@@ -3,9 +3,9 @@ pragma solidity >=0.8.19;
 
 import { Script } from "forge-std/Script.sol";
 
-import { ERC20GodMode } from "../../src/token/erc20/ERC20GodMode.sol";
+import { ERC20GodMode } from "../src/token/erc20/ERC20GodMode.sol";
 
-import { BaseScript } from "../shared/Base.s.sol";
+import { BaseScript } from "./Base.s.sol";
 
 /// @notice Deploys a test ERC-20 token with infinite minting and burning capabilities.
 contract DeployTestToken is Script, BaseScript {
