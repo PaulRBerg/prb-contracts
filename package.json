@@ -32,10 +32,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/PaulRBerg/prb-contracts"
-  },
+  "repository": "github:PaulRBerg/prb-contracts",
   "scripts": {
     "build": "forge build",
     "clean": "rm -rf broadcast cache out",
