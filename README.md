@@ -84,10 +84,10 @@ In addition, familiarity with [Solidity](https://soliditylang.org/) is requisite
 
 ### Set Up
 
-Clone this repository including submodules:
+Clone this repository:
 
 ```sh
-$ git clone --recurse-submodules -j8 git@github.com:PaulRBerg/prb-contracts.git
+$ git clone git@github.com:PaulRBerg/prb-contracts.git
 ```
 
 Then, inside the project's directory, run this to install the Node.js dependencies:
