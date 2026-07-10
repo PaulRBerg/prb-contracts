@@ -56,6 +56,9 @@ jobs:
       - name: "Build the contracts and print their size"
         run: "forge build --sizes"
 
+      - name: Gas Report
+        uses: saifyoussuf/foundry-gas-reporter-action@v1
+        if: always()
       - name: "Add build summary"
         run: |
           echo "## Build result" >> $GITHUB_STEP_SUMMARY
