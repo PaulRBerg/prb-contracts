@@ -68,8 +68,8 @@ contract MyToken is ERC20, ERC20Permit {
 
 ## Contributing
 
-Feel free to dive in! [Open](https://github.com/PaulRBerg/prb-proxy/issues/new) an issue,
-[start](https://github.com/PaulRBerg/prb-proxy/discussions/new) a discussion or submit a PR.
+Feel free to dive in! [Open](https://github.com/PaulRBerg/prb-contracts/issues/new) an issue,
+[start](https://github.com/PaulRBerg/prb-contracts/discussions/new) a discussion or submit a PR.
 
 ### Pre Requisites
 
