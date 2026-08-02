@@ -61,11 +61,7 @@ library SafeERC20 {
         }
     }
 
-    function functionCall(
-        address target,
-        bytes memory data,
-        string memory errorMessage
-    )
+    function functionCall(address target, bytes memory data, string memory errorMessage)
         private
         returns (bytes memory)
     {

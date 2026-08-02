@@ -25,13 +25,7 @@ contract IncreaseAllowance_Test is ERC20_Test {
         _;
     }
 
-    function testFuzz_IncreaseAllowance(
-        address spender,
-        uint256 value
-    )
-        external
-        whenCalculationDoesNotOverflowUint256
-    {
+    function testFuzz_IncreaseAllowance(address spender, uint256 value) external whenCalculationDoesNotOverflowUint256 {
         vm.assume(spender != address(0));
 
         // Increase the allowance.

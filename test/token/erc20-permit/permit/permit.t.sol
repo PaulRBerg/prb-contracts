@@ -51,13 +51,7 @@ contract Permit_Test is ERC20Permit_Test {
             abi.encodeWithSelector(IERC20Permit.ERC20Permit_PermitExpired.selector, block.timestamp, deadline)
         );
         erc20Permit.permit({
-            owner: users.alice,
-            spender: users.bob,
-            value: 1,
-            deadline: deadline,
-            v: DUMMY_V,
-            r: DUMMY_R,
-            s: DUMMY_S
+            owner: users.alice, spender: users.bob, value: 1, deadline: deadline, v: DUMMY_V, r: DUMMY_R, s: DUMMY_S
         });
     }
 
@@ -81,13 +75,7 @@ contract Permit_Test is ERC20Permit_Test {
 
         vm.expectRevert(IERC20Permit.ERC20Permit_RecoveredOwnerZeroAddress.selector);
         erc20Permit.permit({
-            owner: users.alice,
-            spender: users.bob,
-            value: 1,
-            deadline: deadline,
-            v: v,
-            r: DUMMY_R,
-            s: DUMMY_S
+            owner: users.alice, spender: users.bob, value: 1, deadline: deadline, v: v, r: DUMMY_R, s: DUMMY_S
         });
     }
 
@@ -109,13 +97,7 @@ contract Permit_Test is ERC20Permit_Test {
             abi.encodeWithSelector(IERC20Permit.ERC20Permit_InvalidSignature.selector, owner, DUMMY_V, DUMMY_R, DUMMY_S)
         );
         erc20Permit.permit({
-            owner: owner,
-            spender: users.bob,
-            value: 1,
-            deadline: deadline,
-            v: DUMMY_V,
-            r: DUMMY_R,
-            s: DUMMY_S
+            owner: owner, spender: users.bob, value: 1, deadline: deadline, v: DUMMY_V, r: DUMMY_R, s: DUMMY_S
         });
     }
 

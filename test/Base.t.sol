@@ -51,10 +51,7 @@ abstract contract Base_Test is PRBTest, StdCheats, StdUtils {
     function setUp() public virtual {
         // Create users for testing.
         users = Users({
-            alice: createUser("Alice"),
-            admin: createUser("Admin"),
-            bob: createUser("Bob"),
-            eve: createUser("Eve")
+            alice: createUser("Alice"), admin: createUser("Admin"), bob: createUser("Bob"), eve: createUser("Eve")
         });
 
         // Make the admin the default caller in all subsequent tests.
