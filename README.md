@@ -7,6 +7,9 @@
 [license]: https://opensource.org/licenses/MIT
 [license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
 
+> [!WARNING]
+> This repository is no longer maintained.
+
 Off-the-shelf Solidity smart contracts.
 
 - Designed for Solidity >=0.8.4
